@@ -1,6 +1,6 @@
-# ArtifactVirtual: ReGen (rægan)
+# ReGen (rægan)
 ![ReGen](https://img.shields.io/badge/ReGen-000000?style=for-the-badge&logoColor=white&labelColor=000000&color=000000)
-![Rægan](https://img.shields.io/badge/Rægan-4B0082?style=for-the-badge&logoColor=white&labelColor=4B0082&color=4B0082)
+![Rægan](https://img.shields.io/badge/Rægan-3A4CC0?style=for-the-badge&logoColor=white&labelColor=3A4CC0&color=3A4CC0))
 
 > "If life could start over... better... nonamnesiac... how would it unfold?"
 How **should** it unfold. This question began...
@@ -64,4 +64,7 @@ This is Day 1.
 > But a seed has been planted designed to will outlast its architects.
 
 
-                                                              Or be left behind
+
+artifact virtual
+![Commit](https://img.shields.io/badge/COMMIT.-000000?style=for-the-badge&logoColor=white&labelColor=000000&color=000000)
+
