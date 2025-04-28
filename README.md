@@ -1,6 +1,7 @@
 # ReGen (rægan)
 ![ReGen](https://img.shields.io/badge/ReGen-000000?style=for-the-badge&logoColor=white&labelColor=000000&color=000000)
-![Rægan](https://img.shields.io/badge/Rægan-3A4CC0?style=for-the-badge&logoColor=white&labelColor=3A4CC0&color=3A4CC0))
+![Rægan](https://img.shields.io/badge/Rægan-3A4CC0?style=for-the-badge&logoColor=white&labelColor=3A4CC0&color=3A4CC0)
+
 
 > "If life could start over... better... nonamnesiac... how would it unfold?"
 How **should** it unfold. This question began...
@@ -61,11 +62,12 @@ This is a weapon for creation.
 
 This is Day 1.  
 > The forest has not yet grown.  
-> But a seed has been planted designed to will outlast its architects.
+> But a seed has been planted, designed to outlast its architects.
 
 
 
-artifact virtual
 
+
+![artifact virtual](https://img.shields.io/badge/artifact_virtual-FFFFFF?style=for-the-badge&logoColor=000000&labelColor=FFFFFF&color=FFFFFF)
 ![Commit](https://img.shields.io/badge/COMMIT.-000000?style=for-the-badge&logoColor=white&labelColor=000000&color=000000)
 
