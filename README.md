@@ -1,6 +1,6 @@
-# ReGen (rægan)
+# ReGen ![Rægan](https://img.shields.io/badge/Rægan-3A4CC0?style=for-the-badge&logoColor=white&labelColor=3A4CC0&color=3A4CC0)
+
 ![ReGen](https://img.shields.io/badge/ReGen-000000?style=for-the-badge&logoColor=white&labelColor=000000&color=000000)
-![Rægan](https://img.shields.io/badge/Rægan-3A4CC0?style=for-the-badge&logoColor=white&labelColor=3A4CC0&color=3A4CC0)
 
 
 > "If life could start over... better... nonamnesiac... how would it unfold?"
@@ -65,9 +65,7 @@ This is Day 1.
 > But a seed has been planted, designed to outlast its architects.
 
 
-![Nvidia](https://img.shields.io/badge/-Nvidia-4A9639?style=for-the-badge&logo=nvidia&logoColor=white)
-![Intel](https://img.shields.io/badge/-0072CE?style=for-the-badge&logo=intel&logoColor=white)
-![Victus](https://img.shields.io/badge/-Victus-000000?style=for-the-badge&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAwIDI1MDAiPjxwYXRoIGZpbGw9IiNGRkZGRkYiIGQ9Ik0xMjUwIDBMMCAxMjVMMTI1MCAyNTAwTDI1MDAgMTI1eiIvPjwvc3ZnPg==&logoColor=FFFFFF)
+![Nvidia](https://img.shields.io/badge/-Nvidia-4A9639?style=for-the-badge&logo=nvidia&logoColor=white)![Intel](https://img.shields.io/badge/-0072CE?style=for-the-badge&logo=intel&logoColor=white)![Victus](https://img.shields.io/badge/-Victus-000000?style=for-the-badge&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAwIDI1MDAiPjxwYXRoIGZpbGw9IiNGRkZGRkYiIGQ9Ik0xMjUwIDBMMCAxMjVMMTI1MCAyNTAwTDI1MDAgMTI1eiIvPjwvc3ZnPg==&logoColor=FFFFFF)
 
 
 
