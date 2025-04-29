@@ -8,7 +8,7 @@ Here, creation is not simply an output. It is revelation. Every thought, every i
 
 *what could be, if you had the right tools and and merely a thought that aligned truly. Absolutely.*
 
-Artifact Virtual is a challenge: 
+Artifact is a challenge: 
 - can we build with power and yet, remain principled? 
 - can you automate and still stay awake?
 - can a system serve truth without being seduced by its simulations?
@@ -44,7 +44,9 @@ Artifact exists to:
 - Architect modular AI ecosystems — resilient, autonomous, and open.
 - Forge tools that empower creation, not dependence.
 - Design digital environments where builders think, imagine, and execute at the speed of thought.
+- 
 
+## ARTIFACT DEVELOPMENT ENGINE
 
 ## Current Focus
 
@@ -56,7 +58,7 @@ Artifact exists to:
 
 
 
-AV and ADE (Artifact Development Platform) are designed for those who intend to **own their creations**, 
+AV and ADE are designed for those who intend to **own their creations**, 
 **master their tools**, and 
 **forge entire realities.**
 
