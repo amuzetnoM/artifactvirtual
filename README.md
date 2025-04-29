@@ -58,9 +58,7 @@ This is a weapon for creation, a tool of thought.
 > All journal entries are planned to reside inside `/content/journal/`.  
 
 
-![Victus](https://img.shields.io/badge/-000000?style=for-the-badge&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAwIDI1MDAiPjxwYXRoIGZpbGw9IiNGRkZGRkYiIGQ9Ik0xMjUwIDBMMDAgMTI1TDEyNTAgMjUwMEwyNTAwIDEyNXoiLz48L3N2Zz4=&logoColor=FFFFFF)
-![Intel](https://img.shields.io/badge/-0072CE?style=for-the-badge&logo=intel&logoColor=white)
-![Nvidia](https://img.shields.io/badge/-76B900?style=for-the-badge&logo=nvidia&logoColor=white)
+
 
 
 
