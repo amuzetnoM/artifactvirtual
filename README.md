@@ -1,6 +1,3 @@
-
-*What you pay attention to, becomes you*
-
 ![AV, ADE](https://img.shields.io/badge/©%20AV,%20ADE-000000?style=for-the-badge&logoColor=ffffff&labelColor=000000&color=000000)![MIT](https://img.shields.io/badge/MIT-5D3FD3?style=for-the-badge&logoColor=ffffff&labelColor=5D3FD3&color=5D3FD3)
 
 
@@ -94,3 +91,6 @@ This is a weapon for creation, a tool of thought.
 > All journal entries are planned to reside inside `/content/journal/`.
 > To review and contribute to the development, please switch to the devops branch.
 
+
+
+     *to be seen, is to cease to be.*
