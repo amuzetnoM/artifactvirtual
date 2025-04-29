@@ -1,5 +1,5 @@
 
-## What you pay attention to, becomes you.
+*What you pay attention to, becomes you*
 
 ![AV, ADE](https://img.shields.io/badge/©%20AV,%20ADE-000000?style=for-the-badge&logoColor=ffffff&labelColor=000000&color=000000)![MIT](https://img.shields.io/badge/MIT-5D3FD3?style=for-the-badge&logoColor=ffffff&labelColor=5D3FD3&color=5D3FD3)
 
