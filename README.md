@@ -36,7 +36,7 @@ This is ReGenesis.
 Today, an idea is born.
 > Tomorrow, it will grow. 
 
-## Vision
+### Vision
 
 Artifact exists to:
 
@@ -46,9 +46,9 @@ Artifact exists to:
 - Design digital environments where builders think, imagine, and execute at the speed of thought.
 - 
 
-## ARTIFACT DEVELOPMENT ENGINE
+### ARTIFACT DEVELOPMENT ENGINE
 
-## Current Focus
+#### Current Focus
 
 - ReGen Journal: Raw, unfiltered frameworks and thoughts.
 - Knowledge Frameworks: Building the first structured knowledge assets.
