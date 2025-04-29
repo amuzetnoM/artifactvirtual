@@ -16,7 +16,7 @@ This is Day 1.
 ReGenesis.
 
 
-## Vision
+### Vision
 
 ArtifactVirtual exists to:
 
@@ -26,7 +26,7 @@ ArtifactVirtual exists to:
 - Design digital environments where builders think, imagine, and execute at the speed of thought.
 
 
-## Current Focus
+### Current Focus
 
 - ReGen Journal: Raw, unfiltered frameworks and thoughts.
 - Knowledge Frameworks: Building the first structured knowledge sets.
@@ -34,11 +34,10 @@ ArtifactVirtual exists to:
 - LangGraph Agents: Modular planning, reasoning, and execution layers.
 - Visual Intelligence: Dynamic visualizations of systems, codebases, and ideas.
 
-
-## Why ArtifactVirtual
-
-The current systems were never built to free you.  
-ArtifactVirtual is designed for those who intend to **own their creations**, **master their tools**, and **forge entire realities.**.
+ArtifactVirtual is designed for those who intend to 
+**own their creations**, 
+**master their tools**, and 
+**forge entire realities.**.
 
 This is not a product.  
 This is a weapon for creation.
@@ -47,12 +46,12 @@ This is a weapon for creation.
 ## Project Roadmap
 
 | Stage         | Milestone                                            
-|:--------------|:-----------------------------------------------------|
-| Genesis       | Define foundational knowledge structures             |
-| Framework     | Launch modular AI agent pipelines                    |
-| Voice         | Real-time speech-enabled intelligent systems.        |
-| Visualization | Dynamic 3D/2D knowledge and project maps.            |
-| Expansion     | Public templates, systems, and knowledge communities |
+|:--------------|:--------------------------------------------------------|
+| Genesis       | Define foundational knowledge structures                |
+| Framework     | Launch modular AI agent pipelines                       |
+| Cognitio      | Real-time speech and vision enabled intelligent systems.|
+| Visualization | Dynamic 3D/2D knowledge and project maps.               |
+| Expansion     | Public templates, systems, and knowledge communities.   |
 >                                                and quite honestly, a lot more.
 > Journal Access
 
