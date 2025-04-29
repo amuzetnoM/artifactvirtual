@@ -19,7 +19,7 @@ export default defineConfig({
         {
           label: 'Journal',
           items: [
-            { label: 'A1W18D1', slug: 'journal/A1W18D1.md' }
+            { label: 'A1W18D1', slug: 'journal/A1W18D1' } // removed .md extension
           ],
         },
         {
