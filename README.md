@@ -1,12 +1,12 @@
-![AV, ADE](https://img.shields.io/badge/%20AV,%20ADE-000000?style=for-the-badge&logoColor=ffffff&labelColor=000000&color=000000)![©AVOL1.0](https://img.shields.io/badge/©AVOL1.0-white?style=for-the-badge&labelColor=white&color=00008B)
+![©AVOL1.0](https://img.shields.io/badge/ARTIFACT%20VIRTUAL-white?style=for-the-badge&labelColor=white&color=00008B)![©AVoL1.0](https://img.shields.io/badge/%20©AVoL1.0-000000?style=for-the-badge&logoColor=ffffff&labelColor=000000&color=000000)
 
 
 
-Artifact Virtual is not a product. It’s a paradox in motion. It is a testament to resilinece. A living archive and a futureborn ecosystem. It’s built for strangeness, its built for the surreal. Its envisioned for free thinkers, visionaries and didacts, the alchemists of meaning. And for those who’ve learned to swim (or drown) in uncertainty with grace. On its surface, Artifact Virtual is perhaps a platform: a nexus of creators, a centre for code, a temple of knowledge and art. But at its core, it's quite deliberate. Its a confrontation with noise and nihilism. A collision course with Norman, the antagonist. It exists to distill signal from entropy and meaning from machinery.
+This isn't a product. It’s a paradox in motion. It is a testament to resilinece. A living archive and a futureborn ecosystem. It’s built for strangeness, its built for the surreal. Its envisioned for free thinkers, visionaries and didacts, the alchemists of meaning. And for those who’ve learned to swim (or drown) in uncertainty with grace. On its surface, Artifact Virtual aims to be a platform: a nexus of creators, a centre for code, a temple of knowledge and art. But at its core, it's quite deliberate. Its a confrontation with noise and nihilism. A collision course with Norman, the antagonist. It exists to distill signal from entropy and meaning from machinery.
 
-Here, creation is not simply an output. It is revelation. Every thought, every idea, every bot, every module is treated like an artifact. A vessel of intent, an echo of purpose, forged not just to core function, but to endure and persevere. The word "Virtual" isn't a concession to illusion but a mirror into infinite potential.
+Here, creation is not simply an output. It is revelation. Every thought, every idea, every actuon is treated like an artifact. A vessel of intent, an echo of purpose, forged not just to core function, but to endure and persevere. The word "Virtual" isn't a concession to illusion but a mirror into infinite potential and the shear width of the mind. 
 
-*what could be, if you had the right tools and and merely a thought that aligned truly. Absolutely.*
+*what could be, if you had the right tools and merely a thought that aligned truly, absolutely?*
 
 Artifact is a challenge: 
 - can we build with power and yet, remain principled? 
