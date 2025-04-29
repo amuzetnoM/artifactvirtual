@@ -1,7 +1,7 @@
 # ![ReGen](https://img.shields.io/badge/ReGen-000000?style=for-the-badge&logoColor=white&labelColor=000000&color=000000) ![Rægan](https://img.shields.io/badge/Rægan-3A4CC0?style=for-the-badge&logoColor=white&labelColor=3A4CC0&color=3A4CC0)
 
-
-
+*To halve is to create two,*
+   *To double is to reunite them.*
 
 > "If life could start over... better... nonamnesiac... how would it unfold?"
 How **should** it unfold. This question began...
@@ -43,7 +43,7 @@ This is not a product.
 This is a weapon for creation.
 
 
-## Project Roadmap
+### Project Roadmap
 
 | Stage         | Milestone                                            
 |:--------------|:--------------------------------------------------------|
@@ -57,10 +57,12 @@ This is a weapon for creation.
 
 > All journal entries are planned to reside inside `/content/journal/`.  
 
-## The Future
 
-This is Day 1.  
-> The forest has not yet grown.  
+Thought is the only difference between past and the future. 
+And a blink is all it takes to transition from yesterday, into tomorrow. 
+
+This, is Day 1.
+> A forest has not yet been grown.  
 > But a seed has been planted, designed to outlast its architects.
 
 ![Victus](https://img.shields.io/badge/-000000?style=for-the-badge&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAwIDI1MDAiPjxwYXRoIGZpbGw9IiNGRkZGRkYiIGQ9Ik0xMjUwIDBMMDAgMTI1TDEyNTAgMjUwMEwyNTAwIDEyNXoiLz48L3N2Zz4=&logoColor=FFFFFF)
