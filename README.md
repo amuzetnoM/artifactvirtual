@@ -93,4 +93,4 @@ This is a weapon for creation, a tool of thought.
 
 
 
-     *to be seen, is to cease to be.*
+     to be seen, is to cease to be.
