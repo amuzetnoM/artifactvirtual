@@ -65,15 +65,6 @@ This is not a product.
 This is a weapon for creation, a tool of thought.
 
 
-## Project Roadmap
-
-| Stage         | Milestone                                            
-|:--------------|:-----------------------------------------------------|
-| Genesis       | Define foundational knowledge structures             |
-| Framework     | Launch modular AI agent pipelines                    |
-| Voice         | Real-time speech-enabled intelligent systems.        |
-| Visualization | Dynamic 3D/2D knowledge and project maps.            |
-| Expansion     | Public templates, systems, and knowledge communities |
 >                                                and quite honestly, a lot more.
 
 
