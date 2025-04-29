@@ -1,4 +1,5 @@
-![AV, ADE](https://img.shields.io/badge/©%20AV,%20ADE-000000?style=for-the-badge&logoColor=ffffff&labelColor=000000&color=000000)![© AVOL1.0](https://img.shields.io/badge/©%20AVOL1.0-white?style=for-the-badge&labelColor=white&color=blue&logoColor=blue&logo=power)
+![AV, ADE](https://img.shields.io/badge/%20AV,%20ADE-000000?style=for-the-badge&logoColor=ffffff&labelColor=000000&color=000000)![©AVOL1.0](https://img.shields.io/badge/©AVOL1.0-white?style=for-the-badge&labelColor=white&color=00008B)
+
 
 
 Artifact Virtual is not a product. It’s a paradox in motion. It is a testament to resilinece. A living archive and a futureborn ecosystem. It’s built for strangeness, its built for the surreal. Its envisioned for free thinkers, visionaries and didacts, the alchemists of meaning. And for those who’ve learned to swim (or drown) in uncertainty with grace. On its surface, Artifact Virtual is perhaps a platform: a nexus of creators, a centre for code, a temple of knowledge and art. But at its core, it's quite deliberate. Its a confrontation with noise and nihilism. A collision course with Norman, the antagonist. It exists to distill signal from entropy and meaning from machinery.
