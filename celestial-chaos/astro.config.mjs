@@ -17,20 +17,21 @@ export default defineConfig({
       ],
       sidebar: [
         {
-          label: 'Genesis',
+          label: 'Journal',
           items: [
-            { label: 'A1W18D1', slug: 'journal/a1w18d1' }
+            { label: 'A1W18D1', slug: 'journal/A1W18D1.md' }
           ],
         },
         {
           label: 'Manifesto',
           items: [
-            { label: 'Preface', slug: 'manifesto/preface' },
-            { label: 'Principles', slug: 'manifesto/index' },
+            { label: 'Preface', slug: 'manifesto/_preface' },
+            { label: 'Principles', slug: 'manifesto/_index' },
             { label: 'Singularity I', slug: 'manifesto/singularity_1' },
             { label: 'Regeneration', slug: 'manifesto/regeneration' },
             { label: 'Commands', slug: 'manifesto/commands' },
             { label: 'New Section', slug: 'manifesto/new-section' },
+            { label: 'Additional Section', slug: 'manifesto/additional-section' },
           ],
         },
         {
