@@ -1,0 +1,12 @@
+#!/bin/bash
+#
+# This script runs during the container prebuild step and is used to cache dependencies 
+# and other artifacts that are not expected to change frequently.
+#
+
+ROOT_DIR=/workspaces/codespaces-models
+
+npm install ${ROOT_DIR}
+
+pip install -r ${ROOT_DIR}/requirements.txt
+
