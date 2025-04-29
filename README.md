@@ -53,9 +53,8 @@ This is a weapon for creation, a tool of thought.
 | Visualization | Dynamic 3D/2D knowledge and project maps.            |
 | Expansion     | Public templates, systems, and knowledge communities |
 >                                                and quite honestly, a lot more.
-> Journal Access
 
-> All journal entries are planned to reside inside `/content/journal/`.  
+
 
 
 
@@ -71,4 +70,13 @@ This is a weapon for creation, a tool of thought.
 
 ![artifact virtual](https://img.shields.io/badge/artifact_virtual-FFFFFF?style=for-the-badge&logoColor=000000&labelColor=FFFFFF&color=FFFFFF)
 ![Commit](https://img.shields.io/badge/COMMIT.-000000?style=for-the-badge&logoColor=white&labelColor=000000&color=000000)
+
+
+
+
+
+> This branch is eatablished to delve into a playground of thought and reason.
+> Here you will find a journal and a manifesto. (progressively evolving and questionable)
+> All journal entries are planned to reside inside `/content/journal/`.
+> To review and contribute to the development, please switch to the devops branch.
 
