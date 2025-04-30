@@ -8,11 +8,7 @@ Here, creation is not simply an output. It is revelation. Every thought, every i
 
 *what could be, if you had the right tools and merely a thought that aligned truly, absolutely?*
 
-Artifact is a challenge: 
-- can we build with power and yet, remain principled? 
-- can you automate and still stay awake?
-- can a system serve truth without being seduced by its simulations?
-
+Artifact is a challenge.
 It seeks wisdom, not just knowledge; economy, not just money; emergence, not just virality. It is where technology remembers its soul and it's creator.
 
 At the edge of chaos, Artifact Virtual operates as a scalpel, skimming away the bloated excess of mainstream digital life to expose the raw nerve of what lies behind. 
@@ -22,7 +18,7 @@ A truth, beautiful yet irresponsible.
 
 
 We are not here to merge, we are here to fork. 
-We are here to question, questions and dissecting knowledge to trace its origin. To advocate real against belief. 
+We are here to question, questions and dissecting knowledge to trace its origin. To advocate the real against the belief. 
 
 We are a rebellion against stagnation, against whats known, whats believed. 
 A framework of thinking, and evolving.
