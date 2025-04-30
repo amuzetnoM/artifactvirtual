@@ -2,7 +2,7 @@
 
 
 
-This isn't a product. It’s a paradox in motion. It is a testament to resilinece. A living archive and a futureborn ecosystem. It’s built for strangeness, its built for the surreal. Its envisioned for free thinkers, visionaries and didacts, the alchemists of meaning. And for those who’ve learned to swim (or drown) in uncertainty with grace. On its surface, Artifact Virtual aims to be a platform: a nexus of creators, a centre for code, a temple of knowledge and art. But at its core, it's quite deliberate. Its a confrontation with noise and nihilism. A collision course with Norman, the antagonist. It exists to distill signal from entropy and meaning from machinery.
+This isn't a product. It’s a paradox in motion. AV is a testament to resilinece. A living archive and a futureborn ecosystem. It’s built for strangeness, its built for the surreal. Its envisioned for free thinkers, visionaries and didacts, the alchemists of meaning. And for those who’ve learned to swim (or drown) in uncertainty with grace. On its surface, Artifact Virtual aims to be a platform: a nexus of creators, a centre for code, a temple of knowledge and art. But at its core, it's quite deliberate. Its a confrontation with noise and nihilism. A collision course with Norman, the antagonist. It exists to distill signal from entropy and meaning from machinery.
 
 Here, creation is not simply an output. It is revelation. Every thought, every idea, every actuon is treated like an artifact. A vessel of intent, an echo of purpose, forged not just to core function, but to endure and persevere. The word "Virtual" isn't a concession to illusion but a mirror into infinite potential and the shear width of the mind. 
 
