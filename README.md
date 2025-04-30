@@ -1,6 +1,6 @@
 And so it begins...
 
-# Project Documentation: Debugging & Diagnostics CLI
+## Establishing Debug and Diagnostics CLI
 
 ## Project Start Log
 - **Date Started:** April 28, 2025
