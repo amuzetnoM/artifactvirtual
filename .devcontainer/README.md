@@ -17,12 +17,7 @@ Folder Structure
 .devcontainer/
 ├── devcontainer.json   # Core configuration
 ├── Dockerfile          # Environment provisioning
-├── bootstrap           # On-create initialization (installs, DB setup)
-└── first-run-notice.txt
-workspace/
-├── main.py             # Your entrypoint / testing agent
-├── .env.template       # Environment setup
-└── requirements.txt    # Python dependencies (optional)
+└── bootstrap           # On-create initialization (installs, DB setup)
 
 
 Getting Started
