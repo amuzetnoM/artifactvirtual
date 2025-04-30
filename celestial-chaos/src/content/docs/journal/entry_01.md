@@ -10,7 +10,6 @@ description: "Exploring the foundations of intelligence and the architecture of 
 > *What is intelligence, really?*  
 > It’s the question at the edge of everything I build.
 
-Day 1: The Question of Mind
 What is intelligence? This question haunts me like a shadow that grows larger as the day fades. We've created systems that recognize patterns, predict sequences, even generate facsimiles of human creativity—yet they remain profoundly empty, hollow vessels carrying signals without understanding.
 
 Today I begin a journey to explore what might lie beyond our current paradigms. The first step: creating an environment where radical ideas can be tested without the friction of inconsistent infrastructure. Something containerized, portable, reproducible. A laboratory for the mind to investigate mind itself.
