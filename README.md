@@ -4,7 +4,7 @@ And so it begins...
 
 ### Debugging & Diagnostics CLI
 
-###Project Start Log
+### Project Start Log
 - **Date Started:** April 28, 2025
 - **Operating System:** Linux
 - **Workspace:** /workspaces/worxpace
