@@ -40,7 +40,7 @@
   ],
   "remoteUser": "codespace",
   "containerUser": "codespace",
-  "onCreateCommand": "${containerWorkspaceFolder}/.devcontainer/bootstrap",
+  "onCreateCommand": "python debugdiag/main.py bootstrap",
   "customizations": {
     "codespaces": {
       "disableAutomaticConfiguration": true,
