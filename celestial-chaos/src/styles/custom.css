@@ -1,179 +1,77 @@
-/* Neumorphic Styles for Starlight - Dark Theme Focused */
+@layer my-reset, starlight, black, my-overrides;
 
-:root {
-  /* Base Colors - Dark Theme */
-  --sl-color-accent-low: #2a2a2e; /* Slightly lighter dark for subtle depth */
-  --sl-color-accent: #7f5af0; /* Accent color - vibrant purple */
-  --sl-color-accent-high: #9a7ff7; /* Lighter accent for highlights/hover */
-  --sl-color-white: #16161a; /* Main dark background */
-  --sl-color-gray-1: #fffffe; /* Primary text color - near white */
-  --sl-color-gray-2: #94a1b2; /* Secondary text color - muted */
-  --sl-color-gray-3: #72757e; /* Borders, subtle lines */
-  --sl-color-gray-4: #2a2a2e; /* Component background - slightly lighter than main */
-  --sl-color-gray-5: #242428; /* Hover/active background */
-  --sl-color-gray-6: #1b1b1f; /* Darker shade for inset shadows */
-  --sl-color-black: #010101; /* Deepest black for contrast */
+@layer my-overrides {
+  /* Reduce header font sizes */
+  h1 {
+    font-size: 2.2rem !important;
+    line-height: 1.2;
+  }
+  
+  h2 {
+    font-size: 1.8rem !important;
+    line-height: 1.2;
+  }
+  
+  h3 {
+    font-size: 1.5rem !important;
+  }
+  
+  h4, h5, h6 {
+    font-size: 1.2rem !important;
+  }
 
-  /* Neumorphic Shadows - Dark Theme */
-  --neumorphic-shadow-light: rgba(42, 42, 46, 0.7); /* Lighter shadow */
-  --neumorphic-shadow-dark: rgba(0, 0, 0, 0.4);   /* Darker shadow */
-  --neumorphic-shadow-inset-light: rgba(42, 42, 46, 0.6);
-  --neumorphic-shadow-inset-dark: rgba(0, 0, 0, 0.5);
+  /* Ensure sidebar links are explicitly clickable with stronger rules */
+  .sidebar-content a,
+  .sidebar-content .sidebar-group a,
+  .sidebar nav a {
+    pointer-events: all !important; 
+    cursor: pointer !important;
+    user-select: text !important;
+    opacity: 1 !important;
+    position: relative !important;
+    z-index: 10 !important;
+  }
+  
+  /* Additional fix for potential hidden overlay issues */
+  .sidebar-content .sidebar-group {
+    position: relative !important;
+    z-index: 5 !important;
+  }
 
-  /* Neumorphic Styling Variables */
-  --neumorphic-distance: 6px;
-  --neumorphic-blur: 12px;
-  --neumorphic-border-radius: 12px;
-}
+  /* Custom components preserved from previous CSS */
+  .custom-card {
+    padding: 2rem 1.5rem;
+    border-radius: 1rem;
+    background: var(--sl-color-bg);
+    box-shadow: 0 4px 20px 0 rgba(0,0,0,0.1);
+    border: 1px solid var(--sl-color-border);
+    margin: 1.5rem 0;
+    transition: box-shadow 0.2s;
+  }
+  
+  .custom-card:hover {
+    box-shadow: 0 8px 32px 0 rgba(0,0,0,0.18);
+  }
 
-/* Apply base background */
-body {
-  background-color: var(--sl-color-white);
-  color: var(--sl-color-gray-1);
-}
+  .centered {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 
-/* --- Neumorphic Elements --- */
+  /* Improve card grid layout */
+  .sl-card-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+    margin: 2rem 0;
+  }
 
-/* General Container Style (e.g., Cards, Sidebar sections) */
-.neumorphic-raised {
-  background: var(--sl-color-white);
-  border-radius: var(--neumorphic-border-radius);
-  box-shadow:
-    var(--neumorphic-distance) var(--neumorphic-distance) var(--neumorphic-blur) var(--neumorphic-shadow-dark),
-    calc(-1 * var(--neumorphic-distance)) calc(-1 * var(--neumorphic-distance)) var(--neumorphic-blur) var(--neumorphic-shadow-light);
-  transition: box-shadow 0.2s ease-in-out;
-}
-
-.neumorphic-pressed {
-  background: var(--sl-color-white);
-  border-radius: var(--neumorphic-border-radius);
-  box-shadow:
-    inset var(--neumorphic-distance) var(--neumorphic-distance) var(--neumorphic-blur) var(--neumorphic-shadow-inset-dark),
-    inset calc(-1 * var(--neumorphic-distance)) calc(-1 * var(--neumorphic-distance)) var(--neumorphic-blur) var(--neumorphic-shadow-inset-light);
-   transition: box-shadow 0.2s ease-in-out;
-}
-
-/* Starlight Component Styling */
-
-/* Cards */
-.starlight-card {
-  background: var(--sl-color-gray-4); /* Use slightly lighter bg for cards */
-  border-radius: var(--neumorphic-border-radius);
-  box-shadow:
-    var(--neumorphic-distance) var(--neumorphic-distance) var(--neumorphic-blur) var(--neumorphic-shadow-dark),
-    calc(-1 * var(--neumorphic-distance)) calc(-1 * var(--neumorphic-distance)) var(--neumorphic-blur) var(--neumorphic-shadow-light);
-  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-  border: none; /* Remove default border */
-  padding: 1.5rem; /* Adjust padding */
-}
-
-.starlight-card:hover {
-  transform: translateY(-3px);
-   box-shadow:
-    calc(var(--neumorphic-distance) * 1.2) calc(var(--neumorphic-distance) * 1.2) calc(var(--neumorphic-blur) * 1.2) var(--neumorphic-shadow-dark),
-    calc(-1 * var(--neumorphic-distance) * 1.2) calc(-1 * var(--neumorphic-distance) * 1.2) calc(var(--neumorphic-blur) * 1.2) var(--neumorphic-shadow-light);
-}
-
-/* Sidebar */
-.sidebar {
-  background-color: var(--sl-color-white); /* Match body background */
-  padding: 1rem;
-  border-right: none; /* Remove default border */
-}
-
-/* Sidebar Links */
-.sidebar .sidebar-item a[aria-current="page"],
-.sidebar .sidebar-item a:hover,
-.sidebar .sidebar-item a:focus {
-  background-color: var(--sl-color-gray-5); /* Pressed look on hover/active */
-   border-radius: calc(var(--neumorphic-border-radius) / 2);
-   box-shadow:
-    inset 3px 3px 6px var(--neumorphic-shadow-inset-dark),
-    inset -3px -3px 6px var(--neumorphic-shadow-inset-light);
-   color: var(--sl-color-accent-high);
-   transform: scale(0.98);
-}
-
-.sidebar .sidebar-item a {
-   border-radius: calc(var(--neumorphic-border-radius) / 2);
-   transition: all 0.2s ease-in-out;
-   margin-bottom: 0.3rem; /* Add some space */
-   padding: 0.5rem 0.8rem;
-   display: block;
-   color: var(--sl-color-gray-2);
-}
-
-/* Buttons (Example - adjust selectors as needed) */
-.sl-button, button, input[type="button"], input[type="submit"] {
-  background: var(--sl-color-accent);
-  color: var(--sl-color-gray-1);
-  border: none;
-  padding: 0.8rem 1.5rem;
-  border-radius: var(--neumorphic-border-radius);
-  box-shadow:
-    var(--neumorphic-distance) var(--neumorphic-distance) var(--neumorphic-blur) var(--neumorphic-shadow-dark),
-    calc(-1 * var(--neumorphic-distance)) calc(-1 * var(--neumorphic-distance)) var(--neumorphic-blur) var(--neumorphic-shadow-light);
-  transition: all 0.2s ease-in-out;
-  cursor: pointer;
-  font-weight: 600;
-}
-
-.sl-button:hover, button:hover, input[type="button"]:hover, input[type="submit"]:hover {
-  background: var(--sl-color-accent-high);
-  transform: translateY(-2px);
-  box-shadow:
-    calc(var(--neumorphic-distance) * 1.3) calc(var(--neumorphic-distance) * 1.3) calc(var(--neumorphic-blur) * 1.3) var(--neumorphic-shadow-dark),
-    calc(-1 * var(--neumorphic-distance) * 1.3) calc(-1 * var(--neumorphic-distance) * 1.3) calc(var(--neumorphic-blur) * 1.3) var(--neumorphic-shadow-light);
-}
-
-.sl-button:active, button:active, input[type="button"]:active, input[type="submit"]:active {
-  transform: translateY(1px);
-  box-shadow:
-    inset var(--neumorphic-distance) var(--neumorphic-distance) var(--neumorphic-blur) var(--neumorphic-shadow-inset-dark),
-    inset calc(-1 * var(--neumorphic-distance)) calc(-1 * var(--neumorphic-distance)) var(--neumorphic-blur) var(--neumorphic-shadow-inset-light);
-  background: var(--sl-color-accent); /* Keep accent on active */
-}
-
-
-/* Code Blocks */
-pre, code {
-  background-color: var(--sl-color-gray-4); /* Slightly lighter background */
-  border-radius: var(--neumorphic-border-radius);
-  box-shadow:
-    inset 4px 4px 8px var(--neumorphic-shadow-inset-dark),
-    inset -4px -4px 8px var(--neumorphic-shadow-inset-light);
-  padding: 1rem;
-  border: 1px solid var(--sl-color-gray-5); /* Subtle border */
-}
-
-/* Header */
-header {
-   background-color: var(--sl-color-white);
-   box-shadow: 0 2px 10px rgba(0,0,0,0.2); /* Softer shadow for header */
-   border-bottom: none;
-}
-
-/* --- Optional: Light Theme Override (if needed) --- */
-/*
-@media (prefers-color-scheme: light) {
-  :root {
-    --sl-color-accent-low: #eef0f2;
-    --sl-color-accent: #7f5af0;
-    --sl-color-accent-high: #6a43d9;
-    --sl-color-white: #f0f0f3;
-    --sl-color-gray-1: #333;
-    --sl-color-gray-2: #555;
-    --sl-color-gray-3: #ccc;
-    --sl-color-gray-4: #e6e6e9;
-    --sl-color-gray-5: #d1d1d6;
-    --sl-color-gray-6: #c0c0c5;
-    --sl-color-black: #000;
-
-    --neumorphic-shadow-light: rgba(255, 255, 255, 0.8);
-    --neumorphic-shadow-dark: rgba(180, 180, 190, 0.5);
-    --neumorphic-shadow-inset-light: rgba(255, 255, 255, 0.7);
-    --neumorphic-shadow-inset-dark: rgba(180, 180, 190, 0.6);
+  .sl-card-grid .sl-card {
+    min-width: 240px;
+    max-width: 320px;
+    flex: 1 1 280px;
   }
 }
-*/
 
