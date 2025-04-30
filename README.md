@@ -5,7 +5,7 @@
 ## Project Start Log
 - **Date Started:** April 28, 2025
 - **Operating System:** Linux
-- **Workspace:** /workspaces/worxpace
+- **Workspace:** @/worxpace/artifactvirtual/
 
 ## Initial Setup
 - Ensured Python 3 and pip are installed.
@@ -15,8 +15,6 @@
 ## New Dependencies
 - `langchain`: Added for advanced language model workflows and orchestration.
 - `langgraph`: Added for graph-based language model applications.
-
-Both packages are now listed in `requirements.txt` and installed in the environment.
 
 ## Debugging Tool
 - Implemented a scalable logging tool using Python's `logging` module.
