@@ -1,14 +1,15 @@
-version: "3.9"
+version: "3.8"
 services:
   postgres:
     image: postgres:15
+    container_name: pg-artifact
     restart: always
     ports:
       - "5432:5432"
     environment:
       POSTGRES_USER: artifact
       POSTGRES_PASSWORD: virtual
-      POSTGRES_DB: artifactdb
+      POSTGRES_DB: artifact_db
     volumes:
       - pgdata:/var/lib/postgresql/data
 

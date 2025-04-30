@@ -32,11 +32,11 @@ until pg_isready -h postgres -p 5432 -U artifact >/dev/null 2>&1; do
 done
 
 echo "[DB] Connected. Verifying database..."
-DB_EXIST=$(psql -U artifact -h postgres -tc "SELECT 1 FROM pg_database WHERE datname = 'artifactdb';" | grep -q 1 && echo yes || echo no)
+DB_EXIST=$(psql -U artifact -h postgres -tc "SELECT 1 FROM pg_database WHERE datname = 'artifact_db';" | grep -q 1 && echo yes || echo no)
 
 if [ "$DB_EXIST" = "no" ]; then
-  echo "[DB] Creating database artifactdb..."
-  psql -U artifact -h postgres -c "CREATE DATABASE artifactdb;"
+  echo "[DB] Creating database artifact_db..."
+  psql -U artifact -h postgres -c "CREATE DATABASE artifact_db;"
 else
   echo "[DB] Database already exists."
 fi
