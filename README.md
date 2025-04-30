@@ -101,6 +101,7 @@ Each dataset was selected for its foundational value in understanding intelligen
      *Purpose:* Captures evolving knowledge and supports continuous improvement.
 
 All datasets are versioned and documented for absolute clarity, reproducibility, and educational value.
+Each dataset was selected for its foundational value in understanding intelligence and supporting reproducible research.
 
 #### Achievements So Far
 - Automated Python environment setup and dependency management.
@@ -118,4 +119,4 @@ All datasets are versioned and documented for absolute clarity, reproducibility,
 
 ---
 
-Each dataset was selected for its foundational value in understanding intelligence and supporting reproducible research:
+
