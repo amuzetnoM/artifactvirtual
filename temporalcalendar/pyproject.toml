@@ -1,0 +1,10 @@
+[project]
+name = "thetemporalcalendar"
+version = "0.1.0"
+description = "🌀 Fibonacci-aware Artifact Calendar CLI"
+authors = ["ArtifactVirtual"]
+dependencies = ["typer", "rich"]
+requires-python = ">=3.8"
+
+[project.scripts]
+thetemporalcalendar = "main:app"
