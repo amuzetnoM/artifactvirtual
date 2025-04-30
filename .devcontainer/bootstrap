@@ -3,7 +3,7 @@
 set -e
 ROOT_DIR=/workspaces/codespaces-models
 
-echo "[+] Bootstrapping ArtifactVirtual..."
+echo "[+] Virtual Bootsraping..."
 
 # -----------------------------------
 # Node.js Dependencies
