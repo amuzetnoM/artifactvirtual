@@ -38,31 +38,20 @@ export default defineConfig({
       sidebar: [
         {
           label: 'Journal',
-          items: [
-            // Use lowercase slug
-            { label: 'a1w18d1', slug: 'journal/a1w18d1' }
-          ],
+          autogenerate: { directory: 'journal' }
         },
         {
           label: 'Manifesto',
-          items: [
-            // Corrected slugs to point within docs collection
-            { label: 'Preface', slug: 'manifesto/_preface' },
-            { label: 'Principles', slug: 'manifesto/_index' },
-            { label: 'Singularity I', slug: 'manifesto/singularity_1' }
-          ],
+          // Use autogenerate for Manifesto section
+          autogenerate: { directory: 'manifesto' }
         },
         {
           label: 'Research Papers',
-          items: [
-            // Corrected slugs to point within docs collection
-            { label: 'Robotics', slug: 'researchpapers/robotics' },
-            { label: 'Uncertainty', slug: 'researchpapers/uncertainty' }
-          ],
+          // Use autogenerate for Research Papers section
+          autogenerate: { directory: 'researchpapers' }
         },
         {
           label: 'Reference',
-          // Assuming 'reference' content will live directly under docs/
           autogenerate: { directory: 'reference' },
         },
       ],
