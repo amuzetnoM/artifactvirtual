@@ -1,36 +1,40 @@
 ---
-title: Welcome to Starlight
-description: Get started building your docs site with Starlight.
+title: Artifact Virtual
+description: Explore the concepts, research and philosophy behind Artifact Virtual.
 template: splash
 hero:
-  tagline: Congrats on setting up a new Starlight project!
+  tagline: A journey through the labyrinth of thought and being
   image:
     file: ../../assets/houston.webp
   actions:
-    - text: Example Guide
-      link: /guides/example/
+    - text: Journal
+      link: /journal/A1W18D1/ # Updated link to point to the journal
       icon: right-arrow
-    - text: Read the Starlight docs
-      link: https://starlight.astro.build
-      icon: external
+    - text: Manifesto
+      link: /manifesto/_preface/
+      icon: book
+      variant: primary
+    - text: Research Papers
+      link: /researchpapers/robotics/
+      icon: open-book
       variant: minimal
 ---
 
 import { Card, CardGrid } from '@astrojs/starlight/components';
 
-## Next steps
+## Explore Artifact Virtual
 
 <CardGrid stagger>
-	<Card title="Update content" icon="pencil">
-		Edit `src/content/docs/index.mdx` to see this page change.
+	<Card title="Journal" icon="pencil">
+		Raw, unfiltered thoughts and frameworks that form the foundation of Artifact Virtual.
 	</Card>
-	<Card title="Add new content" icon="add-document">
-		Add Markdown or MDX files to `src/content/docs` to create new pages.
+	<Card title="Manifesto" icon="book">
+		A compass to navigate the uncharted territories of the self and existence.
 	</Card>
-	<Card title="Configure your site" icon="setting">
-		Edit your `sidebar` and other config in `astro.config.mjs`.
+	<Card title="Research Papers" icon="open-book">
+		In-depth explorations of robotics, uncertainty, and the nature of intelligence.
 	</Card>
-	<Card title="Read the docs" icon="open-book">
-		Learn more in [the Starlight Docs](https://starlight.astro.build/).
+	<Card title="Reference" icon="document">
+		Technical documentation and specifications for Artifact Virtual projects.
 	</Card>
 </CardGrid>

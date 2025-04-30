@@ -8,6 +8,7 @@ export default defineConfig({
   integrations: [
     starlight({
       title: 'ArtifactVirtual Docs',
+      defaultTheme: 'dark',
       social: [
         {
           icon: 'github',
