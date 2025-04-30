@@ -68,14 +68,19 @@
       }
     }
   },
-  "forwardPorts": [7860, 8888, 5000, 8501],
+  "forwardPorts": [7860, 8888, 5000, 8501, 5432],
   "portsAttributes": {
     "7860": { "label": "Gradio" },
     "8888": { "label": "Jupyter" },
     "5000": { "label": "API" },
-    "8501": { "label": "Streamlit" }
+    "8501": { "label": "Streamlit" },
+    "5432": { "label": "PostgreSQL" }
   },
   "mounts": [
-    "source=artifactvirtual-data,target=/workspace/.data,type=volume"
-  ]
+    "source=artifactvirtual-data,target=/workspace/.data,type=volume",
+    "source=pgdata,target=/var/lib/postgresql/data,type=volume"
+  ],
+  "runServices": ["postgres"],
+  "service": "postgres",
+  "dockerComposeFile": ["docker-compose.yml"]
 }
