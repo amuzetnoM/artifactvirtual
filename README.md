@@ -41,6 +41,7 @@ And so it begins...
 - Developed a robust development container for reproducible environments.
 - Integrated AI functionality for advanced workflows.
 - Updated the container to support CUDA, enabling GPU acceleration for machine learning and deep learning tasks.
+- **Includes PostgreSQL Database:** A PostgreSQL 15 service (`pg-artifact`) is managed via Docker Compose, automatically initialized on container startup with the database `artifact_db`.
 
 ### Debugging & Diagnostic Tool
 - Built a comprehensive debugging and diagnostic tool with its own CLI interface.
