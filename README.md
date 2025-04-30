@@ -67,7 +67,7 @@ This is a weapon for creation, a tool of thought.
 
 
 
-> This branch is eatablished to jump into a playground of thought and reason.
+> This branch is established to jump into a playground of thought and reason.
 > Here you will find a journal and a manifesto of however all this emerged. (progressively evolving and, at time, questionable)
 > All journal entries are planned to reside inside `/content/journal/`.
 
