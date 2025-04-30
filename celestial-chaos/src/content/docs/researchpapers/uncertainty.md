@@ -1,3 +1,10 @@
+---
+title: "Uncertainty as First-Class Citizen: Formalizing the Probabilistic Uncertainty Principle for AI Systems"
+date: "2024-02-01T00:00:00Z"
+tags: ["research", "ai", "uncertainty", "probability", "decision-making", "metacognition", "pup"]
+description: "Introduces the Probabilistic Uncertainty Principle (PUP), asserting that AI systems must explicitly quantify and propagate uncertainty, and act based on confidence thresholds."
+---
+
 # Uncertainty as First-Class Citizen: Formalizing the Probabilistic Uncertainty Principle for AI Systems
 
 ## Abstract

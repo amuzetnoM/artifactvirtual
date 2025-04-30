@@ -1,3 +1,10 @@
+---
+title: "Transcending the Laws of Robotics: A Critical Analysis and Framework Evolution"
+date: "2024-01-15T00:00:00Z"
+tags: ["research", "ai-ethics", "robotics", "asimov", "laws-of-robotics", "value-alignment"]
+description: "A comprehensive analysis of Asimov's Laws, their limitations, and contemporary frameworks for AI ethics, proposing a unified transcendent approach."
+---
+
 # Transcending the Laws of Robotics: A Critical Analysis and Framework Evolution
 
 ## Abstract
