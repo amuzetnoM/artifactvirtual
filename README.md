@@ -2,7 +2,7 @@
 
 And so it begins...
 
-## Debugging & Diagnostics CLI
+### Debugging & Diagnostics CLI
 
 ###Project Start Log
 - **Date Started:** April 28, 2025
