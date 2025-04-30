@@ -39,8 +39,8 @@ export default defineConfig({
         {
           label: 'Journal',
           items: [
-            // Corrected slug to point within docs collection
-            { label: 'A1W18D1', slug: 'journal/A1W18D1' }
+            // Use lowercase slug
+            { label: 'a1w18d1', slug: 'journal/a1w18d1' }
           ],
         },
         {
