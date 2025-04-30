@@ -1,7 +1,7 @@
 ---
-title: "Continuum: Principles"
+title: "Continuum"
 date: "2023-10-02T00:00:00Z"
-tags: ["manifesto", "philosophy", "principles", "thought"]
+tags: ["manifesto", "philosophy", "principles", "index"]
 description: "A navigational index to the manifesto of existential discovery, mapping the journey through the labyrinth of thought and being."
 ---
 
