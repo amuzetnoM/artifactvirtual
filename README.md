@@ -62,25 +62,7 @@ This is not a product.
 This is a weapon for creation, a tool of thought.
 
 
->                                                and quite honestly, a lot more.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-![Commit](https://img.shields.io/badge/COMMIT.-000000?style=for-the-badge&logoColor=white&labelColor=000000&color=000000)
-
+>                                                and quite honestly, a lot more...
 
 
 
@@ -93,4 +75,10 @@ This is a weapon for creation, a tool of thought.
 
 
 
-     to be seen, is to cease to be...
+     to be seen, is to cease to be.
+
+
+
+
+![Commit](https://img.shields.io/badge/COMMIT.-000000?style=for-the-badge&logoColor=white&labelColor=000000&color=000000)
+
