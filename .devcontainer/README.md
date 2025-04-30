@@ -8,7 +8,7 @@ Features
 - Zero-Config Setup: Automatic environment provisioning using `.devcontainer/bootstrap`.
 - LangChain + Vector DBs: Built-in LangChain, ChromaDB, FAISS, Transformers, Sentence Transformers.
 - Speech & Voice Ready: Whisper-compatible STT, `faster-whisper`, NVIDIA Riva-ready, and TTS.
-- PostgreSQL Integration: Autocreates local `artifactdb` if not present, with secure fallback.
+- PostgreSQL Integration: Autocreates local `artifact_db` if not present, with secure fallback.
 - CUDA Fallback: CPU-first build with CUDA toggle via DevContainer features.
 - Multi-Language Stack: Python 3.11.9, Node.js 20+, PostgreSQL client, Torch, FastAPI, Pydantic.
 - Integrated DevTools: VS Code extensions, port forwarding (Jupyter, Gradio, Streamlit), GitHub CLI.
@@ -45,7 +45,7 @@ Requirements
 - Optional GPU for CUDA inference
 Environment Variables
 POSTGRES_HOST=postgres
-POSTGRES_DB=artifactdb
+POSTGRES_DB=artifact_db
 POSTGRES_USER=artifact
 POSTGRES_PASSWORD=virtual
 PORT=5000
