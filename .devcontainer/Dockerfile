@@ -45,6 +45,13 @@ RUN npm install -g serve yarn
 # Optional: Whisper alternative or TTS
 RUN pip3 install faster-whisper TTS
 
+# Install Ollama
+RUN curl -fsSL https://ollama.com/install.sh | sh
+
+# Make bootstrap script executable
+# Note: Ensure bootstrap.sh exists in .devcontainer before building
+RUN chmod +x /workspace/.devcontainer/bootstrap.sh
+
 # CUDA fallback environment check (set during runtime)
 ENV CUDA_VISIBLE_DEVICES=0
 
