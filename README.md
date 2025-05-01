@@ -85,7 +85,6 @@ flowchart TD
 ```
 
 ![Artifact Virtual](https://img.shields.io/badge/ARTIFACT%20VIRTUAL-black?style=flat&labelColor=black&color=white)
->>>>>>> 80c71a394db2e034731a8e11e00c13dd6bf28eca
 
 > Please note:
 > This branch is dedicated to covering documentation, research and the narrative behind artifact and all of its wings and projects.
