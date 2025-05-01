@@ -44,7 +44,7 @@ Artifact exists to:
 - Design digital environments where builders think, imagine, and execute at the speed of thought.
 - 
 
-### ARTIFACT DEVELOPMENT ENGINE
+### ![ARTIFACT DEVELOPMENT ENGINE](https://img.shields.io/badge/ADE-white?style=flat&labelColor=white&color=black)
 
 #### Current Focus
 
