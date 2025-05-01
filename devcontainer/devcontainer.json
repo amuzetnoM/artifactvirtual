@@ -1,5 +1,5 @@
 {
-  "name": "ArtifactVirtual Dev Environment", // Added a name
+  "name": "ArtifactVirtual Development Engine", // Added a name
   "dockerComposeFile": "docker-compose.yml",
   "service": "app", // Connect VS Code to the 'app' service
   "runServices": ["app", "postgres"], // Ensure both services are started

@@ -1,3 +1,5 @@
+FROM mcr.microsoft.com/devcontainers/base:ubuntu
+
 # Use a base image provided by dev container features for better compatibility
 # The actual base image will be determined by the features used (e.g., Python feature)
 # This Dockerfile now primarily handles OS packages and specific tools not covered by features.
