@@ -84,14 +84,7 @@ flowchart TD
     H1 --> H3
 ```
 
-
-
-=======
-!
-
-
-
-[Artifact Virtual](https://img.shields.io/badge/ARTIFACT%20VIRTUAL-black?style=flat&labelColor=black&color=white)
+![Artifact Virtual](https://img.shields.io/badge/ARTIFACT%20VIRTUAL-black?style=flat&labelColor=black&color=white)
 >>>>>>> 80c71a394db2e034731a8e11e00c13dd6bf28eca
 
 > Please note:
