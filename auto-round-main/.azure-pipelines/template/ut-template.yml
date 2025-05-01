@@ -1,0 +1,81 @@
+parameters:
+  - name: dockerConfigName
+    type: string
+    default: "commonDockerConfig"
+  - name: repo
+    type: string
+    default: "https://github.com/intel/auto-round"
+  - name: utScriptFileName
+    type: string
+  - name: uploadPath
+    type: string
+  - name: utArtifact
+    type: string
+  - name: utTestMode
+    type: string
+    default: "coverage"
+  - name: utContainerName
+    type: string
+    default: "AutoRoundUnitTest"
+  - name: imageSource
+    type: string
+    default: "build"
+
+steps:
+  - template: docker-template.yml
+    parameters:
+      dockerConfigName: ${{ parameters.dockerConfigName }}
+      repoName: "auto-round"
+      repoTag: "py310"
+      dockerFileName: "Dockerfile"
+      containerName: ${{ parameters.utContainerName }}
+      repo: ${{ parameters.repo }}
+      imageSource: ${{ parameters.imageSource }}
+
+  - ${{ if eq(parameters.imageSource, 'build') }}:
+    - script: |
+        docker exec ${{ parameters.utContainerName }} bash -c "cd /auto-round \
+          && pip install torch==2.7.0 --index-url https://download.pytorch.org/whl/cpu \
+          && pip install intel-extension-for-pytorch==2.7.0 \
+          && pip install .[cpu] \
+          && pip list"
+      displayName: "Env Setup"
+
+  - ${{ if eq(parameters.imageSource, 'pull') }}:
+    - script: |
+        docker exec ${{ parameters.utContainerName }} bash -c "cd /auto-round \
+          && python setup.py bdist_wheel lib \
+          && pip install dist/*.whl \
+          && pip list"
+      displayName: "HPU Env Setup"
+
+  - script: |
+      docker exec ${{ parameters.utContainerName }} bash -c "cd /auto-round/.azure-pipelines/scripts \
+        && bash ut/${{ parameters.utScriptFileName }}.sh ${{ parameters.utTestMode }}"
+    displayName: "Run UT"
+
+  - task: PublishPipelineArtifact@1
+    condition: succeededOrFailed()
+    inputs:
+      targetPath: ${{ parameters.uploadPath }}
+      artifact: ${{ parameters.utArtifact }}_coverage
+      publishLocation: "pipeline"
+
+  - task: UseDotNet@2
+    displayName: 'Use .NET Core sdk 7.0.x'
+    inputs:
+      version: 7.0.x
+
+  - task: PublishCodeCoverageResults@2
+    inputs:
+      summaryFileLocation: ${{ parameters.uploadPath }}/coverage.xml
+
+  - task: Bash@3
+    condition: always()
+    inputs:
+      targetType: "inline"
+      script: |
+        docker exec ${{ parameters.utContainerName }} bash -c "rm -rf /auto-round/* && rm -rf /auto-round/.* || true"
+        docker stop ${{ parameters.utContainerName }}
+        docker rm -vf ${{ parameters.utContainerName }} || true
+    displayName: "Docker clean up"

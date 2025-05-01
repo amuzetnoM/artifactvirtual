@@ -1,0 +1,62 @@
+trigger: none
+
+pr:
+  autoCancel: true
+  drafts: false
+  branches:
+    include:
+      - main
+  paths:
+    include:
+      - auto_round
+      - test/test*hpu*'
+      - setup.py
+      - requirements-hpu.txt
+      - .azure-pipelines/scripts/ut
+    exclude:
+      - auto_round/export/export_to_autogptq
+      - auto_round/export/export_to_awq
+      - "*.md"
+      - "**/*.md"
+
+pool: GAUDI
+
+variables:
+  IMAGE_NAME: "auto-round"
+  IMAGE_TAG: "py310"
+  UPLOAD_PATH: $(Build.SourcesDirectory)/log_dir
+  DOWNLOAD_PATH: $(Build.SourcesDirectory)/log_dir
+  ARTIFACT_NAME: "UT_coverage_report"
+  REPO: $(Build.Repository.Uri)
+
+stages:
+  - stage: Unit_test
+    displayName: Unit Test
+    dependsOn: []
+    jobs:
+      - job:
+        displayName: Unit Test
+        steps:
+          - template: template/ut-template.yml
+            parameters:
+              imageSource: "pull"
+              dockerConfigName: "commonDockerConfig"
+              utScriptFileName: "run_ut_hpu"
+              uploadPath: $(UPLOAD_PATH)
+              utArtifact: "ut"
+
+  # - stage: Unit_test_baseline
+  #   displayName: Unit Test Baseline
+  #   dependsOn: []
+  #   jobs:
+  #     - job:
+  #       displayName: Unit Test
+  #       steps:
+  #         - template: template/ut-template.yml
+  #           parameters:
+  #             imageSource: "pull"
+  #             dockerConfigName: "gitCloneDockerConfig"
+  #             utScriptFileName: "run_ut_hpu"
+  #             uploadPath: $(UPLOAD_PATH)
+  #             utArtifact: "ut_baseline"
+  #             repo: $(REPO)

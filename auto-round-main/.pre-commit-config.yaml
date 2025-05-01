@@ -1,0 +1,32 @@
+ci:
+  autofix_prs: true
+  autoupdate_schedule: quarterly
+
+repos:
+  - repo: https://github.com/Lucas-C/pre-commit-hooks
+    rev: v1.5.5
+    hooks:
+      - id: insert-license
+        files: |
+          (?x)^(
+            auto_round/.*(py|yaml|yml|sh)
+          )$
+        args:
+          [
+            --license-filepath=.azure-pipelines/license_template.txt,
+            --use-current-year,
+            --detect-license-in-X-top-lines=40,
+            --skip-license-insertion-comment=Copyright,
+          ]
+
+  - repo: https://github.com/codespell-project/codespell
+    rev: v2.4.1
+    hooks:
+      - id: codespell
+        args: [-w]
+        additional_dependencies:
+          - tomli
+        exclude: |
+          (?x)^(
+              examples/.*(txt|patch)
+          )$
