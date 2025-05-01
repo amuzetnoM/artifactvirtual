@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import os
 import sys
 import subprocess
@@ -6,14 +7,16 @@ import json
 import time # Added for timing
 
 # --- Configuration ---
-STARTUP_DIR = ".startup"
+# Get the directory where startup.py resides
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+STARTUP_DIR = os.path.join(SCRIPT_DIR, ".startup")
 CHECK_SYSTEM_SCRIPT = os.path.join(STARTUP_DIR, "check_system.py")
 INSTALL_DEPS_SCRIPT = os.path.join(STARTUP_DIR, "install_deps.py") # Changed to .py
 OLLAMA_BOOT_SCRIPT = os.path.join(STARTUP_DIR, "ollama_boot.py")
 AUTOROUND_INIT_SCRIPT = os.path.join(STARTUP_DIR, "autoround_init.py") # Added
 WELCOME_PROMPT_SCRIPT = os.path.join(STARTUP_DIR, "welcome_prompt.py") # Added
 STATUS_FILE = os.path.join(STARTUP_DIR, "system_status.json")
-VENV_DIR = ".venv" # Added for venv activation check
+VENV_DIR = os.path.join(SCRIPT_DIR, ".venv") # Added for venv activation check
 
 # --- Helper Functions ---
 def print_color(text, color):
@@ -53,8 +56,6 @@ def run_script(script_path):
         interpreter = venv_python
         print_color(f"Using venv Python: {interpreter}", "magenta")
     else:
-        # Fallback to the Python running *this* script if venv doesn't exist yet
-        # (e.g., during the install_deps step which creates the venv)
         interpreter = sys.executable
         print_color(f"Venv Python not found, using system Python: {interpreter}", "magenta")
 
@@ -62,24 +63,26 @@ def run_script(script_path):
 
     print_color(f"--- Running {os.path.basename(script_path)} --- ({' '.join(command)})", "HEADER")
     try:
-        # Use check=True to raise CalledProcessError on failure
-        # Capture stderr for better error reporting
-        process = subprocess.run(command, check=True, text=True, stderr=subprocess.PIPE, stdout=subprocess.PIPE)
+        # Use check=False, capture output, specify encoding and error handling
+        process = subprocess.run(command, check=False, capture_output=True, text=True, encoding='utf-8', errors='ignore')
+
+        # Print stdout regardless of success/failure for better debugging
         if process.stdout:
-            print(process.stdout.strip()) # Print stdout from the script
-        print_color(f"[OK] {os.path.basename(script_path)} completed successfully.", "green")
-        return True
+            print(process.stdout.strip())
+
+        # Check return code *after* printing stdout
+        if process.returncode != 0:
+             print_color(f"[ERROR] {os.path.basename(script_path)} failed with exit code {process.returncode}.", "red")
+             if process.stderr:
+                 print_color("Stderr:", "red")
+                 print_color(process.stderr.strip(), "red")
+             return False # Indicate failure
+        else:
+            print_color(f"[OK] {os.path.basename(script_path)} completed successfully.", "green")
+            return True # Indicate success
+
     except FileNotFoundError:
-        print_color(f"[ERROR] Interpreter '{command[0]}' not found for script {script_path}.", "red")
-        return False
-    except subprocess.CalledProcessError as e:
-        print_color(f"[ERROR] {os.path.basename(script_path)} failed with exit code {e.returncode}.", "red")
-        if e.stderr:
-            print_color("Stderr:", "red")
-            print_color(e.stderr.strip(), "red")
-        if e.stdout:
-            print_color("Stdout:", "yellow") # Show stdout too on error
-            print_color(e.stdout.strip(), "yellow")
+        print_color(f"[ERROR] Interpreter '{command[0]}' not found for script {script_path}. Ensure Python is installed and in PATH.", "red")
         return False
     except Exception as e:
         print_color(f"[ERROR] An unexpected error occurred running {script_path}: {e}", "red")
@@ -117,61 +120,77 @@ def main():
         WELCOME_PROMPT_SCRIPT,
     ]
 
-    all_successful = True
+    all_successful = True # Tracks if all scripts *completed* without unexpected errors
+    overall_status_ok = True # Tracks if critical steps (like venv) succeeded
+
     for script in startup_scripts:
-        if not run_script(script):
+        script_succeeded = run_script(script)
+        if not script_succeeded:
+            # Mark all_successful as False if any script run fails (returns False)
             all_successful = False
-            print_color(f"Setup aborted due to failure in {os.path.basename(script)}.", "RED")
-            break # Stop processing further scripts on failure
+            print_color(f"Setup step {os.path.basename(script)} failed or reported errors. Continuing...", "YELLOW")
+            # Check if the failed script is critical (e.g., venv creation in install_deps)
+            # This logic is now mostly handled within install_deps.py itself (sys.exit)
+            # If run_script returns False, it means either the script exited non-zero
+            # or an exception occurred in run_script itself.
 
     end_time = time.time()
     duration = end_time - start_time
     print_color(f"\n--- Bootstrap Finished ({duration:.2f} seconds) ---", "BOLD")
 
-    # Final Status Check (Optional but helpful)
+    # Final Status Check
     print_color("--- Final Status Summary ---", "HEADER")
     final_status = load_status()
-    overall_status = True
 
     if final_status.get('checks_passed', False):
         print_color("[OK] System checks passed initially.", "green")
     else:
-        print_color("[WARN] Some initial system checks failed.", "yellow")
-        overall_status = False
+        print_color("[WARN] Some initial system checks failed or were skipped.", "yellow")
+        # Don't mark overall as failed just for initial checks, but note it.
+
+    # Check if venv exists (crucial)
+    if os.path.exists(get_venv_python_executable()):
+        print_color("[OK] Virtual environment exists.", "green")
+    else:
+        print_color("[ERROR] Virtual environment does not seem to exist or is incomplete.", "red")
+        overall_status_ok = False # This is a critical failure
 
     # Check if Ollama setup was marked complete and model available
     if final_status.get('ollama_setup_complete', False) and final_status.get('ollama_model_available', False):
         print_color("[OK] Ollama setup complete and default model available.", "green")
     elif final_status.get('ollama_setup_complete', False):
         print_color("[WARN] Ollama setup ran, but the default model might not be available.", "yellow")
-        overall_status = False
+        # Not necessarily a failure of the bootstrap itself, but a warning.
     else:
-        print_color("[WARN] Ollama setup did not complete successfully.", "yellow")
-        overall_status = False
+        print_color("[WARN] Ollama setup did not complete successfully or was skipped.", "yellow")
+        # Not necessarily a failure of the bootstrap itself.
 
-    # Add check for venv existence
-    if os.path.exists(get_venv_python_executable()):
-        print_color("[OK] Virtual environment exists.", "green")
-    else:
-        print_color("[ERROR] Virtual environment does not seem to exist or is incomplete.", "red")
-        overall_status = False
+    # Check if AutoRound import succeeded (based on its own output, not status file yet)
+    # We could enhance autoround_init.py to write to status file if needed.
+    # For now, rely on its log output during the run.
 
     print_color("-----------------------------", "HEADER")
-    if all_successful and overall_status:
-        print_color("✅ Bootstrap appears to have completed successfully.", "GREEN")
-        print_color("You might need to activate the virtual environment manually if not already active:", "CYAN")
+    # Check both all_successful (scripts ran without error) and overall_status_ok (critical checks passed)
+    if all_successful and overall_status_ok:
+        print_color("✅ Bootstrap completed. Review logs for any warnings (e.g., failed optional dependencies).", "GREEN")
+        print_color("Activate the virtual environment manually if needed:", "CYAN")
         if platform.system() == "Windows":
-            print_color(f"   .\{VENV_DIR}\Scripts\activate", "CYAN")
+            # Use os.path.relpath to show a relative path from the current dir
+            venv_activate_path = os.path.relpath(os.path.join(VENV_DIR, "Scripts", "activate"), os.getcwd())
+            print_color(f"   {venv_activate_path}", "CYAN")
         else:
-            print_color(f"   source ./{VENV_DIR}/bin/activate", "CYAN")
+            venv_activate_path = os.path.relpath(os.path.join(VENV_DIR, "bin", "activate"), os.getcwd())
+            print_color(f"   source {venv_activate_path}", "CYAN")
     else:
-        print_color("❌ Bootstrap finished with errors or warnings. Please review the logs above.", "RED")
-        sys.exit(1) # Exit with error code if setup failed
+        print_color("❌ Bootstrap finished with errors or critical warnings. Please review the logs above.", "RED")
+        # Optionally exit with error code if critical failures occurred
+        if not overall_status_ok:
+             sys.exit(1) # Exit only if critical checks failed (like venv)
 
 if __name__ == "__main__":
     # Change directory to the script's location to ensure relative paths work
-    script_dir = os.path.dirname(os.path.abspath(__file__))
-    if script_dir != os.getcwd():
-        print_color(f"Changing working directory to: {script_dir}", "magenta")
-        os.chdir(script_dir)
+    # SCRIPT_DIR is already defined globally
+    if SCRIPT_DIR != os.getcwd():
+        print_color(f"Changing working directory to: {SCRIPT_DIR}", "magenta")
+        os.chdir(SCRIPT_DIR)
     main()
