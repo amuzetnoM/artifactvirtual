@@ -6,7 +6,7 @@
 ### Project Start Log
 - **Date Started:** April 28, 2025
 - **Operating System:** Linux
-- **Workspace:** /workspaces/worxpace
+- **Workspace:** /worxpace
 
 ### Initial Setup
 - Ensure **Python 3.11+** and **pip** are installed.
