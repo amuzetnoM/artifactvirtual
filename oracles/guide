@@ -1,0 +1,126 @@
+# Guide to Using Ollama Models: Phi-4 Mini, Gemma-3, and LLaVA
+
+This guide covers the usage of three popular Ollama models and advanced techniques for chaining them using frameworks like LangChain, LangGraph, AutoRound, and DSPy.
+
+---
+
+## 1. Phi-4 Mini
+
+**Overview:**  
+Phi-4 Mini is a lightweight language model optimized for fast inference and low resource usage.
+
+**Basic Usage:**
+```bash
+ollama run phi4-mini
+```
+**Example Prompt:**
+```bash
+ollama run phi4-mini --prompt "Summarize the following text: ..."
+```
+
+**Use Cases:**
+- Quick text summarization
+- Lightweight chatbots
+- On-device inference
+
+---
+
+## 2. Gemma-3
+
+**Overview:**  
+Gemma-3 is designed for general-purpose language understanding and generation.
+
+**Basic Usage:**
+```bash
+ollama run gemma3
+```
+**Example Prompt:**
+```bash
+ollama run gemma3 --prompt "Generate a product description for a new smartwatch."
+```
+
+**Use Cases:**
+- Content generation
+- Question answering
+- Creative writing
+
+---
+
+## 3. LLaVA
+
+**Overview:**  
+LLaVA (Large Language and Vision Assistant) combines language and vision capabilities for multimodal tasks.
+
+**Basic Usage:**
+```bash
+ollama run llava --image path/to/image.jpg --prompt "Describe the image."
+```
+
+**Use Cases:**
+- Image captioning
+- Visual question answering
+- Multimodal chatbots
+
+---
+
+## Advanced Usage: Chaining Models with LangChain, LangGraph, AutoRound, and DSPy
+
+### Chaining Models with LangChain
+
+**Example:** Use Phi-4 Mini for summarization, then Gemma-3 for content generation.
+```python
+from langchain.llms import Ollama
+from langchain.chains import SimpleSequentialChain
+
+phi4 = Ollama(model="phi4-mini")
+gemma = Ollama(model="gemma3")
+
+chain = SimpleSequentialChain(llms=[phi4, gemma])
+result = chain.run("Summarize and expand on this article: ...")
+```
+
+### Multimodal Pipelines with LLaVA
+
+**Example:** Use LLaVA to describe an image, then pass the description to Gemma-3 for story generation.
+```python
+from langchain.llms import Ollama
+
+llava = Ollama(model="llava")
+gemma = Ollama(model="gemma3")
+
+image_description = llava.run(image="path/to/image.jpg", prompt="Describe this image.")
+story = gemma.run(prompt=f"Write a story based on: {image_description}")
+```
+
+### Orchestrating with LangGraph
+
+LangGraph enables complex workflows and branching logic between models.
+
+**Example:**  
+- Use LLaVA for image analysis.
+- Branch: If the image is a document, use Phi-4 Mini for summarization; else, use Gemma-3 for creative output.
+
+### AutoRound and DSPy Integration
+
+- **AutoRound:** Automate prompt engineering and model selection based on input type.
+- **DSPy:** Compose declarative pipelines for data-centric AI, integrating multiple models for tasks like extraction, summarization, and generation.
+
+---
+
+## Tips & Best Practices
+
+- Use lightweight models (Phi-4 Mini) for fast, simple tasks.
+- Use Gemma-3 for richer, more creative outputs.
+- Use LLaVA for any task involving images.
+- Combine models for complex workflows using LangChain, LangGraph, AutoRound, or DSPy.
+
+---
+
+## References
+
+- [Phi-4 Mini on Ollama](https://ollama.com/library/phi4-mini)
+- [Gemma-3 on Ollama](https://ollama.com/library/gemma3)
+- [LLaVA on Ollama](https://ollama.com/library/llava)
+- [LangChain Documentation](https://python.langchain.com/)
+- [LangGraph Documentation](https://langchain-ai.github.io/langgraph/)
+- [DSPy Documentation](https://github.com/stanfordnlp/dspy)

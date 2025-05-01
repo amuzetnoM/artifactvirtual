@@ -1,0 +1,63 @@
+To do
+
+1) set up deepeval (skip for now)
+
+2) set up langgraph and langchain pipelines.
+Proposed:
+
+Proposed AI Pipeline Architecture
+Data Ingestion & Chunking
+
+Process: Ingest datasets (e.g., PDFs, web pages) and split them into semantically coherent chunks.
+
+Tools: Utilize semantic chunking techniques, such as those provided by LlamaIndex, to ensure contextually relevant segments. ​
+LlamaIndex
++1
+Learn R, Python & Data Science Online
++1
+
+Model Selection & Routing
+
+Process: For each chunk, determine the most suitable model to process it based on content type.
+
+Routing Logic:
+
+Gemma3: General language understanding and reasoning.
+
+LLaVA: Multimodal inputs, especially image-related content.
+
+LLaMA2-Uncensored: Handling open-ended or sensitive topics.
+
+Model Processing
+
+Process: Feed the chunks to the selected models via Ollama's API and collect their outputs.
+
+Tools: Leverage Ollama's model serving capabilities to run these models locally. ​
+Medium
+Learn R, Python & Data Science Online
++1
+Cohorte - AI for Everyone
++1
+
+Feedback Aggregation
+
+Process: Aggregate the outputs from different models, annotating them with metadata such as source model, confidence scores, and content type.​
+
+Student Model Training
+
+Process: Use the aggregated outputs as training data to fine-tune a smaller, efficient model tailored to your needs.
+
+Model Options: Consider lightweight models like Gemma 2B or Phi-2 for this purpose.​
+
+Implementation Considerations
+Model Serving: Set up Ollama to serve models locally, allowing for seamless API interactions. ​
+Cohorte - AI for Everyone
++1
+YouTube
++1
+
+Data Management: Ensure proper storage and versioning of your datasets and model outputs for reproducibility.​
+
+Training Pipeline: Utilize frameworks like Hugging Face's Transformers and Datasets libraries to streamline the fine-tuning process.​
+
+
