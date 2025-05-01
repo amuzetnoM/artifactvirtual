@@ -30,3 +30,6 @@ auto-round>=0.5.1
 # For HPU: auto-round-lib>=0.5.1
 langchain
 transformers
+
+python-dotenv~=1.0.1
+ipykernel~=6.29.5
