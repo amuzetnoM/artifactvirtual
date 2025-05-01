@@ -1,5 +1,4 @@
-# REGEN
-
+# ![METEOR](https://img.shields.io/badge/METEOR-FF4E50?style=for-the-badge&labelColor=2C1A1D&color=FF4E50)
                                                                                  And so it begins
 
 ### Debugging & Diagnostics CLI
