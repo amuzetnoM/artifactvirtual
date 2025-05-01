@@ -6,7 +6,7 @@ import sys
 import json
 
 # --- Configuration ---
-OLLAMA_MODEL_DEFAULT = "phi3:mini" # A small default model
+OLLAMA_MODEL_DEFAULT = "gemma3" # Changed default model
 STARTUP_DIR = ".startup"
 STATUS_FILE = os.path.join(STARTUP_DIR, "system_status.json")
 
@@ -166,13 +166,29 @@ def main():
                   sys.exit(1)
 
     # 3. Check and pull the default model
+    default_model_ok = False
     if check_and_pull_model(OLLAMA_MODEL_DEFAULT):
-        status['ollama_model_available'] = True
-        status['ollama_setup_complete'] = True
-        print_color("[OK] Ollama setup complete. Default model is available.", "green")
+        status['ollama_model_available'] = True # Mark true if default is okay
+        status['ollama_setup_complete'] = True # Mark setup complete if default is okay
+        print_color(f"[OK] Default Ollama model '{OLLAMA_MODEL_DEFAULT}' is available.", "green")
+        default_model_ok = True
     else:
-        print_color(f"[FAIL] Failed to ensure Ollama model '{OLLAMA_MODEL_DEFAULT}' is available.", "red")
-        # Don't necessarily exit, maybe user wants to use a different model later
+        print_color(f"[FAIL] Failed to ensure default Ollama model '{OLLAMA_MODEL_DEFAULT}' is available.", "red")
+        # Don't exit, maybe user wants to use a different model later
+
+    # 4. Check and pull additional requested models
+    additional_models = ["llama2-uncensored", "llava"]
+    all_additional_ok = True
+    for model_name in additional_models:
+        if not check_and_pull_model(model_name):
+            all_additional_ok = False
+            print_color(f"[WARN] Failed to ensure Ollama model '{model_name}' is available.", "yellow")
+        else:
+            print_color(f"[OK] Additional Ollama model '{model_name}' is available.", "green")
+
+    if not default_model_ok:
+         print_color(f"[WARN] Default model '{OLLAMA_MODEL_DEFAULT}' failed, setup considered incomplete.", "yellow")
+         status['ollama_setup_complete'] = False # Ensure setup is marked incomplete if default failed
 
     save_status(status)
     print_color("--- Ollama Setup Complete ---", "HEADER")
