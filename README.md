@@ -1,4 +1,5 @@
-# ArtifactVirtual: AI Workspace & Oracles System
+<<<<<<< HEAD
+![Artifact Virtual](https://img.shields.io/badge/ARTIFACT%20VIRTUAL-black?style=flat&labelColor=black&color=white)
 
 ```mermaid
 flowchart TD
@@ -84,12 +85,21 @@ flowchart TD
     H1 --> H3
 ```
 
-![©AVoL1.0](https://img.shields.io/badge/%20©AVoL1.0-000000?style=for-the-badge&logoColor=ffffff&labelColor=000000&color=000000)
 
-> Please note: 
-If you're looking for the development please switch to the devops branch.
 
-This isn't a product. It’s a paradox in motion. AV is a testament to resilinece. A living archive and a futureborn ecosystem. It’s built for strangeness, its built for the surreal. Its envisioned for free thinkers, visionaries and didacts, the alchemists of meaning. And for those who’ve learned to swim (or drown) in uncertainty with grace. On its surface, Artifact Virtual aims to be a platform: a nexus of creators, a centre for code, a temple of knowledge and art. But at its core, it's quite deliberate. Its a confrontation with noise and nihilism. A collision course with Norman, the antagonist. It exists to distill signal from entropy and meaning from machinery.
+=======
+!
+
+
+
+[Artifact Virtual](https://img.shields.io/badge/ARTIFACT%20VIRTUAL-black?style=flat&labelColor=black&color=white)
+>>>>>>> 80c71a394db2e034731a8e11e00c13dd6bf28eca
+
+> Please note:
+> This branch is dedicated to covering documentation, research and the narrative behind artifact and all of its wings and projects.
+> If you're looking for the core development and all source code please switch to the devops branch.
+
+Artifact Virtual iss a paradox in motion. It is not a product, it's an engine of ionised revolution. AV built for strangeness, its built for the surreal. Its envisioned for free thinkers, visionaries and didacts, the alchemists of meaning. And for those who’ve learned to swim (or drown) in uncertainty with grace. On its surface, Artifact Virtual aims to be a platform: a nexus of creators, a centre for code, a temple of knowledge and art. But at its core, it's quite deliberate. Its a confrontation with noise and nihilism. A collision course with Norman, the antagonist. It exists to distill signal from entropy and meaning from machinery.
 
 Here, creation is not simply an output. It is revelation. Every thought, every idea, every actuon is treated like an artifact. A vessel of intent, an echo of purpose, forged not just to core function, but to endure and persevere. The word "Virtual" isn't a concession to illusion but a mirror into infinite potential and the shear width of the mind. 
 
@@ -129,7 +139,9 @@ Artifact exists to:
 - Design digital environments where builders think, imagine, and execute at the speed of thought.
 - 
 
-### ARTIFACT DEVELOPMENT ENGINE
+## ARTIFACT DEVELOPMENT ENGINE
+
+![ADE](https://img.shields.io/badge/ADE-transparent?style=flat&labelColor=black&color=white)
 
 #### Current Focus
 
