@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import platform
 import sys
 
@@ -9,7 +10,8 @@ def print_color(text, color):
         "ENDC": '\033[0m', "BOLD": '\033[1m', "UNDERLINE": '\033[4m'
     }
     if platform.system() != "Windows" and hasattr(sys.stdout, 'isatty') and sys.stdout.isatty():
-        print(f"{colors.get(color.upper(), colors['ENDC'])}{text}{colors['ENDC']}") # Corrected indentation
+        # Corrected indentation
+        print(f"{colors.get(color.upper(), colors['ENDC'])}{text}{colors['ENDC']}")
     else:
         prefix = f"[{color.upper()}] " if color.upper() not in ["ENDC", "BOLD", "UNDERLINE", "HEADER"] else ""
         print(f"{prefix}{text}")
