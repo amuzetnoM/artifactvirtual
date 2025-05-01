@@ -1,4 +1,4 @@
-# ![METEOR](https://img.shields.io/badge/METEOR-FF4E50?style=for-the-badge&labelColor=2C1A1D&color=FF4E50)
+# ![RÆGEN](https://img.shields.io/badge/RÆGEN-3A0CA3?style=for-the-badge&labelColor=000000&color=3A0CA3)
                                                                                  And so it begins
 
 ### Debugging & Diagnostics CLI
