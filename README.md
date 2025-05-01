@@ -1,4 +1,4 @@
-# ArtifactVirtual: AI Workspace & Oracles System
+# ![Artifact Development Engine](https://img.shields.io/badge/ARTIFACT%20DEVELOPMENT%20ENGINE-black?style=flat&labelColor=black&color=white)
 
 ```mermaid
 flowchart TD
@@ -84,13 +84,12 @@ flowchart TD
     H1 --> H3
 ```
 
-# ArtifactVirtual: AI Workspace & Oracles System
 
-ArtifactVirtual is a portable, self-initializing AI workspace for research, development, and creative exploration. It now includes a powerful multimodal LLM playground (the Oracles System) for advanced model orchestration, chaining, and multimodal workflows.
+ADE is a portable, self-initializing AI workspace for research, development, and creative exploration. It now includes a powerful multimodal LLM playground (the Oracles System) for advanced model orchestration, chaining, and multimodal workflows.
 
 ---
 
-## 🚀 Quickstart
+### Quickstart
 
 1. **Clone the repository**
 2. **Run the bootstrap:**
@@ -118,7 +117,7 @@ ArtifactVirtual is a portable, self-initializing AI workspace for research, deve
 
 ---
 
-## 🧠 Features
+### Features
 - **Self-initializing:** Automated setup, dependency management, and service orchestration
 - **Oracles System:** Unified CLI for LLMs (phi4-mini, gemma3, llava) with chaining, multimodal, and plugin support
 - **Extensible:** Plugin system for new models/workflows (drop Python files in oracles/plugins)
@@ -130,13 +129,13 @@ ArtifactVirtual is a portable, self-initializing AI workspace for research, deve
 
 ---
 
-## 📚 Documentation
+### Documentation
 - [oracles/guide](oracles/guide): Full details on using the Oracles CLI, chaining, multimodal, plugins, and advanced workflows
 - [cookbooks/](cookbooks/): Example notebooks and code for LangChain, LlamaIndex, OpenAI, and more
 - [samples/](samples/): Bash, Python, and JS samples for API and model usage
 
 ---
 
-## 🏁 For more, see oracles/guide and the cookbooks folder.
+#### For more, switch to the <research> branch.
 
 
