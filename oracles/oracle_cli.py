@@ -51,6 +51,39 @@ PLUGINS = {}
 PLUGINS_PATH = os.path.join(os.path.dirname(__file__), "plugins")
 if os.path.isdir(PLUGINS_PATH):
     sys.path.append(PLUGINS_PATH)
+    for fname in os.listdir(PLUGINS_PATH):
+        if fname.endswith(".py") and not fname.startswith("_"):
+            modname = fname[:-3]
+            try:
+                mod = importlib.import_module(modname)
+                PLUGINS[modname] = mod
+                console.print(f"[green]Loaded plugin: {modname}[/green]")
+            except Exception as e:
+                console.print(f"[red]Failed to load plugin {modname}: {e}[/red]")
+
+def print_header():
+    console.print(Panel(Text("[b cyan]🧙 Oracle CLI: Multimodal LLM Playground[/b cyan]", justify="center"), style="bold magenta"))
+    console.print("[green]Available models:[/green] phi4-mini, gemma3, llava\n")
+    console.print("[yellow]Type 'exit' at any prompt to quit.[/yellow]\n")
+
+def select_model():
+    table = Table(title="Select a Model")
+    table.add_column("Key", style="cyan", no_wrap=True)
+    table.add_column("Model Name", style="magenta")
+    for i, k in enumerate(MODELS.keys(), 1):
+        table.add_row(str(i), k)
+    console.print(table)
+    while True:
+        choice = Prompt.ask("Enter model key (1/2/3)")
+        if choice.lower() == "exit":
+            sys.exit(0)
+        if choice in [str(i) for i in range(1, len(MODELS)+1)]:
+            return list(MODELS.keys())[int(choice)-1]
+        console.print("[red]Invalid choice. Try again.[/red]")
+
+def chat_with_model(model_name):
+    llm = MODELS[model_name]()
+    console.print(Panel(f"[b]Chatting with [cyan]{model_name}[/cyan][/b]", style="blue"))
     while True:
         user_input = Prompt.ask("[bold green]You[/bold green]")
         if user_input.lower() == "exit":
@@ -60,6 +93,7 @@ if os.path.isdir(PLUGINS_PATH):
             console.print(Panel(response, title=f"[b]{model_name}[/b]", style="magenta"))
         except Exception as e:
             console.print(f"[red]Error: {e}[/red]")
+            traceback.print_exc()
 
 def chain_phi4_gemma3():
     phi4 = MODELS["phi4-mini"]()
@@ -75,6 +109,7 @@ def chain_phi4_gemma3():
             console.print(Panel(result, title="[b]Chain Output[/b]", style="magenta"))
         except Exception as e:
             console.print(f"[red]Error: {e}[/red]")
+            traceback.print_exc()
 
 def multimodal_llava_gemma3():
     from PIL import Image
@@ -88,6 +123,13 @@ def multimodal_llava_gemma3():
         if not os.path.exists(img_path):
             console.print("[red]File not found. Try again.[/red]")
             continue
+        # --- Image Validation ---
+        try:
+            with Image.open(img_path) as img:
+                img.verify()  # Validate image
+        except Exception as e:
+            console.print(f"[red]Invalid image file: {e}[/red]")
+            continue
         prompt = Prompt.ask("Enter prompt for LLaVA (or 'exit')")
         if prompt.lower() == "exit":
             break
@@ -97,10 +139,15 @@ def multimodal_llava_gemma3():
             console.print(Panel(story, title="[b]Gemma-3 Story[/b]", style="magenta"))
         except Exception as e:
             console.print(f"[red]Error: {e}[/red]")
+            traceback.print_exc()
 
 def langgraph_demo():
     if not LANGGRAPH_AVAILABLE:
         console.print("[red]LangGraph is not installed. Skipping demo.[/red]")
+        if check_and_install_dependency("langgraph"):
+            console.print("[green]LangGraph installed. Please restart the CLI to use this feature.[/green]")
+        else:
+            console.print("[yellow]You can install it manually: pip install langgraph[/yellow]")
         return
     console.print(Panel("[b]LangGraph Demo (placeholder)[/b]", style="yellow"))
     console.print("[yellow]You can implement custom workflows here using LangGraph.[/yellow]")
@@ -108,6 +155,10 @@ def langgraph_demo():
 def dspy_demo():
     if not DS_PY_AVAILABLE:
         console.print("[red]DSPy is not installed. Skipping demo.[/red]")
+        if check_and_install_dependency("dspy", "dspy-ai"):
+            console.print("[green]DSPy installed. Please restart the CLI to use this feature.[/green]")
+        else:
+            console.print("[yellow]You can install it manually: pip install dspy-ai[/yellow]")
         return
     console.print(Panel("[b]DSPy Demo (placeholder)[/b]", style="yellow"))
     console.print("[yellow]You can implement DSPy pipelines here.[/yellow]")
@@ -126,6 +177,11 @@ def main_menu():
     menu.add_row("7", "DSPy Workflow Demo")
     menu.add_row("0", "Exit")
     console.print(menu)
+    # --- Plugin Menu ---
+    if PLUGINS:
+        console.print("[bold cyan]Plugins available:[/bold cyan] " + ", ".join(PLUGINS.keys()))
+        for i, pname in enumerate(PLUGINS.keys(), 8):
+            menu.add_row(str(i), f"Plugin: {pname}")
     while True:
         choice = Prompt.ask("Select an option")
         if choice == "0" or choice.lower() == "exit":
@@ -145,6 +201,13 @@ def main_menu():
             langgraph_demo()
         elif choice == "7":
             dspy_demo()
+        elif PLUGINS and choice in [str(i) for i in range(8, 8+len(PLUGINS))]:
+            pname = list(PLUGINS.keys())[int(choice)-8]
+            try:
+                PLUGINS[pname].main(console=console)
+            except Exception as e:
+                console.print(f"[red]Plugin '{pname}' error: {e}[/red]")
+                traceback.print_exc()
         else:
             console.print("[red]Invalid option. Try again.[/red]")
 
