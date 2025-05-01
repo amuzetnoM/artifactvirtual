@@ -104,6 +104,66 @@ Each dataset was selected for its foundational value in understanding intelligen
 All datasets are versioned and documented for absolute clarity, reproducibility, and educational value.
 Each dataset was selected for its foundational value in understanding intelligence and supporting reproducible research.
 
+### Python, CMake, and AutoRound for LLM Quantization
+
+- **Python**: The workspace uses the latest Python 3.11+ (system-wide upgrade recommended).
+- **CMake**: CMake is required for building some dependencies (e.g., sentencepiece) and is now installed system-wide.
+- **AutoRound**: Intel's AutoRound is installed for advanced quantization and inference of large language models (LLMs) and vision-language models (VLMs), supporting 2, 3, 4, and 8-bit quantization.
+
+#### AutoRound Installation
+- Installed via PyPI or from source:
+  ```bash
+  # For GPU (CUDA/Intel GPU)
+  pip install auto-round
+  # For CPU only
+  pip install auto-round[cpu]
+  # Or from source (in auto-round directory):
+  pip install .
+  ```
+- Requires Python 3.9+ and CMake (system PATH).
+
+#### AutoRound CLI Example (4-bit Quantization)
+```bash
+auto-round \
+    --model Qwen/Qwen3-0.6B \
+    --bits 4 \
+    --group_size 128 \
+    --format "auto_gptq,auto_awq,auto_round" \
+    --output_dir ./tmp_autoround
+```
+
+#### AutoRound Python API Example
+```python
+from transformers import AutoModelForCausalLM, AutoTokenizer
+from auto_round import AutoRound
+
+model_name = "Qwen/Qwen3-0.6B"
+model = AutoModelForCausalLM.from_pretrained(model_name, torch_dtype="auto")
+tokenizer = AutoTokenizer.from_pretrained(model_name)
+
+bits, group_size, sym = 4, 128, True
+autoround = AutoRound(model, tokenizer, bits=bits, group_size=group_size, sym=sym)
+autoround.quantize_and_save("./tmp_autoround", format='auto_round')
+```
+
+#### Inference with Quantized Models
+```python
+from transformers import AutoModelForCausalLM, AutoTokenizer
+from auto_round import AutoRoundConfig
+
+quantized_model_path = "./tmp_autoround"
+model = AutoModelForCausalLM.from_pretrained(quantized_model_path, device_map="auto", torch_dtype="auto")
+tokenizer = AutoTokenizer.from_pretrained(quantized_model_path)
+text = "There is a girl who likes adventure,"
+inputs = tokenizer(text, return_tensors="pt").to(model.device)
+print(tokenizer.decode(model.generate(**inputs, max_new_tokens=50)[0]))
+```
+
+- AutoRound supports export to AutoRound, GPTQ, AWQ, and GGUF formats.
+- Integrated with HuggingFace Transformers (v4.51.3+).
+- Supports CPU, Intel GPU, CUDA, and HPU backends.
+- See `auto-round/README.md` for full documentation, recipes, and supported models.
+
 #### Achievements So Far
 - Automated Python environment setup and dependency management.
 - Established a robust, extensible logging system.
