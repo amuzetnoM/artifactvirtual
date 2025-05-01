@@ -40,7 +40,18 @@ And so it begins...
 - A pre-configured Dev Container is available (`.devcontainer/`) which handles all setup steps automatically.
 - Developed a robust development container for reproducible environments.
 - Integrated AI functionality for advanced workflows.
-- Updated the container to support CUDA, enabling GPU acceleration for machine learning and deep learning tasks.
+- **Current Setup (May 1, 2025):**
+    - Uses Docker Compose (`docker-compose.yml`) to manage two services:
+        - `app`: Builds the main development environment using the `Dockerfile` and dev container features.
+        - `postgres`: Runs a PostgreSQL 15 database.
+    - Relies heavily on **Dev Container Features** (`devcontainer.json`) for installing core components like Python 3.11, Node.js 20, Git, common utilities, and Docker-in-Docker. This makes the setup more standardized and maintainable.
+    - The `Dockerfile` primarily installs essential OS packages (like `ffmpeg`, `postgresql-client`) and Ollama.
+    - **CUDA Feature Removed:** The CUDA feature was temporarily removed due to build errors related to accessing the feature registry (`ghcr.io`). The container currently operates in a CPU-only mode for AI tasks.
+    - **Bootstrap Process:**
+        - The `postCreateCommand` in `devcontainer.json` runs after the container is built and started.
+        - It installs Python requirements from `/workspace/requirements.txt`.
+        - It then executes the `/workspace/.devcontainer/bootstrap.sh` script.
+        - `bootstrap.sh` starts the Ollama server in the background and pulls a default model (e.g., `llama3.2:1b`), making it ready for use.
 - **Includes PostgreSQL Database:** A PostgreSQL 15 service (`pg-artifact`) is managed via Docker Compose, automatically initialized on container startup with the database `artifact_db`.
 
 ### Debugging & Diagnostic Tool
