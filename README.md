@@ -1,4 +1,5 @@
-# ![Artifact Development Engine](https://img.shields.io/badge/ARTIFACT%20DEVELOPMENT%20ENGINE-black?style=flat&labelColor=black&color=white)
+<<<<<<< HEAD
+![Artifact Virtual](https://img.shields.io/badge/ARTIFACT%20VIRTUAL-black?style=flat&labelColor=black&color=white)
 
 ```mermaid
 flowchart TD
@@ -9,7 +10,7 @@ flowchart TD
         B3[startup.py]
         B4[README.md]
     end
-    subgraph Oracles System
+    subgraph Oracles_System[Oracles System]
         C1[oracles/]
         C2[oracle_cli.py]
         C3[requirements.txt]
@@ -24,7 +25,7 @@ flowchart TD
         D5[temporal_events.json]
         D6[custom_annotations.json]
     end
-    subgraph Cookbooks & Samples
+    subgraph Cookbooks_Samples[Cookbooks & Samples]
         E1[cookbooks/]
         E2[samples/]
         E3[python/]
@@ -49,13 +50,13 @@ flowchart TD
         H3[cli/]
     end
     A -->|Core| Core
-    A -->|Oracles| Oracles System
+    A -->|Oracles| Oracles_System
     A -->|Datasets| Datasets
-    A -->|Cookbooks & Samples| Cookbooks & Samples
+    A -->|Cookbooks & Samples| Cookbooks_Samples
     A -->|Utils| Utils
     A -->|Frontend| Frontend
     A -->|TemporalCalendar| TemporalCalendar
-    Oracles System --> C1
+    Oracles_System --> C1
     C1 --> C2
     C1 --> C3
     C1 --> C4
@@ -66,8 +67,8 @@ flowchart TD
     D1 --> D4
     D1 --> D5
     D1 --> D6
-    Cookbooks & Samples --> E1
-    Cookbooks & Samples --> E2
+    Cookbooks_Samples --> E1
+    Cookbooks_Samples --> E2
     E1 --> E3
     E1 --> E4
     E2 --> E5
@@ -85,57 +86,98 @@ flowchart TD
 ```
 
 
-ADE is a portable, self-initializing AI workspace for research, development, and creative exploration. It now includes a powerful multimodal LLM playground (the Oracles System) for advanced model orchestration, chaining, and multimodal workflows.
 
----
+=======
+!
 
-### Quickstart
 
-1. **Clone the repository**
-2. **Run the bootstrap:**
-   ```bash
-   python startup.py
-   ```
-   This will:
-   - Check your system (Python, CUDA, PostgreSQL, Ollama, etc.)
-   - Install all dependencies
-   - Download and verify core Ollama models (phi4-mini, gemma3, llava)
-   - Set up AutoRound, LangChain, LangGraph, DSPy, and more
-   - Welcome you with an interactive prompt
 
-3. **Oracles CLI (Multimodal LLM Playground):**
-   ```bash
-   cd oracles
-   pip install -r requirements.txt
-   python oracle_cli.py
-   ```
-   - Chat with phi4-mini, gemma3, or llava
-   - Chain models (LangChain, LangGraph, DSPy)
-   - Run multimodal (image+text) pipelines
-   - Use plugins for extensibility
-   - Enjoy robust error handling and dependency checks
+[Artifact Virtual](https://img.shields.io/badge/ARTIFACT%20VIRTUAL-black?style=flat&labelColor=black&color=white)
+>>>>>>> 80c71a394db2e034731a8e11e00c13dd6bf28eca
 
----
+> Please note:
+> This branch is dedicated to covering documentation, research and the narrative behind artifact and all of its wings and projects.
+> If you're looking for the core development and all source code please switch to the devops branch.
 
-### Features
-- **Self-initializing:** Automated setup, dependency management, and service orchestration
-- **Oracles System:** Unified CLI for LLMs (phi4-mini, gemma3, llava) with chaining, multimodal, and plugin support
-- **Extensible:** Plugin system for new models/workflows (drop Python files in oracles/plugins)
-- **Robust error handling:** Informative errors, tracebacks, and dependency auto-install
-- **AutoRound:** Advanced quantization for LLMs/VLMs
-- **LangChain, LangGraph, DSPy:** For complex AI pipelines and workflows
-- **Datasets:** Curated knowledge and reasoning datasets in /datasets
-- **TemporalCalendar:** Advanced time reasoning demo
+Artifact Virtual iss a paradox in motion. It is not a product, it's an engine of ionised revolution. AV built for strangeness, its built for the surreal. Its envisioned for free thinkers, visionaries and didacts, the alchemists of meaning. And for those who’ve learned to swim (or drown) in uncertainty with grace. On its surface, Artifact Virtual aims to be a platform: a nexus of creators, a centre for code, a temple of knowledge and art. But at its core, it's quite deliberate. Its a confrontation with noise and nihilism. A collision course with Norman, the antagonist. It exists to distill signal from entropy and meaning from machinery.
 
----
+Here, creation is not simply an output. It is revelation. Every thought, every idea, every actuon is treated like an artifact. A vessel of intent, an echo of purpose, forged not just to core function, but to endure and persevere. The word "Virtual" isn't a concession to illusion but a mirror into infinite potential and the shear width of the mind. 
 
-### Documentation
-- [oracles/guide](oracles/guide): Full details on using the Oracles CLI, chaining, multimodal, plugins, and advanced workflows
-- [cookbooks/](cookbooks/): Example notebooks and code for LangChain, LlamaIndex, OpenAI, and more
-- [samples/](samples/): Bash, Python, and JS samples for API and model usage
+*what could be, if you had the right tools and merely a thought that aligned truly, absolutely?*
 
----
+Artifact is a challenge.
+It seeks wisdom, not just knowledge; economy, not just money; emergence, not just virality. It is where technology remembers its soul and it's creator.
 
-#### For more, switch to the <research> branch.
+At the edge of chaos, Artifact Virtual operates as a scalpel, skimming away the bloated excess of mainstream digital life to expose the raw nerve of what lies behind. 
+A truth, beautiful yet irresponsible. 
 
+*...but isn't all life? Everything ever created?*
+
+
+We are not here to merge, we are here to fork. 
+We are here to question, questions and dissecting knowledge to trace its origin. To advocate the real against the belief. 
+
+We are a rebellion against stagnation, against whats known, whats believed. 
+A framework of thinking, and evolving.
+
+We are not here to replicate the past.  
+We are here to create new worlds: knowledge systems, thinking machines, and architectures for a freer future.
+
+This is Day 1.  
+This is ReGenesis.
+
+Today, an idea is born.
+> Tomorrow, it will grow. 
+
+### Vision
+
+Artifact exists to:
+
+- Create structured, causal knowledge systems — built for reasoning, not storage.
+- Architect modular AI ecosystems — resilient, autonomous, and open.
+- Forge tools that empower creation, not dependence.
+- Design digital environments where builders think, imagine, and execute at the speed of thought.
+- 
+
+## ARTIFACT DEVELOPMENT ENGINE
+
+![ADE](https://img.shields.io/badge/ADE-transparent?style=flat&labelColor=black&color=white)
+
+#### Current Focus
+
+- ReGen Journal: Raw, unfiltered frameworks and thoughts.
+- Knowledge Frameworks: Building the first structured knowledge assets.
+- RAG Systems: Real-time, inference-driven AI retrieval methods.
+- LangGraph Agents: Modular planning, reasoning, execution and abstraction.
+- Visual Intelligence: Dynamic visualizations of systems, codebases, and ideas.
+
+
+
+AV and ADE are designed for those who intend to **own their creations**, 
+**master their tools**, and 
+**forge entire realities.**
+
+This is not a product.  
+This is a weapon for creation, a tool of thought.
+
+
+>                                                and quite honestly, a lot more...
+
+
+
+
+> This branch is established to jump into a playground of thought and reason.
+> Here you will find a journal and a manifesto of however all this emerged. (progressively evolving and, at time, questionable)
+> All journal entries are planned to reside inside `/content/journal/`.
+
+> To review and contribute to the development, please switch to the devops branch.
+
+
+
+     to be seen, is to cease to be.
+
+
+
+
+![Commit](https://img.shields.io/badge/COMMIT.-000000?style=for-the-badge&logoColor=white&labelColor=000000&color=000000)
 
