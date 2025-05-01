@@ -1,6 +1,6 @@
 # REGEN
 
-                                                                And so it begins
+                                                                   And so it begins
 
 ### Debugging & Diagnostics CLI
 
