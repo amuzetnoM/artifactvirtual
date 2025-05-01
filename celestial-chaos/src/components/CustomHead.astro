@@ -5,15 +5,18 @@ import Default from '@astrojs/starlight/components/Head.astro';
 
 <Default {...Astro.props}>
   <style is:inline>
-    /* Force dark theme by default */
+    /* Force dark theme without using the darkMode: true or preferDark: true options */
     :root {
       color-scheme: dark;
+      
+      /* Accent colors */
       --sl-color-accent-low: #2f160d;
       --sl-color-accent: #ff6b00;
       --sl-color-accent-high: #ffa366;
       
-      /* Dark theme enforced colors */
+      /* Dark theme colors */
       --sl-color-black: #0d0d0d;
+      --sl-color-white: #ffffff;
       --sl-color-gray-1: #f8f8f8;
       --sl-color-gray-2: #eaeaea;
       --sl-color-gray-3: #cccccc;
@@ -22,24 +25,42 @@ import Default from '@astrojs/starlight/components/Head.astro';
       --sl-color-gray-6: #444444;
       --sl-color-gray-7: #2a2a2a;
       --sl-color-gray-8: #1a1a1a;
-      
-      /* Dark theme background colors */
-      --sl-color-bg: var(--sl-color-gray-8);
-      --sl-color-bg-nav: var(--sl-color-gray-8);
-      --sl-color-bg-sidebar: var(--sl-color-gray-8);
+    
+      /* Force dark theme background and text colors */
+      --sl-color-bg: var(--sl-color-black);
+      --sl-color-bg-nav: var(--sl-color-black);
+      --sl-color-bg-sidebar: var(--sl-color-black);
       --sl-color-bg-inline-code: rgba(255, 255, 255, 0.05);
+      
+      /* Additional variables from your custom.css */
+      --sl-color-text-accent: var(--sl-color-accent);
+      --sl-color-bg-sidebar: var(--sl-color-black);
+      --sl-color-bg-nav: var(--sl-color-black);
+      --sl-color-text-invert: var(--sl-color-black);
     }
     
-    /* Ensure theme is properly applied */
-    html:not([data-theme="light"]) {
+    /* Prevent theme toggle from changing these variables */
+    html[data-theme] {
       --sl-color-accent-low: #2f160d;
       --sl-color-accent: #ff6b00;
       --sl-color-accent-high: #ffa366;
+      --sl-color-bg: var(--sl-color-black);
+      --sl-color-bg-nav: var(--sl-color-black); 
+      --sl-color-bg-sidebar: var(--sl-color-black);
     }
 
-    html {
-      font-family: 'Geist Sans', system-ui, sans-serif;
-    }
+    /* Add custom theme script to force dark theme preference */
+    document.documentElement.dataset.theme = 'dark';
+    localStorage.setItem('starlight-theme', 'dark');
   </style>
+  
+  <!-- Script to ensure dark theme is always applied -->
+  <script is:inline>
+    (function() {
+      document.documentElement.dataset.theme = 'dark';
+      localStorage.setItem('starlight-theme', 'dark');
+    })();
+  </script>
+  
   <slot />
 </Default>
