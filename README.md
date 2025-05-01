@@ -1,3 +1,89 @@
+# ArtifactVirtual: AI Workspace & Oracles System
+
+```mermaid
+flowchart TD
+    A[Root Project]
+    subgraph Core
+        B1[requirements.txt]
+        B2[setup.py]
+        B3[startup.py]
+        B4[README.md]
+    end
+    subgraph Oracles_System[Oracles System]
+        C1[oracles/]
+        C2[oracle_cli.py]
+        C3[requirements.txt]
+        C4[guide]
+        C5[plugins/]
+    end
+    subgraph Datasets
+        D1[datasets/]
+        D2[core_facts.json]
+        D3[reasoning_patterns.json]
+        D4[language_primitives.json]
+        D5[temporal_events.json]
+        D6[custom_annotations.json]
+    end
+    subgraph Cookbooks_Samples[Cookbooks & Samples]
+        E1[cookbooks/]
+        E2[samples/]
+        E3[python/]
+        E4[js/]
+        E5[curl/]
+    end
+    subgraph Utils
+        F1[utils/]
+        F2[auto-round/]
+        F3[debugdiag/]
+        F4[dspy/]
+        F5[modelcontextprotocol/]
+    end
+    subgraph Frontend
+        G1[frontend/]
+        G2[celestial-chaos/]
+        G3[av-next/]
+    end
+    subgraph TemporalCalendar
+        H1[temporalcalendar/]
+        H2[main.py]
+        H3[cli/]
+    end
+    A -->|Core| Core
+    A -->|Oracles| Oracles_System
+    A -->|Datasets| Datasets
+    A -->|Cookbooks & Samples| Cookbooks_Samples
+    A -->|Utils| Utils
+    A -->|Frontend| Frontend
+    A -->|TemporalCalendar| TemporalCalendar
+    Oracles_System --> C1
+    C1 --> C2
+    C1 --> C3
+    C1 --> C4
+    C1 --> C5
+    Datasets --> D1
+    D1 --> D2
+    D1 --> D3
+    D1 --> D4
+    D1 --> D5
+    D1 --> D6
+    Cookbooks_Samples --> E1
+    Cookbooks_Samples --> E2
+    E1 --> E3
+    E1 --> E4
+    E2 --> E5
+    Utils --> F1
+    F1 --> F2
+    F1 --> F3
+    F1 --> F4
+    F1 --> F5
+    Frontend --> G1
+    G1 --> G2
+    G1 --> G3
+    TemporalCalendar --> H1
+    H1 --> H2
+    H1 --> H3
+```
+
 ![©AVoL1.0](https://img.shields.io/badge/%20©AVoL1.0-000000?style=for-the-badge&logoColor=ffffff&labelColor=000000&color=000000)
 
 > Please note: 
