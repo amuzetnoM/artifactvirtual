@@ -45,7 +45,8 @@ Artifact exists to:
 - 
 
 ## ARTIFACT DEVELOPMENT ENGINE
-![ADE](https://img.shields.io/badge/ADE-white?style=flat&labelColor=white&color=black)
+
+![ADE](https://img.shields.io/badge/ADE-transparent?style=flat&labelColor=black&color=white)
 
 #### Current Focus
 
