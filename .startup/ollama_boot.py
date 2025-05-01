@@ -166,29 +166,25 @@ def main():
                   sys.exit(1)
 
     # 3. Check and pull the default model
-    default_model_ok = False
-    if check_and_pull_model(OLLAMA_MODEL_DEFAULT):
-        status['ollama_model_available'] = True # Mark true if default is okay
-        status['ollama_setup_complete'] = True # Mark setup complete if default is okay
+    default_model_available = check_and_pull_model(OLLAMA_MODEL_DEFAULT)
+    if default_model_available:
+        status['ollama_model_available'] = True # Mark default as available
         print_color(f"[OK] Default Ollama model '{OLLAMA_MODEL_DEFAULT}' is available.", "green")
-        default_model_ok = True
+
+        # 4. Pull additional requested models
+        print_color("--- Pulling Additional Models ---", "HEADER")
+        check_and_pull_model("llama2-uncensored")
+        check_and_pull_model("llava")
+
+        # Check if all necessary setup involving Ollama is complete
+        # For now, consider setup complete if default model is available
+        status['ollama_setup_complete'] = True
+        print_color("[OK] Ollama setup complete. Default model is available.", "green") # Message adjusted slightly
+
     else:
         print_color(f"[FAIL] Failed to ensure default Ollama model '{OLLAMA_MODEL_DEFAULT}' is available.", "red")
-        # Don't exit, maybe user wants to use a different model later
-
-    # 4. Check and pull additional requested models
-    additional_models = ["llama2-uncensored", "llava"]
-    all_additional_ok = True
-    for model_name in additional_models:
-        if not check_and_pull_model(model_name):
-            all_additional_ok = False
-            print_color(f"[WARN] Failed to ensure Ollama model '{model_name}' is available.", "yellow")
-        else:
-            print_color(f"[OK] Additional Ollama model '{model_name}' is available.", "green")
-
-    if not default_model_ok:
-         print_color(f"[WARN] Default model '{OLLAMA_MODEL_DEFAULT}' failed, setup considered incomplete.", "yellow")
-         status['ollama_setup_complete'] = False # Ensure setup is marked incomplete if default failed
+        status['ollama_setup_complete'] = False # Ensure setup is marked incomplete
+        # Don't necessarily exit, maybe user wants to use a different model later
 
     save_status(status)
     print_color("--- Ollama Setup Complete ---", "HEADER")
