@@ -1,9 +1,11 @@
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
+import tailwind from '@astrojs/tailwind';
+import react from '@astrojs/react';
 
 export default defineConfig({
   site: 'https://amuzetnoM.github.io/artifactvirtual',
-  base: '/', // Add explicit base path
+  base: '/', 
   output: 'static',
   integrations: [
     starlight({
@@ -11,26 +13,22 @@ export default defineConfig({
       customCss: [
         './src/styles/custom.css',
       ],
-      defaultLocale: 'root', // Changed from 'en' to 'root'
+      defaultLocale: 'root', 
       locales: {
         root: {
           label: 'English',
-          lang: 'en', // Specify language code
+          lang: 'en',
         },
       },
-      social: [
-        { 
-          label: 'GitHub',
-          href: 'https://github.com/amuzetnoM/artifactvirtual',
-          icon: 'github'
-        }
-      ],
+      social: {
+        github: 'https://github.com/amuzetnoM/artifactvirtual',
+      },
       sidebar: [
         {
           label: 'Journal',
           autogenerate: { 
             directory: 'journal',
-            collapsed: false // Ensure expanded by default
+            collapsed: false
           }
         },
         {
@@ -55,8 +53,18 @@ export default defineConfig({
           }
         },
       ],
-      // Add pagination setting to ensure we show prev/next links
       pagination: true,
+      // Add dark theme configuration directly in Starlight
+      darkMode: true, // Enable dark mode toggle
+      preferDark: true, // Set dark mode as the default
+      // Add custom accent color
+      components: {
+        Head: './src/components/CustomHead.astro',
+      }
     }),
+    tailwind({
+      applyBaseStyles: false,
+    }),
+    react(),
   ],
 });
