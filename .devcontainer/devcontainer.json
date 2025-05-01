@@ -1,52 +1,51 @@
 {
-  "build": {
-    "dockerfile": "./Dockerfile",
-    "context": "."
-  },
+  "name": "ArtifactVirtual Dev Environment", // Added a name
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "app", // Connect VS Code to the 'app' service
+  "runServices": ["app", "postgres"], // Ensure both services are started
+  "workspaceFolder": "/workspace", // Explicitly set workspace folder
   "features": {
+    // Kept essential features, ensured CUDA is removed
     "ghcr.io/devcontainers/features/common-utils:2": {
       "username": "codespace",
-      "userUid": "1000",
-      "userGid": "1000"
+      "uid": "1000",
+      "gid": "1000",
+      "installZsh": "false", // Explicitly disable Zsh if not needed
+      "installOhMyZsh": "false",
+      "configureZshAsDefaultShell": "false",
+      "upgradePackages": "true" // Keep packages updated
     },
     "ghcr.io/devcontainers/features/git:1": {
       "version": "latest",
       "ppa": false
     },
-    "ghcr.io/devcontainers/features/node:1": {
-      "version": "20"
-    },
     "ghcr.io/devcontainers/features/python:1": {
-      "version": "3.11.9",
-      "installJupyterLab": false
+      // Using feature for Python management is often more robust
+      "version": "3.11", // Specify desired Python version
+      "installTools": true, // Installs pipx, poetry, etc.
+      "installJupyterlab": true // Let the feature handle Jupyter if needed
     },
-    "ghcr.io/devcontainers/features/git-lfs:1": {},
-    "ghcr.io/devcontainers/features/github-cli:1": {},
-    "ghcr.io/devcontainers/features/docker-in-docker:2": {},
-    "ghcr.io/devcontainers/features/cuda:1": {
-      "version": "12.2.2",
-      "installCudaToolkit": true
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "20" // Keep Node.js
+    },
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {
+      // Keep Docker-in-Docker
+      "version": "latest",
+      "moby": true, // Use Moby build
+      "installDockerBuildx": true
     }
+    // Removed git-lfs, github-cli features for simplicity unless strictly needed
+    // Removed CUDA feature entirely
   },
-  "overrideFeatureInstallOrder": [
-    "ghcr.io/devcontainers/features/common-utils",
-    "ghcr.io/devcontainers/features/git",
-    "ghcr.io/devcontainers/features/git-lfs",
-    "ghcr.io/devcontainers/features/github-cli",
-    "ghcr.io/devcontainers/features/node",
-    "ghcr.io/devcontainers/features/python",
-    "ghcr.io/devcontainers/features/docker-in-docker",
-    "ghcr.io/devcontainers/features/cuda"
-  ],
-  "remoteUser": "codespace",
-  "containerUser": "codespace",
-  "onCreateCommand": "python debugdiag/main.py bootstrap",
+  // Removed overrideFeatureInstallOrder as it's often not needed unless specific ordering is critical
+  "remoteUser": "codespace", // Ensure VS Code runs as non-root user
+  // Keep onCreateCommand commented out for now
+  // "onCreateCommand": "python /workspace/utils/debugdiag/main.py bootstrap",
+  // Post-create command: Install requirements AND run the Ollama bootstrap script
+  "postCreateCommand": "pip install --user -r /workspace/requirements.txt && sudo chown codespace:codespace -R /workspace && sudo chmod +x /workspace/.devcontainer/bootstrap.sh && /workspace/.devcontainer/bootstrap.sh",
   "customizations": {
-    "codespaces": {
-      "disableAutomaticConfiguration": true,
-      "openFiles": ["README.md"]
-    },
     "vscode": {
+      // Keep existing extensions
       "extensions": [
         "ms-python.python",
         "ms-toolsai.jupyter",
@@ -55,19 +54,18 @@
         "ms-azuretools.vscode-docker",
         "github.copilot"
       ],
+      // Keep existing settings, ensure Python path uses feature-installed Python
       "settings": {
-        "jupyter.kernels.excludePythonEnvironments": [
-          "/usr/local/python/current/bin/python3",
-          "/usr/bin/python3",
-          "/bin/python3"
-        ],
+        "python.defaultInterpreterPath": "/usr/local/python/current/bin/python", // Path from python feature
+        "python.terminal.activateEnvironment": false, // Let VS Code handle activation if needed
+        "jupyter.kernels.excludePythonEnvironments": [], // Clear exclusions, let VS Code find kernels
         "workbench.editorAssociations": {
           "*.md": "vscode.markdown.preview.editor"
-        },
-        "python.defaultInterpreterPath": "/usr/local/python/current/bin/python3"
+        }
       }
     }
   },
+  // Keep port forwarding
   "forwardPorts": [7860, 8888, 5000, 8501, 5432],
   "portsAttributes": {
     "7860": { "label": "Gradio" },
@@ -76,11 +74,8 @@
     "8501": { "label": "Streamlit" },
     "5432": { "label": "PostgreSQL" }
   },
+  // Keep workspace data mount, pgdata is handled by compose
   "mounts": [
-    "source=artifactvirtual-data,target=/workspace/.data,type=volume",
-    "source=pgdata,target=/var/lib/postgresql/data,type=volume"
-  ],
-  "runServices": ["postgres"],
-  "service": "postgres",
-  "dockerComposeFile": ["docker-compose.yml"]
+    "source=artifactvirtual-data,target=/workspace/.data,type=volume"
+  ]
 }

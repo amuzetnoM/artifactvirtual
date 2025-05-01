@@ -42,10 +42,5 @@ echo "Pulling Ollama model: $MODEL_NAME..."
 timeout 600 ollama pull "$MODEL_NAME" || { echo "Error: Failed to pull model $MODEL_NAME within 10 minutes."; exit 1; }
 echo "Model $MODEL_NAME pulled successfully."
 
-# Run the original Python bootstrap script
-echo "Running original Python bootstrap script..."
-python /workspace/debugdiag/main.py bootstrap
-echo "Original Python bootstrap script finished."
-
 echo "Bootstrap process completed successfully."
 # The background 'ollama serve &' process will continue running.

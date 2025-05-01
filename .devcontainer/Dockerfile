@@ -1,70 +1,43 @@
-# Use CUDA-ready base or fallback to base if unavailable
-ARG VARIANT="focal"
-FROM buildpack-deps:${VARIANT}-curl
+# Use a base image provided by dev container features for better compatibility
+# The actual base image will be determined by the features used (e.g., Python feature)
+# This Dockerfile now primarily handles OS packages and specific tools not covered by features.
 
-LABEL dev.containers.features="common"
-ENV DEBIAN_FRONTEND=noninteractive
+# ARG VARIANT="focal" # Base image selection is now handled by features
+# FROM buildpack-deps:${VARIANT}-curl # Base image selection is now handled by features
 
-# System Essentials
-RUN apt-get update && apt-get install -y \
-    build-essential \
-    software-properties-common \
-    curl wget git unzip nano \
-    libpq-dev postgresql-client \
-    ffmpeg sox libsndfile1 \
-    python3 python3-pip python3-venv python3-dev \
-    nodejs npm \
-    && apt-get clean
+# Install OS-level dependencies not covered by features
+# Features like Python, Node will handle their own core dependencies.
+RUN apt-get update && export DEBIAN_FRONTEND=noninteractive && apt-get install -y --no-install-recommends \
+    # For PostgreSQL client and libraries
+    libpq-dev \
+    postgresql-client \
+    # For audio/video processing if needed by Python packages
+    ffmpeg \
+    sox \
+    libsndfile1 \
+    # Other utilities
+    git \
+    curl \
+    wget \
+    unzip \
+    nano \
+    # Clean up
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
-# Create working directory
-WORKDIR /workspace
+# Python, Node, Docker-in-Docker, common utils are installed via features in devcontainer.json
 
-# First-run notice
+# Create working directory (usually /workspace or /workspaces/...) - Features might set this too.
+# WORKDIR /workspace # Let devcontainer.json handle workspaceFolder
+
+# Copy first-run notice if still desired
 COPY first-run-notice.txt /usr/local/etc/vscode-dev-containers/
-
-# Upgrade Python tooling
-RUN pip3 install --upgrade pip setuptools wheel
-
-# Install Python AI stack
-RUN pip3 install \
-    torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cpu \
-    transformers \
-    sentence-transformers \
-    langchain \
-    chromadb \
-    psycopg2-binary \
-    fastapi \
-    uvicorn[standard] \
-    rich \
-    pydantic \
-    jupyterlab
-
-# Optional: Node tools for frontend or devtools
-RUN npm install -g serve yarn
-
-# Optional: Whisper alternative or TTS
-RUN pip3 install faster-whisper TTS
 
 # Install Ollama
 RUN curl -fsSL https://ollama.com/install.sh | sh
 
-# Make bootstrap script executable
-# Note: Ensure bootstrap.sh exists in .devcontainer before building
-RUN chmod +x /workspace/.devcontainer/bootstrap.sh
+# Ollama models directory setup and server start will be handled by bootstrap.sh or manually
 
-# CUDA fallback environment check (set during runtime)
-ENV CUDA_VISIBLE_DEVICES=0
+# Note: pip install -r requirements.txt is now handled by postCreateCommand in devcontainer.json
 
-CMD ["bash"] VARIANT="focal"
-FROM buildpack-deps:${VARIANT}-curl
-
-LABEL dev.containers.features="common"
-
-COPY first-run-notice.txt /tmp/scripts/
-
-# Move first run notice to right spot
-RUN mkdir -p "/usr/local/etc/vscode-dev-containers/" \
-    && mv -f /tmp/scripts/first-run-notice.txt /usr/local/etc/vscode-dev-containers/
-
-# Remove scripts now that we're done with them
-RUN rm -rf /tmp/scripts
+# Note: CMD is not needed as docker-compose uses 'sleep infinity'

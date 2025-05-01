@@ -28,3 +28,5 @@ mcp[cli]>=0.1.0
 auto-round>=0.5.1
 # For CPU-only: auto-round[cpu]>=0.5.1
 # For HPU: auto-round-lib>=0.5.1
+langchain
+transformers
