@@ -1,194 +1,142 @@
-# REGEN
+# ArtifactVirtual: AI Workspace & Oracles System
 
-And so it begins...
-
-### Debugging & Diagnostics CLI
-
-### Project Start Log
-- **Date Started:** April 28, 2025
-- **Operating System:** Linux
-- **Workspace:** /workspaces/worxpace
-
-### Initial Setup
-- Ensure **Python 3.11+** and **pip** are installed.
-- Ensure **Node.js 20+** and **npm** are installed (for JS samples and the documentation site).
-- Ensure **Git** and **Git LFS** are installed.
-- Ensure **curl** is available (for curl samples).
-- Create and activate a Python virtual environment (recommended):
-  ```bash
-  python -m venv .venv
-  source .venv/bin/activate # Linux/macOS
-  # .venv\Scripts\activate # Windows
-  ```
-- Install all Python dependencies:
-  ```bash
-  pip install -r requirements.txt
-  ```
-  *This includes libraries for core AI/ML (PyTorch, Transformers, MosaicML CLI, einops), PDF processing (PyPDF2, pdfplumber), image handling (Pillow), web scraping (BeautifulSoup4), CLI tools (Typer, Rich, Click), evaluation (Azure AI Evaluation), and more.*
-- Install Node.js dependencies for the root project (used by some samples):
-  ```bash
-  npm install
-  ```
-- Install Node.js dependencies for the documentation site:
-  ```bash
-  cd celestial-chaos
-  npm install
-  cd ..
-  ```
-
-### Development Container with AI & CUDA Support
-- A pre-configured Dev Container is available (`.devcontainer/`) which handles all setup steps automatically.
-- Developed a robust development container for reproducible environments.
-- Integrated AI functionality for advanced workflows.
-- **Current Setup (May 1, 2025):**
-    - Uses Docker Compose (`docker-compose.yml`) to manage two services:
-        - `app`: Builds the main development environment using the `Dockerfile` and dev container features.
-        - `postgres`: Runs a PostgreSQL 15 database.
-    - Relies heavily on **Dev Container Features** (`devcontainer.json`) for installing core components like Python 3.11, Node.js 20, Git, common utilities, and Docker-in-Docker. This makes the setup more standardized and maintainable.
-    - The `Dockerfile` primarily installs essential OS packages (like `ffmpeg`, `postgresql-client`) and Ollama.
-    - **CUDA Feature Removed:** The CUDA feature was temporarily removed due to build errors related to accessing the feature registry (`ghcr.io`). The container currently operates in a CPU-only mode for AI tasks.
-    - **Bootstrap Process:**
-        - The `postCreateCommand` in `devcontainer.json` runs after the container is built and started.
-        - It installs Python requirements from `/workspace/requirements.txt`.
-        - It then executes the `/workspace/.devcontainer/bootstrap.sh` script.
-        - `bootstrap.sh` starts the Ollama server in the background and pulls a default model (e.g., `llama3.2:1b`), making it ready for use.
-- **Includes PostgreSQL Database:** A PostgreSQL 15 service (`pg-artifact`) is managed via Docker Compose, automatically initialized on container startup with the database `artifact_db`.
-
-### Debugging & Diagnostic Tool
-- Built a comprehensive debugging and diagnostic tool with its own CLI interface.
-- Utilizes Python's `logging` module for scalable, reproducible logs.
-- Logs are stored in a dedicated `.logs` directory.
-- Logger is initialized at project start and used throughout the CLI.
-
-### CLI Terminal
-- CLI built using `click` and `rich` for structured commands and enhanced output.
-- Organized into groups: `project`, `logs`, and `diagnose`.
-- Commands include:
-     - `project status`: Shows system and project status.
-     - `logs show`: Displays the last 20 log entries.
-     - `logs clear`: Clears the debug log.
-     - `diagnose ping`: Checks connectivity to a host (default: 8.8.8.8).
-
-### Testing Workflows
-- Added `pytest` for automated testing (included in `requirements.txt`).
-- Run `pytest` to execute all tests and validate the debugging tool and CLI workflows.
-- Test files should be named `test_*.py` for automatic discovery.
-
-### TemporalCalendar Test Program
-- Developed `temporalcalendar`, a test program to verify workspace setup and readiness for advanced research and development.
-- Ensures the environment is correctly configured for further experimentation.
-
-### Knowledge Foundations & Datasets
-- Extensively researched intelligence and the data that constitutes intelligence.
-- Distilled findings into a curated library of fundamental truths and knowledge foundations.
-- The cumulative dataset is located in the `datasets` folder.
-
-### Datasets Overview
-
-Each dataset was selected for its foundational value in understanding intelligence and supporting reproducible research:
-
-- **core_facts.json**  
-     *Origin:* Curated from encyclopedic sources and foundational scientific literature.  
-     *Content:* Contains universally accepted facts across mathematics, physics, biology, and logic.  
-     *Purpose:* Serves as the backbone for reasoning and inference tasks.
-
-- **reasoning_patterns.json**  
-     *Origin:* Synthesized from cognitive science and AI research papers.  
-     *Content:* Catalogs common reasoning templates and logical deduction patterns.  
-     *Purpose:* Enables the system to generalize and apply structured reasoning.
-
-- **language_primitives.json**  
-     *Origin:* Extracted from linguistic corpora and language model benchmarks.  
-     *Content:* Lists essential language constructs, grammar rules, and semantic primitives.  
-     *Purpose:* Supports robust natural language understanding and generation.
-
-- **temporal_events.json**  
-     *Origin:* Aggregated from historical datasets and time-series research.  
-     *Content:* Documents key events, timelines, and temporal relationships.  
-     *Purpose:* Facilitates temporal reasoning and event-based diagnostics.
-
-- **custom_annotations.json**  
-     *Origin:* Manually annotated during project development and research sprints.  
-     *Content:* Contains project-specific insights, edge cases, and experimental findings.  
-     *Purpose:* Captures evolving knowledge and supports continuous improvement.
-
-All datasets are versioned and documented for absolute clarity, reproducibility, and educational value.
-Each dataset was selected for its foundational value in understanding intelligence and supporting reproducible research.
-
-### Python, CMake, and AutoRound for LLM Quantization
-
-- **Python**: The workspace uses the latest Python 3.11+ (system-wide upgrade recommended).
-- **CMake**: CMake is required for building some dependencies (e.g., sentencepiece) and is now installed system-wide.
-- **AutoRound**: Intel's AutoRound is installed for advanced quantization and inference of large language models (LLMs) and vision-language models (VLMs), supporting 2, 3, 4, and 8-bit quantization.
-
-#### AutoRound Installation
-- Installed via PyPI or from source:
-  ```bash
-  # For GPU (CUDA/Intel GPU)
-  pip install auto-round
-  # For CPU only
-  pip install auto-round[cpu]
-  # Or from source (in auto-round directory):
-  pip install .
-  ```
-- Requires Python 3.9+ and CMake (system PATH).
-
-#### AutoRound CLI Example (4-bit Quantization)
-```bash
-auto-round \
-    --model Qwen/Qwen3-0.6B \
-    --bits 4 \
-    --group_size 128 \
-    --format "auto_gptq,auto_awq,auto_round" \
-    --output_dir ./tmp_autoround
+```mermaid
+flowchart TD
+    A[Root Project]
+    subgraph Core
+        B1[requirements.txt]
+        B2[setup.py]
+        B3[startup.py]
+        B4[README.md]
+    end
+    subgraph Oracles System
+        C1[oracles/]
+        C2[oracle_cli.py]
+        C3[requirements.txt]
+        C4[guide]
+        C5[plugins/]
+    end
+    subgraph Datasets
+        D1[datasets/]
+        D2[core_facts.json]
+        D3[reasoning_patterns.json]
+        D4[language_primitives.json]
+        D5[temporal_events.json]
+        D6[custom_annotations.json]
+    end
+    subgraph Cookbooks & Samples
+        E1[cookbooks/]
+        E2[samples/]
+        E3[python/]
+        E4[js/]
+        E5[curl/]
+    end
+    subgraph Utils
+        F1[utils/]
+        F2[auto-round/]
+        F3[debugdiag/]
+        F4[dspy/]
+        F5[modelcontextprotocol/]
+    end
+    subgraph Frontend
+        G1[frontend/]
+        G2[celestial-chaos/]
+        G3[av-next/]
+    end
+    subgraph TemporalCalendar
+        H1[temporalcalendar/]
+        H2[main.py]
+        H3[cli/]
+    end
+    A -->|Core| Core
+    A -->|Oracles| Oracles System
+    A -->|Datasets| Datasets
+    A -->|Cookbooks & Samples| Cookbooks & Samples
+    A -->|Utils| Utils
+    A -->|Frontend| Frontend
+    A -->|TemporalCalendar| TemporalCalendar
+    Oracles System --> C1
+    C1 --> C2
+    C1 --> C3
+    C1 --> C4
+    C1 --> C5
+    Datasets --> D1
+    D1 --> D2
+    D1 --> D3
+    D1 --> D4
+    D1 --> D5
+    D1 --> D6
+    Cookbooks & Samples --> E1
+    Cookbooks & Samples --> E2
+    E1 --> E3
+    E1 --> E4
+    E2 --> E5
+    Utils --> F1
+    F1 --> F2
+    F1 --> F3
+    F1 --> F4
+    F1 --> F5
+    Frontend --> G1
+    G1 --> G2
+    G1 --> G3
+    TemporalCalendar --> H1
+    H1 --> H2
+    H1 --> H3
 ```
 
-#### AutoRound Python API Example
-```python
-from transformers import AutoModelForCausalLM, AutoTokenizer
-from auto_round import AutoRound
+# ArtifactVirtual: AI Workspace & Oracles System
 
-model_name = "Qwen/Qwen3-0.6B"
-model = AutoModelForCausalLM.from_pretrained(model_name, torch_dtype="auto")
-tokenizer = AutoTokenizer.from_pretrained(model_name)
-
-bits, group_size, sym = 4, 128, True
-autoround = AutoRound(model, tokenizer, bits=bits, group_size=group_size, sym=sym)
-autoround.quantize_and_save("./tmp_autoround", format='auto_round')
-```
-
-#### Inference with Quantized Models
-```python
-from transformers import AutoModelForCausalLM, AutoTokenizer
-from auto_round import AutoRoundConfig
-
-quantized_model_path = "./tmp_autoround"
-model = AutoModelForCausalLM.from_pretrained(quantized_model_path, device_map="auto", torch_dtype="auto")
-tokenizer = AutoTokenizer.from_pretrained(quantized_model_path)
-text = "There is a girl who likes adventure,"
-inputs = tokenizer(text, return_tensors="pt").to(model.device)
-print(tokenizer.decode(model.generate(**inputs, max_new_tokens=50)[0]))
-```
-
-- AutoRound supports export to AutoRound, GPTQ, AWQ, and GGUF formats.
-- Integrated with HuggingFace Transformers (v4.51.3+).
-- Supports CPU, Intel GPU, CUDA, and HPU backends.
-- See `auto-round/README.md` for full documentation, recipes, and supported models.
-
-#### Achievements So Far
-- Automated Python environment setup and dependency management.
-- Established a robust, extensible logging system.
-- Developed a modular, user-friendly CLI for debugging and diagnostics.
-- Built a CUDA-enabled development container with integrated AI functionality.
-- Created a comprehensive debugging and diagnostic tool with its own CLI.
-- Developed the `temporalcalendar` test program to validate workspace readiness.
-- Curated and documented foundational datasets for intelligence research.
-- Ensured all steps and changes are documented and reproducible.
+ArtifactVirtual is a portable, self-initializing AI workspace for research, development, and creative exploration. It now includes a powerful multimodal LLM playground (the Oracles System) for advanced model orchestration, chaining, and multimodal workflows.
 
 ---
 
-> **Note:** Continue to update this documentation and the debug log as new features, commands, or changes are introduced. This ensures full reproducibility and transparency for all project activities.
+## 🚀 Quickstart
+
+1. **Clone the repository**
+2. **Run the bootstrap:**
+   ```bash
+   python startup.py
+   ```
+   This will:
+   - Check your system (Python, CUDA, PostgreSQL, Ollama, etc.)
+   - Install all dependencies
+   - Download and verify core Ollama models (phi4-mini, gemma3, llava)
+   - Set up AutoRound, LangChain, LangGraph, DSPy, and more
+   - Welcome you with an interactive prompt
+
+3. **Oracles CLI (Multimodal LLM Playground):**
+   ```bash
+   cd oracles
+   pip install -r requirements.txt
+   python oracle_cli.py
+   ```
+   - Chat with phi4-mini, gemma3, or llava
+   - Chain models (LangChain, LangGraph, DSPy)
+   - Run multimodal (image+text) pipelines
+   - Use plugins for extensibility
+   - Enjoy robust error handling and dependency checks
 
 ---
+
+## 🧠 Features
+- **Self-initializing:** Automated setup, dependency management, and service orchestration
+- **Oracles System:** Unified CLI for LLMs (phi4-mini, gemma3, llava) with chaining, multimodal, and plugin support
+- **Extensible:** Plugin system for new models/workflows (drop Python files in oracles/plugins)
+- **Robust error handling:** Informative errors, tracebacks, and dependency auto-install
+- **AutoRound:** Advanced quantization for LLMs/VLMs
+- **LangChain, LangGraph, DSPy:** For complex AI pipelines and workflows
+- **Datasets:** Curated knowledge and reasoning datasets in /datasets
+- **TemporalCalendar:** Advanced time reasoning demo
+
+---
+
+## 📚 Documentation
+- [oracles/guide](oracles/guide): Full details on using the Oracles CLI, chaining, multimodal, plugins, and advanced workflows
+- [cookbooks/](cookbooks/): Example notebooks and code for LangChain, LlamaIndex, OpenAI, and more
+- [samples/](samples/): Bash, Python, and JS samples for API and model usage
+
+---
+
+## 🏁 For more, see oracles/guide and the cookbooks folder.
 
 
