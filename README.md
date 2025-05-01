@@ -84,8 +84,6 @@ flowchart TD
     H1 --> H3
 ```
 
-![Artifact Virtual](https://img.shields.io/badge/ARTIFACT%20VIRTUAL-black?style=flat&labelColor=black&color=white)
-
 > Please note:
 > This branch is dedicated to covering documentation, research and the narrative behind artifact and all of its wings and projects.
 > If you're looking for the core development and all source code please switch to the devops branch.
