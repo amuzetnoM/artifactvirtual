@@ -54,10 +54,7 @@ export default defineConfig({
         },
       ],
       pagination: true,
-      // Add dark theme configuration directly in Starlight
-      darkMode: true, // Enable dark mode toggle
-      preferDark: true, // Set dark mode as the default
-      // Add custom accent color
+      // Configure theme through custom component instead of unrecognized options
       components: {
         Head: './src/components/CustomHead.astro',
       }
