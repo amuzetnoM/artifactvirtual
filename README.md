@@ -42,9 +42,8 @@ Artifact exists to:
 - Architect modular AI ecosystems — resilient, autonomous, and open.
 - Forge tools that empower creation, not dependence.
 - Design digital environments where builders think, imagine, and execute at the speed of thought.
-- 
 
-### ![ADE](https://img.shields.io/badge/ARTIFACT DEVELOPMENT ENGINE-white?style=flat&labelColor=white&color=black)
+![ADE](https://img.shields.io/badge/ARTIFACT%20DEVELOPMENT%20ENGINE-white?style=flat&labelColor=white&color=black)
 
 #### Current Focus
 
