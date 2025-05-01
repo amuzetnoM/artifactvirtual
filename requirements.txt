@@ -1,2 +1,35 @@
+azure-ai-inference~=1.0.0b4
+azure-ai-evaluation~=1.1.0
+openai~=1.37.1
+mistralai~=0.4.2
+python-dotenv~=1.0.1
+ipykernel~=6.29.5
+typer[all]>=0.12.3
+rich>=13.7.1
+click>=8.1.7
+pytest>=8.2.2
+datasets>=2.20.0
+transformers>=4.42.4
+torch>=2.3.1
+torchvision>=0.18.1
+langchain>=0.2.11
+llama-index>=0.10.66
+PyPDF2>=3.0.1
+pdfplumber>=0.11.2
+Pillow>=10.4.0
+beautifulsoup4>=4.12.3
+mosaicml-cli>=0.6.0
+einops>=0.8.0
+# --- New/Optional dependencies for advanced agent workflows ---
+# Model Context Protocol (MCP) for agent/server integration
+mcp[cli]>=0.1.0
+# AutoRound for LLM quantization and inference
+# (choose one: GPU, CPU, or both as needed)
+auto-round>=0.5.1
+# For CPU-only: auto-round[cpu]>=0.5.1
+# For HPU: auto-round-lib>=0.5.1
+langchain
+transformers
+
 python-dotenv~=1.0.1
 ipykernel~=6.29.5

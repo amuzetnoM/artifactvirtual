@@ -1,0 +1,76 @@
+from mcp.server.fastmcp import FastMCP
+from typing import Any, Dict, Callable
+import logging
+
+# Setup logging for security and audit
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger("GatewayServer")
+
+class ProtocolRegistry:
+    """Registry for protocol handlers."""
+    def __init__(self):
+        self.protocols: Dict[str, Callable] = {}
+
+    def register(self, name: str, handler: Callable):
+        if name in self.protocols:
+            logger.warning(f"Protocol '{name}' is already registered. Overwriting.")
+        self.protocols[name] = handler
+        logger.info(f"Registered protocol: {name}")
+
+    def get(self, name: str) -> Callable:
+        handler = self.protocols.get(name)
+        if not handler:
+            logger.error(f"Protocol '{name}' not found.")
+            raise ValueError(f"Protocol '{name}' not found.")
+        return handler
+
+# Security: Simple API key check (replace with robust auth in production)
+API_KEYS = {"demo-key-123"}
+
+def require_api_key(func):
+    def wrapper(*args, api_key: str = "", **kwargs):
+        if api_key not in API_KEYS:
+            logger.warning("Unauthorized access attempt.")
+            raise PermissionError("Invalid API key.")
+        return func(*args, **kwargs)
+    return wrapper
+
+# Modular protocol implementations
+def add_protocol(a: int, b: int) -> int:
+    return a + b
+
+def multiply_protocol(a: int, b: int) -> int:
+    return a * b
+
+def echo_protocol(message: str) -> str:
+    return message
+
+# Main server class
+class GatewayServer:
+    def __init__(self, name: str):
+        self.mcp = FastMCP(name)
+        self.registry = ProtocolRegistry()
+        self._register_protocols()
+
+    def _register_protocols(self):
+        self.registry.register("add", add_protocol)
+        self.registry.register("multiply", multiply_protocol)
+        self.registry.register("echo", echo_protocol)
+
+    @require_api_key
+    def handle(self, protocol: str, *args, **kwargs) -> Any:
+        handler = self.registry.get(protocol)
+        return handler(*args, **kwargs)
+
+    def expose(self):
+        @self.mcp.tool()
+        def gateway(protocol: str, args: list, kwargs: dict, api_key: str = "") -> Any:
+            return self.handle(protocol, *args, api_key=api_key, **kwargs)
+
+    def run(self):
+        self.expose()
+        self.mcp.run()
+
+if __name__ == "__main__":
+    server = GatewayServer("AdvancedGateway")
+    server.run()
