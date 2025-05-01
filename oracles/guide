@@ -1,0 +1,85 @@
+# Guide to the Oracles System: Multimodal LLM Playground
+
+This guide covers:
+- Using phi4-mini, gemma3, and llava with Ollama
+- The Oracles CLI for chatting, chaining, and multimodal workflows
+- Plugins, error handling, and extensibility
+- Advanced orchestration with LangChain, LangGraph, AutoRound, and DSPy
+
+---
+
+## 1. Quickstart
+
+1. Install dependencies:
+   ```bash
+   cd oracles
+   pip install -r requirements.txt
+   ```
+2. Ensure Ollama is running and models are downloaded:
+   ```bash
+   ollama run phi4-mini
+   ollama run gemma3
+   ollama run llava
+   ```
+3. Start the CLI:
+   ```bash
+   python oracle_cli.py
+   ```
+
+---
+
+## 2. CLI Features
+- Chat with phi4-mini, gemma3, or llava
+- Chain models (LangChain SimpleSequentialChain)
+- Multimodal: LLaVA (image+text) ➔ Gemma-3
+- LangGraph and DSPy workflow demos
+- Plugin system: drop Python files in oracles/plugins to add new models or workflows
+- Robust error handling: tracebacks, dependency auto-install, image validation
+
+---
+
+## 3. Example Workflows
+
+### Chaining Models with LangChain
+```python
+from langchain.llms import Ollama
+from langchain.chains import SimpleSequentialChain
+
+phi4 = Ollama(model="phi4-mini")
+gemma = Ollama(model="gemma3")
+
+chain = SimpleSequentialChain(llms=[phi4, gemma])
+result = chain.run("Summarize and expand on this article: ...")
+```
+
+### Multimodal Pipelines with LLaVA
+```python
+from langchain.llms import Ollama
+llava = Ollama(model="llava")
+gemma = Ollama(model="gemma3")
+image_description = llava.run(image="path/to/image.jpg", prompt="Describe this image.")
+story = gemma.run(prompt=f"Write a story based on: {image_description}")
+```
+
+---
+
+## 4. Plugins & Extensibility
+- Add new models or workflows by placing Python files in oracles/plugins
+- Plugins appear in the CLI menu automatically
+
+---
+
+## 5. Troubleshooting & Tips
+- If a dependency is missing, the CLI will prompt to install it
+- For image tasks, only valid image files are accepted
+- For advanced orchestration, see LangChain, LangGraph, and DSPy docs
+
+---
+
+## 6. References
+- [Phi-4 Mini on Ollama](https://ollama.com/library/phi4-mini)
+- [Gemma-3 on Ollama](https://ollama.com/library/gemma3)
+- [LLaVA on Ollama](https://ollama.com/library/llava)
+- [LangChain Documentation](https://python.langchain.com/)
+- [LangGraph Documentation](https://langchain-ai.github.io/langgraph/)
+- [DSPy Documentation](https://github.com/stanfordnlp/dspy)
