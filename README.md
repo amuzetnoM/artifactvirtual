@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 ![Artifact Virtual](https://img.shields.io/badge/ARTIFACT%20VIRTUAL-black?style=flat&labelColor=black&color=white)
 
 ```mermaid
