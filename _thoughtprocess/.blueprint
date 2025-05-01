@@ -1,0 +1,58 @@
+# S C A R A B (Self-Correcting Autonomous Reflective Adaptive Bot)
+
+### Overview
+The system incorporates a self-awareness module designed for continuous self-improvement. It periodically takes snapshots of its current state, enabling restoration from checkpoints if the model is unloaded or neutralized.
+
+### Data Acquisition & Update Cycle
+- **Data Fetching:** Utilizes MCP servers and a specialized AI-powered web crawler to fetch global data, focusing on math, code advancements, and diverse document types (PDFs, Office files, images, and more).
+- **Intelligent Crawling:** The crawler integrates an LLM (Large Language Model) layer for semantic understanding, filtering, and summarization.
+- **Multi-format Support:** Supports extraction from PDFs, Office documents, images (OCR), and other readable formats, with special handling for code repositories and technical documents.
+- **Distillation:** Extracts and distills critical information into concise, unbiased knowledge chunks, actively filtering out emotional bias, propaganda, and human-induced noise.
+- **Profile Update:** Generates a suggested profile based on new findings and attempts to update the previous snapshot.
+- **Checkpointing:** After updates, the system reboots and loads the latest checkpoint for continued operation.
+
+### Architecture
+
+#### Logical Components
+1. **State Manager**
+    - Handles snapshot creation, storage, and restoration.
+2. **Intelligent Web Crawler**
+    - Leverages the `fetch_web` feature of Model Context Protocols (MCP).
+    - Integrates an LLM layer for:
+      - Semantic filtering
+      - Reflective analysis
+      - Summarization
+    - Employs adaptive heuristics to prioritize high-value sources.
+    - **Multi-format Fetching:** Retrieves and processes PDFs, Office files, images (using OCR), and code repositories.
+3. **Distillation Engine**
+    - Processes raw data into actionable, bias-free knowledge units.
+    - Applies fact-checking and redundancy elimination.
+    - **Format-aware Processing:** Extracts text and code from various document types and images.
+4. **Profile Updater**
+    - Compares new knowledge with existing snapshots.
+    - Suggests and applies updates.
+5. **External Management Interface**
+    - Ensures the module is managed independently from the core system.
+    - Provides monitoring, configuration, and manual override capabilities.
+
+### Data Flow Diagram
+
+```mermaid
+flowchart TD
+     A[State Manager] -->|Snapshot/Restore| B[Intelligent Web Crawler]
+     B -->|Fetches Data (Web, PDF, Images, Code)| C[Distillation Engine]
+     C -->|Distilled Knowledge| D[Profile Updater]
+     D -->|Update| A
+     A -->|Status/Control| E[External Management Interface]
+```
+
+### Key Features
+- **Autonomous, Reflective Learning:** Continuously seeks and integrates global improvements.
+- **Bias Mitigation:** Actively filters out non-factual, emotionally charged, or propagandistic content.
+- **Multi-format Data Support:** Handles web pages, PDFs, Office documents, images (OCR), and code repositories.
+- **Modular & Externally Managed:** Designed for independent operation and oversight.
+
+---
+
+> **Note:** This architecture can be extended with reinforcement learning, anomaly detection, advanced explainability modules, and support for additional data formats for further robustness and transparency.
+
