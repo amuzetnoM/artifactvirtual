@@ -17,21 +17,35 @@ export default function Header({ onCreateNew, onSearch }: HeaderProps) {
     onSearch(searchQuery);
   };
 
+  // Helper function to get the correct icon based on the current theme
+  const getThemeIcon = () => {
+    // Simple cycle for now, could be more specific if needed
+    if (state.theme === 'light') return <Moon size={20} />;
+    // Add icons for other dark themes if desired, otherwise Sun for all darks
+    return <Sun size={20} />; 
+  };
+  
+  const getThemeAriaLabel = () => {
+    if (state.theme === 'light') return "Switch to dark mode";
+    // Could customize label based on next theme in cycle
+    return "Switch theme"; 
+  }
+
   return (
-    <header className="h-14 border-b border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 flex items-center px-4 sticky top-0 z-10 transition-colors duration-200">
+    <header className="h-14 border-b px-4 sticky top-0 z-10 flex items-center transition-colors duration-200 bg-card border-border text-card-foreground">
       <div className="flex items-center justify-between w-full">
         <div className="flex items-center space-x-4">
           <button 
             onClick={toggleSidebar}
-            className="p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-150"
+            className="p-2 rounded-md hover:bg-muted transition-colors duration-150"
             aria-label={state.sidebarOpen ? "Close sidebar" : "Open sidebar"}
           >
             {state.sidebarOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
           
           <div className="flex items-center space-x-2">
-            <div className="font-bold text-lg text-gray-900 dark:text-white hidden md:block">
-              <span className="ml-2 text-lg font-semibold text-gray-800 dark:text-white">
+            <div className="font-bold text-lg hidden md:block">
+              <span className="ml-2 text-lg font-semibold">
                 METEOR
               </span>
             </div>
@@ -44,14 +58,14 @@ export default function Header({ onCreateNew, onSearch }: HeaderProps) {
               <input
                 type="text"
                 placeholder="Search documents..."
-                className="w-full px-3 py-1.5 bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-150"
+                className="w-full px-3 py-1.5 bg-muted border rounded-md focus:outline-none focus:ring-2 focus:ring-primary transition-colors duration-150 border-border text-foreground"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 autoFocus
               />
               <button
                 type="button"
-                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-muted-foreground hover:text-foreground"
                 onClick={() => setIsSearchOpen(false)}
               >
                 <X size={16} />
@@ -60,7 +74,7 @@ export default function Header({ onCreateNew, onSearch }: HeaderProps) {
           ) : (
             <button
               onClick={() => setIsSearchOpen(true)}
-              className="p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-150"
+              className="p-2 rounded-md hover:bg-muted transition-colors duration-150"
               aria-label="Search"
             >
               <Search size={20} />
@@ -69,31 +83,31 @@ export default function Header({ onCreateNew, onSearch }: HeaderProps) {
           
           <button
             onClick={onCreateNew}
-            className="p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-150 hidden sm:flex"
+            className="p-2 rounded-md hover:bg-muted transition-colors duration-150 hidden sm:flex"
             aria-label="New document"
           >
             <Plus size={20} />
           </button>
           
           <button
-            className="p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-150 hidden md:flex"
+            className="p-2 rounded-md hover:bg-muted transition-colors duration-150 hidden md:flex"
             aria-label="Save"
           >
             <Save size={20} />
           </button>
           
-          <div className="border-l border-gray-200 dark:border-gray-700 h-6 mx-1 hidden md:block"></div>
+          <div className="border-l h-6 mx-1 hidden md:block border-border"></div>
           
           <button
             onClick={toggleTheme}
-            className="p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-150"
-            aria-label={state.theme === 'dark' ? "Switch to light mode" : "Switch to dark mode"}
+            className="p-2 rounded-md hover:bg-muted transition-colors duration-150"
+            aria-label={getThemeAriaLabel()}
           >
-            {state.theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
+            {getThemeIcon()}
           </button>
           
           <button
-            className="p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-150 hidden lg:flex"
+            className="p-2 rounded-md hover:bg-muted transition-colors duration-150 hidden lg:flex"
             aria-label="Settings"
           >
             <Settings size={20} />
