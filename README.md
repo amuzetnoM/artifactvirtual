@@ -2,31 +2,32 @@
 
 ## 🚦 Roadmap & Milestones
 
-```mermaid
-gantt
-title ArtifactVirtual Roadmap
-    dateFormat  YYYY-MM-DD
-    section Bootstrap & Setup
-    Workspace Bootstrap         :done,    a1, 2023-11-01,2023-11-10
-    DevContainer Integration   :done,    a2, 2023-11-05,2023-11-15
-    Automated Diagnostics      :done,    a3, 2023-11-10,2023-11-20
-    section Core Foundations
-    Knowledge Foundations      :done,    b1, 2023-11-15,2023-12-01
-    AutoRound Quantization     :done,    b2, 2023-12-01,2023-12-15
-    Model Context Protocol     :done,    b3, 2023-12-10,2023-12-20
-    section Applications & Utilities
-    Simulation Manager         :done,    c1, 2023-12-20,2024-01-10
-    Oracle CLI                 :done,    c2, 2024-01-05,2024-01-20
-    Meteor Markdown Editor     :active,  c3, 2024-01-15,2024-05-01
-    Temporal Calendar          :done,    c4, 2024-02-01,2024-02-20
-    section Expansion & Community
-    Cookbooks & Samples        :done,    d1, 2024-02-10,2024-03-01
-    Community Contributions    :active,  d2, 2024-03-01,2025-05-01
-    section Next & Future
-    LLM Fine-tuning Pipelines  :planned, e1, 2024-05-10,2024-06-01
-    Distributed Agent Systems  :planned, e2, 2024-06-01,2024-07-01
-    Research & Philosophy Docs :planned, e3, 2024-06-15,2024-07-15
-```
+**Phase 1: The Bootstrap Bounce-Back** 💪
+* ✅ Workspace Bootstrap (2023-11-01 to 2023-11-10)
+* ✅ DevContainer Integration (2023-11-05 to 2023-11-15)
+* ✅ Automated Diagnostics (2023-11-10 to 2023-11-20)
+
+**Phase 2: The Core Comeback Surge** 🧠
+* ✅ Knowledge Foundations (2023-11-15 to 2023-12-01)
+* ✅ AutoRound Quantization (2023-12-01 to 2023-12-15)
+* ✅ Model Context Protocol (2023-12-10 to 2023-12-20)
+
+**Phase 3: The Application Power Play Comeback** 🛠️
+* ✅ Simulation Manager (2023-12-20 to 2024-01-10)
+* ✅ Oracle CLI (2024-01-05 to 2024-01-20)
+* ⏳ Meteor Markdown Editor (2024-01-15 to 2025-05-01)
+* ✅ Temporal Calendar (2024-02-01 to 2024-02-20)
+
+**Phase 4: The Community Comeback Chorus** 🗣️
+* ✅ Cookbooks & Samples (2024-02-10 to 2024-03-01)
+* ⏳ Community Contributions (2024-03-01 to 2025-05-01)
+
+**Phase 5: The Future's Grand Comeback** ✨
+* 🗓️ LLM Fine-tuning Pipelines (2024-05-10 to 2024-06-01)
+* 🗓️ Distributed Agent Systems (2024-06-01 to 2024-07-01)
+* 🗓️ Research & Philosophy Docs (2024-06-15 to 2024-07-15)
+
+
 
 ```mermaid
 flowchart TD
