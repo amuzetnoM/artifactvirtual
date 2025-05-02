@@ -32,7 +32,7 @@ It is an open-source, modular development engine with progressively advanced fea
  
 
 (AVA 2.0)
-**An advanced AI assistant capable of multimodal interactions, including text, voice, and visual inputs. Built upon open-source models such as Whisper for speech recognition and LLaVA for visual understanding, REAGEN provides:**
+**An advanced AI assistant capable of multimodal interactions, including text, voice, and visual inputs. Built upon open-source models such as Whisper for speech recognition and LLaVA for visual understanding, RÆEN provides:**
 
 - Context-aware assistance in development tasks
 
