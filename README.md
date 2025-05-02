@@ -1,5 +1,7 @@
 ![Artifact Virtual](https://img.shields.io/badge/ARTIFACT%20VIRTUAL-black?style=flat&labelColor=black&color=white)
 
+![AV oL v1.0](https://img.shields.io/badge/ARTIFACT%20VIRTUAL-000000?style=for-the-badge&labelColor=ffffff&logoColor=000000&color=ffffff)
+![Commit](https://img.shields.io/badge/AV-000000?style=for-the-badge&logoColor=white&labelColor=000000&color=000000)
 
 
 Artifact Virtual is a paradox in motion. It is not a product, it's could never be rather it became an engine of ionised revolution. AV is built for strangeness, its built for the surreal. Its envisioned for free thinkers, visionaries and didacts, the alchemists of meaning. And for those who’ve learned to swim (or drown) in uncertainty with grace. On its surface, Artifact Virtual aims to be a platform: a nexus of creators, a centre for code, a temple of knowledge and art. But at its core, it's quite deliberate. Its a confrontation with noise and nihilism. A collision course with Norman, the antagonist. It exists to distill signal from entropy and meaning from machinery.
