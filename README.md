@@ -2,30 +2,43 @@
 
 ## 🚦 Roadmap & Milestones
 
-**Phase 1: The Bootstrap Bounce-Back** 💪
-* ✅ Workspace Bootstrap (2023-11-01 to 2023-11-10)
-* ✅ DevContainer Integration (2023-11-05 to 2023-11-15)
-* ✅ Automated Diagnostics (2023-11-10 to 2023-11-20)
 
-**Phase 2: The Core Comeback Surge** 🧠
-* ✅ Knowledge Foundations (2023-11-15 to 2023-12-01)
-* ✅ AutoRound Quantization (2023-12-01 to 2023-12-15)
-* ✅ Model Context Protocol (2023-12-10 to 2023-12-20)
 
-**Phase 3: The Application Power Play Comeback** 🛠️
-* ✅ Simulation Manager (2023-12-20 to 2024-01-10)
-* ✅ Oracle CLI (2024-01-05 to 2024-01-20)
-* ⏳ Meteor Markdown Editor (2024-01-15 to 2025-05-01)
-* ✅ Temporal Calendar (2024-02-01 to 2024-02-20)
+<svg width="1000" height="800" xmlns="http://www<svg width="1000" height="800" viewBox="0 0 1000 800" xmlns="http://www.w3.org/2000/svg" style="background:#fff; font-family:sans-serif;">
+  <style>
+    .node { stroke: #000; stroke-width: 1.5; fill: #fff; opacity: 0; animation: fadeSlideIn 1s forwards; }
+    .done { fill: #28a745; }
+    .active { fill: #ffc107; }
+    .planned { fill: #007bff; }
+    .text { font-size: 12px; fill: #000; opacity: 0; animation: fadeIn 1s forwards; }
+    .badge { font-size: 10px; fill: #fff; text-anchor: middle; opacity: 0; animation: fadeIn 1s forwards; }
 
-**Phase 4: The Community Comeback Chorus** 🗣️
-* ✅ Cookbooks & Samples (2024-02-10 to 2024-03-01)
-* ⏳ Community Contributions (2024-03-01 to 2025-05-01)
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
 
-**Phase 5: The Future's Grand Comeback** ✨
-* 🗓️ LLM Fine-tuning Pipelines (2024-05-10 to 2024-06-01)
-* 🗓️ Distributed Agent Systems (2024-06-01 to 2024-07-01)
-* 🗓️ Research & Philosophy Docs (2024-06-15 to 2024-07-15)
+    @keyframes fadeSlideIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+
+  <g style="animation-delay: 0s">
+    <rect x="40" y="40" width="180" height="30" class="node" />
+    <text x="50" y="60" class="text" style="animation-delay: 0.1s">Workspace Bootstrap</text>
+    <circle cx="215" cy="55" r="7" class="done" />
+    <text x="215" y="59" class="badge" style="animation-delay: 0.2s">D</text>
+  </g>
+
+  <g style="animation-delay: 0.3s">
+    <rect x="240" y="40" width="200" height="30" class="node" />
+    <text x="250" y="60" class="text" style="animation-delay: 0.4s">DevContainer Integration</text>
+    <circle cx="435" cy="55" r="7" class="done" />
+    <text x="435" y="59" class="badge" style="animation-delay: 0.5s">D</text>
+  </g>
+
+  </svg>
+
 
 
 
