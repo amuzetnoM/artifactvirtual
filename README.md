@@ -1,183 +1,130 @@
-<<<<<<< HEAD
-![Artifact Virtual](https://img.shields.io/badge/ARTIFACT%20VIRTUAL-black?style=flat&labelColor=black&color=white)
+# ArtifactVirtual: Advanced AI Development Workspace
 
-```mermaid
-flowchart TD
-    A[Root Project]
-    subgraph Core
-        B1[requirements.txt]
-        B2[setup.py]
-        B3[startup.py]
-        B4[README.md]
-    end
-    subgraph Oracles_System[Oracles System]
-        C1[oracles/]
-        C2[oracle_cli.py]
-        C3[requirements.txt]
-        C4[guide]
-        C5[plugins/]
-    end
-    subgraph Datasets
-        D1[datasets/]
-        D2[core_facts.json]
-        D3[reasoning_patterns.json]
-        D4[language_primitives.json]
-        D5[temporal_events.json]
-        D6[custom_annotations.json]
-    end
-    subgraph Cookbooks_Samples[Cookbooks & Samples]
-        E1[cookbooks/]
-        E2[samples/]
-        E3[python/]
-        E4[js/]
-        E5[curl/]
-    end
-    subgraph Utils
-        F1[utils/]
-        F2[auto-round/]
-        F3[debugdiag/]
-        F4[dspy/]
-        F5[modelcontextprotocol/]
-    end
-    subgraph Frontend
-        G1[frontend/]
-        G2[celestial-chaos/]
-        G3[av-next/]
-    end
-    subgraph TemporalCalendar
-        H1[temporalcalendar/]
-        H2[main.py]
-        H3[cli/]
-    end
-    A -->|Core| Core
-    A -->|Oracles| Oracles_System
-    A -->|Datasets| Datasets
-    A -->|Cookbooks & Samples| Cookbooks_Samples
-    A -->|Utils| Utils
-    A -->|Frontend| Frontend
-    A -->|TemporalCalendar| TemporalCalendar
-    Oracles_System --> C1
-    C1 --> C2
-    C1 --> C3
-    C1 --> C4
-    C1 --> C5
-    Datasets --> D1
-    D1 --> D2
-    D1 --> D3
-    D1 --> D4
-    D1 --> D5
-    D1 --> D6
-    Cookbooks_Samples --> E1
-    Cookbooks_Samples --> E2
-    E1 --> E3
-    E1 --> E4
-    E2 --> E5
-    Utils --> F1
-    F1 --> F2
-    F1 --> F3
-    F1 --> F4
-    F1 --> F5
-    Frontend --> G1
-    G1 --> G2
-    G1 --> G3
-    TemporalCalendar --> H1
-    H1 --> H2
-    H1 --> H3
+[![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20macOS%20%7C%20Linux-blue)](https://github.com/amuzetnoM/artifactvirtual)
+[![Python](https://img.shields.io/badge/Python-3.11+-brightgreen)](https://www.python.org/downloads/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+ArtifactVirtual provides a seamless, self-initializing AI development workspace designed for research, experimentation, and deployment of advanced AI systems. This project combines powerful local LLM capabilities with comprehensive quantization tools, diagnostics utilities, and structured knowledge systems.
+
+## 🚀 Quickstart
+
+### Prerequisites
+- Python 3.11+ with pip
+- Node.js 20+ with npm (for JS samples and documentation)
+- Git and Git LFS
+- Curl (for samples)
+
+### One-Command Setup
+```bash
+python startup.py
 ```
 
+This initializes your environment automatically:
+1. Verifies system requirements and dependencies
+2. Sets up a Python virtual environment
+3. Installs required packages (PyTorch, Transformers, LangChain, etc.)
+4. Configures Ollama with required models
+5. Sets up AutoRound for model quantization
+6. Presents an interactive welcome prompt
 
+## 🧠 Key Components
 
-=======
-!
+- **Self-Initializing Bootstrap**: Cross-platform startup system that works natively on Windows, macOS, and Linux
+- **Debugging & Diagnostics CLI**: `debugdiag` tool for system introspection, logging, and troubleshooting
+- **LLM Integration**:
+  - **Ollama**: Local LLM server setup and management
+  - **AutoRound**: Advanced quantization for LLMs with 2, 3, 4, and 8-bit precision
+  - **Model Context Protocol (MCP)**: Standardized way to provide context to LLMs
+- **Oracle CLI**: Multimodal LLM playground with model chaining and plugin system
+- **Knowledge Foundations**: Comprehensive datasets and knowledge libraries
+- **Sample Code**: Examples for various LLM providers (OpenAI, MistralAI, etc.)
+- **Documentation**: Beautiful documentation site built with Astro/Starlight
 
+## 📚 Documentation
 
+- [Getting Started](docs/gettingstarted.md): Complete setup and first steps
+- [Troubleshooting](docs/troubleshooting.md): Common issues and solutions
+- [Resources](docs/resources.md): Additional resources and references
 
-[Artifact Virtual](https://img.shields.io/badge/ARTIFACT%20VIRTUAL-black?style=flat&labelColor=black&color=white)
->>>>>>> 80c71a394db2e034731a8e11e00c13dd6bf28eca
+## 📊 Project Structure
 
-> Please note:
-> This branch is dedicated to covering documentation, research and the narrative behind artifact and all of its wings and projects.
-> If you're looking for the core development and all source code please switch to the devops branch.
+```
+artifactvirtual/
+├── .startup/               # Bootstrap initialization scripts
+├── backup/                 # Backup of documentation and research
+├── cookbooks/              # LLM integration examples (LlamaIndex, LangChain, etc.)
+├── datasets/               # Knowledge foundations and curated resources
+├── devcontainer/           # VS Code devcontainer configuration 
+├── docs/                   # Core documentation
+├── frontend/               # Documentation site (Astro/Starlight)
+├── oracles/                # LLM playground CLI with model chaining
+├── samples/                # Code samples for various LLM providers
+├── temporalcalendar/       # Test program for workspace validation
+├── utils/                  # Utility tools
+│   ├── auto-round/         # LLM model quantization
+│   ├── debugdiag/          # Debugging and diagnostic tools
+│   └── modelcontextprotocol/ # MCP implementation
+├── README.md               # Project overview
+├── requirements.txt        # Core Python dependencies
+├── setup.py               # Package configuration
+└── startup.py             # Main bootstrap script
+```
 
-Artifact Virtual iss a paradox in motion. It is not a product, it's an engine of ionised revolution. AV built for strangeness, its built for the surreal. Its envisioned for free thinkers, visionaries and didacts, the alchemists of meaning. And for those who’ve learned to swim (or drown) in uncertainty with grace. On its surface, Artifact Virtual aims to be a platform: a nexus of creators, a centre for code, a temple of knowledge and art. But at its core, it's quite deliberate. Its a confrontation with noise and nihilism. A collision course with Norman, the antagonist. It exists to distill signal from entropy and meaning from machinery.
+## 🛠️ Development
 
-Here, creation is not simply an output. It is revelation. Every thought, every idea, every actuon is treated like an artifact. A vessel of intent, an echo of purpose, forged not just to core function, but to endure and persevere. The word "Virtual" isn't a concession to illusion but a mirror into infinite potential and the shear width of the mind. 
+### Setting up a Development Environment
 
-*what could be, if you had the right tools and merely a thought that aligned truly, absolutely?*
+1. Clone the repository:
+```bash
+git clone https://github.com/amuzetnoM/artifactvirtual.git
+cd artifactvirtual
+```
 
-Artifact is a challenge.
-It seeks wisdom, not just knowledge; economy, not just money; emergence, not just virality. It is where technology remembers its soul and it's creator.
+2. Run the automated setup:
+```bash
+python startup.py
+```
 
-At the edge of chaos, Artifact Virtual operates as a scalpel, skimming away the bloated excess of mainstream digital life to expose the raw nerve of what lies behind. 
-A truth, beautiful yet irresponsible. 
+3. Activate the virtual environment:
+```bash
+# On Windows
+.venv\Scripts\activate
 
-*...but isn't all life? Everything ever created?*
+# On macOS/Linux
+source .venv/bin/activate
+```
 
+### Running the Diagnostic Tools
 
-We are not here to merge, we are here to fork. 
-We are here to question, questions and dissecting knowledge to trace its origin. To advocate the real against the belief. 
+```bash
+# Show system status
+python utils/debugdiag/main.py project status
 
-We are a rebellion against stagnation, against whats known, whats believed. 
-A framework of thinking, and evolving.
+# View logs
+python utils/debugdiag/main.py logs show
 
-We are not here to replicate the past.  
-We are here to create new worlds: knowledge systems, thinking machines, and architectures for a freer future.
+# Check connectivity
+python utils/debugdiag/main.py diagnose ping
+```
 
-This is Day 1.  
-This is ReGenesis.
+### Working with LLMs
 
-Today, an idea is born.
-> Tomorrow, it will grow. 
+```bash
+# Start the Oracle CLI
+python oracles/oracle_cli.py
 
-### Vision
+# Quantize a model with AutoRound
+python -m auto_round --model Qwen/Qwen3-0.6B --bits 4 --group_size 128
+```
 
-Artifact exists to:
+## 📝 License
 
-- Create structured, causal knowledge systems — built for reasoning, not storage.
-- Architect modular AI ecosystems — resilient, autonomous, and open.
-- Forge tools that empower creation, not dependence.
-- Design digital environments where builders think, imagine, and execute at the speed of thought.
-- 
+This project is licensed under the MIT License - see the LICENSE file for details.
 
-## ARTIFACT DEVELOPMENT ENGINE
+## 🔗 Connect
 
-![ADE](https://img.shields.io/badge/ADE-transparent?style=flat&labelColor=black&color=white)
+- [GitHub](https://github.com/amuzetnoM/artifactvirtual)
 
-#### Current Focus
+---
 
-- ReGen Journal: Raw, unfiltered frameworks and thoughts.
-- Knowledge Frameworks: Building the first structured knowledge assets.
-- RAG Systems: Real-time, inference-driven AI retrieval methods.
-- LangGraph Agents: Modular planning, reasoning, execution and abstraction.
-- Visual Intelligence: Dynamic visualizations of systems, codebases, and ideas.
-
-
-
-AV and ADE are designed for those who intend to **own their creations**, 
-**master their tools**, and 
-**forge entire realities.**
-
-This is not a product.  
-This is a weapon for creation, a tool of thought.
-
-
->                                                and quite honestly, a lot more...
-
-
-
-
-> This branch is established to jump into a playground of thought and reason.
-> Here you will find a journal and a manifesto of however all this emerged. (progressively evolving and, at time, questionable)
-> All journal entries are planned to reside inside `/content/journal/`.
-
-> To review and contribute to the development, please switch to the devops branch.
-
-
-
-     to be seen, is to cease to be.
-
-
-
-
-![Commit](https://img.shields.io/badge/COMMIT.-000000?style=for-the-badge&logoColor=white&labelColor=000000&color=000000)
-
+ArtifactVirtual: Structured Knowledge Systems, AI Ecosystems, and Tools that Empower Creation.
