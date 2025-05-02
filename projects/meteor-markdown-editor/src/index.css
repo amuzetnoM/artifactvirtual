@@ -1,0 +1,90 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  /* Define CSS variables for themes */
+  :root {
+    /* Light Theme (Default - Soft Off-White/Slate) */
+    --color-background: #f8fafc; /* slate-50 */
+    --color-foreground: #0f172a; /* slate-900 */
+    --color-muted: #e2e8f0;       /* slate-200 */
+    --color-muted-foreground: #64748b; /* slate-500 */
+    --color-card: #ffffff;       /* white */
+    --color-card-foreground: #0f172a; /* slate-900 */
+    --color-border: #e2e8f0;       /* slate-200 */
+    --color-primary: #2563eb;       /* blue-600 */
+    --color-primary-foreground: #ffffff; /* white */
+    
+    /* Apply base background and text color */
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    /* Smooth transitions for color changes */
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  .dark-theme-current { /* Your original dark theme */
+    --color-background: #0d1117; /* Original dark background */
+    --color-foreground: #c9d1d9; /* Original dark text */
+    --color-muted: #161b22;       /* Original dark muted bg */
+    --color-muted-foreground: #8b949e; /* Original dark muted text */
+    --color-card: #161b22;       /* Original dark card bg */
+    --color-card-foreground: #c9d1d9; /* Original dark card text */
+    --color-border: #30363d;       /* Original dark border */
+    --color-primary: #2f81f7;       /* Original dark primary */
+    --color-primary-foreground: #ffffff; /* white */
+  }
+  
+  .dark-theme-slate { /* New Slate Dark Theme */
+    --color-background: #1e293b; /* slate-800 */
+    --color-foreground: #e2e8f0; /* slate-200 */
+    --color-muted: #334155;       /* slate-700 */
+    --color-muted-foreground: #94a3b8; /* slate-400 */
+    --color-card: #334155;       /* slate-700 */
+    --color-card-foreground: #e2e8f0; /* slate-200 */
+    --color-border: #475569;       /* slate-600 */
+    --color-primary: #60a5fa;       /* blue-400 */
+    --color-primary-foreground: #0f172a; /* slate-900 */
+  }
+
+  .dark-theme-midnight { /* New Midnight Blue Theme */
+    --color-background: #1a202c; /* gray-900 (Tailwind v2 name) -> similar to slate-900 */
+    --color-foreground: #e2e8f0; /* slate-200 */
+    --color-muted: #2d3748;       /* gray-800 -> similar to slate-800 */
+    --color-muted-foreground: #a0aec0; /* gray-400 -> similar to slate-500 */
+    --color-card: #2d3748;       /* gray-800 */
+    --color-card-foreground: #e2e8f0; /* slate-200 */
+    --color-border: #4a5568;       /* gray-600 -> similar to slate-600 */
+    --color-primary: #63b3ed;       /* blue-400 */
+    --color-primary-foreground: #1a202c; /* gray-900 */
+  }
+
+  /* Apply theme variables when a theme class is present on <html> */
+  html.dark-theme-current { @apply dark-theme-current; }
+  html.dark-theme-slate { @apply dark-theme-slate; }
+  html.dark-theme-midnight { @apply dark-theme-midnight; }
+
+  /* Ensure prose styles update with theme */
+  body {
+    @apply transition-colors duration-300;
+  }
+  
+  .prose {
+    /* Use CSS variables defined in tailwind.config.js */
+    color: var(--tw-prose-body);
+  }
+  
+  /* Update specific component backgrounds/colors to use CSS variables */
+  .bg-white { background-color: var(--color-card); }
+  .dark\\:bg-gray-950 { /* Replace specific dark overrides */ } 
+  .dark\\:bg-gray-900 { /* Replace specific dark overrides */ }
+  .dark\\:bg-gray-800 { /* Replace specific dark overrides */ }
+  .dark\\:text-white { color: var(--color-foreground); }
+  .dark\\:text-gray-300 { color: var(--color-muted-foreground); }
+  .dark\\:border-gray-800 { border-color: var(--color-border); }
+  .dark\\:border-gray-700 { border-color: var(--color-border); }
+  .dark\\:hover\\:bg-gray-800 { /* Needs careful handling, maybe use opacity or a slightly different var */ }
+
+  /* Add more overrides as needed for specific components */
+  
+}

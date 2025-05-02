@@ -38,12 +38,11 @@ ArtifactVirtual provides a seamless, Docker-free bootstrap for your AI workspace
 artifactvirtual/
 ├── .startup/
 │   ├── check_system.py        # Ensures GPU, Python, dependencies
-│   ├── install_deps.sh        # Installs pip/apt/npm tools
+│   ├── install_deps.py        # Installs pip/apt/npm tools
 │   ├── ollama_boot.py         # Starts Ollama and checks model load
 │   ├── autoround_init.py      # Runs and verifies Autoround environment
 │   └── welcome_prompt.py      # "What's your first prompt?"
 │
-├── run.sh                     # Unified startup script (bash)
 ├── startup.py                 # Cross-platform orchestrator
 ├── requirements.txt
 ├── README.md
@@ -53,43 +52,72 @@ artifactvirtual/
 
 ## 🛠️ startup.py Logic
 
+The main `startup.py` script:
+
+1. **Detects the platform** and sets appropriate paths
+2. **Sequentially runs** each step in the bootstrap process
+3. **Handles errors gracefully** with proper fallbacks
+4. **Logs progress** for transparency and debugging
+5. **Provides a final status summary** showing component availability
+
+Key components:
+
 ```python
-import subprocess
-import sys
-import os
+# Core bootstrap sequence
+startup_scripts = [
+    CHECK_SYSTEM_SCRIPT,
+    INSTALL_DEPS_SCRIPT,
+    OLLAMA_BOOT_SCRIPT,
+    AUTOROUND_INIT_SCRIPT,
+    WELCOME_PROMPT_SCRIPT,
+]
 
-def run_script(name):
-        subprocess.run([sys.executable, f".startup/{name}.py"], check=True)
-
-def main():
-        print("🔧 Initializing ArtifactVirtual environment...")
-        run_script("check_system")
-        subprocess.run(["bash", ".startup/install_deps.sh"], check=True)
-        run_script("ollama_boot")
-        run_script("autoround_init")
-        run_script("welcome_prompt")
-
-if __name__ == "__main__":
-        main()
+# Run each script in sequence
+for script in startup_scripts:
+    script_succeeded = run_script(script)
+    if not script_succeeded:
+        all_successful = False
+        print_color(f"Setup step {os.path.basename(script)} failed or reported errors.", "YELLOW")
 ```
 
 ---
 
-## 🗂️ requirements.txt (Sample)
+## 🗂️ Components
 
-```
-transformers
-langchain
-autoround
-ollama
-openai
-datasets
-psycopg2-binary
-faiss-cpu
-readability-lxml
-beautifulsoup4
-trafilatura
-```
+### check_system.py
+
+- Validates system requirements
+- Checks Python version and platform compatibility
+- Verifies GPU availability and drivers
+- Reports on available memory and disk space
+
+### install_deps.py
+
+- Creates Python virtual environment
+- Installs core Python packages from requirements.txt
+- Sets up platform-specific dependencies
+- Configures development tools
+
+### ollama_boot.py
+
+- Verifies Ollama installation
+- Pulls required models if not already present
+- Tests model loading and inference
+- Ensures API endpoint is accessible
+
+### autoround_init.py
+
+- Sets up AutoRound for model quantization
+- Verifies required libraries and components
+- Tests basic quantization functionality
+- Prepares for model optimization
+
+### welcome_prompt.py
+
+- Presents an interactive welcome message
+- Guides the user through initial setup
+- Offers suggestions for first steps
+- Collects initial preferences
 
 ---
 
@@ -108,7 +136,7 @@ python startup.py
 
 ```
 🧠 Welcome to ArtifactVirtual.
-What’s your first prompt?
+What's your first prompt?
 > _
 ```
 
