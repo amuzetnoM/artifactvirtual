@@ -31,7 +31,9 @@ export default function Header({ onCreateNew, onSearch }: HeaderProps) {
           
           <div className="flex items-center space-x-2">
             <div className="font-bold text-lg text-gray-900 dark:text-white hidden md:block">
-              MarkflowAI
+              <span className="ml-2 text-lg font-semibold text-gray-800 dark:text-white">
+                METEOR
+              </span>
             </div>
           </div>
         </div>
