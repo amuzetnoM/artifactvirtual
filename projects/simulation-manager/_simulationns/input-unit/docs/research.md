@@ -468,3 +468,368 @@ Where:
 $\text{sgn}$ is the sign function
 $\kappa$ is a capping constant to prevent overreaction
 This model ensures smooth convergence while maintaining responsiveness to significant changes in error patterns.
+
+## 16. Evolution to Enhanced Input Unit Simulator
+
+The basic `InputUnitSimulator` prototype has evolved into a more sophisticated `EnhancedInputUnitSimulator` with additional capabilities and a pluggable algorithm architecture. This section outlines the key enhancements and architectural improvements.
+
+### 16.1 Enhanced System Architecture
+
+The enhanced simulator adopts a modular, component-based architecture designed for flexibility and runtime customization:
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                   EnhancedInputUnitSimulator                     │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│  ┌───────────────┐       ┌───────────────┐       ┌────────────┐ │
+│  │ Core Simulator│       │  Strategy     │       │ Algorithms │ │
+│  │ Engine        │◄─────►│  Manager      │◄─────►│            │ │
+│  └───────────────┘       └───────────────┘       └────────────┘ │
+│         ▲                                                       │
+│         │                                                       │
+│  ┌──────┴────────┐       ┌───────────────┐       ┌────────────┐ │
+│  │ Metrics       │       │ Visualization │       │ External   │ │
+│  │ Collection    │─────► │ Module        │─────► │ Dashboards │ │
+│  └───────────────┘       └───────────────┘       └────────────┘ │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+### 16.2 Enhanced Core Components
+
+#### 16.2.1 EnhancedInputUnitSimulator
+
+The primary class that orchestrates the simulation with adaptive error handling:
+
+```python
+class EnhancedInputUnitSimulator:
+    def __init__(
+        self, 
+        initial_threshold=0.05, 
+        adjustment_step=0.001, 
+        initial_retry_limit=3, 
+        window_size=100,
+        adaptation_rate=0.05,
+        max_retry_limit=10,
+        min_retry_limit=1
+    ):
+        # Core parameters
+        self.acceptable_error_threshold = initial_threshold
+        self.adjustment_step = adjustment_step
+        self.retry_attempt_limit = initial_retry_limit
+        self.window_size = window_size
+        self.adaptation_rate = adaptation_rate  # How quickly to adapt to changing conditions
+        self.max_retry_limit = max_retry_limit
+        self.min_retry_limit = min_retry_limit
+        
+        # Tracking metrics
+        self.error_count = 0
+        self.operation_count = 0
+        self.history_error_rates = []
+        self.successful_retries = 0
+        self.failed_retries = 0
+        self.total_retry_attempts = 0
+        self.recovery_times = []
+        self.current_recovery_start = None
+        self.error_spikes = []
+        
+        # Advanced metrics
+        self.threshold_stability = 1.0  
+        self.efficiency_score = 1.0     
+        self.error_variance = 0.0       
+        
+        # Cost model
+        self.operation_cost = 1.0       
+        self.retry_cost = 0.5           
+        self.error_cost = 5.0           
+        self.total_cost = 0.0           
+        
+        # Initialize strategy manager with algorithms
+        self.strategy_manager = StrategyManager(self)
+        self._initialize_default_algorithms()
+```
+
+#### 16.2.2 StrategyManager
+
+Manages the collection of algorithms that can be dynamically added, removed, or modified during simulation runtime.
+
+#### 16.2.3 Algorithm Base Class
+
+Abstract base class for all pluggable algorithms in the system.
+
+```python
+class Algorithm:
+    def __init__(self, name, description, parameters=None):
+        self.name = name
+        self.description = description
+        self.parameters = parameters or {}
+        self.enabled = True
+        
+    def execute(self, simulator, *args, **kwargs):
+        """Execute algorithm logic on simulator state"""
+        raise NotImplementedError("Algorithms must implement execute()")
+        
+    def set_parameter(self, param_name, value):
+        """Set a parameter value"""
+        if param_name in self.parameters:
+            self.parameters[param_name] = value
+            
+    def get_parameter(self, param_name):
+        """Get a parameter value"""
+        return self.parameters.get(param_name)
+        
+    def get_parameters(self):
+        """Get all parameters"""
+        return self.parameters
+```
+
+### 16.3 Advanced Algorithm Categories
+
+The enhanced simulator supports multiple algorithm categories for different aspects of error handling:
+
+#### 16.3.1 Threshold Adjustment Algorithms
+
+Dynamically adjust the acceptable error threshold based on observed error patterns.
+
+- **AdaptiveThresholdAlgorithm**: Adjusts threshold with adaptive factors based on error rate gaps
+- **MomentumThresholdAlgorithm**: Adds momentum for more stable threshold adjustments
+
+```python
+# Example implementation of the adaptive threshold algorithm
+def _adjust_threshold(self):
+    """Adjusts threshold based on current error rate with advanced logic"""
+    current_error_rate = self._calculate_current_error_rate()
+    error_gap = current_error_rate - self.acceptable_error_threshold
+    
+    if error_gap > 0:  # Error rate is higher than threshold
+        # More aggressive increase when error rate is much higher
+        adjustment = self.adjustment_step * min(3.0, 1.0 + abs(error_gap) * 10)
+        self.acceptable_error_threshold = min(
+            current_error_rate * 1.2,  # Don't go too far above error rate
+            self.acceptable_error_threshold + adjustment
+        )
+    else:  # Error rate is lower than or equal to threshold
+        # Decrease threshold gradually when error rate is lower
+        self.acceptable_error_threshold = max(
+            current_error_rate * 1.1,  # Stay slightly above error rate
+            self.acceptable_error_threshold - self.adjustment_step,
+            0.001  # Prevent threshold from reaching zero
+        )
+```
+
+#### 16.3.2 Retry Limit Algorithms
+
+Optimize retry attempt limits based on error rates and success probabilities.
+
+- **GeometricRetryAlgorithm**: Uses geometric distribution to calculate optimal retry limits
+- **DiminishingRetryAlgorithm**: Models retry attempts with diminishing returns
+
+```python
+# Example implementation of geometric retry algorithm logic
+def _adjust_retry_limit(self):
+    """Adjusts retry limit based on geometric distribution model"""
+    current_error_rate = self._calculate_current_error_rate()
+    if current_error_rate > 0.01:  # Only adjust if error rate is significant
+        # Target probability of success after retries
+        target_success_prob = 0.99
+        
+        # Estimate optimal retries using geometric distribution
+        # P(success within n trials) = 1 - (1-p)^n
+        # Solving for n: n = log(1-target)/log(1-p)
+        try:
+            optimal_retries = min(
+                self.max_retry_limit,
+                max(
+                    self.min_retry_limit,
+                    int(np.ceil(np.log(1 - target_success_prob) / 
+                                np.log(current_error_rate)))
+                )
+            )
+        except (ValueError, ZeroDivisionError):
+            optimal_retries = self.retry_attempt_limit
+    else:
+        optimal_retries = self.min_retry_limit
+        
+    # Adjust retry limit gradually towards the optimal value
+    if self.retry_attempt_limit < optimal_retries:
+        self.retry_attempt_limit = min(self.max_retry_limit, self.retry_attempt_limit + 1)
+    elif self.retry_attempt_limit > optimal_retries:
+        self.retry_attempt_limit = max(self.min_retry_limit, self.retry_attempt_limit - 1)
+```
+
+#### 16.3.3 Efficiency Algorithms
+
+Calculate system efficiency using configurable metrics and weights.
+
+- **WeightedEfficiencyAlgorithm**: Calculates efficiency with configurable weights
+- **AdaptiveEfficiencyAlgorithm**: Uses weights that adapt based on system performance
+
+```python
+def _update_advanced_metrics(self):
+    """Update advanced performance metrics for the system."""
+    # Calculate error variance over recent history
+    if len(self.history_error_rates) > 10:
+        self.error_variance = np.var(self.history_error_rates[-10:])
+    
+    # Calculate efficiency score based on multiple factors
+    retry_success_rate = (
+        self.successful_retries / max(1, self.successful_retries + self.failed_retries)
+    )
+    
+    # Efficiency score combines multiple factors
+    self.efficiency_score = (
+        (1 - self._calculate_current_error_rate()) * 0.4 +
+        retry_success_rate * 0.4 +
+        min(1.0, (self.acceptable_error_threshold + 0.001) / 
+            (self._calculate_current_error_rate() + 0.001)) * 0.2
+    )
+```
+
+#### 16.3.4 Cost Model Algorithms
+
+Calculate the theoretical costs of operations, retries, and errors.
+
+- **EnhancedCostModelAlgorithm**: Models various cost components including congestion effects
+
+### 16.4 Advanced Metrics and Visualization
+
+The enhanced simulator tracks comprehensive metrics and provides visualization capabilities:
+
+```python
+def get_metrics(self) -> Dict[str, Any]:
+    """Return comprehensive metrics about simulator state"""
+    return {
+        "current_error_rate": self._calculate_current_error_rate(),
+        "acceptable_threshold": self.acceptable_error_threshold,
+        "retry_limit": self.retry_attempt_limit,
+        "retry_success_rate": (
+            self.successful_retries / max(1, self.successful_retries + self.failed_retries)
+        ),
+        "avg_recovery_time": (
+            sum(self.recovery_times) / max(1, len(self.recovery_times))
+            if self.recovery_times else 0
+        ),
+        "error_spike_count": len(self.error_spikes),
+        "operations": self.operation_count,
+        "total_errors": self.error_count,
+        "total_retry_attempts": self.total_retry_attempts,
+        "successful_retries": self.successful_retries,
+        "failed_retries": self.failed_retries,
+        "efficiency_score": self.efficiency_score,
+        "threshold_stability": self.threshold_stability,
+        "error_variance": self.error_variance,
+        "total_cost": self.total_cost,
+        "cost_per_operation": self.total_cost / max(1, self.operation_count),
+        "recovery_times": self.recovery_times
+    }
+```
+
+#### 16.4.1 SimulationRunner
+
+A class that manages and visualizes the simulation in real-time:
+
+```python
+class SimulationRunner:
+    def __init__(
+        self, 
+        simulator: EnhancedInputUnitSimulator, 
+        initial_error_probability=0.03, 
+        step_delay=0.1
+    ):
+        self.simulator = simulator
+        self.error_probability = initial_error_probability
+        self.step_delay = step_delay  # seconds between steps
+        self.running = False
+        self.step_count = 0
+        self.paused = False
+        
+        # Data for visualization
+        self.error_rate_history = []
+        self.threshold_history = [simulator.acceptable_error_threshold]
+        self.retry_limit_history = [simulator.retry_attempt_limit]
+        self.efficiency_history = [1.0]
+        self.cost_history = [0.0]
+        
+        # Set up visualization components
+        # ...
+```
+
+### 16.5 Custom Algorithm Extension
+
+The enhanced simulator is designed for extensibility through custom algorithms:
+
+```python
+class MyCustomAlgorithm(Algorithm):
+    def __init__(self):
+        parameters = {
+            'category': 'custom',
+            'parameter1': 1.0,
+            'parameter2': 0.5
+        }
+        super().__init__(
+            "my_custom_algorithm", 
+            "My custom algorithm description",
+            parameters
+        )
+        
+    def execute(self, simulator, *args, **kwargs):
+        # Algorithm logic goes here
+        parameter1 = self.parameters['parameter1']
+        parameter2 = self.parameters['parameter2']
+        
+        # Perform calculations based on simulator state
+        result = parameter1 * simulator._calculate_current_error_rate() / parameter2
+        
+        # Update simulator state if needed
+        simulator.some_property = result
+        
+        # Return result
+        return result
+```
+
+### 16.6 Testing Framework
+
+Comprehensive unit tests validate the functionality of the enhanced simulator:
+
+```python
+class TestSimulatorCore(unittest.TestCase):
+    """Test core functionality of the EnhancedInputUnitSimulator"""
+    
+    def setUp(self):
+        """Set up a simulator instance before each test"""
+        self.simulator = EnhancedInputUnitSimulator(
+            initial_threshold=0.05,
+            adjustment_step=0.001,
+            initial_retry_limit=3,
+            window_size=100
+        )
+    
+    def test_metrics_capture(self):
+        """Test metrics collection"""
+        # Process data with various outcomes
+        with patch('random.random', side_effect=[0.1, 0.6, 0.1, 0.1, 0.1, 0.7, 0.8]):
+            self.simulator.process_data(0.5)  # Error, retry success
+            self.simulator.process_data(0.5)  # No error
+            self.simulator.process_data(0.3)  # Error, all retries fail
+            
+        metrics = self.simulator.get_metrics()
+        
+        # Verify essential metrics are captured
+        self.assertIn("current_error_rate", metrics)
+        self.assertIn("acceptable_threshold", metrics)
+        self.assertIn("retry_limit", metrics)
+        self.assertIn("efficiency_score", metrics)
+        self.assertIn("total_cost", metrics)
+        self.assertIn("cost_per_operation", metrics)
+```
+
+### 16.7 Future Directions
+
+The enhanced simulator continues to evolve with several planned developments:
+
+1. **Machine Learning Integration**: Incorporate supervised learning to predict optimal thresholds and retry limits based on historical patterns
+2. **Multi-variable Optimization**: Extend the framework to simultaneously optimize multiple interdependent parameters
+3. **Distributed Coordination**: Model how adaptive strategies can be coordinated across distributed components
+4. **Error Classification**: Incorporate error type classification to apply different strategies to different error categories
+5. **Implementation in Low-Level Languages**: Translate core logic into languages like Rust for deployment in resource-constrained environments
