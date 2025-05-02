@@ -14,28 +14,29 @@ interface MarkdownPreviewProps {
 
 export default function MarkdownPreview({ document }: MarkdownPreviewProps) {
   return (
-    <div className="h-full overflow-auto p-4 prose max-w-none prose-slate dark:prose-invert prose-headings:mb-4 prose-p:my-3 prose-hr:my-6 dark:prose-hr:border-gray-800 prose-img:rounded-lg dark:bg-gray-950 bg-white transition-colors duration-200">
+    // Use theme variables for background and apply prose styles
+    <div className="h-full overflow-auto p-4 prose max-w-none prose-headings:mb-4 prose-p:my-3 prose-hr:my-6 prose-img:rounded-lg bg-background text-foreground transition-colors duration-200">
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
-        // Add rehypeHighlight alongside rehypeRaw
-        rehypePlugins={[rehypeRaw, rehypeHighlight]}
-        // Remove the custom components for code handling
+        rehypePlugins={[rehypeRaw, rehypeHighlight]} 
         components={{
-          // code component is no longer needed, rehype-highlight handles it
+          // Use theme variables for table styling
           img: ({ node, ...props }) => (
             <img className="max-w-full h-auto rounded-lg" {...props} />
           ),
           table: ({ node, ...props }) => (
             <div className="overflow-x-auto">
-              <table className="border-collapse border border-gray-300 dark:border-gray-700" {...props} />
+              <table className="border-collapse border border-border" {...props} /> {/* Use CSS variable */}
             </div>
           ),
           th: ({ node, ...props }) => (
-            <th className="border border-gray-300 dark:border-gray-700 px-4 py-2 bg-gray-100 dark:bg-gray-800" {...props} />
+            <th className="border px-4 py-2 bg-muted border-border" {...props} /> {/* Use CSS variables */}
           ),
           td: ({ node, ...props }) => (
-            <td className="border border-gray-300 dark:border-gray-700 px-4 py-2" {...props} />
+            <td className="border px-4 py-2 border-border" {...props} /> {/* Use CSS variable */}
           ),
+          // rehype-highlight handles code blocks, but ensure its styles work with themes
+          // The highlight.js CSS imported in main.tsx might need adjustments or multiple theme imports
         }}
       >
         {document.content}
