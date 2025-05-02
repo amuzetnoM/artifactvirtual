@@ -1,9 +1,12 @@
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { tomorrow } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import rehypeHighlight from 'rehype-highlight'; // Import rehype-highlight
 import { Document } from '../../types';
+
+// Remove the old syntax highlighter imports
+// import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+// import { tomorrow } from 'react-syntax-highlighter/dist/styles/prism';
 
 interface MarkdownPreviewProps {
   document: Document;
@@ -14,26 +17,11 @@ export default function MarkdownPreview({ document }: MarkdownPreviewProps) {
     <div className="h-full overflow-auto p-4 prose max-w-none prose-slate dark:prose-invert prose-headings:mb-4 prose-p:my-3 prose-hr:my-6 dark:prose-hr:border-gray-800 prose-img:rounded-lg dark:bg-gray-950 bg-white transition-colors duration-200">
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
-        rehypePlugins={[rehypeRaw]}
+        // Add rehypeHighlight alongside rehypeRaw
+        rehypePlugins={[rehypeRaw, rehypeHighlight]}
+        // Remove the custom components for code handling
         components={{
-          code({ node, inline, className, children, ...props }) {
-            const match = /language-(\w+)/.exec(className || '');
-            return !inline && match ? (
-              <SyntaxHighlighter
-                style={tomorrow}
-                language={match[1]}
-                PreTag="div"
-                className="rounded-md overflow-hidden"
-                {...props}
-              >
-                {String(children).replace(/\n$/, '')}
-              </SyntaxHighlighter>
-            ) : (
-              <code className={className} {...props}>
-                {children}
-              </code>
-            );
-          },
+          // code component is no longer needed, rehype-highlight handles it
           img: ({ node, ...props }) => (
             <img className="max-w-full h-auto rounded-lg" {...props} />
           ),
