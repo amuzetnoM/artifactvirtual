@@ -5,7 +5,7 @@
 
 
 Artifact is a sovereign platform for AI, Blockchain, and Web3 Development.
-Is an open-source, modular development engine with progressively advanced features, rigorously developed and designed to empower developers, researchers, and creators in building autonomous, privacy-respecting, and decentralized applications. At its core, AV integrates artificial intelligence, blockchain, and Web3 technologies to foster innovation and sovereignty in digital creation.
+It is an open-source, modular development engine with progressively advanced features, rigorously developed and designed to empower developers, researchers, and creators in building autonomous, privacy-respecting, and decentralized applications. At its core, AV integrates artificial intelligence, blockchain, and Web3 technologies to foster innovation and sovereignty in digital creation.
 
 ### Core Components
 1. Artifact Development Engine (ADE)
