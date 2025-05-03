@@ -5,8 +5,7 @@ tags: ["journal", "A1W18D1", "intelligence", "consciousness", "knowledge"]
 description: "Exploring the foundations of intelligence and the architecture of understanding through structured knowledge representation and systems thinking."
 ---
 
-# Day 1: The Question of Mind
-
+# A1W18D1: The Question of the Mind
 > *What is intelligence, really?*  
 > It’s the question at the edge of everything I build.
 
