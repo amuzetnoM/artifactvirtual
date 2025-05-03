@@ -1,0 +1,9 @@
+# Create a Python script
+@"
+import sys
+import subprocess
+subprocess.check_call([sys.executable, "-m", "pip", "install", "--upgrade", "numpy", "torch", "torchvision"])
+"@ | Out-File -FilePath install_packages.py
+
+# Run the script
+python install_packages.py

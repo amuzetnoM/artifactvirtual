@@ -224,11 +224,20 @@ python utils/debugdiag/main.py logs show
 
 # Check connectivity to a host
 python utils/debugdiag/main.py diagnose ping --host github.com
+
+#### Using the Artifact Debug Utilities
+Alternatively, you can use the built-in diagnostic tools in Artifact Virtual to manage dependencies:
+
+# Activate your virtual environment
+.venv\Scripts\activate
+
+# Use the debugdiag utility to install or check packages
+python utils\debugdiag\main.py diagnose packages
 ```
 
-### LLM Integration
+#### LLM Integration
 
-ArtifactVirtual integrates with multiple LLM frameworks:
+Artifact Virtual integrates with multiple LLM frameworks:
 
 1. **Ollama**: Local LLM server with multiple models
 
