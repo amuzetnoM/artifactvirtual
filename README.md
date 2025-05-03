@@ -1,66 +1,45 @@
 # ARTIFACT DEVELOPMENT ENGINE
 
-### 🚦 Roadmap & Milestones
+### 🚦 Milestones
 
-```mermaid
-gantt
-    title ArtifactVirtual Roadmap
-    dateFormat  YYYY-MM-DD
-    axisFormat  %Y-%m-%d
-
-    section Bootstrap & Setup
-    Workspace Bootstrap         :done,    a1, 2023-11-01, 2023-11-10
-    DevContainer Integration    :done,    a2, 2023-11-05, 2023-11-15
-    Automated Diagnostics       :done,    a3, 2023-11-10, 2023-11-20
-
-    section Core Foundations
-    Knowledge Foundations       :done,    b1, 2023-11-15, 2023-12-01
-    AutoRound Quantization      :done,    b2, 2023-12-01, 2023-12-15
-    Model Context Protocol      :done,    b3, 2023-12-10, 2023-12-20
-
-    section Applications & Utilities
-    Simulation Manager          :done,    c1, 2023-12-20, 2024-01-10
-    Oracle CLI                  :done,    c2, 2024-01-05, 2024-01-20
-    Meteor Markdown Editor      :active,  c3, 2024-01-15, 2024-05-01
-    Temporal Calendar           :done,    c4, 2024-02-01, 2024-02-20
-
-    section Expansion & Community
-    Cookbooks & Samples         :done,    d1, 2024-02-10, 2024-03-01
-    Community Contributions     :active,  d2, 2024-03-01, 2025-05-01
-
-    section Next & Future
-    LLM Fine-tuning Pipelines   :planned, e1, 2024-05-10, 2024-06-01
-    Distributed Agent Systems   :planned, e2, 2024-06-01, 2024-07-01
-    Research & Philosophy Docs  :planned, e3, 2024-06-15, 2024-07-15
-  ```
+| Section                   | Milestone                    | Status    | Start Date   | End Date     |
+|---------------------------|------------------------------|-----------|--------------|--------------|
+| **Bootstrap & Setup**     | Workspace Bootstrap          | ✅ Done   | 2023-11-01   | 2023-11-10   |
+|                           | DevContainer Integration     | ✅ Done   | 2023-11-05   | 2023-11-15   |
+|                           | Automated Diagnostics        | ✅ Done   | 2023-11-10   | 2023-11-20   |
+| **Core Foundations**      | Knowledge Foundations        | ✅ Done   | 2023-11-15   | 2023-12-01   |
+|                           | AutoRound Quantization       | ✅ Done   | 2023-12-01   | 2023-12-15   |
+|                           | Model Context Protocol       | ✅ Done   | 2023-12-10   | 2023-12-20   |
+| **Applications & Utilities** | Simulation Manager        | ✅ Done   | 2023-12-20   | 2024-01-10   |
+|                           | Oracle CLI                   | ✅ Done   | 2024-01-05   | 2024-01-20   |
+|                           | Meteor Markdown Editor       | 🚧 Active | 2024-01-15   | 2024-05-01   |
+|                           | Temporal Calendar            | ✅ Done   | 2024-02-01   | 2024-02-20   |
+| **Expansion & Community** | Cookbooks & Samples          | ✅ Done   | 2024-02-10   | 2024-03-01   |
+|                           | Community Contributions      | 🚧 Active | 2024-03-01   | 2025-05-01   |
+| **Next & Future**         | LLM Fine-tuning Pipelines    | 🕒 Planned| 2024-05-10   | 2024-06-01   |
+|                           | Distributed Agent Systems    | 🕒 Planned| 2024-06-01   | 2024-07-01   |
+|                           | Research & Philosophy Docs   | 🕒 Planned| 2024-06-15   | 2024-07-15   |
 
 ### Quickstart
 
-```mermaid
-flowchart TD
-    subgraph Workspace
-        direction TB
-        Startup[".startup<br>Bootstrap"]
-        DevContainer["devcontainer<br>VS Code"]
-        Datasets["datasets<br>Knowledge Foundations"]
-        Cookbooks["cookbooks<br>Patterns & Recipes"]
-        Utils["utils<br>Core Utilities"]
-        Projects["projects<br>Apps & Pipelines"]
-        Samples["samples<br>Provider Demos"]
-        Docs["docs<br>Guides & Resources"]
-    end
-    Startup --> DevContainer
-    DevContainer --> Projects
-    Projects -->|uses| Utils
-    Projects -->|uses| Datasets
-    Projects -->|uses| Cookbooks
-    Projects -->|uses| Samples
-    Projects -->|docs| Docs
-    Utils -->|docs| Docs
-    Datasets -->|docs| Docs
-    Cookbooks -->|docs| Docs
-    Samples -->|docs| Docs
-  ```
+**Workspace Structure Overview**
+
+- `.startup/` — Bootstrap scripts and setup
+- `devcontainer/` — VS Code DevContainer configuration
+- `datasets/` — Knowledge Foundations
+- `cookbooks/` — Patterns & Recipes
+- `utils/` — Core Utilities
+- `projects/` — Apps & Pipelines
+- `samples/` — Provider Demos
+- `docs/` — Guides & Resources
+
+**Typical Workflow:**
+
+1. Start with `.startup` to bootstrap your environment.
+2. Use the DevContainer for a pre-configured VS Code setup.
+3. Develop and test in `projects/`, using resources from `datasets/`, `cookbooks/`, and `utils/`.
+4. Explore `samples/` for provider demos.
+5. Reference `docs/` for guides and documentation.
 
 #### Automated Setup
 
@@ -90,65 +69,263 @@ python startup.py
 - [Utilities](utils/README.md)
 - [Projects](projects/)
 - [Research & Philosophy](backup/research/index.mdx)
+- [Contributing](CONTRIBUTING.md)
+- [License](LICENSE)
+
+# Getting Started
+
+Artifact Virtual! This guide will help you set up your environment and get started with this comprehensive AI development workspace.
+
+## Table of Contents
+
+1. [Prerequisites](#prerequisites)
+2. [Installation](#installation)
+  - [Automated Setup](#automated-setup)
+  - [Manual Setup](#manual-setup)
+3. [Development Environment](#development-environment)
+  - [VS Code DevContainer](#vs-code-devcontainer)
+  - [Local Development](#local-development)
+4. [Core Components](#core-components)
+  - [Debugging & Diagnostics](#debugging--diagnostics)
+  - [LLM Integration](#llm-integration)
+  - [Knowledge Foundations](#knowledge-foundations)
+5. [First Steps](#first-steps)
+  - [Running Your First Model](#running-your-first-model)
+  - [Using the Oracle CLI](#using-the-oracle-cli)
+  - [Model Quantization with AutoRound](#model-quantization-with-autoround)
+6. [Next Steps](#next-steps)
+
+## Prerequisites
+
+Before starting, ensure you have the following installed:
+
+- **Python 3.11+** and **pip**
+- **Node.js 20+** and **npm** (required for JS samples and documentation site)
+- **Git** and **Git LFS** (for version control and large file management)
+- **curl** (for API samples)
+- **CMake** (required for building some dependencies like sentencepiece)
+
+For GPU acceleration (optional but recommended):
+
+- **CUDA Toolkit 11.8+** for NVIDIA GPUs
+- **ROCm** for AMD GPUs
+- **OneAPI** for Intel GPUs
+
+## Installation
+
+### Automated Setup
+
+The fastest way to get started is with our automated setup script:
+
+```bash
+python startup.py
+```
+
+This script will:
+
+1. Check your system for required dependencies
+2. Create a Python virtual environment (`.venv`)
+3. Install all Python dependencies
+4. Set up Ollama with required models
+5. Initialize AutoRound for model quantization
+6. Prepare the development environment
+
+### Manual Setup
+
+If you prefer to set things up manually or the automated setup encounters issues:
+
+1. Create a Python virtual environment:
+
+  ```bash
+  python -m venv .venv
+
+  # Activate on Windows
+  .venv\Scripts\activate
+
+  # Activate on macOS/Linux
+  source .venv/bin/activate
+  ```
+
+2. Install Python dependencies:
+
+  ```bash
+  pip install -r requirements.txt
+  ```
+
+3. Install Node.js dependencies (for documentation):
+
+  ```bash
+  cd frontend/celestial-chaos
+  npm install
+  cd ../..
+  ```
+
+4. Install Ollama (optional but recommended):
+  - [Ollama installation instructions](https://ollama.ai/download)
+  - After installation, pull the required models:
+
+    ```bash
+    ollama pull phi4-mini
+    ollama pull gemma3
+    ```
+
+## Development Environment
+
+### VS Code DevContainer
+
+For the most seamless setup, we recommend using VS Code with our pre-configured DevContainer:
+
+1. Install [Visual Studio Code](https://code.visualstudio.com/)
+2. Install the [Remote - Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
+3. Open the ArtifactVirtual folder in VS Code
+4. When prompted, click "Reopen in Container"
+5. The container will be built and configured automatically
+
+The DevContainer includes:
+
+- All required Python packages
+- Node.js and npm
+- CUDA support for GPU acceleration
+- PostgreSQL database
+- Pre-configured extensions
+
+### Local Development
+
+If you prefer local development:
+
+1. Activate the virtual environment:
+
+  ```bash
+  # On Windows
+  .venv\Scripts\activate
+
+  # On macOS/Linux
+  source .venv/bin/activate
+  ```
+
+2. Run the debugging and diagnostic tool to verify your setup:
+
+  ```bash
+  python utils/debugdiag/main.py project status
+  ```
+
+## Core Components
+
+### Debugging & Diagnostics
+
+The `debugdiag` CLI tool is your primary diagnostic and bootstrap utility:
+
+```bash
+# Show current system status
+python utils/debugdiag/main.py project status
+
+# View log entries
+python utils/debugdiag/main.py logs show
+
+# Check connectivity to a host
+python utils/debugdiag/main.py diagnose ping --host github.com
+```
+
+### LLM Integration
+
+ArtifactVirtual integrates with multiple LLM frameworks:
+
+1. **Ollama**: Local LLM server with multiple models
+
+  ```bash
+  # Check available models
+  ollama list
+
+  # Pull a new model
+  ollama pull llava
+  ```
+
+2. **AutoRound**: Advanced model quantization
+
+  ```bash
+  # Quantize a model to 4 bits
+  python -m auto_round --model Qwen/Qwen3-0.6B --bits 4 --group_size 128
+  ```
+
+3. **Model Context Protocol (MCP)**: Standardized context provision
+
+  ```bash
+  # Run an MCP server
+  cd utils/modelcontextprotocol/examples/servers/simple-prompt
+  python server.py
+  ```
+
+### Knowledge Foundations
+
+Explore the curated datasets and knowledge libraries:
+
+- `datasets/library/index.md`
+- `datasets/core_facts.json`
+- `datasets/reasoning_patterns.json`
+- `datasets/language_primitives.json`
+- `datasets/temporal_events.json`
+
+## First Steps
+
+### Running Your First Model
+
+Let's start by running a simple interaction with a model:
+
+```bash
+# Start the Oracle CLI
+python oracles/oracle_cli.py
+
+# Select option 1 (Chat with phi4-mini)
+# Enter a prompt, e.g., "Tell me about artificial intelligence"
+```
+
+### Using the Oracle CLI
+
+The Oracle CLI provides a multimodal LLM playground:
+
+1. Try chaining models together:
+  - Select option 4 (Chain: phi4-mini ➔ gemma3)
+  - Enter a complex query that benefits from multiple perspectives
+
+2. Try multimodal processing:
+  - Select option 5 (Multimodal: LLaVA ➔ Gemma-3)
+  - Provide an image and a prompt about the image
+
+### Model Quantization with AutoRound
+
+Experience the power of AutoRound by quantizing a model:
+
+```bash
+# Navigate to utils/auto-round
+cd utils/auto-round
+
+# Ensure dependencies are installed
+pip install -e .
+
+# Quantize a model (this will download the model if not already present)
+auto-round --model microsoft/phi-2 --bits 4 --group_size 128 --format auto_round
+```
+
+## Next Steps
+
+Now that you've set up ArtifactVirtual and explored some core components, here are some suggestions for next steps:
+
+1. **Explore the Samples**: Check out the various code samples in the `samples` folder for different LLM providers.
+2. **Build with MCP**: Try creating your own MCP server that exposes custom resources and tools.
+3. **Create a Quantized LLM Pipeline**: Combine AutoRound's quantization capabilities with Ollama for efficient LLM deployment.
+4. **Contribute**: Explore the codebase and consider contributing to the project.
+5. **Documentation**: Browse the comprehensive documentation site:
+
+  ```bash
+  cd frontend/celestial-chaos
+  npm run dev
+  # Open http://localhost:4321 in your browser
+  ```
+
+For troubleshooting and additional resources, refer to the [Troubleshooting](docs/troubleshooting.md) and [Resources](docs/resources.md) guides.
 
 ---
 
-### Core Components & Subprojects
+> **ArtifactVirtual: Structured Knowledge Systems, AI Ecosystems, and Tools that Empower Creation.**
 
-- **.startup/** – Portable, self-initializing bootstrap scripts ([.startup/readme.md](.startup/readme.md))
-- **devcontainer/** – VS Code DevContainer for reproducible development ([devcontainer/README.md](devcontainer/README.md))
-- **utils/** – Core utilities: AutoRound (quantization), DebugDiag (diagnostics), DSPy, Model Context Protocol ([utils/README.md](utils/README.md))
-- **cookbooks/** – Ready-to-use patterns and recipes for LLMs, RAG, agents, optimization ([cookbooks/README.md](cookbooks/README.md))
-- **datasets/** – Knowledge foundations, curated datasets, and the Library of Immutable Knowledge ([datasets/README.md](datasets/README.md))
-- **samples/** – Multilingual, multi-provider LLM samples for OpenAI, Mistral, Azure, Ollama ([samples/README.md](samples/README.md))
-- **projects/** – Main applications and research projects:
-  - **simulation-manager/**: Adaptive error handling, input unit simulation
-  - **oracle-ai-pipeline/**: Multimodal LLM playground, model chaining, plugin system
-  - **meteor-markdown-editor/**: AI-enhanced markdown editor with publishing
-  - **temporal-calendar/**: Artifact time/calendar system
-  - **scarab/**, **black-widow/**: Experimental/utility projects
-- **docs/** – Guides, troubleshooting, resources, and research philosophy ([docs/README.md](docs/README.md))
-- **backup/research/** – Journal, manifesto, research papers, and technical reference ([backup/research/index.mdx](backup/research/index.mdx))
-
----
-
-## Milestones & Achievements
-
-- 🚀 **Workspace Bootstrap**: One-step, cross-platform setup with `.startup` and DevContainer
-- 🧠 **Knowledge Foundations**: Curated datasets and the Library of Immutable Knowledge
-- ⚡ **AutoRound**: Advanced quantization for LLMs, supporting 2-8 bit, mixed precision, and multiple formats
-- 🧩 **Model Context Protocol**: Standardized context for LLMs, with server/client libraries and Claude Desktop integration
-- 🛠️ **DebugDiag**: Unified diagnostics, logging, and system introspection
-- 🧬 **Simulation Manager**: Adaptive error handling, threshold/retry simulation, and dashboard integration
-- 📝 **Meteor Markdown Editor**: AI-powered markdown editing, publishing, and GitHub integration
-- 🔗 **Oracle CLI**: Multimodal LLM playground, model chaining, plugin system
-- 📅 **Temporal Calendar**: Artifact-native time and event system
-- 📚 **Cookbooks & Samples**: Dozens of ready-to-use patterns, RAG, agent, and optimization examples
-- 🏆 **Community Contributions**: Open source, extensible, and growing with user feedback
-
----
-
-## Troubleshooting & FAQ
-
-- For common issues, see the [Troubleshooting Guide](docs/troubleshooting.md)
-- For setup help, see [Getting Started](docs/gettingstarted.md)
-- For DevContainer or Docker issues, see [devcontainer/README.md](devcontainer/README.md)
-- For LLM/model issues, see [samples/README.md](samples/README.md) and [utils/README.md](utils/README.md)
-
----
-
-## Contributing & Community
-
-- Contributions are welcome! See [CONTRIBUTING.md](CONTRIBUTING.md) or the contributing section in each subproject.
-- Join discussions on [GitHub Discussions](https://github.com/amuzetnoM/artifactvirtual/discussions)
-- For research, philosophy, and technical deep dives, see [backup/research/index.mdx](backup/research/index.mdx)
-
----
-
-## License & Credits
-
-ArtifactVirtual is licensed under the MIT License. See [LICENSE](LICENSE) for details.
-
-Special thanks to all contributors, open-source projects, and the AI research community.
-
----
+> **Note**: This document is a work in progress. Please check back for updates and additional content. If you have suggestions or feedback, feel free to open an issue or pull request on GitHub. Your contributions are welcome! Please ensure to follow the contribution guidelines in the `CONTRIBUTING.md` file before making a contribution. Thank you for your support!
