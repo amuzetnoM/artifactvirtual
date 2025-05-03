@@ -79,7 +79,7 @@ python startup.py
 
 # Getting Started
 
-Artifact Virtual! This guide will help you set up your environment and get started with this comprehensive AI development workspace.
+This guide will help you set up your environment and get started with this comprehensive AI development workspace.
 
 ## Table of Contents
 
