@@ -1,6 +1,6 @@
-# ArtifactVirtual
+# ARTIFACT DEVELOPMENT ENGINE
 
-## 🚦 Roadmap & Milestones
+### 🚦 Roadmap & Milestones
 
 ```mermaid
 gantt
@@ -34,7 +34,7 @@ gantt
     Research & Philosophy Docs  :planned, e3, 2024-06-15, 2024-07-15
   ```
 
-## Quickstart
+### Quickstart
 
 ```mermaid
 flowchart TD
@@ -62,7 +62,7 @@ flowchart TD
     Samples -->|docs| Docs
   ```
 
-### Automated Setup
+#### Automated Setup
 
 ```bash
 python startup.py
@@ -70,7 +70,7 @@ python startup.py
 - Checks system, installs dependencies, boots core services, and welcomes you interactively.
 - See [.startup/readme.md](.startup/readme.md) for details.
 
-### DevContainer (Recommended for VS Code)
+#### DevContainer (Recommended for VS Code)
 
 1. Open in VS Code, install Remote - Containers extension
 2. "Reopen in Container" when prompted
@@ -79,7 +79,7 @@ python startup.py
 
 ---
 
-## Project Navigation
+### Project Navigation
 
 - [Getting Started Guide](docs/gettingstarted.md)
 - [Troubleshooting Guide](docs/troubleshooting.md)
@@ -93,7 +93,7 @@ python startup.py
 
 ---
 
-## Core Components & Subprojects
+### Core Components & Subprojects
 
 - **.startup/** – Portable, self-initializing bootstrap scripts ([.startup/readme.md](.startup/readme.md))
 - **devcontainer/** – VS Code DevContainer for reproducible development ([devcontainer/README.md](devcontainer/README.md))
