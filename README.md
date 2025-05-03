@@ -1,7 +1,8 @@
 # WELCOME TO ARTIFACT VIRTUAL
-> version: 2.0
-> system: Linux
-> status: Operational
+Structured Knowledge Systems, AI and Web3 Ecosystems, Hardhat Blockchain Development and Tools that Empower Creation.
+    version: 2.0
+    system: Linux
+    status: Operational
 
 ### 🚦 Milestones
 
@@ -338,6 +339,6 @@ For troubleshooting and additional resources, refer to the [Troubleshooting](doc
 
 ---
 
-> **ArtifactVirtual: Structured Knowledge Systems, AI Ecosystems, and Tools that Empower Creation.**
+
 
 > **Note**: This document is a work in progress. Please check back for updates and additional content. If you have suggestions or feedback, feel free to open an issue or pull request on GitHub. Your contributions are welcome! Please ensure to follow the contribution guidelines in the `CONTRIBUTING.md` file before making a contribution. Thank you for your support!
