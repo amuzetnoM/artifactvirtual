@@ -2,7 +2,6 @@
 
 ## 🚦 Roadmap & Milestones
 
-
 ```mermaid
 gantt
     title ArtifactVirtual Roadmap
