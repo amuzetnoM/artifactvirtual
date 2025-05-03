@@ -1,5 +1,7 @@
 # WELCOME TO ARTIFACT VIRTUAL
-> Project Status
+> version: 2.0
+> system: Linux
+> status: Operational
 
 ### 🚦 Milestones
 
