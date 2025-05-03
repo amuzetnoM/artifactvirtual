@@ -2,7 +2,7 @@
 
 ## 🚦 Roadmap & Milestones
 
-````markdown
+
 ```mermaid
 gantt
     title ArtifactVirtual Roadmap
@@ -33,8 +33,7 @@ gantt
     LLM Fine-tuning Pipelines   :planned, e1, 2024-05-10, 2024-06-01
     Distributed Agent Systems   :planned, e2, 2024-06-01, 2024-07-01
     Research & Philosophy Docs  :planned, e3, 2024-06-15, 2024-07-15
-```
-```
+  ```
 
 ## Quickstart
 
