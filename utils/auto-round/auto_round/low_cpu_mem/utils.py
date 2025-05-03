@@ -30,14 +30,43 @@ from accelerate.utils import set_module_tensor_to_device
 from transformers import AutoConfig, AutoModelForCausalLM
 from transformers.models.auto.auto_factory import _BaseAutoModelClass
 
-from .load import load
-from auto_round.utils import detect_device
+# Import the centralized utilities
+from .tensor_utils import (
+    TensorUtils, 
+    load_tensor, 
+    load_tensor_from_shard,
+    detect_device,
+    clear_memory
+)
 
-logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(filename)s L%(lineno)d: %(message)s")
-logger = logging.getLogger("low_cpu_mem_tools")
+# Import unified hook management
+from .hook_manager import register_hooks, HookManager
 
-LWQ_WORKSPACE = os.path.join("low_cpu_mem_tmp")
+LWQ_WORKSPACE = 'layer_wise_quantize_workspace'
+logger = logging.getLogger(__name__)
 
+# Keep exported functions for compatibility
+__all__ = [
+    'get_named_children', 
+    'update_module', 
+    'get_layers_before_block', 
+    'load_layer_wise_quantized_model',
+    'load_tensor', 
+    'load_tensor_from_shard', 
+    'load_value',
+    'load_module', 
+    'register_weight_hooks', 
+    'clean_module_weight',
+    'convert_model', 
+    'load_empty_model', 
+    'load_model_with_hooks',
+    'detect_device', 
+    'clear_memory', 
+    'layer_wise_save', 
+    'layer_wise_load'
+]
+
+# Rest of the file remains the same, using the imported functions
 
 def get_module(model, key):
     """Get module from model by key name.
@@ -287,46 +316,41 @@ def load_module(model, module_name, path, device="cpu"):
 
 
 def register_weight_hooks(model, path, device="cpu", clean_weight=True, saved_path=None):
+    """Register hooks for loading and cleaning weights.
+    
+    This is a backwards-compatible wrapper for the new unified hook system.
+    
+    Args:
+        model: The model to register hooks for
+        path: Path to load weights from
+        device: Device to load weights to
+        clean_weight: Whether to clean weights after forward pass
+        saved_path: Path to save module states to (if None, states won't be saved)
+    
+    Returns:
+        Dictionary of hook handles
+    """
     if saved_path:
         os.makedirs(saved_path, exist_ok=True)
-
-    def forward_pre_hook(name):
-        def hook(module, input):
-            logger.debug(f"{name} forward hood load value")
-            state_dict = None
-            if os.path.exists(os.path.join(saved_path, f"{name}.pt")):
-                state_dict = torch.load(os.path.join(saved_path, f"{name}.pt"))
-            for n, p in module.named_parameters():
-                param_name = name + "." + n
-                if state_dict:
-                    value = state_dict[n]
-                else:
-                    value = load_value(model, param_name, path)
-                set_module_tensor_to_device(model, param_name, device, value)
-            module = module.to(device)
-            
-        return hook
-
-    def forward_hook(name):
-        def hook(module, input, output):
-            logger.debug(f"{name} forward hood clean value")
-            if saved_path:
-                file_path = os.path.join(saved_path, f"{name}.pt")
-                torch.save(module.state_dict(), file_path)
-            clean_module_weight(module)
-
-        return hook
-
-    handle = {}
-    modules = get_named_children(model)
-    for name, module in modules:
-        handle[name] = [module.register_forward_pre_hook(forward_pre_hook(name))]
-        if clean_weight:
-            handle[name] += [module.register_forward_hook(forward_hook(name))]
-    return handle
+        
+    # Use the new centralized hook management system
+    return register_hooks(
+        model=model,
+        path=path,
+        device=device,
+        clean_weights=clean_weight,
+        save_path=saved_path
+    )
 
 
 def clean_module_weight(submodule):  # pragma: no cover
+    """Clean module weights by replacing with meta tensors.
+    
+    Backwards-compatible wrapper around HookManager's functionality.
+    
+    Args:
+        submodule: Module to clean weights for
+    """
     for n, m in submodule.named_parameters():
         is_buffer = n in submodule._buffers
         old_value = getattr(submodule, n)

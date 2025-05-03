@@ -1,0 +1,59 @@
+# Base configuration for Meteor Markdown Editor
+app:
+  name: "Meteor Markdown Editor"
+  version: "1.0.0"
+  debug: false
+  auto_save_interval_ms: 5000
+
+ui:
+  theme: "system" # "light", "dark", "system"
+  default_preview_mode: "split" # "split", "editor", "preview", "focus"
+  sidebar_open_by_default: true
+  show_line_numbers: true
+  font_size: 16
+  font_family: "system-ui, sans-serif"
+  highlight_current_line: true
+  enable_syntax_highlighting: true
+
+features:
+  ai_assistant:
+    enabled: true
+    default_model: "local-distilgpt2"
+    show_model_details: false
+  source_control:
+    enabled: true
+    auto_commit: false
+    commit_interval_minutes: 30
+
+editor:
+  tab_size: 2
+  use_tabs: false
+  word_wrap: true
+  spell_check: true
+  auto_format_on_save: false
+  markdown_extensions:
+  - "tables"
+  - "strikethrough"
+  - "autolink"
+  - "tasklists"
+
+api:
+  base_url: "http://localhost:3001"
+  timeout_ms: 30000
+  retry_attempts: 3
+  retry_delay_ms: 1000
+
+storage:
+  save_location: "local" # "local", "cloud", "github"
+  local_storage_key: "meteor-markdown-editor"
+  backup_interval_minutes: 10
+  max_backup_count: 5
+
+integrations:
+  github:
+    client_id: "" # Will be overridden by environment variable
+    redirect_uri: "http://localhost:5173/auth/callback"
+  dev_to:
+    api_key: "" # Will be overridden by environment variable
+  hashnode:
+    api_key: "" # Will be overridden by environment variable
