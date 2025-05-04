@@ -1,0 +1,81 @@
+---
+title: Core Components
+sidebar_label: Core Components
+sidebar_position: 2
+description: "Overview of Artifact Virtual's main tools: Debugging, LLM Integration, Blockchain, and Knowledge Foundations."
+---
+
+# Core Components
+
+Artifact Virtual provides a suite of tools and modules for AI, blockchain, and Web3 development. This section introduces the most important components.
+
+## Debugging & Diagnostics
+
+The `debugdiag` CLI tool is your primary diagnostic and bootstrap utility:
+
+```bash
+# Show current system status
+python utils/debugdiag/main.py project status
+
+# View log entries
+python utils/debugdiag/main.py logs show
+
+# Check connectivity to a host
+python utils/debugdiag/main.py diagnose ping --host github.com
+
+# Use the debugdiag utility to install or check packages
+python utils/debugdiag/main.py diagnose packages
+```
+
+## LLM Integration
+
+Artifact Virtual integrates with multiple LLM frameworks:
+
+- **Ollama**: Local LLM server with multiple models
+- **AutoRound**: Advanced model quantization
+- **Model Context Protocol (MCP)**: Standardized context provision
+
+Example commands:
+
+```bash
+# Quantize a model to 4 bits
+python -m auto_round --model Qwen/Qwen3-0.6B --bits 4 --group_size 128
+
+# Run an MCP server
+cd utils/modelcontextprotocol/examples/servers/simple-prompt
+python server.py
+```
+
+## Blockchain & Hardhat
+
+- **Hardhat**: Develop, test, and deploy smart contracts
+- **Smart Contract Templates**: Ready-to-use templates in `projects/blockchain/contracts/`
+- **Decentralized Storage**: Integrate with IPFS and Filecoin (see upcoming modules)
+- **zk-SNARKs & Privacy**: Privacy-preserving modules coming soon
+
+Example commands:
+
+```bash
+# Initialize a new Hardhat project
+npx hardhat init
+# Compile contracts
+npx hardhat compile
+# Run tests
+npx hardhat test
+# Deploy to local network
+npx hardhat run scripts/deploy.js --network localhost
+```
+
+## Knowledge Foundations
+
+Explore the curated datasets and knowledge libraries:
+
+- `datasets/library/index.md`
+- `datasets/core_facts.json`
+- `datasets/reasoning_patterns.json`
+- `datasets/language_primitives.json`
+- `datasets/temporal_events.json`
+
+---
+
+Continue to the next section for troubleshooting and FAQs.

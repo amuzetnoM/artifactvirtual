@@ -1,0 +1,48 @@
+# Python dependencies for Bedrock blockchain development environment
+
+# Ethereum development
+web3==6.5.0
+py-solc-x==1.1.1
+eth-brownie==1.19.3
+eth-utils==2.2.0
+eth-abi==4.1.1
+eth-account==0.8.0
+eth-typing==3.4.0
+
+# Bitcoin development
+python-bitcoinlib==0.12.0
+bitcoinlib==0.6.10
+bit==0.8.0
+
+# Cardano development
+pycardano==0.9.0
+
+# General blockchain utilities
+coincurve==18.0.0
+base58==2.1.1
+mnemonic==0.20
+cryptography==41.0.3
+pycryptodome==3.19.0
+
+# Data processing
+pandas==2.0.3
+numpy==1.25.2
+
+# Testing
+pytest==7.4.0
+pytest-cov==4.1.0
+
+# Logging and monitoring
+loguru==0.7.0
+
+# API and integration
+fastapi==0.101.1
+uvicorn==0.23.2
+requests==2.31.0
+aiohttp==3.8.5
+
+# Development tools
+black==23.7.0
+isort==5.12.0
+mypy==1.5.1
+flake8==6.1.0
