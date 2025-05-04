@@ -1,5 +1,12 @@
 # WELCOME TO ARTIFACT VIRTUAL
 
+
+
+## [![Repography logo](https://images.repography.com/logo.svg)](https://repography.com) / Structure
+[![Structure](https://images.repography.com/0/strawberry-graphql/strawberry/structure/de711c3a36f961e6794f88115f5ae909_table.svg)](https://github.com/strawberry-graphql/strawberry)
+
+
+
 Structured Knowledge Systems, AI and Web3 Ecosystems, Hardhat Blockchain Development, and Tools that Empower Creation.
 
   version: 2.0
