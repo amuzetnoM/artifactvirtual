@@ -1,0 +1,76 @@
+<div class="editor-container">
+  <div class="sidebar">
+    <div class="files-header">
+      <h3>Files</h3>
+      <button mat-icon-button (click)="createNewFile()">
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
+    
+    <div class="files-list">
+      <div 
+        *ngFor="let file of files" 
+        class="file-item"
+        [class.active]="activeFile?.path === file.path"
+        (click)="openFile(file)"
+      >
+        <span class="file-icon" [ngClass]="file.language">
+          <mat-icon>{{ file.language === 'solidity' ? 'code' : 
+                        file.language === 'javascript' ? 'javascript' : 
+                        file.language === 'typescript' ? 'code' : 
+                        file.language === 'json' ? 'data_object' : 'description' }}</mat-icon>
+        </span>
+        <span class="file-name">{{ file.name }}</span>
+        <button mat-icon-button class="delete-button" (click)="$event.stopPropagation(); deleteFile(file)">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <div class="main-content">
+    <div class="editor-actions">
+      <span class="file-info" *ngIf="activeFile">{{ activeFile.name }} ({{ activeFile.language }})</span>
+      <div class="action-buttons">
+        <button mat-button (click)="saveActiveFile()" [disabled]="!activeFile">
+          <mat-icon>save</mat-icon>
+          Save
+        </button>
+        <button mat-button (click)="compileActiveFile()" [disabled]="!activeFile || isCompiling">
+          <mat-icon>build</mat-icon>
+          {{ isCompiling ? 'Compiling...' : 'Compile' }}
+        </button>
+        <button mat-button (click)="toggleAiAssistant()">
+          <mat-icon>{{ showAiAssistant ? 'visibility_off' : 'visibility' }}</mat-icon>
+          {{ showAiAssistant ? 'Hide AI' : 'Show AI' }}
+        </button>
+      </div>
+    </div>
+    
+    <div class="editor-workspace" [class.with-assistant]="showAiAssistant">
+      <div class="monaco-container" #editorContainer></div>
+      
+      <app-ai-assistant 
+        *ngIf="showAiAssistant"
+        class="ai-assistant-panel"
+        [language]="activeFile?.language || 'solidity'"
+        [currentCode]="activeFile?.content || ''"
+        [activeFile]="activeFile?.name || ''"
+        (insertCode)="insertCodeAtCursor($event)"
+        (replaceCode)="replaceEditorContent($event)"
+      ></app-ai-assistant>
+    </div>
+    
+    <div class="output-panel" *ngIf="compileOutput">
+      <div class="panel-header">
+        <h3>Compilation Output</h3>
+        <button mat-icon-button (click)="compileOutput = ''">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+      <div class="output-content">
+        <pre>{{ compileOutput }}</pre>
+      </div>
+    </div>
+  </div>
+</div>

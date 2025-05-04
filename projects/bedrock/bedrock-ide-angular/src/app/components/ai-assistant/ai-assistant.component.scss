@@ -1,0 +1,128 @@
+.ai-assistant-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 1rem;
+  background-color: #1e1e1e;
+  color: #e1e1e1;
+}
+
+.assistant-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  
+  h2 {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 500;
+  }
+}
+
+.status-indicator {
+  font-size: 0.85rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 1rem;
+  
+  &.available {
+    background-color: rgba(76, 175, 80, 0.2);
+    color: #4caf50;
+  }
+  
+  &.unavailable {
+    background-color: rgba(244, 67, 54, 0.2);
+    color: #f44336;
+  }
+}
+
+.query-input {
+  width: 100%;
+  
+  ::ng-deep .mat-mdc-form-field-flex {
+    background-color: #2d2d2d;
+  }
+}
+
+.temperature-control {
+  margin: 1rem 0;
+  
+  label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+    color: #bbb;
+  }
+}
+
+.temperature-slider {
+  width: 100%;
+}
+
+.temperature-hint {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  color: #999;
+  margin-top: 0.25rem;
+}
+
+.form-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.response-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background-color: #2d2d2d;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-top: 1rem;
+}
+
+.response-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  background-color: #333;
+  
+  h3 {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 500;
+  }
+  
+  .model-info {
+    font-size: 0.8rem;
+    color: #bbb;
+  }
+}
+
+.response-content {
+  flex: 1;
+  overflow: auto;
+  padding: 1rem;
+  
+  pre {
+    margin: 0;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+  
+  code {
+    font-family: 'Fira Code', monospace;
+    font-size: 0.9rem;
+  }
+}
+
+.response-actions {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background-color: #333;
+  border-top: 1px solid #444;
+}
