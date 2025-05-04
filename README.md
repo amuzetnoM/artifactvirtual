@@ -4,12 +4,9 @@
 > REINVENTING THE WHEEL
 [![Structure](https://images.repography.com/0/FWtYSn_n_Fu2rzWFnNRDfX4-6mQ0wutdqJUO8xt9uWA/structure/JY6tD1WYzOJkKbNe7WalXNUsOLhM4_ITZTR4T9FN8a4/b5A54X-l3yEVyN4TjtR2zMkEib0-2XBOczz0QmE06R4_table.svg)](https://github.com/_/repography)
 
-
-Structured Knowledge Systems, AI and Web3 Ecosystems, Hardhat Blockchain Development, and Tools that Empower Creation.
-
-  version: 2.0
-  system: Linux
-  status: Operational
+    version: 2.0
+    system: Linux
+    status: funtional, wip
 
 Artifact Virtual is a sovereign platform for AI, blockchain, and Web3 development—open-source, modular, and built for the future. Designed for developers, researchers, and creators, Artifact provides a progressive development engine with advanced features that evolve with your needs. At its core, it seamlessly integrates artificial intelligence, decentralized infrastructure, and privacy-first design to enable the creation of autonomous, trustless, and innovative digital systems. Artifact empowers you to build with freedom, shape resilient technologies, and own your digital sovereignty.
 
