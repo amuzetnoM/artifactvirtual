@@ -1,0 +1,53 @@
+[package]
+name = "bedrock-blockchain"
+version = "0.1.0"
+edition = "2021"
+description = "Rust blockchain components for the Bedrock project"
+authors = ["Bedrock Team"]
+repository = "https://github.com/bedrock/blockchain"
+license = "MIT"
+
+[dependencies]
+# Ethereum & Web3 related
+ethers = { version = "2.0", features = ["ws", "rustls"] }
+web3 = "0.19"
+
+# Solana related
+solana-sdk = "1.14"
+solana-client = "1.14"
+solana-program = "1.14"
+
+# Substrate/Polkadot related
+subxt = "0.27"
+codec = { package = "parity-scale-codec", version = "3.2", features = ["derive"] }
+
+# Cryptography
+sha2 = "0.10"
+sha3 = "0.10"
+ed25519-dalek = "1.0"
+k256 = "0.12"
+rand = "0.8"
+
+# Serialization
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+
+# Async runtime
+tokio = { version = "1", features = ["full"] }
+
+# Utilities
+thiserror = "1.0"
+anyhow = "1.0"
+log = "0.4"
+env_logger = "0.9"
+dotenv = "0.15"
+
+[dev-dependencies]
+mockall = "0.11"
+tokio-test = "0.4"
+
+[features]
+default = ["ethereum", "solana"]
+ethereum = []
+solana = []
+polkadot = []
