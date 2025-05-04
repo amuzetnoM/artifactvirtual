@@ -1,0 +1,241 @@
+---
+title: Troubleshooting
+sidebar_label: Troubleshooting
+sidebar_position: 3
+description: "Common issues and solutions for Artifact Virtual: installation, environment, LLMs, GPU, DevContainer, and more."
+---
+
+# Troubleshooting Guide
+
+This guide addresses common issues you might encounter when setting up and using Artifact Virtual.
+
+## Table of Contents
+
+1. [Installation Issues](#installation-issues)
+2. [Environment Setup Problems](#environment-setup-problems)
+3. [LLM Integration Challenges](#llm-integration-challenges)
+4. [GPU Acceleration Issues](#gpu-acceleration-issues)
+5. [DevContainer Problems](#devcontainer-problems)
+6. [Common Error Messages](#common-error-messages)
+7. [Performance Optimization](#performance-optimization)
+8. [Diagnostic Tools](#diagnostic-tools)
+
+## Installation Issues
+
+### Python Version Compatibility
+- Ensure you're using Python 3.11 or later
+- Check your Python version:
+  ```bash
+  python --version
+  ```
+- If using multiple Python versions:
+  ```bash
+  python3.11 startup.py
+  ```
+
+### Package Installation Failures
+- Update pip:
+  ```bash
+  python -m pip install --upgrade pip
+  ```
+- On Windows, ensure Microsoft C++ Build Tools are installed
+- For specific package errors:
+  ```bash
+  pip install packagename --verbose
+  ```
+- For complex dependencies:
+  ```bash
+  pip install packagename --prefer-binary
+  ```
+
+### Git LFS Issues
+- Verify Git LFS is installed:
+  ```bash
+  git lfs version
+  ```
+- Install Git LFS if needed:
+  ```bash
+  git lfs install
+  ```
+- Pull files explicitly:
+  ```bash
+  git lfs pull
+  ```
+
+## Environment Setup Problems
+
+### Virtual Environment Activation Failures
+- On Windows, check execution policy:
+  ```powershell
+  Get-ExecutionPolicy
+  Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+  ```
+- Recreate the environment if corrupted:
+  ```bash
+  rm -rf .venv
+  python -m venv .venv
+  ```
+
+### Node.js Dependency Issues
+- Verify Node.js and npm versions:
+  ```bash
+  node --version
+  npm --version
+  ```
+- Clear npm cache:
+  ```bash
+  npm cache clean --force
+  ```
+- Try installing with exact versions:
+  ```bash
+  cd frontend/celestial-chaos
+  npm ci
+  ```
+
+## LLM Integration Challenges
+
+### Ollama Installation Problems
+- Check system compatibility at [ollama.ai/download](https://ollama.ai/download)
+- For Linux, ensure proper permissions:
+  ```bash
+  sudo systemctl status ollama
+  ```
+- For Docker:
+  ```bash
+  docker run -d -v ollama:/root/.ollama -p 11434:11434 --name ollama ollama/ollama
+  ```
+
+### AutoRound Compatibility Issues
+- Verify PyTorch installation:
+  ```bash
+  python -c "import torch; print(torch.__version__)"
+  ```
+- For GPU support:
+  ```bash
+  python -c "import torch; print(torch.cuda.is_available())"
+  ```
+- For Intel hardware:
+  ```bash
+  pip install intel-extension-for-pytorch
+  ```
+- Try lower bit precision:
+  ```bash
+  auto-round --model [model_name] --bits 2 --group_size 128
+  ```
+
+### MCP Server Connection Issues
+- Verify server is running on expected address/port
+- Check network/firewall settings
+- For localhost issues:
+  ```bash
+  mcp dev server.py --transport stdio
+  ```
+
+## GPU Acceleration Issues
+
+### CUDA Detection Problems
+- Verify CUDA installation:
+  ```bash
+  nvcc --version
+  nvidia-smi
+  python -c "import torch; print(torch.version.cuda)"
+  ```
+- Reinstall PyTorch with CUDA support if needed:
+  ```bash
+  pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
+  ```
+
+### Out of Memory Errors
+- Reduce batch size or sequence length
+- Use model offloading techniques
+- Enable gradient checkpointing
+- For large models, use quantization:
+  ```bash
+  auto-round --model [model] --bits 4 --group_size 128 --low_gpu_mem_usage
+  ```
+
+## DevContainer Problems
+
+### Container Build Failures
+- Check Docker installation and permissions
+- Increase Docker resource limits
+- Check network connectivity
+- Rebuild with clean cache:
+  ```bash
+  docker-compose build --no-cache
+  ```
+
+### PostgreSQL Database Issues
+- Check container logs:
+  ```bash
+  docker-compose logs pg-artifact
+  ```
+- Verify connection parameters (host, port, db, user)
+- Restart the service:
+  ```bash
+  docker-compose restart pg-artifact
+  ```
+
+## Common Error Messages
+
+### "ModuleNotFoundError: No module named 'X'"
+- Verify virtual environment is activated
+- Install the missing module:
+  ```bash
+  pip install X
+  ```
+- If custom, check your PYTHONPATH
+
+### "CUDA error: device-side assert triggered"
+- Reset your GPU context:
+  ```python
+  torch.cuda.empty_cache()
+  ```
+- Check input dimensions/model compatibility
+- Try CPU fallback:
+  ```python
+  model = model.to('cpu')
+  ```
+
+### "RuntimeError: CUDA out of memory"
+- Use gradient accumulation
+- Reduce batch size
+- Enable memory-efficient attention
+
+## Performance Optimization
+
+### Slow Model Inference
+- Use PyTorch 2.0+ with torch.compile()
+- Enable Flash Attention if supported
+- Use quantized models
+- Optimize prompt length and batch processing
+
+### High CPU/Memory Usage
+- Monitor resources with debugdiag:
+  ```bash
+  python utils/debugdiag/main.py project status
+  ```
+- Limit process resources (ulimit, PowerShell)
+
+## Diagnostic Tools
+
+### Using debugdiag for Troubleshooting
+
+```bash
+# Check system status
+python utils/debugdiag/main.py project status
+# View logs for errors
+python utils/debugdiag/main.py logs show --lines 50
+# Test network connectivity
+python utils/debugdiag/main.py diagnose ping --host github.com
+```
+
+### Getting Help
+
+- Check [GitHub Issues](https://github.com/amuzetnoM/artifactvirtual/issues)
+- Run the diagnostic tool and include output in support requests
+- Include relevant logs
+
+---
+
+For additional resources and references, see the [Resources](resources.md) guide.
