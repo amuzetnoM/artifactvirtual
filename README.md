@@ -12,27 +12,27 @@ Artifact Virtual is a sovereign platform for AI, blockchain, and Web3 developmen
 
 ## 🚦 Milestones
 
-| Section                   | Milestone                        | Status    | Start Date   | End Date     |
-|---------------------------|----------------------------------|-----------|--------------|--------------|
-| **Bootstrap & Setup**     | Workspace Bootstrap              | ✅ Done   | 2022-08-01   | 2022-08-10   |
-|                           | DevContainer Integration         | ✅ Done   | 2022-08-11   | 2022-08-20   |
-|                           | Automated Diagnostics            | ✅ Done   | 2022-08-21   | 2022-09-01   |
-| **Core Foundations**      | Knowledge Foundations            | ✅ Done   | 2022-09-02   | 2022-09-20   |
-|                           | AutoRound Quantization           | ✅ Done   | 2022-09-21   | 2022-10-10   |
-|                           | Model Context Protocol           | ✅ Done   | 2022-10-11   | 2022-10-25   |
-| **Blockchain & Web3**     | Hardhat Integration              | ✅ Done   | 2024-06-01   | 2024-06-10   |
-|                           | Smart Contract Templates         | 🚧 Active | 2024-06-11   | 2024-06-20   |
-|                           | Decentralized Storage Upgrade    | 🕒 Planned| 2024-06-21   | 2024-07-01   |
-|                           | zk-SNARKs & Privacy Modules      | 🕒 Planned| 2024-07-02   | 2024-07-15   |
-| **Applications & Utilities** | Simulation Manager            | ✅ Done   | 2022-10-26   | 2022-11-10   |
-|                           | Oracle CLI                       | ✅ Done   | 2022-11-11   | 2022-11-25   |
-|                           | Meteor Markdown Editor           | 🚧 Active | 2022-11-26   | 2024-06-01   |
-|                           | Temporal Calendar                | ✅ Done   | 2022-12-01   | 2022-12-15   |
-| **Expansion & Community** | Cookbooks & Samples              | ✅ Done   | 2023-01-01   | 2023-01-20   |
-|                           | Community Contributions          | 🚧 Active | 2023-01-21   | 2025-06-01   |
-| **Research**              | LLM Fine-tuning Pipelines        | 🕒 Planned| 2024-06-15   | 2024-07-01   |
-|                           | Distributed Agent Systems        | 🕒 Planned| 2024-07-02   | 2024-07-20   |
-|                           | Research & Philosophy Docs       | 🕒 Planned| 2024-07-21   | 2024-08-01   |
+| Section                   | Milestone                        | Status    | | Section | Milestone | Status | Start Date | End Date |
+|---|---|---|---|---|
+| Bootstrap & Setup | Workspace Bootstrap | ✅ Done | 2022-08-01 | 2022-08-10 |
+|  | DevContainer Integration | ✅ Done | 2022-08-11 | 2022-08-20 |
+|  | Automated Diagnostics | ✅ Done | 2022-08-21 | 2022-09-01 |
+| Core Foundations | Knowledge Foundations | ✅ Done | 2022-09-02 | 2022-09-20 |
+|  | AutoRound Quantization | ✅ Done | 2022-09-21 | 2022-10-10 |
+|  | Model Context Protocol | ✅ Done | 2022-10-11 | 2022-10-25 |
+| Blockchain & Web3 | Hardhat Integration | ✅ Done | 2024-06-01 | 2024-06-10 |
+|  | Smart Contract Templates | 🚧 Active | 2024-06-11 | 2025-06-20 |
+|  | Decentralized Storage Upgrade | 🕒 Planned | 2025-06-21 | 2025-07-01 |
+|  | zk-SNARKs & Privacy Modules | 🕒 Planned | 2025-07-02 | 2025-07-15 |
+| Applications & Utilities | Simulation Manager | ✅ Done | 2022-10-26 | 2022-11-10 |
+|  | Oracle CLI | ✅ Done | 2022-11-11 | 2022-11-25 |
+|  | Meteor Markdown Editor | 🚧 Active | 2022-11-26 | 2025-09-30 |
+|  | Temporal Calendar | ✅ Done | 2022-12-01 | 2022-12-15 |
+| Expansion & Community | Cookbooks & Samples | ✅ Done | 2023-01-01 | 2023-01-20 |
+|  | Community Contributions | 🚧 Active | 2023-01-21 | 2025-12-31 |
+| Research | LLM Fine-tuning Pipelines | 🕒 Planned | 2025-06-15 | 2025-07-01 |
+|  | Distributed Agent Systems | 🕒 Planned | 2025-07-02 | 2025-07-20 |
+|  | Research & Philosophy Docs | 🕒 Planned | 2025-07-21 | 2025-08-01 |
 
 ---
 
