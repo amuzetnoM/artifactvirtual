@@ -31,7 +31,6 @@ yarn.lock
 .logs/
 *.log
 *.csv
-*.txt
 
 # ===========================
 # Environment & Secrets
