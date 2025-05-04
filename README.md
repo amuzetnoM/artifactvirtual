@@ -1,10 +1,7 @@
-# WELCOME TO ARTIFACT VIRTUAL
+![Artifact Badge](https://img.shields.io/badge/ARTIFACT-black?style=for-the-badge&logoColor=white)![Virtual](https://img.shields.io/badge/VIRTUAL-black?style=for-the-badge&labelColor=ffffff&color=ffffff) 
 
-
-
-## [![Repography logo](https://images.repography.com/logo.svg)](https://repography.com) / Structure
-[![Structure](https://images.repography.com/0/strawberry-graphql/strawberry/structure/de711c3a36f961e6794f88115f5ae909_table.svg)](https://github.com/strawberry-graphql/strawberry)
-
+### PROJECT OVERVIEW
+[![Structure](https://images.repography.com/0/FWtYSn_n_Fu2rzWFnNRDfX4-6mQ0wutdqJUO8xt9uWA/structure/JY6tD1WYzOJkKbNe7WalXNUsOLhM4_ITZTR4T9FN8a4/b5A54X-l3yEVyN4TjtR2zMkEib0-2XBOczz0QmE06R4_table.svg)](https://github.com/_/repography)
 
 
 Structured Knowledge Systems, AI and Web3 Ecosystems, Hardhat Blockchain Development, and Tools that Empower Creation.
@@ -17,10 +14,10 @@ Artifact Virtual is a sovereign platform for AI, blockchain, and Web3 developmen
 
 ---
 
-## 🚦 Milestones
+### 🚦 MILESTONES
 
 
-## Project Timeline - May 2025
+#### Project Timeline - May 2025
 
 | Section                   | Milestone                        | Status    | Start Date   | End Date     |
 |---------------------------|----------------------------------|-----------|--------------|--------------|
@@ -46,7 +43,7 @@ Artifact Virtual is a sovereign platform for AI, blockchain, and Web3 developmen
 
 
 
-## Quickstart
+### QUICKSTART
 
 **Workspace Structure Overview**
 
@@ -67,7 +64,7 @@ Artifact Virtual is a sovereign platform for AI, blockchain, and Web3 developmen
 4. Explore `samples/` for provider demos.
 5. Reference `docs/` for guides and documentation.
 
-### Automated Setup
+### AUTOMATED SETUP
 
 ```bash
 python startup.py
@@ -84,7 +81,7 @@ python startup.py
 
 ---
 
-## Project Navigation
+### PROJECT NAVIGATION
 
 - [Getting Started Guide](docs/gettingstarted.md)
 - [Troubleshooting Guide](docs/troubleshooting.md)
@@ -98,11 +95,11 @@ python startup.py
 - [Contributing](CONTRIBUTING.md)
 - [License](LICENSE)
 
-# Getting Started
+## GETTING STARTED
 
 This guide will help you set up your environment and get started with this comprehensive AI, blockchain, and Web3 development workspace.
 
-## Table of Contents
+### Table of Contents
 
 1. [Prerequisites](#prerequisites)
 2. [Installation](#installation)
@@ -123,7 +120,7 @@ This guide will help you set up your environment and get started with this compr
    - [Deploying a Smart Contract](#deploying-a-smart-contract)
 6. [Next Steps](#next-steps)
 
-## Prerequisites
+### Prerequisites
 
 Before starting, ensure you have the following installed:
 
@@ -140,7 +137,7 @@ For GPU acceleration (optional but recommended):
 - **ROCm** for AMD GPUs
 - **OneAPI** for Intel GPUs
 
-## Installation
+## INSTALLATION
 
 ### Automated Setup
 
@@ -205,9 +202,9 @@ If you prefer to set things up manually or the automated setup encounters issues
    ollama pull gemma3
    ```
 
-## Development Environment
+### DEVELOPMENT ENVIRONMENT
 
-### VS Code DevContainer
+#### VS Code DevContainer
 
 For the most seamless setup, we recommend using VS Code with our pre-configured DevContainer:
 
@@ -226,7 +223,7 @@ The DevContainer includes:
 - PostgreSQL database
 - Pre-configured extensions
 
-### Local Development
+#### Local Development
 
 If you prefer local development:
 
@@ -246,9 +243,9 @@ If you prefer local development:
    python utils/debugdiag/main.py project status
    ```
 
-## Core Components
+### CORE COMPONENTS
 
-### Debugging & Diagnostics
+#### Debugging & Diagnostics
 
 The `debugdiag` CLI tool is your primary diagnostic and bootstrap utility:
 
@@ -266,7 +263,7 @@ python utils/debugdiag/main.py diagnose ping --host github.com
 python utils/debugdiag/main.py diagnose packages
 ```
 
-### LLM Integration
+#### LLM Integration
 
 Artifact Virtual integrates with multiple LLM frameworks:
 
@@ -295,7 +292,7 @@ Artifact Virtual integrates with multiple LLM frameworks:
    python server.py
    ```
 
-### Blockchain & Hardhat
+#### Blockchain & Hardhat development
 
 Artifact Virtual now features robust blockchain and Web3 tooling:
 
@@ -319,7 +316,7 @@ Artifact Virtual now features robust blockchain and Web3 tooling:
 - **Decentralized Storage**: Integrate with IPFS and Filecoin (see upcoming modules)
 - **zk-SNARKs & Privacy**: Privacy-preserving modules coming soon
 
-### Knowledge Foundations
+#### Knowledge Foundations
 
 Explore the curated datasets and knowledge libraries:
 
@@ -329,9 +326,9 @@ Explore the curated datasets and knowledge libraries:
 - `datasets/language_primitives.json`
 - `datasets/temporal_events.json`
 
-## First Steps
+### FIRST STEPS
 
-### Running Your First Model
+#### Running Your First Model
 
 Let's start by running a simple interaction with a model:
 
@@ -343,7 +340,7 @@ python oracles/oracle_cli.py
 # Enter a prompt, e.g., "Tell me about artificial intelligence"
 ```
 
-### Using the Oracle CLI
+#### Using the Oracle CLI
 
 The Oracle CLI provides a multimodal LLM playground:
 
@@ -355,7 +352,7 @@ The Oracle CLI provides a multimodal LLM playground:
    - Select option 5 (Multimodal: LLaVA ➔ Gemma-3)
    - Provide an image and a prompt about the image
 
-### Model Quantization with AutoRound
+#### Model Quantization with AutoRound
 
 Experience the power of AutoRound by quantizing a model:
 
@@ -370,7 +367,7 @@ pip install -e .
 auto-round --model microsoft/phi-2 --bits 4 --group_size 128 --format auto_round
 ```
 
-### Deploying a Smart Contract
+#### Deploying a Smart Contract
 
 Get started with blockchain development:
 
@@ -383,7 +380,7 @@ npx hardhat compile
 npx hardhat run scripts/deploy.js --network localhost
 ```
 
-## Next Steps
+#### NEXT STEPS
 
 Now that you've set up Artifact Virtual and explored some core components, here are some suggestions for next steps:
 
@@ -405,3 +402,6 @@ For troubleshooting and additional resources, refer to the [Troubleshooting](doc
 ---
 
 > **Note**: This document is a work in progress. Please check back for updates and additional content. If you have suggestions or feedback, feel free to open an issue or pull request on GitHub. Your contributions are welcome! Please ensure to follow the contribution guidelines in the `CONTRIBUTING.md` file before making a contribution. Thank you for your support!
+
+
+![Artifact Badge](https://img.shields.io/badge/commit.-black?style=for-the-badge&logoColor=white)
