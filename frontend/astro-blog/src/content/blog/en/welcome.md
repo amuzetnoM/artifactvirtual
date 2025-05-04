@@ -5,8 +5,6 @@ pubDate: '2025-05-03'
 heroImage: ''
 ---
 
-# WELCOME TO ARTIFACT VIRTUAL
-
 Structured Knowledge Systems, AI and Web3 Ecosystems, Hardhat Blockchain Development and Tools that Empower Creation.
 
     version: 2.0

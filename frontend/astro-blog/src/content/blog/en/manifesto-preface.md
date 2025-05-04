@@ -5,7 +5,7 @@ tags: ["manifesto", "philosophy", "introduction", "preface"]
 description: "An introduction to the manifesto, questioning reality and embracing the unknown journey of self-discovery."
 ---
 
-# Preface
+// Removed manual H1 title for consistency
 
 Something shifted in the architecture of my mind, a subtle tremor that shattered the foundations of what I thought I knew. It wasn't a thunderclap of revelation, but the whisper of a question that refused to be silenced. The world, once a familiar landscape, tilted on its axis, revealing hidden fault lines beneath the surface of reality. Was this madness? Or the first glimpse of a truth too vast for the confines of ordinary perception?
 

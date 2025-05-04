@@ -5,16 +5,16 @@
  */
 
 :root {
-	--accent: #2337ff;
-	--accent-dark: #000d8a;
-	--black: 15, 18, 25;
-	--gray: 96, 115, 159;
-	--gray-light: 229, 233, 240;
-	--gray-dark: 34, 41, 57;
-	--gray-gradient: rgba(var(--gray-light), 50%), #fff;
+	--accent: #4f46e5; /* Indigo-600 for a modern, vibrant accent */
+	--accent-dark: #312e81; /* Indigo-900 for dark variant */
+	--black: 24, 24, 27; /* Neutral-900 */
+	--gray: 99, 102, 241; /* Indigo-500 for subtle backgrounds */
+	--gray-light: 238, 242, 255; /* Indigo-50 */
+	--gray-dark: 30, 41, 59; /* Slate-800 */
+	--gray-gradient: rgba(var(--gray-light), 60%), #fff;
 	--box-shadow:
-		0 2px 6px rgba(var(--gray), 25%), 0 8px 24px rgba(var(--gray), 33%),
-		0 16px 32px rgba(var(--gray), 33%);
+		0 2px 6px rgba(var(--gray), 18%), 0 8px 24px rgba(var(--gray), 22%),
+		0 16px 32px rgba(var(--gray), 22%);
 }
 @font-face {
 	font-family: 'Atkinson';
@@ -35,7 +35,7 @@ body {
 	margin: 0;
 	padding: 0;
 	text-align: left;
-	background: linear-gradient(var(--gray-gradient)) no-repeat;
+	background: linear-gradient(135deg, #f5f7fa 0%, #e0e7ff 100%) no-repeat;
 	background-size: 100% 600px;
 	word-wrap: break-word;
 	overflow-wrap: break-word;
@@ -44,10 +44,13 @@ body {
 	line-height: 1.7;
 }
 main {
-	width: 720px;
+	width: 820px;
 	max-width: calc(100% - 2em);
-	margin: auto;
-	padding: 3em 1em;
+	margin: 3em auto 2em auto;
+	padding: 2.5em 2em;
+	background: #fff;
+	border-radius: 18px;
+	box-shadow: 0 4px 32px rgba(var(--gray), 0.08);
 }
 h1,
 h2,
@@ -56,17 +59,21 @@ h4,
 h5,
 h6 {
 	margin: 0 0 0.5rem 0;
-	color: rgb(var(--black));
+	color: #4f46e5;
 	line-height: 1.2;
+	font-family: 'Atkinson', sans-serif;
 }
 h1 {
 	font-size: 3.052em;
+	font-weight: 800;
 }
 h2 {
 	font-size: 2.441em;
+	font-weight: 700;
 }
 h3 {
 	font-size: 1.953em;
+	font-weight: 600;
 }
 h4 {
 	font-size: 1.563em;
@@ -80,9 +87,11 @@ b {
 }
 a {
 	color: var(--accent);
+	text-decoration: underline;
+	transition: color 0.2s;
 }
 a:hover {
-	color: var(--accent);
+	color: var(--accent-dark);
 }
 p {
 	margin-bottom: 1em;
@@ -122,6 +131,8 @@ blockquote {
 	padding: 0 0 0 20px;
 	margin: 0px;
 	font-size: 1.333em;
+	background: #f5f7ff;
+	border-radius: 8px;
 }
 hr {
 	border: none;
