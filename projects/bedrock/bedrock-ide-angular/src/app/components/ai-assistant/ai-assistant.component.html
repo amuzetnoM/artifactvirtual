@@ -1,0 +1,68 @@
+<div class="ai-assistant-container">
+  <div class="assistant-header">
+    <h2>Mellum AI Assistant</h2>
+    <span class="status-indicator" [class.available]="aiServiceAvailable" [class.unavailable]="!aiServiceAvailable">
+      {{ aiServiceAvailable ? 'Connected' : 'Disconnected' }}
+    </span>
+  </div>
+
+  <form [formGroup]="queryForm" (ngSubmit)="onSubmit()">
+    <mat-form-field appearance="fill" class="query-input">
+      <mat-label>Ask the AI about your code...</mat-label>
+      <textarea matInput formControlName="query" rows="3" placeholder="e.g., Create a smart contract for an NFT marketplace"></textarea>
+      <mat-error *ngIf="queryForm.get('query')?.invalid">
+        Please enter a valid query (minimum 3 characters)
+      </mat-error>
+    </mat-form-field>
+
+    <div class="temperature-control">
+      <label>Temperature: {{ queryForm.get('temperature')?.value }}</label>
+      <mat-slider min="0" max="1" step="0.1" class="temperature-slider">
+        <input matSliderThumb formControlName="temperature">
+      </mat-slider>
+      <div class="temperature-hint">
+        <span>Precise</span>
+        <span>Creative</span>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button 
+        type="submit" 
+        mat-raised-button 
+        color="primary" 
+        [disabled]="queryForm.invalid || isLoading || !aiServiceAvailable">
+        {{ isLoading ? 'Generating...' : 'Generate' }}
+        <mat-icon>send</mat-icon>
+      </button>
+      <button 
+        type="button" 
+        mat-button 
+        (click)="clearResponse()" 
+        [disabled]="!response$.getValue() || isLoading">
+        Clear
+      </button>
+    </div>
+  </form>
+
+  <div class="response-container" *ngIf="response$.getValue()">
+    <div class="response-header">
+      <h3>AI Response</h3>
+      <span class="model-info">{{ aiModel }}</span>
+    </div>
+    <div class="response-content">
+      <pre><code [highlight]="response$.getValue()" [languages]="[language]"></code></pre>
+    </div>
+    <div class="response-actions" *ngIf="response$.getValue() && response$.getValue() !== 'Generating response...'">
+      <button mat-button (click)="insertResponseToEditor()">
+        <mat-icon>code</mat-icon> Insert at Cursor
+      </button>
+      <button mat-button (click)="replaceEditorContent()">
+        <mat-icon>published_with_changes</mat-icon> Replace All
+      </button>
+      <button mat-icon-button [cdkCopyToClipboard]="response$.getValue()">
+        <mat-icon>content_copy</mat-icon>
+      </button>
+    </div>
+  </div>
+</div>

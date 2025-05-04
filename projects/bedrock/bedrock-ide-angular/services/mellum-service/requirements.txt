@@ -1,0 +1,11 @@
+vllm==0.3.0
+fastapi==0.110.0
+uvicorn==0.27.0
+transformers==4.37.0
+langchain==0.1.11
+langchain-community==0.0.26
+langchain_core==0.1.31
+sentence-transformers==2.6.0
+faiss-cpu==1.7.4
+pydantic==2.6.0
+python-dotenv==1.0.0
