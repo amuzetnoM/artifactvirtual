@@ -3,7 +3,9 @@
 ### PROJECT OVERVIEW 
 
 > REINVENTING THE WHEEL
-[![Structure](https://images.repography.com/0/FWtYSn_n_Fu2rzWFnNRDfX4-6mQ0wutdqJUO8xt9uWA/structure/JY6tD1WYzOJkKbNe7WalXNUsOLhM4_ITZTR4T9FN8a4/b5A54X-l3yEVyN4TjtR2zMkEib0-2XBOczz0QmE06R4_table.svg)](https://github.com/_/repography)
+[![Structure](https://images.repography.com/65812436/amuzetnoM/artifactvirtual/structure/SJp6R69WrCFUKrdVsKRRBIuvxfHzNOHqTqPxJTTWbEI/nKcYDqDAFn_hMpjGzGyOlLwF4HNur6pC8lNj6Lfjl5A_table.svg)](https://github.com/amuzetnoM/artifactvirtual)
+
+
 
     version: 2.0
     system: Linux
@@ -12,6 +14,7 @@
 Artifact Virtual is a sovereign platform for AI, blockchain, and Web3 development—open-source, modular, and built for the future. Designed for developers, researchers, and creators, Artifact provides a progressive development engine with advanced features that evolve with your needs. At its core, it seamlessly integrates artificial intelligence, decentralized infrastructure, and privacy-first design to enable the creation of autonomous, trustless, and innovative digital systems. Artifact empowers you to build with freedom, shape resilient technologies, and own your digital sovereignty.
 #### STRUCTURE
 [![Structure](https://images.repography.com/65812436/amuzetnoM/artifactvirtual/structure/SJp6R69WrCFUKrdVsKRRBIuvxfHzNOHqTqPxJTTWbEI/hCSk__WQ-_BHhJxy3OqD1ZOgbLV4GoLLfbwh3AIdIYM_table.svg)](https://github.com/amuzetnoM/artifactvirtual)
+
 
 
 
@@ -358,17 +361,21 @@ Now that you've set up Artifact Virtual and explored some core components, here 
    # Open http://localhost:4321 in your browser
    ```
 
-For troubleshooting and additional resources, refer to the [Troubleshooting](docs/troubleshooting.md) and [Resources](docs/resources.md) guides.
 
+      *For troubleshooting and additional resources, refer to the [Troubleshooting](docs/troubleshooting.md) and [Resources](docs/resources.md) guides.*
 ---
 
 > **Note**: This document is a work in progress. Please check back for updates and additional content. If you have suggestions or feedback, feel free to open an issue or pull request on GitHub. Your contributions are welcome! Please ensure to follow the contribution guidelines in the `CONTRIBUTING.md` file before making a contribution. Thank you for your support!
 
 
-## Recent activity [![Time period](https://images.repography.com/65812436/amuzetnoM/artifactvirtual/recent-activity/SJp6R69WrCFUKrdVsKRRBIuvxfHzNOHqTqPxJTTWbEI/3FqPXJrWePmeVRPP64xrk14PrrGM1LO3kWs9T11pYjA_badge.svg)](https://repography.com)
+
+#### Recent activity [![Time period](https://images.repography.com/65812436/amuzetnoM/artifactvirtual/recent-activity/SJp6R69WrCFUKrdVsKRRBIuvxfHzNOHqTqPxJTTWbEI/3FqPXJrWePmeVRPP64xrk14PrrGM1LO3kWs9T11pYjA_badge.svg)](https://repography.com)
 [![Timeline graph](https://images.repography.com/65812436/amuzetnoM/artifactvirtual/recent-activity/SJp6R69WrCFUKrdVsKRRBIuvxfHzNOHqTqPxJTTWbEI/3FqPXJrWePmeVRPP64xrk14PrrGM1LO3kWs9T11pYjA_timeline.svg)](https://github.com/amuzetnoM/artifactvirtual/commits)
 [![Pull request status graph](https://images.repography.com/65812436/amuzetnoM/artifactvirtual/recent-activity/SJp6R69WrCFUKrdVsKRRBIuvxfHzNOHqTqPxJTTWbEI/3FqPXJrWePmeVRPP64xrk14PrrGM1LO3kWs9T11pYjA_prs.svg)](https://github.com/amuzetnoM/artifactvirtual/pulls)
+[![Trending topics](https://images.repography.com/65812436/amuzetnoM/artifactvirtual/recent-activity/SJp6R69WrCFUKrdVsKRRBIuvxfHzNOHqTqPxJTTWbEI/3FqPXJrWePmeVRPP64xrk14PrrGM1LO3kWs9T11pYjA_words.svg)](https://github.com/amuzetnoM/artifactvirtual/commits)
 [![Top contributors](https://images.repography.com/65812436/amuzetnoM/artifactvirtual/top-contributors/SJp6R69WrCFUKrdVsKRRBIuvxfHzNOHqTqPxJTTWbEI/3FqPXJrWePmeVRPP64xrk14PrrGM1LO3kWs9T11pYjA_table.svg)](https://github.com/amuzetnoM/artifactvirtual/graphs/contributors)
+
+
 
 
 
