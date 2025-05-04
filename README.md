@@ -1,49 +1,26 @@
-## [![Repography logo](https://images.repography.com/logo.svg)](https://repography.com) / Structure
-[![Structure](https://images.repography.com/0/strawberry-graphql/strawberry/structure/de711c3a36f961e6794f88115f5ae909_table.svg)](https://github.com/strawberry-graphql/strawberry)
+![Artifact Badge](https://img.shields.io/badge/ARTIFACT-black?style=for-the-badge&logoColor=white)![Virtual](https://img.shields.io/badge/VIRTUAL-black?style=for-the-badge&labelColor=ffffff&color=ffffff)
+
+## PROJECT OVERVIEW
+> REINVENTING THE WHEEL
+[![Structure](https://images.repography.com/65812436/amuzetnoM/artifactvirtual/structure/SJp6R69WrCFUKrdVsKRRBIuvxfHzNOHqTqPxJTTWbEI/nKcYDqDAFn_hMpjGzGyOlLwF4HNur6pC8lNj6Lfjl5A_table.svg)](https://github.com/amuzetnoM/artifactvirtual)
 
 
 
-Structured Knowledge Systems, AI and Web3 Ecosystems, Hardhat Blockchain Development, and Tools that Empower Creation.
 
-  version: 2.0
-  system: Linux
-  status: Operational
 
-# WELCOME
+    version: 2.0
+    system: Linux
+    status: funtional, wip
+
 Artifact Virtual is a sovereign platform for AI, blockchain, and Web3 development—open-source, modular, and built for the future. Designed for developers, researchers, and creators, Artifact provides a progressive development engine with advanced features that evolve with your needs. At its core, it seamlessly integrates artificial intelligence, decentralized infrastructure, and privacy-first design to enable the creation of autonomous, trustless, and innovative digital systems. Artifact empowers you to build with freedom, shape resilient technologies, and own your digital sovereignty.
-
+## STRUCTURE
+[![Structure](https://images.repography.com/65812436/amuzetnoM/artifactvirtual/structure/SJp6R69WrCFUKrdVsKRRBIuvxfHzNOHqTqPxJTTWbEI/hCSk__WQ-_BHhJxy3OqD1ZOgbLV4GoLLfbwh3AIdIYM_table.svg)](https://github.com/amuzetnoM/artifactvirtual)
 ---
 
-## 🚦 Milestones
-
-
-## Project Timeline - May 2025
-
-| Section                   | Milestone                        | Status    | Start Date   | End Date     |
-|---------------------------|----------------------------------|-----------|--------------|--------------|
-| **Bootstrap & Setup** | Workspace Bootstrap              | ✅ Done   | 2022-08-01   | 2022-08-10   |
-|                           | DevContainer Integration         | ✅ Done   | 2022-08-11   | 2022-08-20   |
-|                           | Automated Diagnostics            | ✅ Done   | 2022-08-21   | 2022-09-01   |
-| **Core Foundations** | Knowledge Foundations            | ✅ Done   | 2022-09-02   | 2022-09-20   |
-|                           | AutoRound Quantization           | ✅ Done   | 2022-09-21   | 2022-10-10   |
-|                           | Model Context Protocol           | ✅ Done   | 2022-10-11   | 2022-10-25   |
-| **Blockchain & Web3** | Hardhat Integration              | ✅ Done   | 2024-06-01   | 2024-06-10   |
-|                           | Smart Contract Templates         | 🚧 Active | 2024-06-11   | 2025-06-20   |
-|                           | Decentralized Storage Upgrade    | 🕒 Planned| 2025-06-21   | 2025-07-01   |
-|                           | zk-SNARKs & Privacy Modules      | 🕒 Planned| 2025-07-02   | 2025-07-15   |
-| **Applications & Utilities** | Simulation Manager            | ✅ Done   | 2022-10-26   | 2022-11-10   |
-|                           | Oracle CLI                       | ✅ Done   | 2022-11-11   | 2022-11-25   |
-|                           | Meteor Markdown Editor           | 🚧 Active | 2022-11-26   | 2025-09-30   |
-|                           | Temporal Calendar                | ✅ Done   | 2022-12-01   | 2022-12-15   |
-| **Expansion & Community** | Cookbooks & Samples              | ✅ Done   | 2023-01-01   | 2023-01-20   |
-|                           | Community Contributions          | 🚧 Active | 2023-01-21   | 2025-12-31   |
-| **Research** | LLM Fine-tuning Pipelines        | 🕒 Planned| 2025-06-15   | 2025-07-01   |
-|                           | Distributed Agent Systems        | 🕒 Planned| 2025-07-02   | 2025-07-20   |
-|                           | Research & Philosophy Docs       | 🕒 Planned| 2025-07-21   | 2025-08-01   |
 
 
 
-## Quickstart
+## QUICKSTART
 
 **Workspace Structure Overview**
 
@@ -81,7 +58,7 @@ python startup.py
 
 ---
 
-## Project Navigation
+### Project Navigation
 
 - [Getting Started Guide](docs/gettingstarted.md)
 - [Troubleshooting Guide](docs/troubleshooting.md)
@@ -95,7 +72,7 @@ python startup.py
 - [Contributing](CONTRIBUTING.md)
 - [License](LICENSE)
 
-# Getting Started
+## GETTING STARTED
 
 This guide will help you set up your environment and get started with this comprehensive AI, blockchain, and Web3 development workspace.
 
@@ -120,7 +97,7 @@ This guide will help you set up your environment and get started with this compr
    - [Deploying a Smart Contract](#deploying-a-smart-contract)
 6. [Next Steps](#next-steps)
 
-## Prerequisites
+## PREREQUISITES
 
 Before starting, ensure you have the following installed:
 
@@ -137,7 +114,7 @@ For GPU acceleration (optional but recommended):
 - **ROCm** for AMD GPUs
 - **OneAPI** for Intel GPUs
 
-## Installation
+## INSTALLATION
 
 ### Automated Setup
 
@@ -202,7 +179,7 @@ If you prefer to set things up manually or the automated setup encounters issues
    ollama pull gemma3
    ```
 
-## Development Environment
+## DEVELOPMENT ENVIRONMENT
 
 ### VS Code DevContainer
 
@@ -243,7 +220,7 @@ If you prefer local development:
    python utils/debugdiag/main.py project status
    ```
 
-## Core Components
+## CORE COMPONENTS
 
 ### Debugging & Diagnostics
 
@@ -326,7 +303,7 @@ Explore the curated datasets and knowledge libraries:
 - `datasets/language_primitives.json`
 - `datasets/temporal_events.json`
 
-## First Steps
+## FIRST STEPS
 
 ### Running Your First Model
 
@@ -380,7 +357,7 @@ npx hardhat compile
 npx hardhat run scripts/deploy.js --network localhost
 ```
 
-## Next Steps
+## NEXT STEPS
 
 Now that you've set up Artifact Virtual and explored some core components, here are some suggestions for next steps:
 
@@ -402,3 +379,15 @@ For troubleshooting and additional resources, refer to the [Troubleshooting](doc
 ---
 
 > **Note**: This document is a work in progress. Please check back for updates and additional content. If you have suggestions or feedback, feel free to open an issue or pull request on GitHub. Your contributions are welcome! Please ensure to follow the contribution guidelines in the `CONTRIBUTING.md` file before making a contribution. Thank you for your support!
+
+## Recent activity [![Time period](https://images.repography.com/65812436/amuzetnoM/artifactvirtual/recent-activity/SJp6R69WrCFUKrdVsKRRBIuvxfHzNOHqTqPxJTTWbEI/3FqPXJrWePmeVRPP64xrk14PrrGM1LO3kWs9T11pYjA_badge.svg)](https://repography.com)
+[![Timeline graph](https://images.repography.com/65812436/amuzetnoM/artifactvirtual/recent-activity/SJp6R69WrCFUKrdVsKRRBIuvxfHzNOHqTqPxJTTWbEI/3FqPXJrWePmeVRPP64xrk14PrrGM1LO3kWs9T11pYjA_timeline.svg)](https://github.com/amuzetnoM/artifactvirtual/commits)
+[![Pull request status graph](https://images.repography.com/65812436/amuzetnoM/artifactvirtual/recent-activity/SJp6R69WrCFUKrdVsKRRBIuvxfHzNOHqTqPxJTTWbEI/3FqPXJrWePmeVRPP64xrk14PrrGM1LO3kWs9T11pYjA_prs.svg)](https://github.com/amuzetnoM/artifactvirtual/pulls)
+[![Trending topics](https://images.repography.com/65812436/amuzetnoM/artifactvirtual/recent-activity/SJp6R69WrCFUKrdVsKRRBIuvxfHzNOHqTqPxJTTWbEI/3FqPXJrWePmeVRPP64xrk14PrrGM1LO3kWs9T11pYjA_words.svg)](https://github.com/amuzetnoM/artifactvirtual/commits)
+[![Top contributors](https://images.repography.com/65812436/amuzetnoM/artifactvirtual/top-contributors/SJp6R69WrCFUKrdVsKRRBIuvxfHzNOHqTqPxJTTWbEI/3FqPXJrWePmeVRPP64xrk14PrrGM1LO3kWs9T11pYjA_table.svg)](https://github.com/amuzetnoM/artifactvirtual/graphs/contributors)
+
+
+
+
+
+![Artifact Badge](https://img.shields.io/badge/commit.-black?style=for-the-badge&logoColor=white)
