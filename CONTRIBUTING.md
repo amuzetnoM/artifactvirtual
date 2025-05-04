@@ -1,8 +1,8 @@
-# Contributing to ARTIFACT VIRTUAL
+### **CONTRIBUTING TO ARTIFACT VIRTUAL**
 
 Thank you for your interest in contributing to ArtifactVirtual! This document provides guidelines and instructions to help you contribute effectively while protecting the project's integrity and quality.
 
-## Table of Contents
+#### Table of Contents
 
 1. [Introduction](#introduction)
 2. [Getting Started](#getting-started)
@@ -15,12 +15,12 @@ Thank you for your interest in contributing to ArtifactVirtual! This document pr
 9. [License and Copyright](#license-and-copyright)
 10. [Community Support](#community-support)
 
-## INTRODUCTION
+#### INTRODUCTION
 ARTIFACT VIRTUAL is an open-source project designed to provide a comprehensive framework for building AI applications. It includes advanced model quantization, local and cloud LLM integration, and a modular architecture for easy component reuse.
 
-## Getting Started
+#### Getting Started
 
-### Prerequisites
+##### Prerequisites
 
 Before contributing, ensure you have:
 
@@ -29,15 +29,15 @@ Before contributing, ensure you have:
 - Familiarized yourself with the project structure and architecture
 - Checked existing [issues](https://github.com/amuzetnoM/artifactvirtual/issues) and [pull requests](https://github.com/amuzetnoM/artifactvirtual/pulls)
 
-### Finding Issues to Work On
+##### Finding Issues to Work On
 
 - Look for issues labeled `good-first-issue` for newcomers
 - Check the project roadmap for planned features
 - Propose new features or improvements via the issue tracker
 
-## Development Environment
+#### DEVELOPMENT ENVIRONMENT
 
-### Recommended Setup
+##### Recommended Setup
 
 We strongly recommend using our VS Code DevContainer for consistent development:
 
@@ -48,7 +48,7 @@ We strongly recommend using our VS Code DevContainer for consistent development:
 
 This ensures you have all required tools, dependencies, and extensions pre-configured.
 
-### Manual Setup
+##### Manual Setup
 
 If DevContainer is not an option:
 
@@ -58,9 +58,9 @@ If DevContainer is not an option:
    python utils/debugdiag/main.py project status
    ```
 
-## Contribution Workflow
+#### CONTRIBUTION WORKFLOW
 
-### 1. Fork and Clone
+##### 1. Fork and Clone
 
 1. Fork the repository to your GitHub account
 2. Clone your fork locally:
@@ -73,7 +73,7 @@ If DevContainer is not an option:
    git remote add upstream https://github.com/amuzetnoM/artifactvirtual.git
    ```
 
-### 2. Create a Branch
+##### 2. Create a Branch
 
 Create a branch with a descriptive name:
 ```bash
@@ -82,18 +82,18 @@ git checkout -b feature/your-feature-name
 git checkout -b fix/issue-you-are-fixing
 ```
 
-### 3. Implement Changes
+##### 3. Implement Changes
 
 Make your changes following the [Coding Standards](#coding-standards).
 
-### 4. Test Your Changes
+##### 4. Test Your Changes
 
 - Run relevant unit and integration tests
 - For UI changes, test across multiple browsers/devices
 - For API changes, test with multiple clients
 - For LLM integration, test with different models and providers
 
-### 5. Documentation
+##### 5. Documentation
 
 Update or create documentation for your changes:
 - Code comments for complex logic
@@ -102,7 +102,7 @@ Update or create documentation for your changes:
 - Examples of usage
 - Architecture diagrams for significant changes
 
-### 6. Commit Guidelines
+##### 6. Commit Guidelines
 
 Follow these commit message guidelines:
 - Use the present tense ("Add feature" not "Added feature")
@@ -121,7 +121,7 @@ Add AutoRound support for Intel GPUs
 Fixes #123
 ```
 
-### 7. Submitting a Pull Request
+##### 7. Submitting a Pull Request
 
 1. Push your branch to your fork:
    ```bash
@@ -131,9 +131,9 @@ Fixes #123
 3. Fill in the pull request template completely
 4. Request review from appropriate maintainers
 
-## Pull Request Guidelines
+#### PULL REQUEST GUIDELINES
 
-### PR Checklist
+##### PR Checklist
 
 Ensure your PR:
 - [ ] Addresses a single concern (feature, bugfix, documentation)
@@ -143,7 +143,7 @@ Ensure your PR:
 - [ ] References relevant issues
 - [ ] Has been tested locally
 
-### Review Process
+##### Review Process
 
 1. At least one core maintainer must approve your PR
 2. CI checks must pass
@@ -151,16 +151,16 @@ Ensure your PR:
 4. Documentation must be updated
 5. For significant changes, multiple approvals may be required
 
-### After Merge
+##### After Merge
 
 Once your PR is merged:
 - You can delete your branch
 - The change will be included in the next release
 - You'll be credited for your contribution
 
-## Coding Standards
+#### Coding Standards
 
-### General Guidelines
+##### General Guidelines
 
 - Write readable, self-explanatory code
 - Follow the principle of least surprise
@@ -169,71 +169,71 @@ Once your PR is merged:
 - Keep methods/functions focused on a single responsibility
 - Use meaningful variable and function names
 
-### Language-Specific Standards
+##### Language-Specific Standards
 
-#### Python
+###### Python
 - Follow [PEP 8](https://www.python.org/dev/peps/pep-0008/)
 - Use type hints for all new code
 - Write docstrings for all public functions
 - Run `flake8` and `mypy` before submitting
 
-#### TypeScript/JavaScript
+###### TypeScript/JavaScript
 - Follow the project's ESLint configuration
 - Use TypeScript for all new code
 - Prefer functional patterns where appropriate
 - Document complex component props
 
-#### Markdown
+###### Markdown
 - Use semantically appropriate headers
 - Include alt text for all images
 - Follow a consistent structure
 
-### Testing Requirements
+##### Testing Requirements
 
 - All new features must include tests
 - Bug fixes should include regression tests
 - Maintain or improve test coverage
 - Tests should be deterministic and fast
 
-## Documentation Guidelines
+#### Documentation Guidelines
 
-### Code Documentation
+##### Code Documentation
 
 - Document public APIs comprehensively
 - Include examples for complex functions
 - Explain "why" more than "what"
 - Keep documentation close to the code
 
-### Project Documentation
+##### Project Documentation
 
 - Use Markdown for all documentation
 - Place general guides in the `docs/` directory
 - Include diagrams for complex systems
 - Follow the established documentation structure
 
-### Samples and Examples
+##### Samples and Examples
 
 - Provide complete, working examples
 - Ensure examples work in isolation
 - Include comments explaining key concepts
 - Consider multiple skill levels
 
-## Security Guidelines
+#### Security Guidelines
 
-### Sensitive Information
+##### Sensitive Information
 
 - Never commit API keys, passwords, or tokens
 - Use environment variables for configuration
 - Follow the principle of least privilege
 
-### Data Protection
+##### Data Protection
 
 - Sanitize user inputs
 - Validate data at system boundaries
 - Be cautious with third-party dependencies
 - Consider privacy implications of features
 
-### Vulnerability Reporting
+##### Vulnerability Reporting
 
 For security vulnerabilities:
 - Do NOT create public issues
@@ -241,7 +241,7 @@ For security vulnerabilities:
 - Provide detailed reproduction steps
 - Allow time for patches before disclosure
 
-## License and Copyright
+#### License and Copyright
 
 By contributing to ArtifactVirtual:
 
@@ -249,15 +249,15 @@ By contributing to ArtifactVirtual:
 2. You confirm that you have the right to provide the contribution
 3. You understand that your contribution will be publicly available
 
-## Community Support
+#### Community Support
 
-### Getting Help
+##### Getting Help
 
 - Join the [GitHub Discussions](https://github.com/amuzetnoM/artifactvirtual/discussions)
 - Check the [Troubleshooting Guide](docs/troubleshooting.md)
 - Review the [Resources](docs/resources.md) document
 
-### Providing Help
+##### Providing Help
 
 - Answer questions in the discussion forums
 - Review pull requests from other contributors
