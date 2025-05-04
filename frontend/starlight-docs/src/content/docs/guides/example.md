@@ -3,34 +3,43 @@ title: WELCOME
 description: A comprehensive guide to Artifact Virtual. An open-source platform for AI, blockchain, and Web3 development. Learn setup, workflows, and advanced tools for building decentralized digital systems.
 
 ---
+Structured Knowledge Systems, AI and Web3 Ecosystems, Hardhat Blockchain Development, and Tools that Empower Creation.
 
-    version: 2.0
-    system: Linux
-    status: Operational
+  version: 2.0
+  system: Linux
+  status: Operational
 
 Artifact Virtual is a sovereign platform for AI, blockchain, and Web3 development—open-source, modular, and built for the future. Designed for developers, researchers, and creators, Artifact provides a progressive development engine with advanced features that evolve with your needs. At its core, it seamlessly integrates artificial intelligence, decentralized infrastructure, and privacy-first design to enable the creation of autonomous, trustless, and innovative digital systems. Artifact empowers you to build with freedom, shape resilient technologies, and own your digital sovereignty.
 
-### 🚦 Milestones
+---
 
-| Section                   | Milestone                    | Status    | Start Date   | End Date     |
-|---------------------------|------------------------------|-----------|--------------|--------------|
-| **Bootstrap & Setup**     | Workspace Bootstrap          | ✅ Done   | 2023-11-01   | 2023-11-10   |
-|                           | DevContainer Integration     | ✅ Done   | 2023-11-05   | 2023-11-15   |
-|                           | Automated Diagnostics        | ✅ Done   | 2023-11-10   | 2023-11-20   |
-| **Core Foundations**      | Knowledge Foundations        | ✅ Done   | 2023-11-15   | 2023-12-01   |
-|                           | AutoRound Quantization       | ✅ Done   | 2023-12-01   | 2023-12-15   |
-|                           | Model Context Protocol       | ✅ Done   | 2023-12-10   | 2023-12-20   |
-| **Applications & Utilities** | Simulation Manager        | ✅ Done   | 2023-12-20   | 2024-01-10   |
-|                           | Oracle CLI                   | ✅ Done   | 2024-01-05   | 2024-01-20   |
-|                           | Meteor Markdown Editor       | 🚧 Active | 2024-01-15   | 2024-05-01   |
-|                           | Temporal Calendar            | ✅ Done   | 2024-02-01   | 2024-02-20   |
-| **Expansion & Community** | Cookbooks & Samples          | ✅ Done   | 2024-02-10   | 2024-03-01   |
-|                           | Community Contributions      | 🚧 Active | 2024-03-01   | 2025-05-01   |
-| **Next & Future**         | LLM Fine-tuning Pipelines    | 🕒 Planned| 2024-05-10   | 2024-06-01   |
-|                           | Distributed Agent Systems    | 🕒 Planned| 2024-06-01   | 2024-07-01   |
-|                           | Research & Philosophy Docs   | 🕒 Planned| 2024-06-15   | 2024-07-15   |
+## 🚦 Milestones
 
-### Quickstart
+| Section                   | Milestone                        | Status    | Start Date   | End Date     |
+|---------------------------|----------------------------------|-----------|--------------|--------------|
+| **Bootstrap & Setup**     | Workspace Bootstrap              | ✅ Done   | 2022-08-01   | 2022-08-10   |
+|                           | DevContainer Integration         | ✅ Done   | 2022-08-11   | 2022-08-20   |
+|                           | Automated Diagnostics            | ✅ Done   | 2022-08-21   | 2022-09-01   |
+| **Core Foundations**      | Knowledge Foundations            | ✅ Done   | 2022-09-02   | 2022-09-20   |
+|                           | AutoRound Quantization           | ✅ Done   | 2022-09-21   | 2022-10-10   |
+|                           | Model Context Protocol           | ✅ Done   | 2022-10-11   | 2022-10-25   |
+| **Blockchain & Web3**     | Hardhat Integration              | ✅ Done   | 2024-06-01   | 2024-06-10   |
+|                           | Smart Contract Templates         | 🚧 Active | 2024-06-11   | 2024-06-20   |
+|                           | Decentralized Storage Upgrade    | 🕒 Planned| 2024-06-21   | 2024-07-01   |
+|                           | zk-SNARKs & Privacy Modules      | 🕒 Planned| 2024-07-02   | 2024-07-15   |
+| **Applications & Utilities** | Simulation Manager            | ✅ Done   | 2022-10-26   | 2022-11-10   |
+|                           | Oracle CLI                       | ✅ Done   | 2022-11-11   | 2022-11-25   |
+|                           | Meteor Markdown Editor           | 🚧 Active | 2022-11-26   | 2024-06-01   |
+|                           | Temporal Calendar                | ✅ Done   | 2022-12-01   | 2022-12-15   |
+| **Expansion & Community** | Cookbooks & Samples              | ✅ Done   | 2023-01-01   | 2023-01-20   |
+|                           | Community Contributions          | 🚧 Active | 2023-01-21   | 2025-06-01   |
+| **Research**              | LLM Fine-tuning Pipelines        | 🕒 Planned| 2024-06-15   | 2024-07-01   |
+|                           | Distributed Agent Systems        | 🕒 Planned| 2024-07-02   | 2024-07-20   |
+|                           | Research & Philosophy Docs       | 🕒 Planned| 2024-07-21   | 2024-08-01   |
+
+---
+
+## Quickstart
 
 **Workspace Structure Overview**
 
@@ -51,7 +60,7 @@ Artifact Virtual is a sovereign platform for AI, blockchain, and Web3 developmen
 4. Explore `samples/` for provider demos.
 5. Reference `docs/` for guides and documentation.
 
-#### Automated Setup
+### Automated Setup
 
 ```bash
 python startup.py
@@ -59,7 +68,7 @@ python startup.py
 - Checks system, installs dependencies, boots core services, and welcomes you interactively.
 - See [.startup/readme.md](.startup/readme.md) for details.
 
-#### DevContainer (Recommended for VS Code)
+### DevContainer (Recommended for VS Code)
 
 1. Open in VS Code, install Remote - Containers extension
 2. "Reopen in Container" when prompted
@@ -68,7 +77,7 @@ python startup.py
 
 ---
 
-### Project Navigation
+## Project Navigation
 
 - [Getting Started Guide](docs/gettingstarted.md)
 - [Troubleshooting Guide](docs/troubleshooting.md)
@@ -84,25 +93,27 @@ python startup.py
 
 # Getting Started
 
-This guide will help you set up your environment and get started with this comprehensive AI development workspace.
+This guide will help you set up your environment and get started with this comprehensive AI, blockchain, and Web3 development workspace.
 
 ## Table of Contents
 
 1. [Prerequisites](#prerequisites)
 2. [Installation](#installation)
-  - [Automated Setup](#automated-setup)
-  - [Manual Setup](#manual-setup)
+   - [Automated Setup](#automated-setup)
+   - [Manual Setup](#manual-setup)
 3. [Development Environment](#development-environment)
-  - [VS Code DevContainer](#vs-code-devcontainer)
-  - [Local Development](#local-development)
+   - [VS Code DevContainer](#vs-code-devcontainer)
+   - [Local Development](#local-development)
 4. [Core Components](#core-components)
-  - [Debugging & Diagnostics](#debugging--diagnostics)
-  - [LLM Integration](#llm-integration)
-  - [Knowledge Foundations](#knowledge-foundations)
+   - [Debugging & Diagnostics](#debugging--diagnostics)
+   - [LLM Integration](#llm-integration)
+   - [Blockchain & Hardhat](#blockchain--hardhat)
+   - [Knowledge Foundations](#knowledge-foundations)
 5. [First Steps](#first-steps)
-  - [Running Your First Model](#running-your-first-model)
-  - [Using the Oracle CLI](#using-the-oracle-cli)
-  - [Model Quantization with AutoRound](#model-quantization-with-autoround)
+   - [Running Your First Model](#running-your-first-model)
+   - [Using the Oracle CLI](#using-the-oracle-cli)
+   - [Model Quantization with AutoRound](#model-quantization-with-autoround)
+   - [Deploying a Smart Contract](#deploying-a-smart-contract)
 6. [Next Steps](#next-steps)
 
 ## Prerequisites
@@ -114,6 +125,7 @@ Before starting, ensure you have the following installed:
 - **Git** and **Git LFS** (for version control and large file management)
 - **curl** (for API samples)
 - **CMake** (required for building some dependencies like sentencepiece)
+- **Hardhat** (for blockchain development)
 
 For GPU acceleration (optional but recommended):
 
@@ -139,6 +151,7 @@ This script will:
 4. Set up Ollama with required models
 5. Initialize AutoRound for model quantization
 6. Prepare the development environment
+7. Set up Hardhat and blockchain templates
 
 ### Manual Setup
 
@@ -146,38 +159,44 @@ If you prefer to set things up manually or the automated setup encounters issues
 
 1. Create a Python virtual environment:
 
-  ```bash
-  python -m venv .venv
+   ```bash
+   python -m venv .venv
 
-  # Activate on Windows
-  .venv\Scripts\activate
+   # Activate on Windows
+   .venv\Scripts\activate
 
-  # Activate on macOS/Linux
-  source .venv/bin/activate
-  ```
+   # Activate on macOS/Linux
+   source .venv/bin/activate
+   ```
 
 2. Install Python dependencies:
 
-  ```bash
-  pip install -r requirements.txt
-  ```
+   ```bash
+   pip install -r requirements.txt
+   ```
 
 3. Install Node.js dependencies (for documentation):
 
-  ```bash
-  cd frontend/celestial-chaos
-  npm install
-  cd ../..
-  ```
+   ```bash
+   cd frontend/celestial-chaos
+   npm install
+   cd ../..
+   ```
 
-4. Install Ollama (optional but recommended):
-  - [Ollama installation instructions](https://ollama.ai/download)
-  - After installation, pull the required models:
+4. Install Hardhat (for blockchain development):
 
-    ```bash
-    ollama pull phi4-mini
-    ollama pull gemma3
-    ```
+   ```bash
+   npm install --global hardhat
+   ```
+
+5. Install Ollama (optional but recommended):
+   - [Ollama installation instructions](https://ollama.ai/download)
+   - After installation, pull the required models:
+
+   ```bash
+   ollama pull phi4-mini
+   ollama pull gemma3
+   ```
 
 ## Development Environment
 
@@ -195,6 +214,7 @@ The DevContainer includes:
 
 - All required Python packages
 - Node.js and npm
+- Hardhat and blockchain tools
 - CUDA support for GPU acceleration
 - PostgreSQL database
 - Pre-configured extensions
@@ -205,19 +225,19 @@ If you prefer local development:
 
 1. Activate the virtual environment:
 
-  ```bash
-  # On Windows
-  .venv\Scripts\activate
+   ```bash
+   # On Windows
+   .venv\Scripts\activate
 
-  # On macOS/Linux
-  source .venv/bin/activate
-  ```
+   # On macOS/Linux
+   source .venv/bin/activate
+   ```
 
 2. Run the debugging and diagnostic tool to verify your setup:
 
-  ```bash
-  python utils/debugdiag/main.py project status
-  ```
+   ```bash
+   python utils/debugdiag/main.py project status
+   ```
 
 ## Core Components
 
@@ -235,44 +255,62 @@ python utils/debugdiag/main.py logs show
 # Check connectivity to a host
 python utils/debugdiag/main.py diagnose ping --host github.com
 
-#### Using the Artifact Debug Utilities
-Alternatively, you can use the built-in diagnostic tools in Artifact Virtual to manage dependencies:
-
-# Activate your virtual environment
-.venv\Scripts\activate
-
 # Use the debugdiag utility to install or check packages
-python utils\debugdiag\main.py diagnose packages
+python utils/debugdiag/main.py diagnose packages
 ```
 
-#### LLM Integration
+### LLM Integration
 
 Artifact Virtual integrates with multiple LLM frameworks:
 
 1. **Ollama**: Local LLM server with multiple models
 
-  ```bash
-  # Check available models
-  ollama list
+   ```bash
+   # Check available models
+   ollama list
 
-  # Pull a new model
-  ollama pull llava
-  ```
+   # Pull a new model
+   ollama pull llava
+   ```
 
 2. **AutoRound**: Advanced model quantization
 
-  ```bash
-  # Quantize a model to 4 bits
-  python -m auto_round --model Qwen/Qwen3-0.6B --bits 4 --group_size 128
-  ```
+   ```bash
+   # Quantize a model to 4 bits
+   python -m auto_round --model Qwen/Qwen3-0.6B --bits 4 --group_size 128
+   ```
 
 3. **Model Context Protocol (MCP)**: Standardized context provision
 
+   ```bash
+   # Run an MCP server
+   cd utils/modelcontextprotocol/examples/servers/simple-prompt
+   python server.py
+   ```
+
+### Blockchain & Hardhat
+
+Artifact Virtual now features robust blockchain and Web3 tooling:
+
+- **Hardhat**: Develop, test, and deploy smart contracts
+
   ```bash
-  # Run an MCP server
-  cd utils/modelcontextprotocol/examples/servers/simple-prompt
-  python server.py
+  # Initialize a new Hardhat project
+  npx hardhat init
+
+  # Compile contracts
+  npx hardhat compile
+
+  # Run tests
+  npx hardhat test
+
+  # Deploy to local network
+  npx hardhat run scripts/deploy.js --network localhost
   ```
+
+- **Smart Contract Templates**: Find ready-to-use templates in `projects/blockchain/contracts/`
+- **Decentralized Storage**: Integrate with IPFS and Filecoin (see upcoming modules)
+- **zk-SNARKs & Privacy**: Privacy-preserving modules coming soon
 
 ### Knowledge Foundations
 
@@ -303,12 +341,12 @@ python oracles/oracle_cli.py
 The Oracle CLI provides a multimodal LLM playground:
 
 1. Try chaining models together:
-  - Select option 4 (Chain: phi4-mini ➔ gemma3)
-  - Enter a complex query that benefits from multiple perspectives
+   - Select option 4 (Chain: phi4-mini ➔ gemma3)
+   - Enter a complex query that benefits from multiple perspectives
 
 2. Try multimodal processing:
-  - Select option 5 (Multimodal: LLaVA ➔ Gemma-3)
-  - Provide an image and a prompt about the image
+   - Select option 5 (Multimodal: LLaVA ➔ Gemma-3)
+   - Provide an image and a prompt about the image
 
 ### Model Quantization with AutoRound
 
@@ -325,26 +363,38 @@ pip install -e .
 auto-round --model microsoft/phi-2 --bits 4 --group_size 128 --format auto_round
 ```
 
+### Deploying a Smart Contract
+
+Get started with blockchain development:
+
+```bash
+# Initialize Hardhat in your project directory
+npx hardhat init
+
+# Compile and deploy a sample contract
+npx hardhat compile
+npx hardhat run scripts/deploy.js --network localhost
+```
+
 ## Next Steps
 
-Now that you've set up ArtifactVirtual and explored some core components, here are some suggestions for next steps:
+Now that you've set up Artifact Virtual and explored some core components, here are some suggestions for next steps:
 
-1. **Explore the Samples**: Check out the various code samples in the `samples` folder for different LLM providers.
+1. **Explore the Samples**: Check out the various code samples in the `samples` folder for different LLM providers and blockchain contracts.
 2. **Build with MCP**: Try creating your own MCP server that exposes custom resources and tools.
 3. **Create a Quantized LLM Pipeline**: Combine AutoRound's quantization capabilities with Ollama for efficient LLM deployment.
-4. **Contribute**: Explore the codebase and consider contributing to the project.
-5. **Documentation**: Browse the comprehensive documentation site:
+4. **Develop Smart Contracts**: Use Hardhat and our templates to build and deploy your own contracts.
+5. **Contribute**: Explore the codebase and consider contributing to the project.
+6. **Documentation**: Browse the comprehensive documentation site:
 
-  ```bash
-  cd frontend/celestial-chaos
-  npm run dev
-  # Open http://localhost:4321 in your browser
-  ```
+   ```bash
+   cd frontend/celestial-chaos
+   npm run dev
+   # Open http://localhost:4321 in your browser
+   ```
 
 For troubleshooting and additional resources, refer to the [Troubleshooting](docs/troubleshooting.md) and [Resources](docs/resources.md) guides.
 
 ---
-
-
 
 > **Note**: This document is a work in progress. Please check back for updates and additional content. If you have suggestions or feedback, feel free to open an issue or pull request on GitHub. Your contributions are welcome! Please ensure to follow the contribution guidelines in the `CONTRIBUTING.md` file before making a contribution. Thank you for your support!
