@@ -4,7 +4,20 @@ module.exports = {
     './public/**/*.html',
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        accent: {
+          DEFAULT: '#FFD700', // Gold
+          dark: '#B8860B',    // Dark gold
+        },
+        brandblack: {
+          DEFAULT: '#18181B', // Deep black
+        },
+      },
+      fontFamily: {
+        sans: ['Atkinson', 'ui-sans-serif', 'system-ui'],
+      },
+    },
   },
   plugins: [
     require('@tailwindcss/typography'),
