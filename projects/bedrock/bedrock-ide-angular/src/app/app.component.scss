@@ -1,0 +1,23 @@
+:host {
+  display: block;
+  height: 100%;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #ffffff;
+  color: #333333;
+
+  &.dark-theme {
+    background-color: #121212;
+    color: #e0e0e0;
+  }
+}
+
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}

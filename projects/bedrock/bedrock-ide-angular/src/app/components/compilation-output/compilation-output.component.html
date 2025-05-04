@@ -1,0 +1,29 @@
+<div class="compilation-output" [class.has-error]="hasError" [class.has-warning]="hasWarning">
+  <div class="output-header">
+    <div class="header-info">
+      <mat-icon *ngIf="hasError" class="error-icon">error</mat-icon>
+      <mat-icon *ngIf="hasWarning && !hasError" class="warning-icon">warning</mat-icon>
+      <mat-icon *ngIf="!hasWarning && !hasError" class="success-icon">check_circle</mat-icon>
+      <span class="status-text">
+        {{hasError ? 'Compilation Failed' : hasWarning ? 'Compilation Succeeded with Warnings' : 'Compilation Succeeded'}}
+      </span>
+    </div>
+    <div class="header-actions">
+      <button mat-icon-button (click)="copyToClipboard()" matTooltip="Copy to clipboard">
+        <mat-icon>content_copy</mat-icon>
+      </button>
+      <button mat-icon-button (click)="clearOutput.emit()" matTooltip="Clear output">
+        <mat-icon>clear</mat-icon>
+      </button>
+    </div>
+  </div>
+  
+  <div class="output-content">
+    <mat-spinner *ngIf="isLoading" diameter="30"></mat-spinner>
+    <pre *ngIf="!isLoading && output" [innerHTML]="output"></pre>
+    <div *ngIf="!isLoading && !output" class="no-output">
+      <mat-icon>code</mat-icon>
+      <span>No compilation output yet. Compile your code to see results here.</span>
+    </div>
+  </div>
+</div>

@@ -10,8 +10,10 @@ export class ThemeService {
   private readonly STORAGE_KEY = 'bedrock_ide_theme';
   private renderer: Renderer2;
   private themeSubject = new BehaviorSubject<ThemeMode>(this.getInitialTheme());
+  private isDarkSubject = new BehaviorSubject<boolean>(this.getInitialDarkValue());
   
   currentTheme$ = this.themeSubject.asObservable();
+  darkMode$ = this.isDarkSubject.asObservable();
 
   constructor(private rendererFactory: RendererFactory2) {
     this.renderer = this.rendererFactory.createRenderer(null, null);
@@ -26,6 +28,14 @@ export class ThemeService {
   private getInitialTheme(): ThemeMode {
     const savedTheme = localStorage.getItem(this.STORAGE_KEY) as ThemeMode;
     return savedTheme || 'system';
+  }
+
+  private getInitialDarkValue(): boolean {
+    const theme = this.getInitialTheme();
+    if (theme === 'dark') return true;
+    if (theme === 'light') return false;
+    // If system theme, check system preference
+    return window.matchMedia('(prefers-color-scheme: dark)').matches;
   }
 
   private setupSystemThemeListener(): void {
@@ -46,6 +56,7 @@ export class ThemeService {
   private applySystemTheme(isDark: boolean): void {
     const theme = isDark ? 'dark' : 'light';
     this.setDocumentClass(theme);
+    this.isDarkSubject.next(isDark);
   }
 
   private setDocumentClass(theme: string): void {
@@ -66,6 +77,7 @@ export class ThemeService {
     } else {
       // Apply specific theme
       this.setDocumentClass(theme);
+      this.isDarkSubject.next(theme === 'dark');
     }
   }
 
@@ -97,6 +109,16 @@ export class ThemeService {
         break;
     }
     
+    this.setTheme(newTheme);
+  }
+
+  // Simple methods for components that only care about dark/light
+  isDarkMode(): boolean {
+    return this.isDarkSubject.value;
+  }
+
+  setDarkMode(isDark: boolean): void {
+    const newTheme: ThemeMode = isDark ? 'dark' : 'light';
     this.setTheme(newTheme);
   }
 }

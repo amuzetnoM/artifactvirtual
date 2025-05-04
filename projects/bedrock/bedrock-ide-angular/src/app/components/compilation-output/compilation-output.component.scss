@@ -1,0 +1,136 @@
+:host {
+  display: block;
+  height: 100%;
+}
+
+.compilation-output {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: #1e1e1e;
+  border-radius: 4px;
+  overflow: hidden;
+  
+  &.has-error {
+    .output-header {
+      background-color: rgba(244, 67, 54, 0.2);
+      border-bottom-color: rgba(244, 67, 54, 0.3);
+      
+      .error-icon {
+        color: #f44336;
+      }
+    }
+  }
+  
+  &.has-warning {
+    .output-header {
+      background-color: rgba(255, 152, 0, 0.2);
+      border-bottom-color: rgba(255, 152, 0, 0.3);
+      
+      .warning-icon {
+        color: #ff9800;
+      }
+    }
+  }
+  
+  .output-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 15px;
+    background-color: #2d2d2d;
+    border-bottom: 1px solid #333;
+    
+    .header-info {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      
+      .error-icon {
+        color: #f44336;
+      }
+      
+      .warning-icon {
+        color: #ff9800;
+      }
+      
+      .success-icon {
+        color: #4caf50;
+      }
+      
+      .status-text {
+        font-size: 0.9rem;
+        font-weight: 500;
+      }
+    }
+    
+    .header-actions {
+      display: flex;
+      gap: 5px;
+    }
+  }
+  
+  .output-content {
+    flex: 1;
+    overflow: auto;
+    padding: 15px;
+    position: relative;
+    
+    mat-spinner {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    
+    pre {
+      margin: 0;
+      font-family: 'Consolas', 'Courier New', monospace;
+      font-size: 0.9rem;
+      white-space: pre-wrap;
+      color: #e0e0e0;
+      
+      ::ng-deep {
+        .error {
+          color: #f44336;
+          font-weight: 500;
+        }
+        
+        .warning {
+          color: #ff9800;
+        }
+        
+        .success {
+          color: #4caf50;
+        }
+        
+        .file-ref {
+          color: #64b5f6;
+          text-decoration: underline;
+          cursor: pointer;
+        }
+        
+        .line-number {
+          color: #9e9e9e;
+        }
+      }
+    }
+    
+    .no-output {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      color: #757575;
+      text-align: center;
+      
+      mat-icon {
+        font-size: 48px;
+        width: 48px;
+        height: 48px;
+        margin-bottom: 15px;
+      }
+    }
+  }
+}

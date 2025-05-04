@@ -106,3 +106,5 @@ Create a comprehensive, production-grade dashboard for Artifact Virtual that cov
 - [ ] Deploy to production environment
 - [ ] Implement monitoring and alerting
 \`\`\`
+
+-   Move to frontend in the root.

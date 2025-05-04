@@ -1,0 +1,70 @@
+<header class="header">
+  <div class="header-content">
+    <div class="left">
+      <div class="logo" (click)="navigateTo('/')">
+        <h2>BedrockIDE</h2>
+      </div>
+    </div>
+    
+    <div class="center">
+      <nav class="main-nav">
+        <button mat-button [matMenuTriggerFor]="fileMenu">File</button>
+        <mat-menu #fileMenu="matMenu">
+          <button mat-menu-item>New File</button>
+          <button mat-menu-item>Open File</button>
+          <button mat-menu-item>Save</button>
+          <button mat-menu-item>Save As</button>
+          <mat-divider></mat-divider>
+          <button mat-menu-item>Settings</button>
+        </mat-menu>
+        
+        <button mat-button [matMenuTriggerFor]="editMenu">Edit</button>
+        <mat-menu #editMenu="matMenu">
+          <button mat-menu-item>Undo</button>
+          <button mat-menu-item>Redo</button>
+          <mat-divider></mat-divider>
+          <button mat-menu-item>Cut</button>
+          <button mat-menu-item>Copy</button>
+          <button mat-menu-item>Paste</button>
+        </mat-menu>
+        
+        <button mat-button [matMenuTriggerFor]="viewMenu">View</button>
+        <mat-menu #viewMenu="matMenu">
+          <button mat-menu-item>Explorer</button>
+          <button mat-menu-item>Search</button>
+          <button mat-menu-item>Output</button>
+          <button mat-menu-item>Problems</button>
+        </mat-menu>
+        
+        <button mat-button [matMenuTriggerFor]="blockchainMenu">Blockchain</button>
+        <mat-menu #blockchainMenu="matMenu">
+          <button mat-menu-item>Compile</button>
+          <button mat-menu-item>Deploy</button>
+          <button mat-menu-item>Network Settings</button>
+          <mat-divider></mat-divider>
+          <button mat-menu-item>Gas Estimator</button>
+          <button mat-menu-item>Contract Analysis</button>
+        </mat-menu>
+      </nav>
+    </div>
+    
+    <div class="right">
+      <button mat-icon-button [matTooltip]="isDarkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'" (click)="toggleTheme()">
+        <mat-icon>{{ isDarkMode ? 'light_mode' : 'dark_mode' }}</mat-icon>
+      </button>
+      
+      <a mat-icon-button href="https://github.com/artifactvirtual/bedrock" target="_blank" matTooltip="GitHub Repository">
+        <mat-icon>code</mat-icon>
+      </a>
+      
+      <button mat-icon-button [matMenuTriggerFor]="helpMenu" matTooltip="Help">
+        <mat-icon>help_outline</mat-icon>
+      </button>
+      <mat-menu #helpMenu="matMenu">
+        <button mat-menu-item>Documentation</button>
+        <button mat-menu-item>Report Issue</button>
+        <button mat-menu-item>About</button>
+      </mat-menu>
+    </div>
+  </div>
+</header>

@@ -1,267 +1,245 @@
-import { Component, OnInit, OnDestroy, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import * as monaco from 'monaco-editor';
-import { FileSystemService } from '../../services/file-system.service';
-import { CompilationService } from '../../services/compilation.service';
-import { AiService } from '../../services/ai.service';
-
-interface EditorFile {
-  name: string;
-  path: string;
-  content: string;
-  language: string;
-}
+import { CompilationService, CompilationOptions, CompilationResult } from '../../services/compilation.service';
+import { ThemeService } from '../../services/theme.service';
 
 @Component({
   selector: 'app-code-editor',
   templateUrl: './code-editor.component.html',
   styleUrls: ['./code-editor.component.scss']
 })
-export class CodeEditorComponent implements OnInit, AfterViewInit, OnDestroy {
-  @ViewChild('editorContainer') editorContainer!: ElementRef;
+export class CodeEditorComponent implements OnInit {
+  @ViewChild('editorContainer', { static: true }) editorContainer!: ElementRef;
   
   editor: monaco.editor.IStandaloneCodeEditor | null = null;
-  files: EditorFile[] = [];
-  activeFile: EditorFile | null = null;
-  compileOutput: string = '';
-  isCompiling: boolean = false;
-  supportedLanguages = ['solidity', 'javascript', 'typescript', 'json'];
-  showAiAssistant: boolean = true;
+  editorOptions = {
+    language: 'solidity',
+    theme: 'vs-dark',
+    automaticLayout: true,
+    minimap: {
+      enabled: true
+    },
+    lineNumbers: 'on',
+    roundedSelection: true,
+    scrollBeyondLastLine: false,
+    readOnly: false,
+    fontSize: 14
+  };
   
-  private destroy$ = new Subject<void>();
+  compilerVersion: string = '0.8.19';
+  optimizationEnabled: boolean = true;
+  evmVersion: string = 'paris';
+  compilationOutput: string = '';
+  isCompiling: boolean = false;
+  compilationResult: CompilationResult | null = null;
+  
+  aiAssistantVisible: boolean = false;
 
   constructor(
-    private fileSystemService: FileSystemService,
     private compilationService: CompilationService,
-    private aiService: AiService
+    private themeService: ThemeService
   ) {}
 
-  ngOnInit(): void {
-    // Load files from the file system service
-    this.loadFiles();
+  ngOnInit() {
+    this.initMonacoEditor();
     
-    // Subscribe to file changes
-    this.fileSystemService.fileChanged
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(() => {
-        this.loadFiles();
-      });
-  }
-
-  ngAfterViewInit(): void {
-    this.initMonaco();
-  }
-
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
+    this.themeService.isDarkMode$.subscribe(isDarkMode => {
+      this.updateEditorTheme(isDarkMode);
+    });
     
-    if (this.editor) {
-      this.editor.dispose();
-    }
+    // Register Solidity language if not registered already
+    this.registerSolidityLanguage();
   }
-
-  private initMonaco(): void {
-    // Register Solidity language if not already registered
-    if (!monaco.languages.getLanguages().some(lang => lang.id === 'solidity')) {
-      monaco.languages.register({ id: 'solidity' });
-      
-      // Define tokenizer for Solidity syntax highlighting
-      monaco.languages.setMonarchTokensProvider('solidity', {
-        tokenizer: {
-          root: [
-            [/pragma\s+solidity\s+[\^0-9.]+/, 'keyword'],
-            [/contract|interface|library|function|modifier|event|struct|enum|mapping/, 'keyword'],
-            [/address|bool|string|uint|int|bytes/, 'type'],
-            [/public|private|internal|external|view|pure|payable|memory|storage|calldata/, 'modifier'],
-            [/\/\/.*$/, 'comment'],
-            [/\/\*/, 'comment', '@comment'],
-            [/"(?:\\.|[^"\\])*"/, 'string'],
-            [/'(?:\\.|[^'\\])*'/, 'string'],
-            [/\b\d+\b/, 'number'],
-            [/[a-zA-Z_$][\w$]*/, 'identifier'],
-          ],
-          comment: [
-            [/[^/*]+/, 'comment'],
-            [/\/\*/, 'comment', '@push'],
-            [/\*\//, 'comment', '@pop'],
-            [/[/*]/, 'comment']
-          ]
-        }
-      });
-    }
-    
-    // Create editor
+  
+  private initMonacoEditor() {
+    // Create the editor with default Solidity boilerplate code
     this.editor = monaco.editor.create(this.editorContainer.nativeElement, {
-      automaticLayout: true,
-      theme: 'vs-dark',
-      minimap: { enabled: true },
-      scrollBeyondLastLine: false,
-      fontSize: 14,
-      fontFamily: "'Fira Code', 'Droid Sans Mono', 'monospace'",
-      tabSize: 2,
-      wordWrap: 'on'
-    });
-    
-    // Open first file if available
-    if (this.files.length > 0 && !this.activeFile) {
-      this.openFile(this.files[0]);
-    }
-    
-    // Add event listener for content changes
-    this.editor.onDidChangeModelContent(() => {
-      if (this.activeFile && this.editor) {
-        this.activeFile.content = this.editor.getValue();
-      }
+      ...this.editorOptions,
+      value: this.getDefaultSolidityCode()
     });
   }
-
-  private loadFiles(): void {
-    this.files = this.fileSystemService.getFiles().map(file => ({
-      name: file.name,
-      path: file.path,
-      content: file.content,
-      language: this.getLanguageFromFileName(file.name)
-    }));
-    
-    // If active file exists, update it
-    if (this.activeFile) {
-      const updatedActiveFile = this.files.find(f => f.path === this.activeFile?.path);
-      if (updatedActiveFile) {
-        this.activeFile = updatedActiveFile;
-        if (this.editor) {
-          this.editor.setValue(this.activeFile.content);
-        }
-      }
-    }
-  }
-
-  private getLanguageFromFileName(fileName: string): string {
-    const extension = fileName.split('.').pop()?.toLowerCase();
-    
-    switch (extension) {
-      case 'sol':
-        return 'solidity';
-      case 'js':
-        return 'javascript';
-      case 'ts':
-        return 'typescript';
-      case 'json':
-        return 'json';
-      default:
-        return 'plaintext';
-    }
-  }
-
-  openFile(file: EditorFile): void {
-    this.activeFile = file;
-    
+  
+  private updateEditorTheme(isDarkMode: boolean) {
     if (this.editor) {
-      // Create or get model for the file
-      let model = monaco.editor.getModel(monaco.Uri.parse(file.path));
-      
-      if (!model) {
-        model = monaco.editor.createModel(
-          file.content,
-          file.language,
-          monaco.Uri.parse(file.path)
-        );
-      }
-      
-      this.editor.setModel(model);
+      monaco.editor.setTheme(isDarkMode ? 'vs-dark' : 'vs');
     }
   }
-
-  saveActiveFile(): void {
-    if (this.activeFile && this.editor) {
-      this.activeFile.content = this.editor.getValue();
-      this.fileSystemService.saveFile(this.activeFile.path, this.activeFile.content);
-    }
-  }
-
-  createNewFile(): void {
-    const fileName = prompt('Enter file name:');
-    if (fileName) {
-      const language = this.getLanguageFromFileName(fileName);
-      const path = `/workspace/${fileName}`;
+  
+  private registerSolidityLanguage() {
+    // This is a simplified syntax highlighting for Solidity
+    // In a production app, you'd want to use a more complete language definition
+    monaco.languages.register({ id: 'solidity' });
+    
+    monaco.languages.setMonarchTokensProvider('solidity', {
+      keywords: [
+        'abstract', 'address', 'as', 'assembly', 'assert', 'block', 'break', 'case', 'catch',
+        'constant', 'constructor', 'continue', 'contract', 'default', 'delete', 'do', 'else',
+        'emit', 'enum', 'event', 'external', 'false', 'final', 'for', 'from', 'function',
+        'if', 'implements', 'import', 'in', 'indexed', 'interface', 'internal', 'is', 'let',
+        'library', 'mapping', 'memory', 'modifier', 'msg', 'new', 'now', 'null', 'of',
+        'payable', 'pragma', 'private', 'public', 'pure', 'require', 'return', 'returns',
+        'revert', 'selfdestruct', 'solidity', 'storage', 'struct', 'super', 'switch', 'this',
+        'throw', 'true', 'try', 'tx', 'type', 'typeof', 'using', 'value', 'view', 'virtual',
+        'while', 'with'
+      ],
       
-      const newFile: EditorFile = {
-        name: fileName,
-        path,
-        content: '',
-        language
-      };
+      typeKeywords: [
+        'bool', 'byte', 'bytes', 'bytes1', 'bytes2', 'bytes3', 'bytes4', 'bytes5', 'bytes6',
+        'bytes7', 'bytes8', 'bytes9', 'bytes10', 'bytes11', 'bytes12', 'bytes13', 'bytes14',
+        'bytes15', 'bytes16', 'bytes17', 'bytes18', 'bytes19', 'bytes20', 'bytes21', 'bytes22',
+        'bytes23', 'bytes24', 'bytes25', 'bytes26', 'bytes27', 'bytes28', 'bytes29', 'bytes30',
+        'bytes31', 'bytes32', 'int', 'int8', 'int16', 'int24', 'int32', 'int40', 'int48', 'int56',
+        'int64', 'int72', 'int80', 'int88', 'int96', 'int104', 'int112', 'int120', 'int128',
+        'int136', 'int144', 'int152', 'int160', 'int168', 'int176', 'int184', 'int192', 'int200',
+        'int208', 'int216', 'int224', 'int232', 'int240', 'int248', 'int256', 'string', 'uint',
+        'uint8', 'uint16', 'uint24', 'uint32', 'uint40', 'uint48', 'uint56', 'uint64', 'uint72',
+        'uint80', 'uint88', 'uint96', 'uint104', 'uint112', 'uint120', 'uint128', 'uint136',
+        'uint144', 'uint152', 'uint160', 'uint168', 'uint176', 'uint184', 'uint192', 'uint200',
+        'uint208', 'uint216', 'uint224', 'uint232', 'uint240', 'uint248', 'uint256'
+      ],
       
-      this.fileSystemService.saveFile(path, '');
-      this.files.push(newFile);
-      this.openFile(newFile);
-    }
-  }
-
-  deleteFile(file: EditorFile): void {
-    if (confirm(`Are you sure you want to delete ${file.name}?`)) {
-      this.fileSystemService.deleteFile(file.path);
-      this.files = this.files.filter(f => f.path !== file.path);
+      operators: [
+        '=', '>', '<', '!', '~', '?', ':', '==', '<=', '>=', '!=',
+        '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%',
+        '<<', '>>', '>>>', '+=', '-=', '*=', '/=', '&=', '|=', '^=',
+        '%=', '<<=', '>>=', '>>>='
+      ],
       
-      if (this.activeFile?.path === file.path) {
-        this.activeFile = this.files.length > 0 ? this.files[0] : null;
+      symbols: /[=><!~?:&|+\-*\/\^%]+/,
+      
+      tokenizer: {
+        root: [
+          [/[a-zA-Z_]\w*/, { 
+            cases: { 
+              '@keywords': 'keyword',
+              '@typeKeywords': 'type',
+              '@default': 'identifier' 
+            } 
+          }],
+          { include: '@whitespace' },
+          [/[{}()\[\]]/, '@brackets'],
+          [/[<>](?!@symbols)/, '@brackets'],
+          [/@symbols/, { 
+            cases: { 
+              '@operators': 'operator',
+              '@default': '' 
+            } 
+          }],
+          [/\d*\.\d+([eE][\-+]?\d+)?/, 'number.float'],
+          [/0[xX][0-9a-fA-F]+/, 'number.hex'],
+          [/\d+/, 'number'],
+          [/"([^"\\]|\\.)*$/, 'string.invalid'],
+          [/"/, { token: 'string.quote', bracket: '@open', next: '@string' }]
+        ],
         
-        if (this.activeFile && this.editor) {
-          this.openFile(this.activeFile);
-        }
+        comment: [
+          [/[^\/*]+/, 'comment' ],
+          [/\/\*/, 'comment', '@push'],
+          ["\\*/", 'comment', '@pop'],
+          [/[\/*]/, 'comment']
+        ],
+        
+        string: [
+          [/[^\\"]+/, 'string'],
+          [/\\./, 'string.escape'],
+          [/"/, { token: 'string.quote', bracket: '@close', next: '@pop' }]
+        ],
+        
+        whitespace: [
+          [/[ \t\r\n]+/, 'white'],
+          [/\/\*/, 'comment', '@comment'],
+          [/\/\/.*$/, 'comment'],
+        ],
       }
-    }
-  }
-
-  compileActiveFile(): void {
-    if (!this.activeFile) return;
+    });
     
+    // Add code completion provider - simplified example
+    monaco.languages.registerCompletionItemProvider('solidity', {
+      provideCompletionItems: () => {
+        const suggestions = [
+          ...this.editorOptions.keywords?.map(keyword => ({
+            label: keyword,
+            kind: monaco.languages.CompletionItemKind.Keyword,
+            insertText: keyword
+          })) || [],
+          ...this.editorOptions.typeKeywords?.map(type => ({
+            label: type,
+            kind: monaco.languages.CompletionItemKind.TypeParameter,
+            insertText: type
+          })) || []
+        ];
+        
+        return { suggestions };
+      }
+    });
+  }
+  
+  private getDefaultSolidityCode(): string {
+    return `// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+contract SimpleStorage {
+    uint256 private value;
+    
+    event ValueChanged(uint256 newValue);
+    
+    constructor() {
+        value = 0;
+    }
+    
+    function setValue(uint256 _value) public {
+        value = _value;
+        emit ValueChanged(_value);
+    }
+    
+    function getValue() public view returns (uint256) {
+        return value;
+    }
+}`;
+  }
+  
+  compileContract() {
+    if (!this.editor) {
+      return;
+    }
+    
+    const sourceCode = this.editor.getValue();
     this.isCompiling = true;
-    this.compileOutput = 'Compiling...';
+    this.compilationOutput = 'Compiling...';
     
-    this.compilationService.compile(this.activeFile.content, this.activeFile.language)
-      .subscribe(
-        result => {
-          this.compileOutput = result.output;
-          this.isCompiling = false;
-        },
-        error => {
-          this.compileOutput = `Error: ${error.message || 'Compilation failed'}`;
-          this.isCompiling = false;
+    const options: CompilationOptions = {
+      sourceCode,
+      version: this.compilerVersion,
+      optimization: this.optimizationEnabled,
+      evmVersion: this.evmVersion
+    };
+    
+    this.compilationService.compileContract(options).subscribe({
+      next: (result) => {
+        this.isCompiling = false;
+        this.compilationResult = result;
+        this.compilationOutput = result.output;
+        
+        if (result.success) {
+          console.log('Compilation successful:', result);
+        } else {
+          console.error('Compilation failed:', result.errors);
         }
-      );
-  }
-
-  toggleAiAssistant(): void {
-    this.showAiAssistant = !this.showAiAssistant;
-  }
-
-  // Methods for AI integration
-  insertCodeAtCursor(code: string): void {
-    if (this.editor) {
-      const position = this.editor.getPosition();
-      if (position) {
-        this.editor.executeEdits('ai-assistant', [{
-          range: new monaco.Range(
-            position.lineNumber,
-            position.column,
-            position.lineNumber,
-            position.column
-          ),
-          text: code,
-          forceMoveMarkers: true
-        }]);
+      },
+      error: (error) => {
+        this.isCompiling = false;
+        this.compilationOutput = `Error: ${error.message}`;
+        console.error('Compilation error:', error);
       }
-    }
+    });
   }
-
-  replaceEditorContent(code: string): void {
-    if (this.editor) {
-      this.editor.setValue(code);
-      if (this.activeFile) {
-        this.activeFile.content = code;
-      }
-    }
+  
+  clearCompilationOutput() {
+    this.compilationOutput = '';
+    this.compilationResult = null;
+  }
+  
+  toggleAIAssistant() {
+    this.aiAssistantVisible = !this.aiAssistantVisible;
   }
 }
