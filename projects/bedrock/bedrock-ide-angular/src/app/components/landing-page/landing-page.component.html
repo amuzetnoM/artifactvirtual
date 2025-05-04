@@ -1,0 +1,90 @@
+<div class="landing-container">
+  <header class="header">
+    <div class="header-content">
+      <div class="logo">
+        <h1>BedrockIDE</h1>
+      </div>
+      <nav class="nav">
+        <a href="https://github.com/artifactvirtual/bedrock" target="_blank">GitHub</a>
+        <a href="https://docs.bedrock.dev" target="_blank">Documentation</a>
+        <button mat-raised-button color="primary" (click)="navigateToEditor()">Launch IDE</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main">
+    <section class="hero-section">
+      <div class="hero-content">
+        <h1>BedrockIDE</h1>
+        <p class="subtitle">A powerful, browser-based IDE for blockchain development</p>
+        <div class="cta-buttons">
+          <button mat-raised-button color="primary" (click)="navigateToEditor()">
+            <mat-icon>code</mat-icon>
+            Launch IDE
+          </button>
+          <a mat-button href="https://github.com/artifactvirtual/bedrock" target="_blank">
+            <mat-icon>code</mat-icon>
+            GitHub
+          </a>
+        </div>
+      </div>
+      <div class="hero-image">
+        <img src="assets/images/editor-preview.png" alt="BedrockIDE Preview" />
+      </div>
+    </section>
+
+    <section class="features-section">
+      <h2>Features</h2>
+      <div class="features-grid">
+        <mat-card class="feature-card" *ngFor="let feature of features">
+          <mat-card-header>
+            <div mat-card-avatar class="feature-icon">
+              <mat-icon>{{feature.icon}}</mat-icon>
+            </div>
+            <mat-card-title>{{feature.title}}</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <p>{{feature.description}}</p>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </section>
+
+    <section class="get-started-section">
+      <h2>Get Started</h2>
+      <div class="steps-container">
+        <div class="step">
+          <div class="step-number">1</div>
+          <h3>Launch the IDE</h3>
+          <p>Open the browser-based IDE without any installation or setup required.</p>
+        </div>
+        <div class="step">
+          <div class="step-number">2</div>
+          <h3>Write Your Code</h3>
+          <p>Create or import smart contracts with syntax highlighting and intelligent code suggestions.</p>
+        </div>
+        <div class="step">
+          <div class="step-number">3</div>
+          <h3>Compile & Deploy</h3>
+          <p>Compile your contracts and deploy them to the blockchain network of your choice.</p>
+        </div>
+      </div>
+      <div class="center-button">
+        <button mat-raised-button color="primary" (click)="navigateToEditor()">
+          Start Coding Now
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <p>&copy; 2025 BedrockIDE. All rights reserved.</p>
+      <div class="footer-links">
+        <a href="/terms">Terms</a>
+        <a href="/privacy">Privacy</a>
+        <a href="https://github.com/artifactvirtual/bedrock" target="_blank">GitHub</a>
+      </div>
+    </div>
+  </footer>
+</div>

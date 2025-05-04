@@ -1,30 +1,43 @@
 <div class="editor-container">
-  <div class="sidebar">
-    <div class="files-header">
-      <h3>Files</h3>
-      <button mat-icon-button (click)="createNewFile()">
-        <mat-icon>add</mat-icon>
-      </button>
+  <div class="toolbar">
+    <div class="compiler-options">
+      <div class="option-group">
+        <label>Compiler Version:</label>
+        <select [(ngModel)]="compilerVersion">
+          <option value="0.8.19">0.8.19</option>
+          <option value="0.8.18">0.8.18</option>
+          <option value="0.8.17">0.8.17</option>
+          <option value="0.8.16">0.8.16</option>
+          <option value="0.8.15">0.8.15</option>
+        </select>
+      </div>
+      
+      <div class="option-group">
+        <label>EVM Version:</label>
+        <select [(ngModel)]="evmVersion">
+          <option value="paris">Paris</option>
+          <option value="london">London</option>
+          <option value="berlin">Berlin</option>
+          <option value="istanbul">Istanbul</option>
+        </select>
+      </div>
+      
+      <div class="option-group optimization">
+        <label>
+          <input type="checkbox" [(ngModel)]="optimizationEnabled">
+          Enable optimization
+        </label>
+      </div>
     </div>
     
-    <div class="files-list">
-      <div 
-        *ngFor="let file of files" 
-        class="file-item"
-        [class.active]="activeFile?.path === file.path"
-        (click)="openFile(file)"
-      >
-        <span class="file-icon" [ngClass]="file.language">
-          <mat-icon>{{ file.language === 'solidity' ? 'code' : 
-                        file.language === 'javascript' ? 'javascript' : 
-                        file.language === 'typescript' ? 'code' : 
-                        file.language === 'json' ? 'data_object' : 'description' }}</mat-icon>
-        </span>
-        <span class="file-name">{{ file.name }}</span>
-        <button mat-icon-button class="delete-button" (click)="$event.stopPropagation(); deleteFile(file)">
-          <mat-icon>close</mat-icon>
-        </button>
-      </div>
+    <div class="action-buttons">
+      <button (click)="compileContract()" [disabled]="isCompiling" class="compile-btn">
+        <span *ngIf="!isCompiling">Compile</span>
+        <span *ngIf="isCompiling">Compiling...</span>
+      </button>
+      <button (click)="toggleAIAssistant()" class="ai-btn">
+        {{ aiAssistantVisible ? 'Hide AI Assistant' : 'Show AI Assistant' }}
+      </button>
     </div>
   </div>
   
@@ -70,6 +83,22 @@
       </div>
       <div class="output-content">
         <pre>{{ compileOutput }}</pre>
+      </div>
+    </div>
+    
+    <div class="compilation-output" *ngIf="compilationOutput">
+      <app-compilation-output 
+        [compilationResult]="compilationResult"
+        [output]="compilationOutput"
+        (clearOutput)="clearCompilationOutput()">
+      </app-compilation-output>
+    </div>
+    
+    <div class="ai-assistant-container" *ngIf="aiAssistantVisible">
+      <!-- AI Assistant component will be added later -->
+      <div class="ai-assistant-placeholder">
+        <h3>AI Assistant</h3>
+        <p>AI Assistant will be added in a future update.</p>
       </div>
     </div>
   </div>
