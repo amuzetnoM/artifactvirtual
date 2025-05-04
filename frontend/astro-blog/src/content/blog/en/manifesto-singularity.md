@@ -5,6 +5,8 @@ tags: ["manifesto", "philosophy", "singularity", "metaphysics", "epistemology"]
 description: "A profound exploration of the foundations of thought, reality, and knowledge—delving into paradoxes, metaphysical dilemmas, and the epistemological labyrinths that shape existence."
 ---
 
+// Removed manual H1 title for consistency
+
 ## Singularity
 
 ### 1.1 Origin of Ideas & Quest for Truth
