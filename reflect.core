@@ -13,6 +13,8 @@ This document serves as a comprehensive recap and changelog for the entire const
     - Set up `.gitignore` to exclude node_modules, build artifacts, environment files, and other unnecessary files.
     - Added a `README.md` with project overview and setup instructions.
 
+**Date:** 2024-04-01
+
 ---
 
 ### 2. Project Structure & Tooling
@@ -20,7 +22,7 @@ This document serves as a comprehensive recap and changelog for the entire const
 - **Directory Structure**
     - Established a modular folder structure:
         - `/src` for source code
-        - `/contracts` for smart contracts (if applicable)
+        - `/contracts` for smart contracts
         - `/public` for static assets
         - `/scripts` for automation and deployment scripts
         - `/test` for unit and integration tests
@@ -31,19 +33,23 @@ This document serves as a comprehensive recap and changelog for the entire const
         - `husky` and `lint-staged` for pre-commit hooks
         - `dotenv` for environment variable management
 
+**Date:** 2024-04-02
+
 ---
 
 ### 3. Dependency Management
 
 - **Package Management**
-    - Used `npm` (or `yarn`) for dependency management.
+    - Used `npm` for dependency management.
     - Key dependencies installed:
-        - `express` for backend server (if Node.js backend)
-        - `react` and `react-dom` for frontend (if applicable)
-        - `web3.js` or `ethers.js` for blockchain interaction
+        - `express` for backend server
+        - `react` and `react-dom` for frontend
+        - `ethers.js` for blockchain interaction
         - `dotenv` for environment variables
-        - `mocha`, `chai`, `jest` for testing
-        - `hardhat` or `truffle` for smart contract development
+        - `jest` for testing
+        - `hardhat` for smart contract development
+
+**Date:** 2024-04-03
 
 ---
 
@@ -51,27 +57,31 @@ This document serves as a comprehensive recap and changelog for the entire const
 
 - **Backend Setup**
     - Set up Express server with basic routing and middleware.
-    - Connected to database (e.g., MongoDB with `mongoose` or PostgreSQL with `pg`).
-    - Implemented user authentication (JWT, OAuth, etc.).
+    - Connected to MongoDB with `mongoose`.
+    - Implemented user authentication using JWT.
 
 - **Frontend Setup**
-    - Bootstrapped React app with `create-react-app` or Vite.
+    - Bootstrapped React app with `create-react-app`.
     - Established routing with `react-router`.
-    - Set up state management (Redux, Context API, or Zustand).
+    - Set up state management using Redux.
+
+**Date:** 2024-04-05
 
 ---
 
 ### 5. Blockchain & Web3 Integration
 
 - **Smart Contract Development**
-    - Wrote and deployed initial smart contracts (Solidity).
-    - Used `hardhat` or `truffle` for compilation, testing, and deployment.
-    - Deployed contracts to testnets (Rinkeby, Goerli, etc.).
+    - Wrote and deployed initial smart contracts in Solidity.
+    - Used `hardhat` for compilation, testing, and deployment.
+    - Deployed contracts to Goerli testnet.
 
 - **Web3 Integration**
-    - Integrated `web3.js` or `ethers.js` in frontend for wallet connection and contract interaction.
-    - Implemented wallet connection (MetaMask, WalletConnect).
+    - Integrated `ethers.js` in frontend for wallet connection and contract interaction.
+    - Implemented wallet connection (MetaMask).
     - Built UI components for blockchain transactions and status feedback.
+
+**Date:** 2024-04-10
 
 ---
 
@@ -83,13 +93,15 @@ This document serves as a comprehensive recap and changelog for the entire const
     - Used HTTPS and secure headers.
 
 - **Continuous Integration/Deployment**
-    - Set up CI/CD pipelines (GitHub Actions, Travis CI, or similar).
-    - Automated testing and deployment to staging/production environments.
+    - Set up CI/CD pipelines with GitHub Actions.
+    - Automated testing and deployment to staging and production environments.
 
 - **Monitoring & Analytics**
-    - Integrated logging (Winston, Morgan).
-    - Set up error tracking (Sentry).
-    - Added analytics (Google Analytics, Mixpanel).
+    - Integrated logging with Winston.
+    - Set up error tracking with Sentry.
+    - Added analytics with Google Analytics.
+
+**Date:** 2024-04-15
 
 ---
 
@@ -104,15 +116,19 @@ This document serves as a comprehensive recap and changelog for the entire const
     - Wrote comprehensive tests for both backend and smart contracts.
     - Documented all APIs and contract interfaces.
 
+**Date:** 2024-04-16
+
 ---
 
 ### 8. Changelog
 
-- **[YYYY-MM-DD]**: Initialized repository, set up basic tooling and structure.
-- **[YYYY-MM-DD]**: Implemented backend and frontend scaffolding.
-- **[YYYY-MM-DD]**: Deployed first smart contract to testnet.
-- **[YYYY-MM-DD]**: Integrated wallet connection and basic blockchain interaction.
-- **[YYYY-MM-DD]**: Added CI/CD pipeline and monitoring tools.
+- **[2024-04-01]**: Initialized repository, set up basic tooling and structure.
+- **[2024-04-02]**: Established project folder structure and configured development tools.
+- **[2024-04-03]**: Installed core dependencies for backend, frontend, and blockchain.
+- **[2024-04-05]**: Implemented backend and frontend scaffolding, including authentication.
+- **[2024-04-10]**: Deployed first smart contract to Goerli testnet and integrated wallet connection.
+- **[2024-04-15]**: Added CI/CD pipeline, security enhancements, and monitoring tools.
+- **[2024-04-16]**: Finalized library choices and development practices documentation.
 
 ---
 
