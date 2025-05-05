@@ -31,6 +31,7 @@ Artifact Virtual is a sovereign platform for AI, blockchain, and Web3 developmen
 - `cookbooks/` — Patterns & Recipes
 - `utils/` — Core Utilities
 - `projects/` — Apps & Pipelines
+  - `bedrock/` — Comprehensive blockchain development environment
 - `samples/` — Provider Demos
 - `docs/` — Guides & Resources
 
@@ -41,6 +42,7 @@ Artifact Virtual is a sovereign platform for AI, blockchain, and Web3 developmen
 3. Develop and test in `projects/`, using resources from `datasets/`, `cookbooks/`, and `utils/`.
 4. Explore `samples/` for provider demos.
 5. Reference `docs/` for guides and documentation.
+6. Use `projects/bedrock` for blockchain development with standardized tools and practices.
 
 ### Automated Setup
 
@@ -69,6 +71,7 @@ python startup.py
 - [Samples](samples/README.md)
 - [Utilities](utils/README.md)
 - [Projects](projects/)
+  - [Bedrock](projects/bedrock/README.md)
 - [Research & Philosophy](backup/research/index.mdx)
 - [Contributing](CONTRIBUTING.md)
 - [License](LICENSE)
@@ -91,11 +94,13 @@ This guide will help you set up your environment and get started with this compr
    - [LLM Integration](#llm-integration)
    - [Blockchain & Hardhat](#blockchain--hardhat)
    - [Knowledge Foundations](#knowledge-foundations)
+   - [Bedrock Blockchain Environment](#bedrock-blockchain-environment)
 5. [First Steps](#first-steps)
    - [Running Your First Model](#running-your-first-model)
    - [Using the Oracle CLI](#using-the-oracle-cli)
    - [Model Quantization with AutoRound](#model-quantization-with-autoround)
    - [Deploying a Smart Contract](#deploying-a-smart-contract)
+   - [Building with Bedrock](#building-with-bedrock)
 6. [Next Steps](#next-steps)
 
 ## PREREQUISITES
@@ -108,6 +113,7 @@ Before starting, ensure you have the following installed:
 - **curl** (for API samples)
 - **CMake** (required for building some dependencies like sentencepiece)
 - **Hardhat** (for blockchain development)
+- **Rust** with `wasm32-unknown-unknown` target (for multi-chain blockchain development with Bedrock)
 
 For GPU acceleration (optional but recommended):
 
@@ -294,6 +300,34 @@ Artifact Virtual now features robust blockchain and Web3 tooling:
 - **Decentralized Storage**: Integrate with IPFS and Filecoin (see upcoming modules)
 - **zk-SNARKs & Privacy**: Privacy-preserving modules coming soon
 
+### Bedrock Blockchain Environment
+
+The Bedrock environment offers a comprehensive framework for blockchain development across multiple chains and languages:
+
+- **Multi-chain support**: Ethereum, Solana, Polkadot, Cardano, and more
+- **Cross-language development**: Work with Solidity, Rust, TypeScript, Vyper, Cairo, and Plutus
+- **Complete tooling**: Integrated development, testing, and deployment workflows
+- **Security-focused**: Built-in security patterns and automated tools
+
+```bash
+# Navigate to the Bedrock directory
+cd projects/bedrock
+
+# Install required dependencies
+npm install
+
+# Compile Ethereum contracts
+npm run compile
+
+# Run tests for your blockchain components
+npm test
+
+# Deploy to a local blockchain for testing
+npm run deploy:local
+```
+
+See the [Bedrock README](projects/bedrock/README.md) for detailed documentation on the multi-chain development environment.
+
 ### Knowledge Foundations
 
 Explore the curated datasets and knowledge libraries:
@@ -358,6 +392,26 @@ npx hardhat compile
 npx hardhat run scripts/deploy.js --network localhost
 ```
 
+### Building with Bedrock
+
+Leverage the Bedrock environment for advanced blockchain development:
+
+```bash
+# Navigate to the Bedrock directory
+cd projects/bedrock
+
+# Review available templates and examples
+ls contracts/
+
+# Initialize a new cross-chain project
+npm run init:project myproject
+
+# Develop with consistent patterns across chains
+npm run dev
+```
+
+The Bedrock environment provides standardized patterns, security best practices, and cross-chain compatibility to accelerate your blockchain development.
+
 ## NEXT STEPS
 
 Now that you've set up Artifact Virtual and explored some core components, here are some suggestions for next steps:
@@ -366,8 +420,9 @@ Now that you've set up Artifact Virtual and explored some core components, here 
 2. **Build with MCP**: Try creating your own MCP server that exposes custom resources and tools.
 3. **Create a Quantized LLM Pipeline**: Combine AutoRound's quantization capabilities with Ollama for efficient LLM deployment.
 4. **Develop Smart Contracts**: Use Hardhat and our templates to build and deploy your own contracts.
-5. **Contribute**: Explore the codebase and consider contributing to the project.
-6. **Documentation**: Browse the comprehensive documentation site:
+5. **Build Multi-chain Applications**: Use the Bedrock environment to develop applications that work across multiple blockchain platforms.
+6. **Contribute**: Explore the codebase and consider contributing to the project.
+7. **Documentation**: Browse the comprehensive documentation site:
 
    ```bash
    cd frontend/celestial-chaos
