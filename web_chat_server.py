@@ -174,12 +174,21 @@ def create_gradio_app():
         msg = gr.Textbox(placeholder="Enter your message...", container=False)
         clear = gr.Button("Clear")
         
-        # Handle chat
+        # Handle chat - removed clear_input parameter which causes compatibility issues
         msg.submit(
             handle_chat,
             [msg, chatbot],
             [chatbot],
-            clear_input=True,
+        )
+        
+        # Add a separate function to clear the input after submission
+        def user_input_submit(user_message, history):
+            return "", history + [[user_message, None]]
+        
+        msg.submit(
+            user_input_submit,
+            [msg, chatbot],
+            [msg, chatbot],
         )
         
         # Clear chat history
