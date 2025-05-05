@@ -55,7 +55,7 @@ class WorkspaceRAG:
     def __init__(self, 
                 workspace_path: Union[str, Path],
                 embedding_model: str = "sentence-transformers/all-MiniLM-L6-v2",
-                llm_model: str = "gemma3",
+                llm_model: str = "llama2-uncensored",
                 cache_dir: str = "./rag_cache",
                 config: Optional[Dict[str, Any]] = None):
         """
@@ -64,7 +64,7 @@ class WorkspaceRAG:
         Args:
             workspace_path: Path to the workspace directory
             embedding_model: HuggingFace embedding model to use
-            llm_model: Ollama model to use (default: gemma3)
+            llm_model: Ollama model to use (default: llama2-uncensored)
             cache_dir: Directory to store vector database cache
             config: Optional configuration overrides
         """
