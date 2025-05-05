@@ -1,228 +1,266 @@
-import { exec } from 'child_process';
+import { HardhatRuntimeEnvironment } from 'hardhat/types';
 import fs from 'fs';
 import path from 'path';
-import util from 'util';
 import chalk from 'chalk';
+import { execSync } from 'child_process';
 
-const execPromise = util.promisify(exec);
+const hre = require('hardhat') as HardhatRuntimeEnvironment;
 
-interface GasUsage {
-  contractName: string;
-  methodName: string;
+interface GasUsageData {
+  functionName: string;
   gasUsed: number;
-  recommendations: string[];
+  method: string;
+  contractName: string;
+  contractAddress?: string;
 }
 
 /**
  * Gas Optimization Script
- * This script analyzes contract deployments and function gas usage,
- * and provides recommendations for gas optimization.
+ * This script analyzes smart contracts for gas usage and suggests optimizations
+ * Usage: npx hardhat run scripts/gas-optimizer.ts --contract ContractName
  */
-async function analyzeGasUsage() {
+async function optimizeGasUsage() {
   try {
-    console.log(chalk.blue('Starting gas usage analysis...'));
-
-    // Run tests with gas reporter enabled
-    process.env.REPORT_GAS = 'true';
-    console.log(chalk.yellow('Running tests with gas reporter...'));
-    await execPromise('npx hardhat test');
-
-    // Get all contract artifacts
-    const artifactsDir = path.join(__dirname, '../artifacts/contracts');
-    const contracts = findSolFiles(artifactsDir);
-
-    // Analyze each contract
-    const results: GasUsage[] = [];
-    for (const contractFile of contracts) {
-      try {
-        const contractName = path.basename(contractFile, '.sol');
-        console.log(chalk.green(`Analyzing ${contractName}...`));
-        
-        // Get contract bytecode size
-        const bytecodeSize = await getContractBytecodeSize(contractName);
-        if (bytecodeSize > 24576) {
-          results.push({
-            contractName,
-            methodName: 'Contract Size',
-            gasUsed: bytecodeSize,
-            recommendations: [
-              'Contract exceeds EIP-170 size limit of 24KB. Consider splitting it into multiple contracts.',
-              'Use libraries to move reusable code.'
-            ]
-          });
-        }
-        
-        // Analyze methods for high gas usage
-        const methodGasUsage = await getMethodGasUsage(contractName);
-        for (const [methodName, gasUsed] of Object.entries(methodGasUsage)) {
-          const gasRecommendations = getGasRecommendations(gasUsed as number, methodName);
-          if (gasRecommendations.length > 0) {
-            results.push({
-              contractName,
-              methodName,
-              gasUsed: gasUsed as number,
-              recommendations: gasRecommendations
-            });
-          }
-        }
-      } catch (error) {
-        console.error(chalk.red(`Error analyzing contract: ${error}`));
+    console.log(chalk.blue('Starting gas optimization analysis...'));
+    
+    // Parse command line arguments
+    const args = process.argv.slice(2);
+    let contractName = '';
+    
+    for (let i = 0; i < args.length; i++) {
+      if (args[i] === '--contract' && i + 1 < args.length) {
+        contractName = args[i + 1];
+        break;
       }
     }
-
-    // Generate report
-    generateReport(results);
-
+    
+    if (!contractName) {
+      console.error(chalk.red('Error: Contract name not provided. Use --contract ContractName'));
+      process.exit(1);
+    }
+    
+    // Step 1: Compile the contract
+    console.log(chalk.yellow('Compiling contract...'));
+    await hre.run('compile');
+    
+    // Step 2: Run test to collect gas usage data
+    console.log(chalk.yellow('Running gas reporter tests...'));
+    try {
+      // Set environment variable to enable gas reporter
+      process.env.REPORT_GAS = 'true';
+      // Run tests that involve the specified contract
+      await hre.run('test');
+    } catch (error) {
+      console.log(chalk.yellow('Tests completed with some failures. Continuing with optimization analysis...'));
+    }
+    
+    // Step 3: Get contract bytecode size
+    console.log(chalk.yellow('Analyzing contract bytecode size...'));
+    let bytecodeSize;
+    
+    try {
+      const result = execSync(`npx hardhat run scripts/get-bytecode-size.ts --contract ${contractName}`);
+      bytecodeSize = parseInt(result.toString().trim());
+    } catch (error) {
+      console.log(chalk.red(`Failed to get bytecode size: ${error}`));
+      bytecodeSize = 'Unknown';
+    }
+    
+    // Step 4: Read the contract source code for analysis
+    const contractsDir = path.join(__dirname, '../contracts');
+    const contractFiles = findContractFiles(contractsDir, contractName);
+    
+    if (contractFiles.length === 0) {
+      console.error(chalk.red(`Error: No source file found for contract ${contractName}`));
+      process.exit(1);
+    }
+    
+    const contractFilePath = contractFiles[0];
+    const sourceCode = fs.readFileSync(contractFilePath, 'utf8');
+    
+    // Step 5: Analyze source code for potential optimizations
+    const optimizationSuggestions = analyzeSourceCode(sourceCode, contractName);
+    
+    // Step 6: Collect gas profiling data from gasReporter output (if available)
+    const gasProfiling = collectGasProfiling(contractName);
+    
+    // Step 7: Generate and display the report
+    generateReport(contractName, bytecodeSize, optimizationSuggestions, gasProfiling);
+    
   } catch (error) {
-    console.error(chalk.red(`Error in gas analysis: ${error}`));
+    console.error(chalk.red(`Error optimizing gas usage: ${error}`));
     process.exit(1);
   }
 }
 
 /**
- * Recursively find all .sol files in the contracts directory
+ * Find contract source files by contract name
  */
-function findSolFiles(dir: string): string[] {
-  let results: string[] = [];
-  const list = fs.readdirSync(dir);
+function findContractFiles(dir: string, contractName: string): string[] {
+  const results: string[] = [];
   
-  list.forEach(file => {
-    const filePath = path.join(dir, file);
-    const stat = fs.statSync(filePath);
+  function searchDir(currentDir: string) {
+    const files = fs.readdirSync(currentDir);
     
-    if (stat.isDirectory()) {
-      results = results.concat(findSolFiles(filePath));
-    } else if (path.extname(file) === '.sol') {
-      results.push(filePath);
+    for (const file of files) {
+      const filePath = path.join(currentDir, file);
+      const stat = fs.statSync(filePath);
+      
+      if (stat.isDirectory()) {
+        searchDir(filePath);
+      } else if (file.endsWith('.sol')) {
+        const content = fs.readFileSync(filePath, 'utf8');
+        if (content.includes(`contract ${contractName}`) || content.includes(`library ${contractName}`)) {
+          results.push(filePath);
+        }
+      }
     }
-  });
+  }
   
+  searchDir(dir);
   return results;
 }
 
 /**
- * Get contract bytecode size
+ * Analyze source code for potential gas optimizations
  */
-async function getContractBytecodeSize(contractName: string): Promise<number> {
-  try {
-    const result = await execPromise(`npx hardhat run scripts/get-bytecode-size.ts --contract ${contractName}`);
-    return parseInt(result.stdout.trim(), 10);
-  } catch (error) {
-    console.error(chalk.red(`Error getting bytecode size: ${error}`));
-    return 0;
+function analyzeSourceCode(sourceCode: string, contractName: string): string[] {
+  const suggestions: string[] = [];
+  
+  // Check for storage packing opportunities
+  if (/uint8|uint16|uint32|uint64|uint128/.test(sourceCode)) {
+    suggestions.push('Consider packing storage variables to save gas');
   }
+  
+  // Check for using immutable variables
+  if (/\bconstant\b/.test(sourceCode) && !/\bimmutable\b/.test(sourceCode)) {
+    suggestions.push('Consider using "immutable" for variables that are set in the constructor');
+  }
+  
+  // Check for unchecked blocks with arithmetic
+  if (/[\+\-\*\/]\=?/.test(sourceCode) && !/unchecked/.test(sourceCode)) {
+    suggestions.push('Consider using "unchecked" blocks for arithmetic operations that cannot overflow');
+  }
+  
+  // Check for external vs public functions
+  const publicFunctions = (sourceCode.match(/function\s+\w+\s*\([^)]*\)\s+public/g) || []).length;
+  if (publicFunctions > 0) {
+    suggestions.push('Consider changing "public" functions to "external" if they are only called externally');
+  }
+  
+  // Check for memory vs calldata
+  if (/function\s+\w+\s*\([^)]*memory\s+\w+\[?\]?[^)]*\)\s+external/.test(sourceCode)) {
+    suggestions.push('Consider using "calldata" instead of "memory" for external function parameters');
+  }
+  
+  // Check for require statements with string messages
+  if (/require\([^)]+,\s*["']/.test(sourceCode)) {
+    suggestions.push('Consider using custom errors instead of require with string messages');
+  }
+  
+  // Check for uint256 explicit declaration
+  if (/uint256/.test(sourceCode)) {
+    suggestions.push('Consider using "uint" instead of "uint256" to save gas on bytecode size');
+  }
+  
+  // Check for structs
+  if (/struct\s+\w+\s*{[^}]+}/.test(sourceCode)) {
+    suggestions.push('Ensure struct fields are ordered from smallest to largest size');
+  }
+  
+  // Check for mappings in loops
+  if (/for\s*\([^)]+\)\s*{[^}]*mapping/.test(sourceCode)) {
+    suggestions.push('Avoid accessing mappings in loops - consider caching values');
+  }
+  
+  return suggestions;
 }
 
 /**
- * Get gas usage for each method in a contract
+ * Collect gas profiling data from hardhat-gas-reporter output
  */
-async function getMethodGasUsage(contractName: string): Promise<Record<string, number>> {
+function collectGasProfiling(contractName: string): GasUsageData[] {
   try {
-    // This would use data from gas reporter or analyze test results
-    // For now, we'll use a simplified approach to demonstrate the concept
-    const testOutput = await execPromise(`npx hardhat test --grep ${contractName}`);
-    
-    // Parse test output for gas usage (this is a simplified implementation)
-    // In a real implementation, you would parse the gas reporter output
-    const gasPattern = /Method\s+(\w+).*?(\d+)\s+gas/g;
-    let match;
-    const gasUsage: Record<string, number> = {};
-    
-    while ((match = gasPattern.exec(testOutput.stdout)) !== null) {
-      const methodName = match[1];
-      const gas = parseInt(match[2], 10);
-      gasUsage[methodName] = gas;
+    // Attempt to read the gas reporter output (assuming it's written to a file)
+    const gasReportPath = path.join(__dirname, '../gas-report.json');
+    if (fs.existsSync(gasReportPath)) {
+      const gasReportData = JSON.parse(fs.readFileSync(gasReportPath, 'utf8'));
+      
+      // Filter and transform the data as needed
+      return gasReportData
+        .filter((item: any) => item.contractName === contractName)
+        .map((item: any) => ({
+          functionName: item.functionName || 'unknown',
+          gasUsed: item.gasUsed || 0,
+          method: item.method || 'unknown',
+          contractName: item.contractName
+        }));
     }
     
-    return gasUsage;
+    // If no gas report file exists, return empty array
+    return [];
   } catch (error) {
-    console.error(chalk.red(`Error getting method gas usage: ${error}`));
-    return {};
+    console.log(chalk.yellow('Gas profiling data not available'));
+    return [];
   }
 }
 
 /**
- * Get gas optimization recommendations based on gas usage
+ * Generate and display the optimization report
  */
-function getGasRecommendations(gasUsed: number, methodName: string): string[] {
-  const recommendations: string[] = [];
-  
-  if (gasUsed > 200000) {
-    recommendations.push('High gas usage. Consider breaking down the function into smaller functions.');
-  }
-  
-  if (methodName.toLowerCase().includes('loop') && gasUsed > 100000) {
-    recommendations.push('Loop operations are expensive. Consider using mappings for lookups instead of arrays.');
-  }
-  
-  if (gasUsed > 50000) {
-    recommendations.push('Consider using gas-efficient alternatives for storage operations.');
-    recommendations.push('Use uint256 instead of smaller integers unless packaging multiple values into a single slot.');
-  }
-  
-  return recommendations;
-}
-
-/**
- * Generate a gas optimization report
- */
-function generateReport(results: GasUsage[]): void {
+function generateReport(
+  contractName: string,
+  bytecodeSize: number | string,
+  optimizationSuggestions: string[],
+  gasProfiling: GasUsageData[]
+): void {
   console.log('\n' + chalk.blue.bold('GAS OPTIMIZATION REPORT'));
-  console.log(chalk.blue('======================\n'));
+  console.log(chalk.blue('=======================\n'));
   
-  if (results.length === 0) {
-    console.log(chalk.green('✓ No gas optimization issues found.'));
-    return;
+  console.log(chalk.white.bold(`Contract: ${contractName}`));
+  console.log(chalk.white(`Bytecode Size: ${bytecodeSize} bytes`));
+  
+  if (typeof bytecodeSize === 'number') {
+    // Add warning if close to the contract size limit
+    if (bytecodeSize > 20000) {
+      const percentOfLimit = ((bytecodeSize / 24576) * 100).toFixed(1);
+      console.log(chalk.yellow(`⚠️ Contract is at ${percentOfLimit}% of the 24KB size limit`));
+    }
   }
   
-  // Group by contract
-  const contractGroups: Record<string, GasUsage[]> = {};
-  results.forEach(result => {
-    if (!contractGroups[result.contractName]) {
-      contractGroups[result.contractName] = [];
-    }
-    contractGroups[result.contractName].push(result);
-  });
-  
-  // Print results by contract
-  Object.entries(contractGroups).forEach(([contractName, usages]) => {
-    console.log(chalk.yellow.bold(`\nContract: ${contractName}`));
-    console.log(chalk.yellow('-'.repeat(contractName.length + 10)));
-    
-    usages.forEach(usage => {
-      console.log(chalk.cyan(`\n  Method: ${usage.methodName}`));
-      console.log(chalk.red(`  Gas Used: ${usage.gasUsed.toLocaleString()} gas`));
-      console.log('  Recommendations:');
-      usage.recommendations.forEach(rec => {
-        console.log(chalk.green(`    • ${rec}`));
-      });
+  console.log('\n' + chalk.green.bold('OPTIMIZATION SUGGESTIONS:'));
+  if (optimizationSuggestions.length > 0) {
+    optimizationSuggestions.forEach((suggestion, i) => {
+      console.log(chalk.green(`${i+1}. ${suggestion}`));
     });
-  });
+  } else {
+    console.log(chalk.green('No obvious optimization suggestions found.'));
+  }
   
-  // Save report to file
-  const reportPath = path.join(__dirname, '../gas-report.md');
-  let reportContent = '# Gas Optimization Report\n\n';
-  
-  Object.entries(contractGroups).forEach(([contractName, usages]) => {
-    reportContent += `## Contract: ${contractName}\n\n`;
+  if (gasProfiling.length > 0) {
+    console.log('\n' + chalk.yellow.bold('GAS USAGE PROFILE:'));
+    console.log(chalk.yellow('Function                         | Gas Used'));
+    console.log(chalk.yellow('---------------------------------|----------'));
     
-    usages.forEach(usage => {
-      reportContent += `### Method: ${usage.methodName}\n`;
-      reportContent += `**Gas Used:** ${usage.gasUsed.toLocaleString()} gas\n\n`;
-      reportContent += '**Recommendations:**\n';
-      usage.recommendations.forEach(rec => {
-        reportContent += `- ${rec}\n`;
+    // Sort functions by gas usage, highest first
+    gasProfiling
+      .sort((a, b) => b.gasUsed - a.gasUsed)
+      .forEach(profile => {
+        const functionName = profile.functionName.padEnd(30);
+        console.log(`${functionName} | ${profile.gasUsed}`);
       });
-      reportContent += '\n';
-    });
-  });
+  }
   
-  fs.writeFileSync(reportPath, reportContent);
-  console.log(chalk.blue(`\nReport saved to ${reportPath}`));
+  console.log('\n' + chalk.blue.bold('GENERAL OPTIMIZATION TIPS:'));
+  console.log(chalk.blue('1. Use events to store data that doesn\'t need on-chain access'));
+  console.log(chalk.blue('2. Batch operations instead of individual operations'));
+  console.log(chalk.blue('3. Use ERC1167 proxy pattern for deploying many instances of the same contract'));
+  console.log(chalk.blue('4. Consider using assembly for complex operations'));
+  console.log(chalk.blue('5. Store small values together in a single storage slot'));
 }
 
 // Run the script
-analyzeGasUsage().catch(error => {
+optimizeGasUsage().catch(error => {
   console.error(chalk.red(`Fatal error: ${error}`));
   process.exit(1);
 });
