@@ -31,7 +31,9 @@ yarn.lock
 .logs/
 *.log
 *.csv
-
+rag_cache
+.faiss
+.pkl
 # ===========================
 # Environment & Secrets
 # ===========================

@@ -7,7 +7,7 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
   styleUrls: ['./chat-widget.component.scss']
 })
 export class ChatWidgetComponent implements OnInit {
-  @Input() chatServerUrl: string = 'http://localhost:8000';
+  @Input() chatServerUrl: string = 'http://localhost:8000/gradio';
   @Input() title: string = 'Artifact Virtual Chat';
   @Input() width: string = '400px';
   @Input() height: string = '600px';
