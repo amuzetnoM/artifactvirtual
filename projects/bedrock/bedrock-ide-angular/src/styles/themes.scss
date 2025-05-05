@@ -1,0 +1,112 @@
+// Theme variables
+
+:root {
+  // Primary colors
+  --primary-color: #3b82f6;
+  --primary-color-light: #60a5fa;
+  --primary-color-dark: #2563eb;
+  
+  // Accent colors
+  --accent-color: #8b5cf6;
+  --accent-color-light: #a78bfa;
+  --accent-color-dark: #7c3aed;
+  
+  // Status colors
+  --success-color: #10b981;
+  --warning-color: #f59e0b;
+  --error-color: #ef4444;
+  --info-color: #3b82f6;
+  
+  // Light theme colors
+  --bg-light: #ffffff;
+  --surface-light: #f9fafb;
+  --border-light: #e5e7eb;
+  --text-primary-light: #111827;
+  --text-secondary-light: #4b5563;
+  
+  // Dark theme colors
+  --bg-dark: #1a1a1a;
+  --surface-dark: #222222;
+  --border-dark: #333333;
+  --text-primary-dark: #f9fafb;
+  --text-secondary-dark: #9ca3af;
+  
+  // Layout variables
+  --header-height: 64px;
+  --footer-height: 40px;
+  --sidebar-width: 300px;
+}
+
+// Light theme (default)
+.light-theme {
+  // Base colors
+  --bg-color: var(--bg-light);
+  --surface-color: var(--surface-light);
+  --border-color: var(--border-light);
+  --text-primary: var(--text-primary-light);
+  --text-secondary: var(--text-secondary-light);
+  
+  // Specific element colors
+  --editor-bg: #ffffff;
+  --editor-gutter: #f5f5f5;
+  --editor-line-highlight: #f0f0f0;
+  --editor-selection: rgba(59, 130, 246, 0.2);
+  --editor-cursor: #000000;
+}
+
+// Dark theme
+.dark-theme {
+  // Base colors
+  --bg-color: var(--bg-dark);
+  --surface-color: var(--surface-dark);
+  --border-color: var(--border-dark);
+  --text-primary: var(--text-primary-dark);
+  --text-secondary: var(--text-secondary-dark);
+  
+  // Specific element colors
+  --editor-bg: #1e1e1e;
+  --editor-gutter: #1a1a1a;
+  --editor-line-highlight: #2a2a2a;
+  --editor-selection: rgba(59, 130, 246, 0.3);
+  --editor-cursor: #ffffff;
+}
+
+// High-contrast theme (accessibility)
+.high-contrast-theme {
+  // Base colors
+  --bg-color: #000000;
+  --surface-color: #0a0a0a;
+  --border-color: #ffffff;
+  --text-primary: #ffffff;
+  --text-secondary: #cccccc;
+  
+  // Status colors with higher contrast
+  --success-color: #1bda8d;
+  --warning-color: #ffb938;
+  --error-color: #ff5252;
+  --info-color: #40a9ff;
+  
+  // Specific element colors
+  --editor-bg: #000000;
+  --editor-gutter: #0a0a0a;
+  --editor-line-highlight: #222222;
+  --editor-selection: rgba(255, 255, 255, 0.4);
+  --editor-cursor: #ffffff;
+}
+
+// Utility classes
+.text-primary {
+  color: var(--text-primary);
+}
+
+.text-secondary {
+  color: var(--text-secondary);
+}
+
+.bg-surface {
+  background-color: var(--surface-color);
+}
+
+.border-default {
+  border: 1px solid var(--border-color);
+}

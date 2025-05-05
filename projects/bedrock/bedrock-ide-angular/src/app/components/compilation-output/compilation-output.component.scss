@@ -7,28 +7,42 @@
   display: flex;
   flex-direction: column;
   height: 100%;
-  background-color: #1e1e1e;
+  background-color: var(--surface-light);
   border-radius: 4px;
   overflow: hidden;
   
+  :host-context(.dark-theme) & {
+    background-color: var(--surface-dark);
+  }
+  
   &.has-error {
     .output-header {
-      background-color: rgba(244, 67, 54, 0.2);
-      border-bottom-color: rgba(244, 67, 54, 0.3);
+      background-color: rgba(239, 68, 68, 0.1);
+      border-bottom-color: rgba(239, 68, 68, 0.2);
+      
+      :host-context(.dark-theme) & {
+        background-color: rgba(239, 68, 68, 0.15);
+        border-bottom-color: rgba(239, 68, 68, 0.3);
+      }
       
       .error-icon {
-        color: #f44336;
+        color: var(--error-color);
       }
     }
   }
   
   &.has-warning {
     .output-header {
-      background-color: rgba(255, 152, 0, 0.2);
-      border-bottom-color: rgba(255, 152, 0, 0.3);
+      background-color: rgba(245, 158, 11, 0.1);
+      border-bottom-color: rgba(245, 158, 11, 0.2);
+      
+      :host-context(.dark-theme) & {
+        background-color: rgba(245, 158, 11, 0.15);
+        border-bottom-color: rgba(245, 158, 11, 0.3);
+      }
       
       .warning-icon {
-        color: #ff9800;
+        color: var(--warning-color);
       }
     }
   }
@@ -38,8 +52,13 @@
     justify-content: space-between;
     align-items: center;
     padding: 8px 15px;
-    background-color: #2d2d2d;
-    border-bottom: 1px solid #333;
+    background-color: var(--surface-light);
+    border-bottom: 1px solid var(--border-light);
+    
+    :host-context(.dark-theme) & {
+      background-color: var(--surface-dark);
+      border-bottom-color: var(--border-dark);
+    }
     
     .header-info {
       display: flex;
@@ -47,20 +66,25 @@
       gap: 8px;
       
       .error-icon {
-        color: #f44336;
+        color: var(--error-color);
       }
       
       .warning-icon {
-        color: #ff9800;
+        color: var(--warning-color);
       }
       
       .success-icon {
-        color: #4caf50;
+        color: var(--success-color);
       }
       
       .status-text {
         font-size: 0.9rem;
         font-weight: 500;
+        color: var(--text-primary-light);
+        
+        :host-context(.dark-theme) & {
+          color: var(--text-primary-dark);
+        }
       }
     }
     
@@ -75,6 +99,11 @@
     overflow: auto;
     padding: 15px;
     position: relative;
+    background-color: var(--bg-light);
+    
+    :host-context(.dark-theme) & {
+      background-color: var(--bg-dark);
+    }
     
     mat-spinner {
       position: absolute;
@@ -88,30 +117,38 @@
       font-family: 'Consolas', 'Courier New', monospace;
       font-size: 0.9rem;
       white-space: pre-wrap;
-      color: #e0e0e0;
+      color: var(--text-primary-light);
+      
+      :host-context(.dark-theme) & {
+        color: var(--text-primary-dark);
+      }
       
       ::ng-deep {
         .error {
-          color: #f44336;
+          color: var(--error-color);
           font-weight: 500;
         }
         
         .warning {
-          color: #ff9800;
+          color: var(--warning-color);
         }
         
         .success {
-          color: #4caf50;
+          color: var(--success-color);
         }
         
         .file-ref {
-          color: #64b5f6;
+          color: var(--primary-color);
           text-decoration: underline;
           cursor: pointer;
         }
         
         .line-number {
-          color: #9e9e9e;
+          color: var(--text-secondary-light);
+          
+          :host-context(.dark-theme) & {
+            color: var(--text-secondary-dark);
+          }
         }
       }
     }
@@ -122,8 +159,12 @@
       align-items: center;
       justify-content: center;
       height: 100%;
-      color: #757575;
+      color: var(--text-secondary-light);
       text-align: center;
+      
+      :host-context(.dark-theme) & {
+        color: var(--text-secondary-dark);
+      }
       
       mat-icon {
         font-size: 48px;

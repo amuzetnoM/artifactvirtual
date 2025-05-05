@@ -21,7 +21,9 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatDividerModule } from '@angular/material/divider';
 import { ClipboardModule } from '@angular/cdk/clipboard';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 // Third-party libraries
 import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
@@ -34,6 +36,7 @@ import { LandingPageComponent } from './components/landing-page/landing-page.com
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { CompilationOutputComponent } from './components/compilation-output/compilation-output.component';
+import { FileExplorerComponent } from './components/file-explorer/file-explorer.component';
 
 // Application services
 import { AiService } from './services/ai.service';
@@ -49,7 +52,8 @@ import { ThemeService } from './services/theme.service';
     LandingPageComponent,
     HeaderComponent,
     FooterComponent,
-    CompilationOutputComponent
+    CompilationOutputComponent,
+    FileExplorerComponent
   ],
   imports: [
     BrowserModule,
@@ -75,7 +79,9 @@ import { ThemeService } from './services/theme.service';
     MatTooltipModule,
     MatSnackBarModule,
     MatProgressSpinnerModule,
+    MatDividerModule,
     ClipboardModule,
+    DragDropModule,
     
     // Third-party modules
     HighlightModule

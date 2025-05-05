@@ -7,28 +7,46 @@
   display: flex;
   flex-direction: column;
   height: 100%;
-  background-color: #1a1a1a;
-  color: #e0e0e0;
+  background-color: var(--surface-light);
+  color: var(--text-primary-light);
+  
+  :host-context(.dark-theme) & {
+    background-color: var(--surface-dark);
+    color: var(--text-primary-dark);
+  }
 }
 
 .assistant-header {
   padding: 10px 15px;
-  background-color: #2d2d2d;
-  border-bottom: 1px solid #333;
+  background-color: var(--surface-light);
+  border-bottom: 1px solid var(--border-light);
   display: flex;
   justify-content: space-between;
   align-items: center;
+  
+  :host-context(.dark-theme) & {
+    background-color: var(--surface-dark);
+    border-color: var(--border-dark);
+  }
   
   h3 {
     margin: 0;
     font-size: 1rem;
     font-weight: 500;
-    color: #e0e0e0;
+    color: var(--text-primary-light);
+    
+    :host-context(.dark-theme) & {
+      color: var(--text-primary-dark);
+    }
   }
   
   .model-info {
     font-size: 0.8rem;
-    color: #999;
+    color: var(--text-secondary-light);
+    
+    :host-context(.dark-theme) & {
+      color: var(--text-secondary-dark);
+    }
   }
 }
 
@@ -39,12 +57,12 @@
   
   &.available {
     background-color: rgba(76, 175, 80, 0.2);
-    color: #4caf50;
+    color: var(--success-color);
   }
   
   &.unavailable {
     background-color: rgba(244, 67, 54, 0.2);
-    color: #f44336;
+    color: var(--error-color);
   }
 }
 
@@ -52,7 +70,11 @@
   width: 100%;
   
   ::ng-deep .mat-mdc-form-field-flex {
-    background-color: #2d2d2d;
+    background-color: var(--surface-light);
+    
+    :host-context(.dark-theme) & {
+      background-color: var(--surface-dark);
+    }
   }
 }
 
@@ -68,7 +90,11 @@
       width: 100%;
       
       ::ng-deep .mat-mdc-form-field-flex {
-        background-color: #2d2d2d;
+        background-color: var(--surface-light);
+        
+        :host-context(.dark-theme) & {
+          background-color: var(--surface-dark);
+        }
       }
     }
     
@@ -100,7 +126,11 @@
     display: block;
     margin-bottom: 0.5rem;
     font-size: 0.9rem;
-    color: #bbb;
+    color: var(--text-secondary-light);
+    
+    :host-context(.dark-theme) & {
+      color: var(--text-secondary-dark);
+    }
   }
 }
 
@@ -112,8 +142,12 @@
   display: flex;
   justify-content: space-between;
   font-size: 0.8rem;
-  color: #999;
+  color: var(--text-secondary-light);
   margin-top: 0.25rem;
+  
+  :host-context(.dark-theme) & {
+    color: var(--text-secondary-dark);
+  }
 }
 
 .form-actions {
@@ -127,16 +161,26 @@
   display: flex;
   flex-direction: column;
   margin: 0 15px 15px;
-  border: 1px solid #333;
+  border: 1px solid var(--border-light);
   border-radius: 4px;
   overflow: hidden;
+  
+  :host-context(.dark-theme) & {
+    border-color: var(--border-dark);
+  }
   
   .response-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 8px 12px;
-    background-color: #2d2d2d;
+    background-color: var(--surface-light);
+    border-bottom: 1px solid var(--border-light);
+    
+    :host-context(.dark-theme) & {
+      background-color: var(--surface-dark);
+      border-color: var(--border-dark);
+    }
     
     h4 {
       margin: 0;
@@ -153,8 +197,12 @@
   .response-content {
     flex: 1;
     overflow: auto;
-    background-color: #252525;
+    background-color: var(--bg-light);
     padding: 12px;
+    
+    :host-context(.dark-theme) & {
+      background-color: var(--bg-dark);
+    }
     
     pre {
       margin: 0;
@@ -176,6 +224,6 @@
   gap: 10px;
   
   mat-icon {
-    color: #f44336;
+    color: var(--error-color);
   }
 }

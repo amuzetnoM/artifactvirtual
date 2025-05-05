@@ -42,63 +42,104 @@
   </div>
   
   <div class="main-content">
-    <div class="editor-actions">
-      <span class="file-info" *ngIf="activeFile">{{ activeFile.name }} ({{ activeFile.language }})</span>
-      <div class="action-buttons">
-        <button mat-button (click)="saveActiveFile()" [disabled]="!activeFile">
-          <mat-icon>save</mat-icon>
-          Save
-        </button>
-        <button mat-button (click)="compileActiveFile()" [disabled]="!activeFile || isCompiling">
-          <mat-icon>build</mat-icon>
-          {{ isCompiling ? 'Compiling...' : 'Compile' }}
-        </button>
-        <button mat-button (click)="toggleAiAssistant()">
-          <mat-icon>{{ showAiAssistant ? 'visibility_off' : 'visibility' }}</mat-icon>
-          {{ showAiAssistant ? 'Hide AI' : 'Show AI' }}
-        </button>
+    <!-- Integrated layout with file explorer sidebar and resizable panels -->
+    <div class="ide-layout">
+      <!-- File Explorer Sidebar -->
+      <div class="sidebar" [class.collapsed]="sidebarCollapsed">
+        <app-file-explorer (fileSelected)="onFileSelected($event)"></app-file-explorer>
       </div>
-    </div>
-    
-    <div class="editor-workspace" [class.with-assistant]="showAiAssistant">
-      <div class="monaco-container" #editorContainer></div>
       
-      <app-ai-assistant 
-        *ngIf="showAiAssistant"
-        class="ai-assistant-panel"
-        [language]="activeFile?.language || 'solidity'"
-        [currentCode]="activeFile?.content || ''"
-        [activeFile]="activeFile?.name || ''"
-        (insertCode)="insertCodeAtCursor($event)"
-        (replaceCode)="replaceEditorContent($event)"
-      ></app-ai-assistant>
-    </div>
-    
-    <div class="output-panel" *ngIf="compileOutput">
-      <div class="panel-header">
-        <h3>Compilation Output</h3>
-        <button mat-icon-button (click)="compileOutput = ''">
-          <mat-icon>close</mat-icon>
+      <!-- Sidebar collapse toggle -->
+      <div class="sidebar-toggle" (click)="toggleSidebar()" [class.collapsed]="sidebarCollapsed">
+        <button mat-icon-button [matTooltip]="sidebarCollapsed ? 'Show Explorer' : 'Hide Explorer'">
+          <mat-icon>{{ sidebarCollapsed ? 'chevron_right' : 'chevron_left' }}</mat-icon>
         </button>
       </div>
-      <div class="output-content">
-        <pre>{{ compileOutput }}</pre>
-      </div>
-    </div>
-    
-    <div class="compilation-output" *ngIf="compilationOutput">
-      <app-compilation-output 
-        [compilationResult]="compilationResult"
-        [output]="compilationOutput"
-        (clearOutput)="clearCompilationOutput()">
-      </app-compilation-output>
-    </div>
-    
-    <div class="ai-assistant-container" *ngIf="aiAssistantVisible">
-      <!-- AI Assistant component will be added later -->
-      <div class="ai-assistant-placeholder">
-        <h3>AI Assistant</h3>
-        <p>AI Assistant will be added in a future update.</p>
+      
+      <!-- Main editor area with resizable panels -->
+      <div class="editor-area">
+        <div class="editor-header">
+          <div class="file-info" *ngIf="activeFile">{{ activeFile.name }} ({{ activeFile.language }})</div>
+          <div class="action-buttons">
+            <button mat-button (click)="saveActiveFile()" [disabled]="!activeFile">
+              <mat-icon>save</mat-icon>
+              Save
+            </button>
+            <button mat-button (click)="compileActiveFile()" [disabled]="!activeFile || isCompiling">
+              <mat-icon>build</mat-icon>
+              {{ isCompiling ? 'Compiling...' : 'Compile' }}
+            </button>
+            <button mat-button (click)="toggleAiAssistant()">
+              <mat-icon>{{ showAiAssistant ? 'visibility_off' : 'visibility' }}</mat-icon>
+              {{ showAiAssistant ? 'Hide AI' : 'Show AI' }}
+            </button>
+          </div>
+        </div>
+        
+        <div class="panels-container">
+          <!-- Main horizontal split -->
+          <div class="horizontal-panels">
+            <!-- Editor and AI Assistant -->
+            <div class="top-panel">
+              <div class="vertical-panels" [class.with-assistant]="showAiAssistant">
+                <!-- Code Editor Panel -->
+                <div class="code-editor-panel">
+                  <div class="monaco-container" #editorContainer></div>
+                </div>
+                
+                <!-- Resizer for vertical split -->
+                <div *ngIf="showAiAssistant" class="vertical-resizer" 
+                     cdkDrag
+                     cdkDragLockAxis="x"
+                     (cdkDragMoved)="onVerticalResizerDrag($event)">
+                </div>
+                
+                <!-- AI Assistant Panel -->
+                <app-ai-assistant 
+                  *ngIf="showAiAssistant"
+                  class="ai-assistant-panel"
+                  [language]="activeFile?.language || 'solidity'"
+                  [currentCode]="activeFile?.content || ''"
+                  [activeFile]="activeFile?.name || ''"
+                  (insertCode)="insertCodeAtCursor($event)"
+                  (replaceCode)="replaceEditorContent($event)">
+                </app-ai-assistant>
+              </div>
+            </div>
+            
+            <!-- Resizer for horizontal split when output is visible -->
+            <div *ngIf="compilationOutput || compileOutput" class="horizontal-resizer"
+                 cdkDrag
+                 cdkDragLockAxis="y"
+                 (cdkDragMoved)="onHorizontalResizerDrag($event)">
+            </div>
+            
+            <!-- Output Panels -->
+            <div *ngIf="compileOutput || compilationOutput" class="bottom-panel" [style.height.px]="outputPanelHeight">
+              <!-- Text Output -->
+              <div class="output-panel" *ngIf="compileOutput">
+                <div class="panel-header">
+                  <h3>Compilation Output</h3>
+                  <button mat-icon-button (click)="compileOutput = ''">
+                    <mat-icon>close</mat-icon>
+                  </button>
+                </div>
+                <div class="output-content">
+                  <pre>{{ compileOutput }}</pre>
+                </div>
+              </div>
+              
+              <!-- Structured Compilation Output -->
+              <div class="compilation-output" *ngIf="compilationOutput">
+                <app-compilation-output 
+                  [compilationResult]="compilationResult"
+                  [output]="compilationOutput"
+                  (clearOutput)="clearCompilationOutput()">
+                </app-compilation-output>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

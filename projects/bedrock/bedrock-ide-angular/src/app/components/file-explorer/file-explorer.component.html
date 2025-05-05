@@ -1,0 +1,114 @@
+<div class="file-explorer-container">
+  <div class="toolbar">
+    <h3>Files</h3>
+    <div class="actions">
+      <button mat-icon-button matTooltip="New File" (click)="createNewFile(null)">
+        <mat-icon>note_add</mat-icon>
+      </button>
+      <button mat-icon-button matTooltip="New Folder" (click)="createNewFolder(null)">
+        <mat-icon>create_new_folder</mat-icon>
+      </button>
+      <button mat-icon-button [matMenuTriggerFor]="moreMenu" matTooltip="More Options">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #moreMenu="matMenu">
+        <button mat-menu-item (click)="exportFiles()">
+          <mat-icon>file_download</mat-icon>
+          <span>Export Files</span>
+        </button>
+        <label mat-menu-item>
+          <mat-icon>file_upload</mat-icon>
+          <span>Import Files</span>
+          <input type="file" style="display: none;" accept=".json" (change)="importFiles($event)">
+        </label>
+        <button mat-menu-item (click)="resetFiles()">
+          <mat-icon>restore</mat-icon>
+          <span>Reset Files</span>
+        </button>
+      </mat-menu>
+    </div>
+  </div>
+  
+  <mat-divider></mat-divider>
+  
+  <div class="file-tree">
+    <ng-container *ngIf="fileSystem.length === 0">
+      <div class="empty-state">
+        <mat-icon>folder_open</mat-icon>
+        <span>No files yet</span>
+        <button mat-button color="primary" (click)="createNewFile(null)">Create first file</button>
+      </div>
+    </ng-container>
+    
+    <ng-template #fileNodeTemplate let-node>
+      <div class="node-item" 
+           [class.active]="isActiveFile(node)"
+           (click)="onFileClick(node)"
+           (contextmenu)="onContextMenu($event, node)">
+        
+        <div class="node-content">
+          <mat-icon class="node-icon">
+            {{ node.type === 'directory' ? (node.isExpanded ? 'folder_open' : 'folder') : 'description' }}
+          </mat-icon>
+          
+          <ng-container *ngIf="renameMode && selectedNode?.id === node.id; else normalDisplay">
+            <input type="text" 
+                  [(ngModel)]="renameValue"
+                  (keyup.enter)="completeRenaming()"
+                  (keyup.escape)="cancelRenaming()"
+                  (blur)="completeRenaming()"
+                  class="rename-input"
+                  #renameInput>
+          </ng-container>
+          
+          <ng-template #normalDisplay>
+            <span class="node-name">{{ node.name }}</span>
+          </ng-template>
+        </div>
+      </div>
+      
+      <!-- Directory Children -->
+      <div class="node-children" *ngIf="node.type === 'directory' && node.isExpanded && node.children?.length">
+        <ng-container *ngFor="let child of node.children">
+          <div class="node-item-wrapper">
+            <ng-container *ngTemplateOutlet="fileNodeTemplate; context: { $implicit: child }"></ng-container>
+          </div>
+        </ng-container>
+      </div>
+    </ng-template>
+    
+    <div class="file-tree-root">
+      <ng-container *ngFor="let node of fileSystem">
+        <ng-container *ngTemplateOutlet="fileNodeTemplate; context: { $implicit: node }"></ng-container>
+      </ng-container>
+    </div>
+  </div>
+</div>
+
+<!-- Context Menu -->
+<div style="visibility: hidden; position: fixed;"
+     [style.left]="contextMenuPosition.x"
+     [style.top]="contextMenuPosition.y"
+     [matMenuTriggerFor]="contextMenu">
+</div>
+
+<mat-menu #contextMenu="matMenu">
+  <ng-template matMenuContent>
+    <button mat-menu-item *ngIf="selectedNode?.type === 'directory'" (click)="createNewFile(selectedNode)">
+      <mat-icon>note_add</mat-icon>
+      <span>New File</span>
+    </button>
+    <button mat-menu-item *ngIf="selectedNode?.type === 'directory'" (click)="createNewFolder(selectedNode)">
+      <mat-icon>create_new_folder</mat-icon>
+      <span>New Folder</span>
+    </button>
+    <button mat-menu-item (click)="startRenaming(selectedNode!)">
+      <mat-icon>edit</mat-icon>
+      <span>Rename</span>
+    </button>
+    <button mat-menu-item (click)="deleteItem(selectedNode!)">
+      <mat-icon>delete</mat-icon>
+      <span>Delete</span>
+    </button>
+  </ng-template>
+</mat-menu>
