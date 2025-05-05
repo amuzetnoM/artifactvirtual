@@ -1,0 +1,49 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Artifact Virtual Chat</title>
+        <style>
+            body, html {
+                margin: 0;
+                padding: 0;
+                height: 100%;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            }
+            .container {
+                height: 100%;
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+            }
+            .header {
+                background-color: #000;
+                color: #fff;
+                padding: 10px 20px;
+                display: flex;
+                align-items: center;
+            }
+            .header h1 {
+                margin: 0;
+                font-size: 1.2rem;
+            }
+            .chat-container {
+                flex: 1;
+                border: none;
+                width: 100%;
+                height: 100%;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="header">
+                <h1>Artifact Virtual Chat</h1>
+            </div>
+            <iframe id="gradio-app" class="chat-container" src="/gradio/" frameborder="0" allow="microphone"></iframe>
+        </div>
+    </body>
+    </html>
+    
