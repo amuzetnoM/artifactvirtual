@@ -1,0 +1,52 @@
+<div class="chat-widget-container">
+  <!-- Chat button -->
+  <button 
+    *ngIf="!isOpen" 
+    class="chat-button" 
+    (click)="toggleChat()" 
+    [style.background-color]="buttonColor">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" 
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" [style.color]="buttonIconColor">
+      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+    </svg>
+  </button>
+
+  <!-- Chat container -->
+  <div 
+    #chatContainer
+    *ngIf="isOpen" 
+    class="chat-container" 
+    [style.width]="width" 
+    [style.height]="height"
+    (mousedown)="startDrag($event)">
+    
+    <!-- Header -->
+    <div class="chat-header" [style.background-color]="buttonColor">
+      <span [style.color]="buttonIconColor">{{ title }}</span>
+      <div class="chat-header-buttons">
+        <button class="minimize-button" (click)="onMinimize()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" 
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" [style.color]="buttonIconColor">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+          </svg>
+        </button>
+        <button class="close-button" (click)="toggleChat()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" 
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" [style.color]="buttonIconColor">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+    </div>
+    
+    <!-- Chat iframe -->
+    <iframe 
+      [src]="iframeUrl" 
+      class="chat-iframe" 
+      frameborder="0" 
+      allow="microphone" 
+      title="Artifact Virtual Chat">
+    </iframe>
+  </div>
+</div>

@@ -1,35 +1,70 @@
+# API and AI Integration
+openai~=1.37.1
 azure-ai-inference~=1.0.0b4
 azure-ai-evaluation~=1.1.0
-openai~=1.37.1
 mistralai~=0.4.2
-python-dotenv~=1.0.1
-ipykernel~=6.29.5
-typer[all]>=0.12.3
-rich>=13.7.1
-click>=8.1.7
-pytest>=8.2.2
-datasets>=2.20.0
-transformers>=4.42.4
-torch>=2.3.1
-torchvision>=0.18.1
+anthropic>=0.18.1
+
+# LLM Frameworks
 langchain>=0.2.11
 llama-index>=0.10.66
+transformers>=4.43.0
+
+# Machine Learning
+torch>=2.3.1
+torchvision>=0.18.1
+datasets>=2.20.0
+mosaicml-cli>=0.6.0
+einops>=0.8.0
+
+# Text Processing
 PyPDF2>=3.0.1
 pdfplumber>=0.11.2
 Pillow>=10.4.0
 beautifulsoup4>=4.12.3
-mosaicml-cli>=0.6.0
-einops>=0.8.0
-# --- New/Optional dependencies for advanced agent workflows ---
+markdown>=3.5.2
+
+# Audio/Speech Processing
+SpeechRecognition>=3.10.0
+pydub>=0.25.1
+soundfile>=0.12.1
+torchaudio>=2.3.1
+
+# CLI and UI
+typer[all]>=0.12.3
+rich>=13.7.1
+click>=8.1.7
+gradio>=4.19.1
+streamlit>=1.31.1
+
+# Development and Testing
+pytest>=8.2.2
+python-dotenv~=1.0.1
+ipykernel~=6.29.5
+
+# Web and API
+fastapi>=0.110.0
+uvicorn>=0.29.0
+requests>=2.31.0
+httpx>=0.27.0
+
 # Model Context Protocol (MCP) for agent/server integration
 mcp[cli]>=0.1.0
+
 # AutoRound for LLM quantization and inference
-# (choose one: GPU, CPU, or both as needed)
 auto-round>=0.5.1
 # For CPU-only: auto-round[cpu]>=0.5.1
 # For HPU: auto-round-lib>=0.5.1
-langchain
-transformers
 
-python-dotenv~=1.0.1
-ipykernel~=6.29.5
+# Vector Databases
+faiss-cpu>=1.7.4
+chromadb>=0.4.22
+
+# Embeddings
+sentence-transformers>=2.6.0
+
+# Utilities
+tqdm>=4.66.2
+tenacity>=8.2.3
+pandas>=2.2.0
+numpy>=1.26.0
