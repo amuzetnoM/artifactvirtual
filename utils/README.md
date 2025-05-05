@@ -7,9 +7,11 @@ This directory contains core utility libraries and tools that power the Artifact
 The utilities provided in this directory serve as fundamental building blocks for AI research, development, and deployment within ArtifactVirtual:
 
 - **auto-round**: Advanced quantization for Large Language Models (LLMs)
+- **configsystem**: Unified configuration management for ArtifactVirtual projects
 - **debugdiag**: Diagnostic and bootstrap tools for system management
 - **dspy**: Integration with the DSPy framework for declarative language processing
 - **modelcontextprotocol**: Implementation of the Model Context Protocol (MCP) for standardized LLM context provision
+- **workspace-rag**: Modular Retrieval Augmented Generation for local workspace data
 
 ## Auto-Round
 
@@ -23,6 +25,18 @@ The utilities provided in this directory serve as fundamental building blocks fo
 - Works with a wide range of LLM architectures
 
 [Learn more about Auto-Round](./auto-round/README.md)
+
+## ConfigSystem
+
+[ConfigSystem](./configsystem/) provides a unified approach to configuration management across ArtifactVirtual projects, ensuring consistent handling of settings across different environments and components.
+
+### Key Features
+
+- Hierarchical configuration with inheritance and overrides
+- Environment-specific settings management
+- Validation of configuration values
+- Support for multiple formats (YAML, JSON, TOML)
+- Secrets management integration
 
 ## Debug-Diag
 
@@ -61,14 +75,29 @@ The [Model Context Protocol implementation](./modelcontextprotocol/) provides a 
 
 [Learn more about MCP](./modelcontextprotocol/README.md)
 
+## Workspace RAG
+
+The [Workspace RAG](../workspace_rag.py) system provides a modular Retrieval Augmented Generation implementation that can access and reason about your entire workspace content through vector search.
+
+### Key Features
+
+- Indexes the entire workspace with intelligent file filtering
+- Integrates with Ollama models (default: gemma3)
+- Provides TTS/STT capabilities for voice interaction
+- Includes a web interface for chat interactions
+- Features an extensible tool registration system
+- Supports embedding in other applications via Angular components
+
 ## Usage in ArtifactVirtual
 
 These utilities are used throughout the ArtifactVirtual ecosystem:
 
 1. **Auto-Round** is used to optimize models for deployment on resource-constrained environments
-2. **Debug-Diag** is used during bootstrap, development, and troubleshooting
-3. **DSPy** supports advanced language processing pipelines
-4. **MCP** provides standardized context to LLMs across different applications
+2. **ConfigSystem** manages configurations across projects consistently
+3. **Debug-Diag** is used during bootstrap, development, and troubleshooting
+4. **DSPy** supports advanced language processing pipelines
+5. **MCP** provides standardized context to LLMs across different applications
+6. **Workspace RAG** enables AI systems to reason about and leverage local workspace content
 
 ## Getting Started
 
