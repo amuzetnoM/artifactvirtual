@@ -1,6 +1,7 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import Link from "next/link"
 import {
   Activity,
   Brain,
@@ -37,13 +38,49 @@ import { QuantumComputingDashboard } from "@/components/quantum-computing-dashbo
 
 export function UnifiedDashboard() {
   const [activeTab, setActiveTab] = useState("overview")
-  const [expandedSections, setExpandedSections] = useState<Record<string, boolean>>({})
+  const [expandedSections, setExpandedSections] = useState({
+    ai: false,
+    aiLab: false,
+    quantum: false,
+    knowledge: false,
+    blockchain: false,
+    blockchainWallets: false,
+    applications: false,
+    projects: false,
+    research: false,
+    system: false,
+    servers: false
+  })
+
+  const [progressValue, setProgressValue] = useState(0);
+
+  useEffect(() => {
+    // Generate random number only on client-side after initial render
+    setProgressValue(Math.floor(Math.random() * 100));
+  }, []);
 
   const toggleSection = (sectionId: string) => {
-    setExpandedSections((prev) => ({
-      ...prev,
-      [sectionId]: !prev[sectionId],
-    }))
+    const sectionMap: Record<string, keyof typeof expandedSections> = {
+      'ai': 'ai',
+      'ai-lab': 'aiLab',
+      'quantum': 'quantum',
+      'knowledge': 'knowledge',
+      'blockchain': 'blockchain',
+      'blockchain-wallets': 'blockchainWallets',
+      'applications': 'applications',
+      'projects': 'projects',
+      'research': 'research',
+      'system': 'system',
+      'servers': 'servers'
+    }
+
+    const key = sectionMap[sectionId]
+    if (key) {
+      setExpandedSections(prev => ({
+        ...prev,
+        [key]: !prev[key]
+      }))
+    }
   }
 
   return (
@@ -52,15 +89,15 @@ export function UnifiedDashboard() {
       <section id="overview" className="section pt-8">
         <div className="mb-8 flex items-center justify-between">
           <div>
-            <h1 className="text-3xl font-bold gradient-text">WORXPACE OVERSIGHT</h1>
-            <p className="mt-2 text-muted-foreground">ARTIFACT VIRTUAL</p>
+            <h1 className="text-4xl font-bold tracking-tight gradient-text">ARTIFACT DASHBOARD</h1>
+            <p className="mt-1 text-sm font-medium tracking-wide uppercase text-muted-foreground">ARTIFACT VIRTUAL</p>
           </div>
           <div className="flex items-center gap-4">
-            <Button variant="outline" size="sm" className="gap-2">
+            <Button variant="outline" size="sm" className="gap-2 rounded-md">
               <RefreshCw className="h-4 w-4" />
               Refresh
             </Button>
-            <Button size="sm" className="gap-2">
+            <Button size="sm" className="gap-2 rounded-md">
               <Plus className="h-4 w-4" />
               New Project
             </Button>
@@ -79,7 +116,7 @@ export function UnifiedDashboard() {
           <TabsContent value="overview" className="mt-6">
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
               {/* AI & Models Overview */}
-              <Card className="card-hover">
+              <Card className="surgical-card">
                 <CardHeader className="pb-2">
                   <div className="flex items-center justify-between">
                     <CardTitle className="text-lg flex items-center gap-2">
@@ -92,7 +129,8 @@ export function UnifiedDashboard() {
                   </div>
                   <CardDescription>Model integration and deployment</CardDescription>
                 </CardHeader>
-                <CardContent>
+                <div className="surgical-divider mx-4" />
+                <CardContent className="pt-4">
                   <div className="space-y-2">
                     <div className="flex items-center justify-between">
                       <span className="text-sm">Active Models</span>
@@ -103,15 +141,15 @@ export function UnifiedDashboard() {
                 </CardContent>
                 <CardFooter>
                   <Button variant="ghost" size="sm" className="ml-auto gap-1" asChild>
-                    <a href="#ai">
+                    <Link href="/ai-ecosystems">
                       View Details <ChevronRight className="h-4 w-4" />
-                    </a>
+                    </Link>
                   </Button>
                 </CardFooter>
               </Card>
 
               {/* Knowledge Overview */}
-              <Card className="card-hover">
+              <Card className="card-modern">
                 <CardHeader className="pb-2">
                   <div className="flex items-center justify-between">
                     <CardTitle className="text-lg flex items-center gap-2">
@@ -135,15 +173,15 @@ export function UnifiedDashboard() {
                 </CardContent>
                 <CardFooter>
                   <Button variant="ghost" size="sm" className="ml-auto gap-1" asChild>
-                    <a href="#knowledge">
+                    <Link href="/knowledge">
                       View Details <ChevronRight className="h-4 w-4" />
-                    </a>
+                    </Link>
                   </Button>
                 </CardFooter>
               </Card>
 
               {/* Blockchain Overview */}
-              <Card className="card-hover">
+              <Card className="card-modern">
                 <CardHeader className="pb-2">
                   <div className="flex items-center justify-between">
                     <CardTitle className="text-lg flex items-center gap-2">
@@ -167,15 +205,15 @@ export function UnifiedDashboard() {
                 </CardContent>
                 <CardFooter>
                   <Button variant="ghost" size="sm" className="ml-auto gap-1" asChild>
-                    <a href="#blockchain">
+                    <Link href="/blockchain">
                       View Details <ChevronRight className="h-4 w-4" />
-                    </a>
+                    </Link>
                   </Button>
                 </CardFooter>
               </Card>
 
               {/* Projects Overview */}
-              <Card className="card-hover">
+              <Card className="card-modern">
                 <CardHeader className="pb-2">
                   <div className="flex items-center justify-between">
                     <CardTitle className="text-lg flex items-center gap-2">
@@ -192,22 +230,22 @@ export function UnifiedDashboard() {
                   <div className="space-y-2">
                     <div className="flex items-center justify-between">
                       <span className="text-sm">Completion</span>
-                      <span className="text-sm font-medium">68%</span>
+                      <span className="text-sm font-medium">{progressValue}%</span>
                     </div>
-                    <Progress value={68} className="h-1" />
+                    <Progress value={progressValue} className="h-1" />
                   </div>
                 </CardContent>
                 <CardFooter>
                   <Button variant="ghost" size="sm" className="ml-auto gap-1" asChild>
-                    <a href="#projects">
+                    <Link href="/projects">
                       View Details <ChevronRight className="h-4 w-4" />
-                    </a>
+                    </Link>
                   </Button>
                 </CardFooter>
               </Card>
 
               {/* Applications Overview */}
-              <Card className="card-hover">
+              <Card className="card-modern">
                 <CardHeader className="pb-2">
                   <div className="flex items-center justify-between">
                     <CardTitle className="text-lg flex items-center gap-2">
@@ -231,15 +269,15 @@ export function UnifiedDashboard() {
                 </CardContent>
                 <CardFooter>
                   <Button variant="ghost" size="sm" className="ml-auto gap-1" asChild>
-                    <a href="#applications">
+                    <Link href="/applications">
                       View Details <ChevronRight className="h-4 w-4" />
-                    </a>
+                    </Link>
                   </Button>
                 </CardFooter>
               </Card>
 
               {/* System Overview */}
-              <Card className="card-hover">
+              <Card className="card-modern">
                 <CardHeader className="pb-2">
                   <div className="flex items-center justify-between">
                     <CardTitle className="text-lg flex items-center gap-2">
@@ -263,9 +301,9 @@ export function UnifiedDashboard() {
                 </CardContent>
                 <CardFooter>
                   <Button variant="ghost" size="sm" className="ml-auto gap-1" asChild>
-                    <a href="#system">
+                    <Link href="/system">
                       View Details <ChevronRight className="h-4 w-4" />
-                    </a>
+                    </Link>
                   </Button>
                 </CardFooter>
               </Card>
@@ -309,7 +347,7 @@ export function UnifiedDashboard() {
               <CardContent>
                 <div className="space-y-4">
                   {Array.from({ length: 5 }).map((_, i) => (
-                    <div key={i} className="flex items-start gap-4 rounded-lg border p-4">
+                    <div key={`activity-${i}`} className="flex items-start gap-4 rounded-lg border p-4">
                       <div className="flex h-9 w-9 items-center justify-center rounded-full bg-primary/10">
                         <Activity className="h-5 w-5 text-primary" />
                       </div>
@@ -332,7 +370,7 @@ export function UnifiedDashboard() {
           <TabsContent value="projects" className="mt-6">
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
               {Array.from({ length: 6 }).map((_, i) => (
-                <Card key={i} className="card-hover">
+                <Card key={`project-card-${i}`} className="card-modern">
                   <CardHeader>
                     <div className="flex items-center justify-between">
                       <CardTitle>Project {i + 1}</CardTitle>
@@ -346,9 +384,9 @@ export function UnifiedDashboard() {
                     <div className="space-y-2">
                       <div className="flex items-center justify-between">
                         <span className="text-sm">Progress</span>
-                        <span className="text-sm font-medium">{Math.floor(Math.random() * 100)}%</span>
+                        <span className="text-sm font-medium">{progressValue}%</span>
                       </div>
-                      <Progress value={Math.floor(Math.random() * 100)} className="h-1" />
+                      <Progress value={progressValue} className="h-1" />
                     </div>
                   </CardContent>
                   <CardFooter>
@@ -454,14 +492,14 @@ export function UnifiedDashboard() {
               <p className="mt-1 text-muted-foreground">Manage AI models and ecosystems</p>
             </div>
             <Button variant="ghost" size="icon" onClick={() => toggleSection("ai")}>
-              {expandedSections["ai"] ? <Minimize className="h-5 w-5" /> : <Maximize className="h-5 w-5" />}
+              {expandedSections.ai ? <Minimize className="h-5 w-5" /> : <Maximize className="h-5 w-5" />}
             </Button>
           </div>
         </div>
 
-        {!expandedSections["ai"] ? (
+        {!expandedSections.ai ? (
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-            <Card className="card-hover">
+            <Card className="card-modern">
               <CardHeader className="pb-2">
                 <CardTitle className="text-lg">Models</CardTitle>
                 <CardDescription>Available AI models</CardDescription>
@@ -479,7 +517,7 @@ export function UnifiedDashboard() {
               </CardFooter>
             </Card>
 
-            <Card className="card-hover">
+            <Card className="card-modern">
               <CardHeader className="pb-2">
                 <CardTitle className="text-lg">AI Lab</CardTitle>
                 <CardDescription>Experiment with models</CardDescription>
@@ -492,9 +530,9 @@ export function UnifiedDashboard() {
               </CardContent>
               <CardFooter>
                 <Button variant="ghost" size="sm" className="ml-auto gap-1" asChild>
-                  <a href="#ai-lab">
+                  <Link href="/ai-ecosystems/lab">
                     View <ChevronRight className="h-4 w-4" />
-                  </a>
+                  </Link>
                 </Button>
               </CardFooter>
             </Card>
@@ -512,9 +550,9 @@ export function UnifiedDashboard() {
               </CardContent>
               <CardFooter>
                 <Button variant="ghost" size="sm" className="ml-auto gap-1" asChild>
-                  <a href="#quantum">
+                  <Link href="/quantum">
                     View <ChevronRight className="h-4 w-4" />
-                  </a>
+                  </Link>
                 </Button>
               </CardFooter>
             </Card>
@@ -535,12 +573,12 @@ export function UnifiedDashboard() {
               <p className="mt-1 text-muted-foreground">Experiment with multimodal models</p>
             </div>
             <Button variant="ghost" size="icon" onClick={() => toggleSection("ai-lab")}>
-              {expandedSections["ai-lab"] ? <Minimize className="h-5 w-5" /> : <Maximize className="h-5 w-5" />}
+              {expandedSections.aiLab ? <Minimize className="h-5 w-5" /> : <Maximize className="h-5 w-5" />}
             </Button>
           </div>
         </div>
 
-        {expandedSections["ai-lab"] ? (
+        {expandedSections.aiLab ? (
           <div className="space-y-8">
             <AILabDashboard />
           </div>
@@ -571,12 +609,12 @@ export function UnifiedDashboard() {
               <p className="mt-1 text-muted-foreground">Quantum algorithms and simulations</p>
             </div>
             <Button variant="ghost" size="icon" onClick={() => toggleSection("quantum")}>
-              {expandedSections["quantum"] ? <Minimize className="h-5 w-5" /> : <Maximize className="h-5 w-5" />}
+              {expandedSections.quantum ? <Minimize className="h-5 w-5" /> : <Maximize className="h-5 w-5" />}
             </Button>
           </div>
         </div>
 
-        {expandedSections["quantum"] ? (
+        {expandedSections.quantum ? (
           <div className="space-y-8">
             <QuantumComputingDashboard />
           </div>
@@ -607,12 +645,12 @@ export function UnifiedDashboard() {
               <p className="mt-1 text-muted-foreground">Manage datasets and knowledge bases</p>
             </div>
             <Button variant="ghost" size="icon" onClick={() => toggleSection("knowledge")}>
-              {expandedSections["knowledge"] ? <Minimize className="h-5 w-5" /> : <Maximize className="h-5 w-5" />}
+              {expandedSections.knowledge ? <Minimize className="h-5 w-5" /> : <Maximize className="h-5 w-5" />}
             </Button>
           </div>
         </div>
 
-        {expandedSections["knowledge"] ? (
+        {expandedSections.knowledge ? (
           <div className="space-y-8">
             <KnowledgeDashboard />
           </div>
@@ -666,12 +704,12 @@ export function UnifiedDashboard() {
               <p className="mt-1 text-muted-foreground">Smart contracts and blockchain networks</p>
             </div>
             <Button variant="ghost" size="icon" onClick={() => toggleSection("blockchain")}>
-              {expandedSections["blockchain"] ? <Minimize className="h-5 w-5" /> : <Maximize className="h-5 w-5" />}
+              {expandedSections.blockchain ? <Minimize className="h-5 w-5" /> : <Maximize className="h-5 w-5" />}
             </Button>
           </div>
         </div>
 
-        {expandedSections["blockchain"] ? (
+        {expandedSections.blockchain ? (
           <div className="space-y-8">
             <BlockchainDashboard />
           </div>
@@ -726,9 +764,9 @@ export function UnifiedDashboard() {
               </CardContent>
               <CardFooter>
                 <Button variant="ghost" size="sm" className="ml-auto gap-1" asChild>
-                  <a href="#blockchain-wallets">
+                  <Link href="/blockchain/wallets">
                     View <ChevronRight className="h-4 w-4" />
-                  </a>
+                  </Link>
                 </Button>
               </CardFooter>
             </Card>
@@ -745,7 +783,7 @@ export function UnifiedDashboard() {
               <p className="mt-1 text-muted-foreground">Manage blockchain wallets and assets</p>
             </div>
             <Button variant="ghost" size="icon" onClick={() => toggleSection("blockchain-wallets")}>
-              {expandedSections["blockchain-wallets"] ? (
+              {expandedSections.blockchainWallets ? (
                 <Minimize className="h-5 w-5" />
               ) : (
                 <Maximize className="h-5 w-5" />
@@ -754,7 +792,7 @@ export function UnifiedDashboard() {
           </div>
         </div>
 
-        {expandedSections["blockchain-wallets"] ? (
+        {expandedSections.blockchainWallets ? (
           <div className="space-y-8">
             <BlockchainWalletsDashboard />
           </div>
@@ -785,12 +823,12 @@ export function UnifiedDashboard() {
               <p className="mt-1 text-muted-foreground">Tools and utilities</p>
             </div>
             <Button variant="ghost" size="icon" onClick={() => toggleSection("applications")}>
-              {expandedSections["applications"] ? <Minimize className="h-5 w-5" /> : <Maximize className="h-5 w-5" />}
+              {expandedSections.applications ? <Minimize className="h-5 w-5" /> : <Maximize className="h-5 w-5" />}
             </Button>
           </div>
         </div>
 
-        {expandedSections["applications"] ? (
+        {expandedSections.applications ? (
           <div className="space-y-8">
             <ApplicationsDashboard />
           </div>
@@ -854,19 +892,19 @@ export function UnifiedDashboard() {
               <p className="mt-1 text-muted-foreground">Development projects and tasks</p>
             </div>
             <Button variant="ghost" size="icon" onClick={() => toggleSection("projects")}>
-              {expandedSections["projects"] ? <Minimize className="h-5 w-5" /> : <Maximize className="h-5 w-5" />}
+              {expandedSections.projects ? <Minimize className="h-5 w-5" /> : <Maximize className="h-5 w-5" />}
             </Button>
           </div>
         </div>
 
-        {expandedSections["projects"] ? (
+        {expandedSections.projects ? (
           <div className="space-y-8">
             <ProjectsDashboard />
           </div>
         ) : (
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
             {Array.from({ length: 3 }).map((_, i) => (
-              <Card key={i} className="card-hover">
+              <Card key={`project-summary-${i}`} className="card-hover">
                 <CardHeader>
                   <div className="flex items-center justify-between">
                     <CardTitle>Project {i + 1}</CardTitle>
@@ -880,9 +918,9 @@ export function UnifiedDashboard() {
                   <div className="space-y-2">
                     <div className="flex items-center justify-between">
                       <span className="text-sm">Progress</span>
-                      <span className="text-sm font-medium">{Math.floor(Math.random() * 100)}%</span>
+                      <span className="text-sm font-medium">{progressValue}%</span>
                     </div>
-                    <Progress value={Math.floor(Math.random() * 100)} className="h-1" />
+                    <Progress value={progressValue} className="h-1" />
                   </div>
                 </CardContent>
                 <CardFooter>
@@ -905,12 +943,12 @@ export function UnifiedDashboard() {
               <p className="mt-1 text-muted-foreground">Explore cutting-edge research</p>
             </div>
             <Button variant="ghost" size="icon" onClick={() => toggleSection("research")}>
-              {expandedSections["research"] ? <Minimize className="h-5 w-5" /> : <Maximize className="h-5 w-5" />}
+              {expandedSections.research ? <Minimize className="h-5 w-5" /> : <Maximize className="h-5 w-5" />}
             </Button>
           </div>
         </div>
 
-        {expandedSections["research"] ? (
+        {expandedSections.research ? (
           <div className="space-y-8">
             <ResearchDashboard />
           </div>
@@ -941,12 +979,12 @@ export function UnifiedDashboard() {
               <p className="mt-1 text-muted-foreground">Monitor and manage system resources</p>
             </div>
             <Button variant="ghost" size="icon" onClick={() => toggleSection("system")}>
-              {expandedSections["system"] ? <Minimize className="h-5 w-5" /> : <Maximize className="h-5 w-5" />}
+              {expandedSections.system ? <Minimize className="h-5 w-5" /> : <Maximize className="h-5 w-5" />}
             </Button>
           </div>
         </div>
 
-        {expandedSections["system"] ? (
+        {expandedSections.system ? (
           <div className="space-y-8">
             <SystemManagementDashboard />
           </div>
@@ -981,6 +1019,14 @@ export function UnifiedDashboard() {
                       <span className="font-medium">54%</span>
                     </div>
                     <Progress value={54} className="h-2" />
+                  </div>
+
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between">
+                      <span>Network Bandwidth</span>
+                      <span className="font-medium">23%</span>
+                    </div>
+                    <Progress value={23} className="h-2" />
                   </div>
                 </div>
               </CardContent>
@@ -1026,12 +1072,12 @@ export function UnifiedDashboard() {
               <p className="mt-1 text-muted-foreground">Configure and manage servers</p>
             </div>
             <Button variant="ghost" size="icon" onClick={() => toggleSection("servers")}>
-              {expandedSections["servers"] ? <Minimize className="h-5 w-5" /> : <Maximize className="h-5 w-5" />}
+              {expandedSections.servers ? <Minimize className="h-5 w-5" /> : <Maximize className="h-5 w-5" />}
             </Button>
           </div>
         </div>
 
-        {expandedSections["servers"] ? (
+        {expandedSections.servers ? (
           <div className="space-y-8">
             <ServerManagementDashboard />
           </div>

@@ -10,7 +10,7 @@
     --card-foreground: 240 10% 3.9%;
     --popover: 0 0% 100%;
     --popover-foreground: 240 10% 3.9%;
-    --primary: 240 5.9% 10%;
+    --primary: 171 77% 40%; /* Teal */
     --primary-foreground: 0 0% 98%;
     --secondary: 240 4.8% 95.9%;
     --secondary-foreground: 240 5.9% 10%;
@@ -22,18 +22,18 @@
     --destructive-foreground: 0 0% 98%;
     --border: 240 5.9% 90%;
     --input: 240 5.9% 90%;
-    --ring: 240 5.9% 10%;
+    --ring: 171 77% 40%; /* Teal */
     --radius: 0.5rem;
 
     /* Gradient colors */
-    --primary-start: 240 5.9% 10%;
-    --primary-end: 260 10% 40%;
+    --primary-start: 171 77% 40%; /* Teal */
+    --primary-end: 142 69% 58%; /* Lime */
 
     /* Chart colors */
-    --chart-1: 240 5.9% 10%;
-    --chart-2: 260 10% 40%;
-    --chart-3: 10 90% 60%;
-    --chart-4: 40 100% 50%;
+    --chart-1: 171 77% 40%; /* Teal */
+    --chart-2: 142 69% 58%; /* Lime */
+    --chart-3: 166 67% 50%; /* Teal-Lime intermediate */
+    --chart-4: 120 100% 45%; /* Green */
   }
 
   .dark {
@@ -43,7 +43,7 @@
     --card-foreground: 0 0% 98%;
     --popover: 240 10% 3.9%;
     --popover-foreground: 0 0% 98%;
-    --primary: 0 0% 98%;
+    --primary: 171 77% 40%; /* Teal */
     --primary-foreground: 240 5.9% 10%;
     --secondary: 240 3.7% 15.9%;
     --secondary-foreground: 0 0% 98%;
@@ -55,34 +55,57 @@
     --destructive-foreground: 0 0% 98%;
     --border: 240 3.7% 15.9%;
     --input: 240 3.7% 15.9%;
-    --ring: 240 4.9% 83.9%;
+    --ring: 171 77% 40%; /* Teal */
 
     /* Gradient colors */
-    --primary-start: 0 0% 98%;
-    --primary-end: 217 91% 60%;
+    --primary-start: 171 77% 40%; /* Teal */
+    --primary-end: 142 69% 58%; /* Lime */
 
     /* Chart colors */
-    --chart-1: 217 91% 60%;
-    --chart-2: 271 91% 65%;
-    --chart-3: 10 90% 60%;
-    --chart-4: 40 100% 50%;
+    --chart-1: 171 77% 40%; /* Teal */
+    --chart-2: 142 69% 58%; /* Lime */
+    --chart-3: 166 67% 50%; /* Teal-Lime intermediate */
+    --chart-4: 120 100% 45%; /* Green */
   }
 }
 
 @layer base {
   * {
     @apply border-border;
+    font-family: var(--font-sans), system-ui, sans-serif;
   }
+  
+  html, body {
+    font-family: var(--font-sans), system-ui, sans-serif;
+  }
+  
   body {
-    @apply bg-background text-foreground font-mono;
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
   }
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    @apply font-mono;
+  
+  /* Explicit font classes for all elements */
+  p, span, div, li, a, button, input, textarea, select, label, td, th {
+    font-family: var(--font-sans), system-ui, sans-serif !important;
+  }
+  
+  h1, h2, h3, h4, h5, h6, .heading {
+    font-family: var(--font-sans), system-ui, sans-serif !important;
+    @apply tracking-tight;
+    font-weight: 600;
+  }
+  
+  h1 {
+    letter-spacing: -0.03em;
+  }
+  
+  h2, h3 {
+    letter-spacing: -0.01em;
+  }
+  
+  code, pre, kbd, .mono {
+    font-family: var(--font-mono), monospace !important;
+    @apply tracking-tight;
   }
 }
 
@@ -92,17 +115,61 @@
   }
 
   .card-hover {
-    @apply transition-all duration-300 hover:shadow-md hover:border-primary/20;
+    @apply transition-all duration-300 hover:shadow-md hover:border-primary/20 rounded-lg;
   }
 
   .border-glow {
-    @apply border border-primary/20 transition-all duration-300 hover:border-primary/40 hover:shadow-[0_0_15px_rgba(0,0,0,0.1)];
+    @apply border border-primary/20 transition-all duration-300 hover:border-primary/40 hover:shadow-[0_0_15px_rgba(0,0,0,0.1)] rounded-lg;
+  }
+  
+  .card-modern {
+    @apply bg-background/80 backdrop-blur-sm border border-border/40 rounded-lg shadow-sm;
+  }
+  
+  .surgical-divider {
+    @apply h-px w-full bg-gradient-to-r from-transparent via-border to-transparent opacity-50;
+  }
+  
+  .surgical-input {
+    @apply border-0 bg-muted/30 rounded-md focus-visible:ring-1 focus-visible:ring-primary/30 focus-visible:ring-offset-0;
+  }
+  
+  .surgical-card {
+    @apply border-0 shadow-sm bg-card/70 backdrop-blur-sm rounded-lg;
   }
 }
 
 /* Define gradient text directly without @apply */
 .gradient-text {
-  background-image: linear-gradient(to right, hsl(var(--primary-start)), hsl(var(--primary-end)));
+  background-image: linear-gradient(to right, hsl(171, 77%, 40%), hsl(142, 69%, 58%));
   background-clip: text;
   color: transparent;
+}
+
+/* Animation for AVA assistant button */
+@keyframes pulse-glow {
+  0% {
+    box-shadow: 0 0 0 0 rgba(0, 183, 172, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(0, 183, 172, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(0, 183, 172, 0);
+  }
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s infinite;
+}
+
+/* Force font family for any element that might be using Times Roman */
+[class*="MuiTypography"],
+[class*="Mui"],
+[class*="chakra"],
+[class*="ant"],
+.react-datepicker,
+.recharts-text,
+.text-element {
+  font-family: var(--font-sans), system-ui, sans-serif !important;
 }

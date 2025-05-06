@@ -171,6 +171,19 @@ export function SidebarNavigation() {
           isActive: pathname?.startsWith("/ai-ecosystems"),
           children: [
             {
+              title: "Overview",
+              href: "/ai-ecosystems",
+              icon: LayoutDashboard,
+              isActive: pathname === "/ai-ecosystems",
+            },
+            {
+              title: "AI Lab",
+              href: "/ai-ecosystems/lab",
+              icon: PlaySquare,
+              isActive: pathname === "/ai-ecosystems/lab",
+              badge: "New",
+            },
+            {
               title: "Models",
               href: "/ai-ecosystems/models",
               icon: Braces,
@@ -188,79 +201,31 @@ export function SidebarNavigation() {
               icon: Network,
               isActive: pathname === "/ai-ecosystems/protocols",
             },
-            {
-              title: "AI Lab",
-              href: "/ai-ecosystems/lab",
-              icon: PlaySquare,
-              isActive: pathname === "/ai-ecosystems/lab",
-              badge: "New",
-            },
           ],
         },
         {
-          title: "Knowledge Foundations",
+          title: "Knowledge",
           href: "/knowledge",
           icon: BookOpen,
           isActive: pathname?.startsWith("/knowledge"),
-          children: [
-            {
-              title: "Datasets",
-              href: "/knowledge/datasets",
-              icon: Database,
-              isActive: pathname === "/knowledge/datasets",
-            },
-            {
-              title: "Library",
-              href: "/knowledge/library",
-              icon: FileText,
-              isActive: pathname === "/knowledge/library",
-            },
-            {
-              title: "Document Uploader",
-              href: "/knowledge/uploader",
-              icon: HardDrive,
-              isActive: pathname === "/knowledge/uploader",
-            },
-          ],
-        },
-        {
-          title: "Server Management",
-          href: "/servers",
-          icon: Server,
-          isActive: pathname?.startsWith("/servers"),
-          badge: "New",
-          children: [
-            {
-              title: "Data Servers",
-              href: "/servers/data",
-              icon: Database,
-              isActive: pathname === "/servers/data",
-            },
-            {
-              title: "Sensory Servers",
-              href: "/servers/sensory",
-              icon: Activity,
-              isActive: pathname === "/servers/sensory",
-            },
-            {
-              title: "MCP Servers",
-              href: "/servers/mcp",
-              icon: Cpu,
-              isActive: pathname === "/servers/mcp",
-            },
-          ],
         },
       ],
     },
     {
-      title: "Technology",
+      title: "Blockchain & Systems",
       items: [
         {
-          title: "Blockchain Development",
+          title: "Blockchain",
           href: "/blockchain",
-          icon: Code,
+          icon: GitBranch,
           isActive: pathname?.startsWith("/blockchain"),
           children: [
+            {
+              title: "Overview",
+              href: "/blockchain",
+              icon: LayoutDashboard,
+              isActive: pathname === "/blockchain",
+            },
             {
               title: "Wallets",
               href: "/blockchain/wallets",
@@ -268,65 +233,31 @@ export function SidebarNavigation() {
               isActive: pathname === "/blockchain/wallets",
             },
             {
-              title: "Networks",
-              href: "/blockchain/networks",
-              icon: Globe,
-              isActive: pathname === "/blockchain/networks",
-            },
-            {
               title: "Smart Contracts",
               href: "/blockchain/contracts",
               icon: FileCode,
               isActive: pathname === "/blockchain/contracts",
             },
-            {
-              title: "IDE",
-              href: "/blockchain/ide",
-              icon: CodeSquare,
-              isActive: pathname === "/blockchain/ide",
-              badge: "New",
-            },
-            {
-              title: "Tasks",
-              href: "/blockchain/tasks",
-              icon: GitBranch,
-              isActive: pathname === "/blockchain/tasks",
-            },
           ],
         },
         {
-          title: "System Management",
+          title: "System",
           href: "/system",
-          icon: Cpu,
+          icon: Settings,
           isActive: pathname?.startsWith("/system"),
-          badge: "New",
-          children: [
-            {
-              title: "Memory & Storage",
-              href: "/system/storage",
-              icon: HardDrive,
-              isActive: pathname === "/system/storage",
-            },
-            {
-              title: "GPU Management",
-              href: "/system/gpu",
-              icon: Cpu,
-              isActive: pathname === "/system/gpu",
-            },
-            {
-              title: "System Cooling",
-              href: "/system/cooling",
-              icon: Wrench,
-              isActive: pathname === "/system/cooling",
-            },
-          ],
+        },
+        {
+          title: "Servers",
+          href: "/servers",
+          icon: Server,
+          isActive: pathname?.startsWith("/servers"),
         },
         {
           title: "Quantum Computing",
           href: "/quantum",
           icon: Atom,
           isActive: pathname?.startsWith("/quantum"),
-          badge: "New",
+          badge: "Beta",
         },
       ],
     },
@@ -360,7 +291,7 @@ export function SidebarNavigation() {
                     {item.children && item.children.length > 0 ? (
                       <>
                         <SidebarMenuButton asChild isActive={item.isActive} tooltip={item.title}>
-                          <button className="group w-full" data-state={item.isActive ? "open" : "closed"}>
+                          <button type="button" className="group w-full" data-state={item.isActive ? "open" : "closed"}>
                             <item.icon className="h-4 w-4" />
                             <span>{item.title}</span>
                             {item.badge && <SidebarMenuBadge>{item.badge}</SidebarMenuBadge>}
