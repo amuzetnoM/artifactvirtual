@@ -207,3 +207,37 @@ class STTProcessor:
                 elif self.model == "sphinx":
                     text = recognizer.recognize_sphinx(audio_data, language=self.language)
                 else:
+                    # Default to Sphinx (offline)
+                    text = recognizer.recognize_sphinx(audio_data, language=self.language)
+                    
+            return text
+            
+        except Exception as e:
+            logger.error(f"SpeechRecognition STT failed: {str(e)}")
+            raise
+            
+    def _transcribe_mock(self, audio_file: str) -> str:
+        """Mock STT implementation - look for a sidecar .txt file."""
+        try:
+            # Check if there's a sidecar text file with the same name
+            txt_file = audio_file + ".txt"
+            if os.path.exists(txt_file):
+                with open(txt_file, 'r') as f:
+                    return f.read().strip()
+            
+            # If no sidecar file, return a placeholder
+            return f"[MOCK TRANSCRIPTION] for audio file: {os.path.basename(audio_file)}"
+                
+        except Exception as e:
+            logger.error(f"Mock STT failed: {str(e)}")
+            raise
+            
+    def change_model(self, model: str):
+        """Change the model used for transcription."""
+        self.model = model
+        logger.info(f"STT model changed to: {model}")
+        
+    def change_language(self, language: str):
+        """Change the language used for transcription."""
+        self.language = language
+        logger.info(f"STT language changed to: {language}")
