@@ -1,5 +1,7 @@
 ![Artifact Badge](https://img.shields.io/badge/ARTIFACT-black?style=for-the-badge&logoColor=white)![Virtual](https://img.shields.io/badge/VIRTUAL-black?style=for-the-badge&labelColor=ffffff&color=ffffff)
 
+![BUILT ON](https://img.shields.io/badge/BUILT%20ON-black?style=for-the-badge&logoColor=white)![NVIDIA](https://img.shields.io/badge/NVIDIA-76B900?style=for-the-badge&logo=nvidia&logoColor=white)
+
 ## PROJECT OVERVIEW
 > REINVENTING THE WHEEL
 [![Structure](https://images.repography.com/65812436/amuzetnoM/artifactvirtual/structure/SJp6R69WrCFUKrdVsKRRBIuvxfHzNOHqTqPxJTTWbEI/nKcYDqDAFn_hMpjGzGyOlLwF4HNur6pC8lNj6Lfjl5A_table.svg)](https://github.com/amuzetnoM/artifactvirtual)
