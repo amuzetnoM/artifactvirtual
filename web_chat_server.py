@@ -8,7 +8,7 @@ It uses FastAPI for the backend API and Gradio for the chat UI.
 import os
 import logging
 import gradio as gr
-from fastapi import FastAPI, Request, Response
+from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
@@ -46,7 +46,7 @@ templates_dir = os.path.join(workspace_path, "templates")
 os.makedirs(templates_dir, exist_ok=True)
 
 # Create a basic HTML template for embedding the chat interface
-with open(os.path.join(templates_dir, "chat.html"), "w") as f:
+with open(os.path.join(templates_dir, "chat.html"), "w", encoding="utf-8") as f:
     f.write("""
     <!DOCTYPE html>
     <html lang="en">
@@ -60,23 +60,17 @@ with open(os.path.join(templates_dir, "chat.html"), "w") as f:
                 padding: 0;
                 height: 100%;
                 font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                background-color: #121212;
             }
             .container {
                 height: 100%;
                 width: 100%;
                 display: flex;
                 flex-direction: column;
+                background-color: #121212;
             }
             .header {
-                background-color: #000;
-                color: #fff;
-                padding: 10px 20px;
-                display: flex;
-                align-items: center;
-            }
-            .header h1 {
-                margin: 0;
-                font-size: 1.2rem;
+                display: none; /* Hide the header completely */
             }
             .chat-container {
                 flex: 1;
@@ -88,9 +82,7 @@ with open(os.path.join(templates_dir, "chat.html"), "w") as f:
     </head>
     <body>
         <div class="container">
-            <div class="header">
-                <h1>Artifact Virtual Chat</h1>
-            </div>
+            <!-- Removed header completely -->
             <iframe id="gradio-app" class="chat-container" src="/gradio/" frameborder="0" allow="microphone"></iframe>
         </div>
     </body>
@@ -104,7 +96,7 @@ app.mount("/static", StaticFiles(directory=os.path.join(workspace_path, "static"
 templates = Jinja2Templates(directory=templates_dir)
 
 # Initialize RAG system
-logger.info(f"Initializing RAG with model {llm_model} and workspace {workspace_path}")
+logger.info("Initializing RAG with model %s and workspace %s", llm_model, workspace_path)
 rag = WorkspaceRAG(
     workspace_path=workspace_path,
     llm_model=llm_model,
@@ -160,27 +152,67 @@ def handle_chat(message, history):
         response = rag.query(message)
         return response
     except Exception as e:
-        logger.error(f"Error handling chat message: {str(e)}")
+        logger.error("Error handling chat message: %s", str(e))
         return f"Error: {str(e)}"
 
 # Create Gradio chat interface
 def create_gradio_app():
     """Create and configure the Gradio chat interface."""
-    with gr.Blocks(css="footer {visibility: hidden}") as demo:
-        gr.Markdown("## Artifact Virtual RAG Chat")
+    # Add custom CSS to force dark mode in the Gradio interface
+    custom_css = """
+    body, .gradio-container {
+        background-color: #121212 !important;
+        color: white !important;
+    }
+    
+    h1, h2, h3, p {
+        color: white !important;
+    }
+    
+    .dark\:bg-gray-950, .dark\:text-gray-50 {
+        background-color: #121212 !important;
+        color: white !important;
+    }
+    
+    .footer {
+        background-color: #121212 !important;
+        border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+        color: #888 !important;
+    }
+    
+    input, textarea, button {
+        background-color: #2d2d2d !important;
+        color: white !important;
+        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    }
+    
+    /* Remove any purple accent colors */
+    .gradio-container *, .primary-500, [style*="rgb(79, 70, 229)"] {
+        color: white !important;
+    }
+    
+    h2 {
+        color: #000 !important;
+    }
+    """
+    
+    with gr.Blocks(css=custom_css, theme=gr.themes.Soft(
+        primary_hue="gray",
+        secondary_hue="gray",
+        neutral_hue="gray",
+        spacing_size="sm",
+        radius_size="sm",
+        text_size="md"
+    )) as demo:
+        gr.Markdown("## Artifact Virtual RAG Chat", elem_id="title")
         gr.Markdown("Ask questions about the workspace or use tools with `/tool [tool_name] [args]`")
         
         chatbot = gr.Chatbot(height=500)
-        msg = gr.Textbox(placeholder="Enter your message...", container=False)
+        msg = gr.Textbox(placeholder="Enter your message...")
         clear = gr.Button("Clear")
         
         # Handle chat
-        msg.submit(
-            handle_chat,
-            [msg, chatbot],
-            [chatbot],
-            clear_input=True,
-        )
+        msg.submit(handle_chat, [msg, chatbot], [chatbot])
         
         # Clear chat history
         clear.click(lambda: None, None, chatbot, queue=False)
@@ -195,22 +227,6 @@ def create_gradio_app():
             ],
             inputs=msg,
         )
-        
-        # Add voice input if STT is available
-        from workspace_rag import STT_AVAILABLE
-        if STT_AVAILABLE:
-            with gr.Row():
-                audio_input = gr.Audio(sources=["microphone"], type="filepath")
-                
-                def process_audio(audio_file):
-                    """Process audio input using STT."""
-                    if not audio_file:
-                        return "No audio detected."
-                    
-                    transcribed_text, response_text, _ = rag.query_with_speech(audio_file)
-                    return f"Transcribed: {transcribed_text}\n\nResponse: {response_text}"
-                
-                audio_input.change(process_audio, [audio_input], [msg])
     
     return demo
 
@@ -223,5 +239,5 @@ if __name__ == "__main__":
     port = int(os.environ.get("PORT", 8000))
     host = os.environ.get("HOST", "0.0.0.0")
     
-    logger.info(f"Starting web chat server on {host}:{port}")
+    logger.info("Starting web chat server on %s:%s", host, port)
     uvicorn.run(app, host=host, port=port)
