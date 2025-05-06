@@ -1,6 +1,6 @@
 """
 Workspace RAG Chain - A modular RAG implementation with access to the entire workspace.
-Uses Ollama with Gemma 3 model and supports TTS/STT extensions.
+Uses Ollama with Gemma 2 model and llama2-uncensored as fallback. Supports TTS/STT extensions.
 """
 
 import os
@@ -49,7 +49,7 @@ logger = logging.getLogger("WorkspaceRAG")
 class WorkspaceRAG:
     """
     A modular RAG implementation with access to the entire workspace.
-    Integrates with Ollama (Gemma 3) and supports TTS/STT extensions.
+    Integrates with Ollama (Gemma 2 with llama2-uncensored fallback) and supports TTS/STT extensions.
     """
     
     def __init__(self, 
