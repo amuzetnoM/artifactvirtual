@@ -23,7 +23,7 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(level
 logger = logging.getLogger("WebChatServer")
 
 # Initialize FastAPI app
-app = FastAPI(title="Artifact Virtual RAG Chat", description="Chat with Artifact Virtual's RAG system")
+app = FastAPI(title="Artifact Virtual RAG", description="Chat with Artifact Virtual's RAG system")
 
 # Configure CORS
 app.add_middleware(
@@ -36,7 +36,7 @@ app.add_middleware(
 
 # Initialize the RAG system
 workspace_path = os.environ.get("WORKSPACE_PATH", os.path.dirname(os.path.abspath(__file__)))
-llm_model = os.environ.get("LLM_MODEL", "gemma3")
+llm_model = os.environ.get("LLM_MODEL", "gemma2")  # Changed default from gemma3 to gemma2
 
 # Create static files directory if it doesn't exist
 os.makedirs(os.path.join(workspace_path, "static"), exist_ok=True)
@@ -135,6 +135,10 @@ rag.register_tool(
 def handle_chat(message, history):
     """Handle chat messages for Gradio."""
     try:
+        # Log incoming message for debugging
+        logger.info(f"Received message: '{message}'")
+        logger.info(f"Current history: {history}")
+        
         # Check if the message is a tool command
         if message.startswith("/tool "):
             parts = message[6:].strip().split(" ", 1)
@@ -142,18 +146,32 @@ def handle_chat(message, history):
                 tool_name, args = parts
                 if tool_name in rag.list_tools():
                     result = rag.execute_tool(tool_name, expression=args)
-                    return result
+                    logger.info(f"Tool result: {result}")
+                    history.append((message, result))
+                    return history
                 else:
-                    return f"Tool '{tool_name}' not found. Available tools: {', '.join(rag.list_tools().keys())}"
+                    result = f"Tool '{tool_name}' not found. Available tools: {', '.join(rag.list_tools().keys())}"
+                    logger.info(f"Tool not found: {result}")
+                    history.append((message, result))
+                    return history
             else:
-                return f"Usage: /tool [tool_name] [arguments]. Available tools: {', '.join(rag.list_tools().keys())}"
+                result = f"Usage: /tool [tool_name] [arguments]. Available tools: {', '.join(rag.list_tools().keys())}"
+                logger.info(f"Invalid tool format: {result}")
+                history.append((message, result))
+                return history
         
         # Regular RAG query
+        logger.info("Processing as regular RAG query")
         response = rag.query(message)
-        return response
+        logger.info(f"RAG response: {response[:100]}...")  # Log first 100 chars of response
+        
+        # Update history with the new message pair
+        history.append((message, response))
+        return history
     except Exception as e:
-        logger.error("Error handling chat message: %s", str(e))
-        return f"Error: {str(e)}"
+        logger.error(f"Error handling chat message: {str(e)}", exc_info=True)
+        history.append((message, f"Error: {str(e)}"))
+        return history
 
 # Create Gradio chat interface
 def create_gradio_app():

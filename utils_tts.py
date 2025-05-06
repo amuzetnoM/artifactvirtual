@@ -1,6 +1,7 @@
 """
 Text-to-Speech processor module for the Workspace RAG system.
 Supports multiple TTS providers with a common interface.
+Prioritizes open-source, locally-run solutions for sovereignty.
 """
 
 import os
@@ -16,12 +17,12 @@ logger = logging.getLogger("TTS")
 class TTSProcessor:
     """
     Text-to-Speech processor that supports multiple TTS engines.
-    Currently supports OpenAI TTS API and local models through various frameworks.
+    Prioritizes open-source solutions like HuggingFace, TorchAudio, and other local models.
     """
     
     def __init__(self, 
-                model: str = "tts-1", 
-                voice: str = "alloy",
+                model: str = "facebook/mms-tts-eng", 
+                voice: str = "default",
                 output_dir: str = "./audio_output",
                 provider: str = "auto",
                 **kwargs):
@@ -32,7 +33,7 @@ class TTSProcessor:
             model: TTS model to use
             voice: Voice to use for synthesis
             output_dir: Directory to save audio files
-            provider: TTS provider to use ('openai', 'local', or 'auto')
+            provider: TTS provider to use ('huggingface', 'torch', 'local', or 'auto')
             **kwargs: Additional provider-specific parameters
         """
         self.model = model
@@ -54,17 +55,16 @@ class TTSProcessor:
         
     def _detect_provider(self):
         """Auto-detect which TTS provider to use based on available modules."""
-        # Try OpenAI first if API key is set
-        if os.environ.get("OPENAI_API_KEY"):
-            try:
-                import openai
-                self._provider = "openai"
-                logger.info("Using OpenAI for TTS")
-                return
-            except ImportError:
-                pass
-        
-        # Then try local TorchAudio/HuggingFace TTS
+        # Try HuggingFace TTS first
+        try:
+            from transformers import pipeline
+            self._provider = "huggingface"
+            logger.info("Using HuggingFace for TTS")
+            return
+        except ImportError:
+            pass
+            
+        # Then try local TorchAudio/PyTorch TTS
         try:
             import torch
             import torchaudio
@@ -73,12 +73,12 @@ class TTSProcessor:
             return
         except ImportError:
             pass
-            
-        # Try HuggingFace TTS directly
+        
+        # Try coqui-ai/TTS as another option
         try:
-            from transformers import pipeline
-            self._provider = "huggingface"
-            logger.info("Using HuggingFace for TTS")
+            import TTS
+            self._provider = "coqui"
+            logger.info("Using Coqui TTS")
             return
         except ImportError:
             pass
@@ -105,12 +105,12 @@ class TTSProcessor:
         os.makedirs(os.path.dirname(output_file), exist_ok=True)
         
         try:
-            if self._provider == "openai":
-                self._synthesize_openai(text, output_file)
+            if self._provider == "huggingface":
+                self._synthesize_huggingface(text, output_file)
             elif self._provider == "torch":
                 self._synthesize_torch(text, output_file)
-            elif self._provider == "huggingface":
-                self._synthesize_huggingface(text, output_file)
+            elif self._provider == "coqui":
+                self._synthesize_coqui(text, output_file)
             elif self._provider == "mock":
                 self._synthesize_mock(text, output_file)
             else:
@@ -121,24 +121,6 @@ class TTSProcessor:
             
         except Exception as e:
             logger.error(f"TTS synthesis failed: {str(e)}")
-            raise
-            
-    def _synthesize_openai(self, text: str, output_file: str):
-        """Synthesize speech using OpenAI's TTS API."""
-        try:
-            import openai
-            client = openai.OpenAI()
-            
-            response = client.audio.speech.create(
-                model=self.model,
-                voice=self.voice,
-                input=text
-            )
-            
-            response.stream_to_file(output_file)
-            
-        except Exception as e:
-            logger.error(f"OpenAI TTS failed: {str(e)}")
             raise
             
     def _synthesize_torch(self, text: str, output_file: str):
@@ -172,7 +154,7 @@ class TTSProcessor:
             import soundfile as sf
             
             # Use the TTS pipeline
-            synthesizer = pipeline("text-to-speech", model="facebook/mms-tts-eng")
+            synthesizer = pipeline("text-to-speech", model=self.model)
             
             # Generate speech and save to file
             speech = synthesizer(text, forward_params={"vocoder_kwargs": {"fine_tuning": True}})
@@ -180,6 +162,21 @@ class TTSProcessor:
             
         except Exception as e:
             logger.error(f"HuggingFace TTS failed: {str(e)}")
+            raise
+            
+    def _synthesize_coqui(self, text: str, output_file: str):
+        """Synthesize speech using Coqui TTS."""
+        try:
+            from TTS.api import TTS
+            
+            # Initialize TTS
+            tts = TTS(model_name="tts_models/en/ljspeech/tacotron2-DDC", progress_bar=False)
+            
+            # Generate speech and save to file
+            tts.tts_to_file(text=text, file_path=output_file)
+            
+        except Exception as e:
+            logger.error(f"Coqui TTS failed: {str(e)}")
             raise
             
     def _synthesize_mock(self, text: str, output_file: str):

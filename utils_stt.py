@@ -1,6 +1,7 @@
 """
 Speech-to-Text processor module for the Workspace RAG system.
 Supports multiple STT providers with a common interface.
+Prioritizes open-source, locally-run solutions for sovereignty.
 """
 
 import os
@@ -15,11 +16,11 @@ logger = logging.getLogger("STT")
 class STTProcessor:
     """
     Speech-to-Text processor that supports multiple STT engines.
-    Currently supports Whisper API, local models, and the HuggingFace transformers library.
+    Prioritizes open-source solutions like Whisper, HuggingFace models, and local STT libraries.
     """
     
     def __init__(self, 
-                model: str = "whisper-1",
+                model: str = "openai/whisper-base",  # Note: This is the HF model name, not using OpenAI API
                 provider: str = "auto",
                 language: str = "en",
                 **kwargs):
@@ -28,7 +29,7 @@ class STTProcessor:
         
         Args:
             model: STT model to use
-            provider: STT provider to use ('openai', 'local', or 'auto')
+            provider: STT provider to use ('huggingface', 'whisperx', 'speech_recognition', 'local', or 'auto')
             language: Language code for transcription
             **kwargs: Additional provider-specific parameters
         """
@@ -47,17 +48,7 @@ class STTProcessor:
         
     def _detect_provider(self):
         """Auto-detect which STT provider to use based on available modules."""
-        # Try OpenAI first if API key is set
-        if os.environ.get("OPENAI_API_KEY"):
-            try:
-                import openai
-                self._provider = "openai"
-                logger.info("Using OpenAI for STT")
-                return
-            except ImportError:
-                pass
-        
-        # Then try whisper model from transformers
+        # Try whisper model from transformers first (HuggingFace)
         try:
             from transformers import pipeline
             self._provider = "huggingface"
@@ -66,7 +57,7 @@ class STTProcessor:
         except ImportError:
             pass
             
-        # Try local WhisperX if available
+        # Try local WhisperX if available 
         try:
             import whisperx
             self._provider = "whisperx"
@@ -75,7 +66,16 @@ class STTProcessor:
         except ImportError:
             pass
             
-        # Check for SpeechRecognition library (Python's built-in speech recognition)
+        # Try Faster Whisper
+        try:
+            from faster_whisper import WhisperModel
+            self._provider = "faster_whisper"
+            logger.info("Using Faster Whisper for STT")
+            return
+        except ImportError:
+            pass
+            
+        # Check for SpeechRecognition library
         try:
             import speech_recognition as sr
             self._provider = "speech_recognition"
@@ -102,12 +102,12 @@ class STTProcessor:
             raise FileNotFoundError(f"Audio file not found: {audio_file}")
             
         try:
-            if self._provider == "openai":
-                return self._transcribe_openai(audio_file)
-            elif self._provider == "huggingface":
+            if self._provider == "huggingface":
                 return self._transcribe_huggingface(audio_file)
             elif self._provider == "whisperx":
                 return self._transcribe_whisperx(audio_file)
+            elif self._provider == "faster_whisper":
+                return self._transcribe_faster_whisper(audio_file)
             elif self._provider == "speech_recognition":
                 return self._transcribe_speech_recognition(audio_file)
             elif self._provider == "mock":
@@ -119,25 +119,6 @@ class STTProcessor:
             logger.error(f"STT transcription failed: {str(e)}")
             raise
             
-    def _transcribe_openai(self, audio_file: str) -> str:
-        """Transcribe audio using OpenAI's Whisper API."""
-        try:
-            import openai
-            client = openai.OpenAI()
-            
-            with open(audio_file, "rb") as audio:
-                response = client.audio.transcriptions.create(
-                    model=self.model,
-                    file=audio,
-                    language=self.language
-                )
-                
-            return response.text
-            
-        except Exception as e:
-            logger.error(f"OpenAI STT failed: {str(e)}")
-            raise
-            
     def _transcribe_huggingface(self, audio_file: str) -> str:
         """Transcribe audio using HuggingFace Transformers."""
         try:
@@ -146,7 +127,7 @@ class STTProcessor:
             # Use the automatic speech recognition pipeline
             transcriber = pipeline(
                 "automatic-speech-recognition", 
-                model="openai/whisper-base",
+                model=self.model,
                 chunk_length_s=30,
                 batch_size=16
             )
@@ -178,6 +159,36 @@ class STTProcessor:
             logger.error(f"WhisperX STT failed: {str(e)}")
             raise
             
+    def _transcribe_faster_whisper(self, audio_file: str) -> str:
+        """Transcribe audio using Faster Whisper."""
+        try:
+            from faster_whisper import WhisperModel
+            
+            # Use appropriate device
+            import torch
+            device = "cuda" if torch.cuda.is_available() else "cpu"
+            compute_type = "float16" if device == "cuda" else "int8"
+            
+            # Load model
+            model_size = "base"  # Can be tiny, base, small, medium, large
+            model = WhisperModel(model_size, device=device, compute_type=compute_type)
+            
+            # Transcribe
+            segments, info = model.transcribe(
+                audio_file,
+                language=self.language,
+                vad_filter=True
+            )
+            
+            # Combine segments
+            transcript = " ".join([segment.text for segment in segments])
+            
+            return transcript
+            
+        except Exception as e:
+            logger.error(f"Faster Whisper STT failed: {str(e)}")
+            raise
+            
     def _transcribe_speech_recognition(self, audio_file: str) -> str:
         """Transcribe audio using SpeechRecognition library."""
         try:
@@ -196,37 +207,3 @@ class STTProcessor:
                 elif self.model == "sphinx":
                     text = recognizer.recognize_sphinx(audio_data, language=self.language)
                 else:
-                    # Default to Google
-                    text = recognizer.recognize_google(audio_data, language=self.language)
-                    
-            return text
-            
-        except Exception as e:
-            logger.error(f"SpeechRecognition STT failed: {str(e)}")
-            raise
-            
-    def _transcribe_mock(self, audio_file: str) -> str:
-        """Mock STT implementation - look for a sidecar .txt file."""
-        try:
-            # Check if there's a sidecar text file with the same name
-            txt_file = audio_file + ".txt"
-            if os.path.exists(txt_file):
-                with open(txt_file, 'r') as f:
-                    return f.read().strip()
-            
-            # If no sidecar file, return a placeholder
-            return f"[MOCK TRANSCRIPTION] for audio file: {os.path.basename(audio_file)}"
-                
-        except Exception as e:
-            logger.error(f"Mock STT failed: {str(e)}")
-            raise
-            
-    def change_model(self, model: str):
-        """Change the model used for transcription."""
-        self.model = model
-        logger.info(f"STT model changed to: {model}")
-        
-    def change_language(self, language: str):
-        """Change the language used for transcription."""
-        self.language = language
-        logger.info(f"STT language changed to: {language}")
