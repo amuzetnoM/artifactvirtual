@@ -17,7 +17,7 @@ import { Logo } from "@/components/ui/logo"
 
 export function Header() {
   return (
-    <header className="sticky top-0 z-30 flex h-16 items-center gap-4 border-b bg-background/80 backdrop-blur-md px-6">
+    <header className="sticky top-0 z-30 flex h-16 items-center gap-4 border-b bg-background/90 backdrop-blur-lg px-6 shadow-sm">
       <div className="flex items-center gap-2 md:hidden">
         <SidebarTrigger />
       </div>
@@ -32,23 +32,23 @@ export function Header() {
           <Input
             type="search"
             placeholder="Search across files, projects, and knowledge..."
-            className="w-full bg-background/50 pl-10 pr-4 focus:bg-background"
+            className="w-full bg-background/50 pl-10 pr-4 focus:bg-background rounded-md border-muted/40"
           />
         </div>
       </div>
 
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-3">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="outline" size="icon" className="relative">
+            <Button variant="outline" size="icon" className="relative rounded-full border-muted/40">
               <Bell className="h-5 w-5" />
-              <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-primary text-primary-foreground text-[10px] font-bold">
+              <span className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-primary text-primary-foreground text-[10px] font-medium">
                 3
               </span>
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Notifications</DropdownMenuLabel>
+          <DropdownMenuContent align="end" className="font-sans">
+            <DropdownMenuLabel className="text-xs uppercase tracking-wider text-muted-foreground">Notifications</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuItem>
               <span className="font-medium mr-2">📊</span> System update completed

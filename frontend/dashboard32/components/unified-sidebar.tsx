@@ -35,7 +35,7 @@ const sidebarItems: SidebarItem[] = [
   {
     title: "Dashboard",
     icon: Home,
-    href: "#dashboard",
+    href: "/",
   },
   {
     title: "AI Ecosystems",
@@ -44,12 +44,12 @@ const sidebarItems: SidebarItem[] = [
       {
         title: "Overview",
         icon: ChevronRight,
-        href: "#ai-ecosystems",
+        href: "/ai-ecosystems",
       },
       {
         title: "AI Lab",
         icon: ChevronRight,
-        href: "#ai-lab",
+        href: "/ai-ecosystems/lab",
       },
     ],
   },
@@ -60,54 +60,54 @@ const sidebarItems: SidebarItem[] = [
       {
         title: "Overview",
         icon: ChevronRight,
-        href: "#blockchain",
+        href: "/blockchain",
       },
       {
         title: "Wallets",
         icon: Wallet,
-        href: "#wallets",
+        href: "/blockchain/wallets",
       },
     ],
   },
   {
     title: "Knowledge Systems",
     icon: Database,
-    href: "#knowledge",
+    href: "/knowledge",
   },
   {
     title: "Applications",
     icon: Code,
-    href: "#applications",
+    href: "/applications",
   },
   {
     title: "Projects",
     icon: Layers,
-    href: "#projects",
+    href: "/projects",
   },
   {
     title: "Research",
     icon: Microscope,
-    href: "#research",
+    href: "/research",
   },
   {
     title: "System",
     icon: Cpu,
-    href: "#system",
+    href: "/system",
   },
   {
     title: "Servers",
     icon: Server,
-    href: "#servers",
+    href: "/servers",
   },
   {
     title: "Quantum Computing",
     icon: Atom,
-    href: "#quantum",
+    href: "/quantum",
   },
   {
     title: "Settings",
     icon: Settings,
-    href: "#settings",
+    href: "/settings",
   },
 ]
 
@@ -149,6 +149,7 @@ const SidebarLink = ({ item, isNested = false, isOpen, toggleOpen }: SidebarLink
         </Link>
       ) : (
         <button
+          type="button"
           className={cn(
             "flex w-full items-center gap-2 px-3 py-2 rounded-md hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-colors",
             isNested && "text-sm",
@@ -165,8 +166,8 @@ const SidebarLink = ({ item, isNested = false, isOpen, toggleOpen }: SidebarLink
 
       {hasChildren && isChildrenOpen && (
         <div className="mt-1 space-y-1">
-          {item.children.map((child, index) => (
-            <SidebarLink key={index} item={child} isNested={true} />
+          {item.children?.map((child, index) => (
+            <SidebarLink key={`child-${item.title}-${index}`} item={child} isNested={true} />
           ))}
         </div>
       )}
@@ -202,7 +203,7 @@ export function UnifiedSidebar() {
 
         <nav className="p-2 space-y-1 overflow-y-auto custom-scrollbar h-[calc(100vh-64px)]">
           {sidebarItems.map((item, index) => (
-            <SidebarLink key={index} item={item} />
+            <SidebarLink key={`sidebar-${item.title}-${index}`} item={item} />
           ))}
         </nav>
       </div>
