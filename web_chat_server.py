@@ -36,7 +36,7 @@ app.add_middleware(
 
 # Initialize the RAG system
 workspace_path = os.environ.get("WORKSPACE_PATH", os.path.dirname(os.path.abspath(__file__)))
-llm_model = os.environ.get("LLM_MODEL", "gemma2")  # Changed default from gemma3 to gemma2
+llm_model = os.environ.get("LLM_MODEL", "gemma3")  # Changed from gemma2 to gemma3 which is already available
 
 # Create static files directory if it doesn't exist
 os.makedirs(os.path.join(workspace_path, "static"), exist_ok=True)
