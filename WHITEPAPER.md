@@ -46,6 +46,7 @@ ArtifactVirtual is built on three foundational principles:
 - **Simulation Manager**: Framework for adaptive error handling and system simulation
 - **Temporal Calendar**: Specialized time management system
 - **Bedrock**: Comprehensive blockchain development environment supporting multiple chains and languages
+- **Cybertron Flow**: Visual workflow automation platform for designing and executing complex process flows
 
 ##### 5. Reference Implementations
 
@@ -117,6 +118,14 @@ Oracle CLI exemplifies ArtifactVirtual's support for multimodal AI workflows, al
 ##### Decentralized AI Infrastructure
 
 The Bedrock environment enables the creation of decentralized AI systems that leverage blockchain for data integrity, model verification, and governance. This case study demonstrates how ArtifactVirtual bridges the gap between traditional AI systems and decentralized architectures.
+
+##### Workflow Automation with Cybertron Flow
+
+Cybertron Flow demonstrates ArtifactVirtual's capabilities for process automation through a visual, node-based workflow designer. This Angular-based platform enables users to create complex workflows by connecting specialized nodes including Chat Agent (LLM integration), Task (secure script execution), Integration (external API connections), Scheduler (time-based execution), Report (output formatting), and Pinned Input (static data storage).
+
+The platform leverages multiple ArtifactVirtual components, including secure sandboxing for user scripts, standardized interfaces for LLM interaction, and a modular architecture that enforces clear separation of concerns. Notable technical features include the implementation of the ngx-graph library for visualization, VM2 for secure JavaScript execution, and a comprehensive permissions model for multi-user environments.
+
+Cybertron Flow exemplifies how ArtifactVirtual's architectural patterns enable the rapid development of sophisticated applications that combine AI, automation, and integration capabilities in a user-friendly interface.
 
 #### Future Directions
 

@@ -1,0 +1,72 @@
+<div class="node-settings">
+  <div class="form-group">
+    <label for="task-name">Name</label>
+    <input type="text" id="task-name" [ngModel]="node.label" (ngModelChange)="onNameChange($event)" aria-label="Task name">
+  </div>
+  
+  <div class="form-group">
+    <label for="task-script">Script</label>
+    <div class="script-editor-container">
+      <textarea 
+        id="task-script"
+        [ngModel]="config.script" 
+        (ngModelChange)="onScriptChange($event)" 
+        rows="10"
+        placeholder="// Write your code here
+// This will run in a secure sandbox
+// Example: 
+return input.someValue ? processData(input) : 'No data';"
+        aria-label="Task script code"
+      ></textarea>
+      <div class="script-hints">
+        <p>Code runs in a VM2 sandbox with the following restrictions:</p>
+        <ul>
+          <li>No access to file system</li>
+          <li>No access to process or OS</li>
+          <li>Limited memory and execution time</li>
+          <li>Only approved modules can be imported</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  
+  <div class="form-group">
+    <label for="security-level">Security Level</label>
+    <select 
+      id="security-level"
+      [ngModel]="selectedSecurityLevel" 
+      (ngModelChange)="onSecurityLevelChange($event)"
+      aria-label="Security level">
+      <option *ngFor="let level of securityLevels" [value]="level.value">
+        {{ level.name }} ({{ level.timeout }}ms, {{ level.memory }}MB)
+      </option>
+    </select>
+  </div>
+  
+  <div class="form-group">
+    <label>Allowed Imports</label>
+    <div class="import-list">
+      <div *ngFor="let importName of allowedImports" class="import-option">
+        <label>
+          <input 
+            type="checkbox" 
+            [checked]="isImportAllowed(importName)" 
+            (change)="toggleImport(importName)">
+          {{ importName }}
+        </label>
+      </div>
+    </div>
+  </div>
+  
+  <div class="form-group execution-stats" *ngIf="config.lastExecution">
+    <h4>Last Execution</h4>
+    <div class="stats-grid">
+      <div>Status: <span [class.success]="config.lastExecution.success" [class.error]="!config.lastExecution.success">
+        {{ config.lastExecution.success ? 'Success' : 'Failed' }}
+      </span></div>
+      <div>Duration: {{ config.lastExecution.duration }}ms</div>
+      <div>Memory: {{ config.lastExecution.memory }}MB</div>
+      <div>Timestamp: {{ config.lastExecution.timestamp | date:'medium' }}</div>
+    </div>
+  </div>
+</div> 

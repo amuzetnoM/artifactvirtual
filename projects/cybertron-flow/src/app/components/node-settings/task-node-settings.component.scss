@@ -1,0 +1,102 @@
+.node-settings {
+  padding: 16px;
+  
+  .form-group {
+    margin-bottom: 16px;
+    
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+    
+    input, select, textarea {
+      width: 100%;
+      padding: 8px 12px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 0.9rem;
+      
+      &:focus {
+        outline: none;
+        border-color: #4c9aff;
+        box-shadow: 0 0 0 2px rgba(76, 154, 255, 0.3);
+      }
+    }
+    
+    textarea {
+      min-height: 150px;
+      resize: vertical;
+      font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+      line-height: 1.4;
+    }
+  }
+  
+  .script-editor-container {
+    display: flex;
+    flex-direction: column;
+    
+    .script-hints {
+      margin-top: 8px;
+      padding: 8px 12px;
+      background-color: #f8f9fa;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      color: #555;
+      
+      p {
+        margin: 0 0 8px 0;
+      }
+      
+      ul {
+        margin: 0;
+        padding-left: 20px;
+      }
+    }
+  }
+  
+  .import-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 8px;
+    
+    .import-option {
+      display: flex;
+      align-items: center;
+      
+      input[type="checkbox"] {
+        width: auto;
+        margin-right: 6px;
+      }
+    }
+  }
+  
+  .execution-stats {
+    background-color: #f8f9fa;
+    border-radius: 4px;
+    padding: 12px;
+    
+    h4 {
+      margin-top: 0;
+      margin-bottom: 10px;
+      font-size: 1rem;
+    }
+    
+    .stats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      font-size: 0.85rem;
+      
+      .success {
+        color: #28a745;
+        font-weight: bold;
+      }
+      
+      .error {
+        color: #dc3545;
+        font-weight: bold;
+      }
+    }
+  }
+} 

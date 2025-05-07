@@ -5,6 +5,8 @@ import { LangchainService, ChatMessage } from './langchain.service';
 import { SchedulerService, ScheduledJob } from './scheduler.service';
 import { catchError, map, switchMap } from 'rxjs/operators';
 import { PermissionService, User } from './permission.service';
+import { NodeVM } from 'vm2';
+import { CybertronNode, CybertronEdge, NodeType } from '../node-types/node.model';
 
 // Node types and interfaces for the workflow
 export interface NodePort {
@@ -69,6 +71,9 @@ export class OrchestratorService {
 
   // --- Analytics Tracking ---
   private workflowAnalytics: any[] = [];
+
+  private nodes: Map<string, CybertronNode> = new Map();
+  private edges: Map<string, CybertronEdge> = new Map();
 
   constructor(
     private langchainService: LangchainService,

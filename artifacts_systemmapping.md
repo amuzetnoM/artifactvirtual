@@ -40,6 +40,7 @@
 │   └── src/chat-widget/
 ├── projects/
 │   ├── bedrock/
+│   ├── cybertron-flow/            # Visual workflow automation platform
 │   ├── meteor-markdown-editor/
 │   ├── simulation-manager/
 │   └── ...
@@ -152,6 +153,7 @@
 | `utils_stt.py`               | Class: `STTProcessor`                        | STT (HuggingFace, WhisperX, etc.)  |
 | `utils/auto-round/`          | Various scripts                              | Model rounding, quantization       |
 | `utils/modelcontextprotocol/`| MCP server, protocol tools                   | Model context protocol utilities   |
+| `projects/cybertron-flow/`   | Angular app: `ng serve`                      | Visual workflow automation platform|
 
 ---
 
@@ -180,6 +182,7 @@
 - **Angular Chat Widget:** Embeds Gradio UI via iframe
 - **TTS/STT:** HuggingFace, Torch, Coqui, WhisperX, etc.
 - **CLI Tools:** Diagnostics, project bootstrap, config, etc.
+- **Cybertron Flow:** Workflow automation with external service integrations
 
 ---
 
@@ -201,6 +204,47 @@
 - **Expose backend tool registry to frontend for dynamic tool UIs**
 - **Add more granular logging and tracing for all user actions**
 - **Document all CLI commands and their arguments in a central place**
+
+---
+
+## Projects
+
+### Cybertron Flow
+
+**Description:** A powerful node-based workflow automation platform built with Angular that enables users to visually design and execute complex workflows by connecting different types of nodes.
+
+**Architecture:**
+- **Frontend:** Angular 16+ with TypeScript
+- **Key Libraries:** ngx-graph (visualization), FontAwesome (icons), VM2 (secure sandboxing)
+- **State Management:** RxJS Observables/Subjects
+- **Core Components:**
+  - **CybertronNode Models:** Strongly typed interfaces for different node types
+  - **OrchestratorService:** Handles workflow execution and state management
+  - **Node Settings Components:** Type-specific configuration UI
+  - **Visual Designer:** Graph-based canvas for workflow design
+
+**Node Types:**
+- **Chat Agent:** Integrates with LLMs (GPT-4, Claude, local models)
+- **Integration:** Connects to external APIs (REST, GraphQL, Webhooks)
+- **Scheduler:** Executes workflows on schedules (cron, interval, one-time)
+- **Task:** Runs custom JavaScript code in a secure VM2 sandbox
+- **Report:** Generates reports in multiple formats and destinations
+- **Pinned Input:** Stores and reuses static input values
+
+**Features:**
+- Visual workflow designer with drag-and-drop interface
+- Secure script execution in sandboxed environments
+- Real-time workflow execution with state tracking
+- Import/export functionality for workflow sharing
+- Role-based permissions model
+- Responsive design with modern UI/UX
+
+**Integration Points:**
+- Can connect to external APIs and services
+- VM2 secure sandbox for JavaScript execution
+- Potential integration with AVA and other Artifact Virtual components
+
+**Entry Point:** Angular application served via `ng serve`
 
 ---
 

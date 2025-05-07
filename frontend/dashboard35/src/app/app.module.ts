@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
@@ -32,7 +33,6 @@ import { QuantumComponent } from './quantum/quantum.component';
     AppComponent,
     SidebarComponent,
     HeaderComponent,
-    AvaAssistantComponent,
     OverviewComponent,
     AiEcosystemsComponent,
     AiLabComponent,
@@ -56,7 +56,9 @@ import { QuantumComponent } from './quantum/quantum.component';
     QuantumComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    AppRoutingModule,
+    AvaAssistantComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

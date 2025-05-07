@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+// RouterOutlet will be available via RouterModule imported in AppModule
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  // imports: [RouterOutlet], // Removed as RouterModule provides this via AppModule
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

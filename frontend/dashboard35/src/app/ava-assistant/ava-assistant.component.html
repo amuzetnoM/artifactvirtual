@@ -1,0 +1,94 @@
+<!-- Main AVA Assistant Container -->
+<div class="fixed bottom-4 right-4 z-50 flex flex-col items-end" role="complementary" aria-label="AVA Assistant">
+  <!-- Floating Toggle Button -->
+  <button
+    *ngIf="!isOpen"
+    (click)="toggleOpen()"
+    aria-label="Open AVA Assistant"
+    class="mb-2 flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-teal-500 to-lime-500 text-white shadow-lg transition-all hover:from-teal-600 hover:to-lime-600 focus:outline-none focus:ring-2 focus:ring-lime-400 focus:ring-offset-2 focus:ring-offset-gray-800 animate-pulse-glow"
+  >
+    <!-- Bot Icon (Placeholder SVG - replace with actual icon) -->
+    <svg class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-3 3-3-3z" />
+    </svg>
+  </button>
+
+  <!-- Chat Interface -->
+  <div
+    *ngIf="isOpen"
+    class="flex flex-col rounded-lg border border-gray-700 bg-gray-800 text-gray-100 shadow-xl transition-all duration-300 ease-in-out card-hover-glow"
+    [ngClass]="{
+      'fixed bottom-4 right-4 top-4 left-4 md:left-auto md:w-[600px]': isExpanded,
+      'w-[380px] h-[550px]': !isExpanded
+    }"
+  >
+    <!-- Chat Header -->
+    <header class="flex items-center justify-between border-b border-gray-700 px-4 py-3">
+      <div class="flex items-center gap-2">
+        <div class="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-teal-500 to-lime-500 text-white">
+          <!-- Bot Icon (Placeholder) -->
+          <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-3 3-3-3z" /></svg>
+        </div>
+        <div>
+          <h2 class="text-lg font-semibold bg-clip-text text-transparent bg-gradient-to-r from-teal-400 to-lime-400">AVA</h2>
+          <p class="text-xs text-gray-400">Artifact Virtual Assistant</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-1">
+        <button (click)="toggleExpand()" class="rounded-md p-1.5 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-gray-500" [attr.aria-label]="isExpanded ? 'Minimize chat' : 'Maximize chat'">
+          <!-- Maximize/Minimize Icons (Placeholders) -->
+          <svg *ngIf="!isExpanded" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1v4m0 0h-4m4 0l-5-5M4 16v4m0 0h4m-4 0l5-5m11 5v-4m0 0h-4m4 0l-5 5" /></svg>
+          <svg *ngIf="isExpanded" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7M9 5l7 7-7 7" /></svg> <!-- Simple minimize, replace with better icon -->
+          <span class="sr-only">{{ isExpanded ? 'Minimize' : 'Maximize' }}</span>
+        </button>
+        <button (click)="toggleOpen()" class="rounded-md p-1.5 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-gray-500" aria-label="Close chat">
+          <!-- Close Icon (Placeholder) -->
+          <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+          <span class="sr-only">Close</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Messages Area -->
+    <section #scrollMe class="flex-1 overflow-y-auto p-4 space-y-3 custom-scrollbar">
+      <div *ngFor="let msg of messages" class="flex"
+        [ngClass]="{
+          'justify-end': msg.sender === 'user',
+          'justify-start': msg.sender === 'assistant'
+        }">
+        <div class="max-w-[80%] rounded-xl px-3.5 py-2.5 text-sm shadow-md"
+          [ngClass]="{
+            'bg-gradient-to-br from-teal-500 to-lime-500 text-white': msg.sender === 'user',
+            'bg-gray-700 text-gray-200': msg.sender === 'assistant'
+          }">
+          <p class="whitespace-pre-wrap break-words">{{ msg.content }}</p>
+          <p class="mt-1 text-xs opacity-70 text-right">{{ msg.timestamp | date:'shortTime' }}</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Input Form Footer -->
+    <footer class="border-t border-gray-700 p-3">
+      <form (ngSubmit)="sendMessage()" class="flex w-full items-center gap-2">
+        <input
+          [(ngModel)]="input"
+          name="avaInput"
+          placeholder="Ask AVA anything..."
+          autocomplete="off"
+          required
+          class="flex-1 rounded-md border-gray-600 bg-gray-700 px-4 py-2.5 text-sm placeholder-gray-400 focus:border-teal-500 focus:bg-gray-900 focus:text-white focus:outline-none focus:ring-1 focus:ring-teal-500"
+        />
+        <button
+          type="submit"
+          [disabled]="!input.trim()"
+          class="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-teal-500 to-lime-500 text-white shadow-md transition-opacity hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-lime-400 focus:ring-offset-2 focus:ring-offset-gray-800 disabled:opacity-50"
+          aria-label="Send message"
+        >
+          <!-- Send Icon (Placeholder) -->
+          <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" /></svg>
+          <span class="sr-only">Send</span>
+        </button>
+      </form>
+    </footer>
+  </div>
+</div> 
