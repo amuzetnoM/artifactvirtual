@@ -4,6 +4,7 @@ import { Readable, Transform } from "stream";
 import fs from "fs";
 import path from "path";
 import { URL } from "url";
+import Speaker from 'speaker';
 
 /**
  * Custom transform stream for volume control
@@ -131,6 +132,7 @@ interface PlayerSlot {
   volumeTransform: VolumeTransform | null;
   ffmpegCommand: ffmpeg.FfmpegCommand | null;
   filePath: string | null;
+  speaker: any | null;
 }
 
 /**
@@ -161,6 +163,7 @@ export class AudioPlayer {
       volumeTransform: null,
       ffmpegCommand: null,
       filePath: null,
+      speaker: null,
     };
 
     this.playerB = {
@@ -171,6 +174,7 @@ export class AudioPlayer {
       volumeTransform: null,
       ffmpegCommand: null,
       filePath: null,
+      speaker: null,
     };
 
     // Check if ffmpeg is installed
