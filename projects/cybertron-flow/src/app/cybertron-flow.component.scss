@@ -23,225 +23,302 @@ $report-node-color: #e74c3c;
 .cybertron-container {
   display: flex;
   flex-direction: column;
-  height: 100%;
-  background-color: $background-color;
-  color: $text-color;
-  font-family: 'Roboto', 'Segoe UI', sans-serif;
-  overflow: hidden;
-}
-
-// Toolbar 
-.cybertron-toolbar {
-  display: flex;
-  padding: 10px;
-  background-color: $panel-color;
-  border-bottom: 1px solid $border-color;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  z-index: 10;
+  height: 100vh;
+  width: 100%;
+  background-color: #f8f9fa;
+  color: #333;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
   
-  .tool-section {
-    margin-right: 20px;
-    
-    h3 {
-      margin: 0 0 10px 0;
-      font-size: 14px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-    
-    &.actions {
-      margin-left: auto;
-    }
-  }
-  
-  .node-types {
+  .cybertron-toolbar {
     display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-  
-  .node-btn {
-    padding: 8px 12px;
-    border: none;
-    border-radius: 4px;
-    color: white;
-    cursor: pointer;
-    font-size: 12px;
-    transition: all 0.2s;
+    padding: 12px 16px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    z-index: 10;
     
-    &.chat-node { background-color: $chat-node-color; }
-    &.integration-node { background-color: $integration-node-color; }
-    &.scheduler-node { background-color: $scheduler-node-color; }
-    &.task-node { background-color: $task-node-color; }
-    &.report-node { background-color: $report-node-color; }
-    
-    &:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-    }
-  }
-  
-  .workflow-actions {
-    display: flex;
-    gap: 8px;
-    
-    .action-btn {
-      padding: 8px 16px;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-weight: 500;
-      transition: all 0.2s;
+    .tool-section {
+      margin-right: 32px;
       
-      &.run {
-        background-color: $success-color;
-        color: #000;
+      &:last-child {
+        margin-right: 0;
+        margin-left: auto;
       }
       
-      &.save {
-        background-color: $secondary-color;
-        color: white;
+      h3 {
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: #666;
+        margin: 0 0 8px 0;
       }
       
-      &.export, &.import {
-        background-color: $panel-color;
-        border: 1px solid $border-color;
-        color: white;
+      .node-types {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
       }
       
-      &:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-      }
-    }
-  }
-}
-
-// Canvas section
-.canvas-container {
-  position: relative;
-  flex: 1;
-  overflow: hidden;
-  
-  .flow-canvas {
-    width: 100%;
-    height: 100%;
-    background-color: darken($background-color, 5%);
-    background-image: 
-      linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
-    background-size: 20px 20px;
-  }
-  
-  .canvas-tools {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    background-color: rgba($panel-color, 0.7);
-    border-radius: 4px;
-    padding: 5px;
-    
-    button {
-      width: 30px;
-      height: 30px;
-      border: none;
-      border-radius: 4px;
-      background-color: $panel-color;
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      
-      &:hover {
-        background-color: lighten($panel-color, 10%);
-      }
-    }
-  }
-}
-
-// Sidebar for node editing
-.sidebar {
-  width: 300px;
-  background-color: $panel-color;
-  border-left: 1px solid $border-color;
-  padding: 16px;
-  overflow-y: auto;
-  
-  h3 {
-    margin: 0 0 16px 0;
-    border-bottom: 1px solid $border-color;
-    padding-bottom: 8px;
-  }
-  
-  .node-settings {
-    .form-group {
-      margin-bottom: 16px;
-      
-      label {
-        display: block;
-        margin-bottom: 6px;
-        font-size: 14px;
-      }
-      
-      input, select, textarea {
-        width: 100%;
-        padding: 8px 10px;
+      .node-btn {
+        background-color: #fff;
+        border: 1px solid #ddd;
+        padding: 6px 12px;
         border-radius: 4px;
-        border: 1px solid $border-color;
-        background-color: rgba(255,255,255,0.05);
-        color: white;
+        font-size: 0.85rem;
+        font-weight: 500;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        transition: all 0.2s ease;
         
-        &:focus {
-          outline: none;
-          border-color: $primary-color;
+        fa-icon {
+          margin-right: 6px;
+          font-size: 0.8rem;
+        }
+        
+        &:hover {
+          background-color: #f0f0f0;
+          border-color: #bbb;
+        }
+        
+        &.chat-node {
+          border-left: 3px solid #4c9aff;
+        }
+        
+        &.integration-node {
+          border-left: 3px solid #6554c0;
+        }
+        
+        &.scheduler-node {
+          border-left: 3px solid #00b8d9;
+        }
+        
+        &.task-node {
+          border-left: 3px solid #36b37e;
+        }
+        
+        &.report-node {
+          border-left: 3px solid #ff5630;
+        }
+        
+        &.pinned-input-node {
+          border-left: 3px solid #ff9800;
         }
       }
       
-      textarea {
-        resize: vertical;
-        min-height: 80px;
+      .pinned-input-ui {
+        display: flex;
+        gap: 8px;
+        margin-top: 12px;
+        
+        input {
+          flex: 1;
+          padding: 6px 12px;
+          border: 1px solid #ddd;
+          border-radius: 4px;
+          font-size: 0.85rem;
+          
+          &:focus {
+            outline: none;
+            border-color: #4c9aff;
+            box-shadow: 0 0 0 2px rgba(76, 154, 255, 0.3);
+          }
+        }
+      }
+      
+      .workflow-actions {
+        display: flex;
+        gap: 8px;
+        
+        .action-btn {
+          padding: 8px 16px;
+          border-radius: 4px;
+          font-size: 0.85rem;
+          font-weight: 500;
+          border: none;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          
+          fa-icon {
+            margin-right: 6px;
+          }
+          
+          &.run {
+            background-color: #36b37e;
+            color: white;
+            
+            &:hover {
+              background-color: #2d9769;
+            }
+          }
+          
+          &.save {
+            background-color: #0052cc;
+            color: white;
+            
+            &:hover {
+              background-color: #0047b3;
+            }
+          }
+          
+          &.export, &.import {
+            background-color: #f4f5f7;
+            color: #333;
+            
+            &:hover {
+              background-color: #eaecf0;
+            }
+          }
+        }
       }
     }
   }
   
-  .form-actions {
-    margin-top: 20px;
-    display: flex;
-    justify-content: flex-end;
+  .canvas-container {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
     
-    .delete-btn {
-      background-color: $danger-color;
-      border: none;
-      border-radius: 4px;
-      color: white;
-      padding: 8px 16px;
-      cursor: pointer;
+    .canvas-tools {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      z-index: 5;
       
-      &:hover {
-        background-color: darken($danger-color, 10%);
+      button {
+        width: 32px;
+        height: 32px;
+        border-radius: 4px;
+        background-color: white;
+        border: 1px solid #ddd;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        
+        &:hover {
+          background-color: #f0f0f0;
+        }
+      }
+    }
+    
+    .flow-graph {
+      height: 100%;
+      width: 100%;
+      
+      /* Graph styles */
+      ::ng-deep {
+        .node {
+          cursor: pointer;
+          transition: transform 0.2s ease;
+          
+          &:hover {
+            transform: scale(1.02);
+          }
+        }
+        
+        .node-chat rect {
+          fill: #e6f2ff;
+          stroke: #4c9aff;
+        }
+        
+        .node-integration rect {
+          fill: #eae6ff;
+          stroke: #6554c0;
+        }
+        
+        .node-scheduler rect {
+          fill: #e6fcff;
+          stroke: #00b8d9;
+        }
+        
+        .node-task rect {
+          fill: #e3fcef;
+          stroke: #36b37e;
+        }
+        
+        .node-report rect {
+          fill: #ffebe6;
+          stroke: #ff5630;
+        }
+        
+        .node-pinned-input rect {
+          fill: #fffbe6;
+          stroke: #ff9800;
+          stroke-dasharray: 5, 5;
+        }
+        
+        .edge {
+          .line {
+            stroke: #555;
+            transition: stroke-width 0.2s ease;
+          }
+          
+          &:hover .line {
+            stroke-width: 3;
+            stroke: #0052cc;
+          }
+        }
+      }
+    }
+  }
+  
+  .sidebar {
+    width: 300px;
+    background-color: white;
+    border-left: 1px solid #ddd;
+    padding: 16px;
+    overflow-y: auto;
+    position: absolute;
+    top: 60px;
+    right: 0;
+    bottom: 0;
+    z-index: 5;
+    box-shadow: -2px 0 8px rgba(0, 0, 0, 0.05);
+    
+    h3 {
+      margin-top: 0;
+      margin-bottom: 16px;
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: #333;
+    }
+    
+    .form-actions {
+      margin-top: 24px;
+      display: flex;
+      justify-content: flex-end;
+      
+      .delete-btn {
+        background-color: #ffebe6;
+        color: #de350b;
+        border: 1px solid #ffbdad;
+        padding: 6px 12px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: 500;
+        
+        &:hover {
+          background-color: #ffe2dc;
+        }
       }
     }
   }
 }
 
-// Dialog modals
+/* Modal styles */
 .modal {
   border: none;
-  border-radius: 8px;
+  border-radius: 6px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
   padding: 0;
-  background-color: $panel-color;
-  color: $text-color;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
   
   &::backdrop {
-    background-color: rgba(0,0,0,0.7);
+    background-color: rgba(9, 30, 66, 0.5);
   }
   
   .modal-content {
@@ -250,52 +327,99 @@ $report-node-color: #e74c3c;
     h2 {
       margin-top: 0;
       margin-bottom: 16px;
-      border-bottom: 1px solid $border-color;
-      padding-bottom: 8px;
+      font-size: 1.3rem;
+      font-weight: 500;
     }
     
     textarea {
       width: 100%;
+      border: 1px solid #ddd;
       border-radius: 4px;
-      border: 1px solid $border-color;
-      background-color: rgba(255,255,255,0.05);
-      color: white;
-      padding: 10px;
-      font-family: monospace;
+      font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+      padding: 8px;
+      margin-bottom: 16px;
       
       &:focus {
         outline: none;
-        border-color: $primary-color;
+        border-color: #4c9aff;
+        box-shadow: 0 0 0 2px rgba(76, 154, 255, 0.3);
       }
     }
     
     .modal-actions {
-      margin-top: 16px;
       display: flex;
       justify-content: flex-end;
-      gap: 10px;
+      gap: 8px;
       
       button {
         padding: 8px 16px;
-        border: none;
         border-radius: 4px;
+        font-size: 0.85rem;
+        font-weight: 500;
         cursor: pointer;
-        background-color: $primary-color;
-        color: white;
         
         &:first-child {
-          background-color: transparent;
-          border: 1px solid $border-color;
+          background-color: #f4f5f7;
+          border: 1px solid #ddd;
+          color: #333;
+          
+          &:hover {
+            background-color: #eaecf0;
+          }
         }
         
-        &:hover {
-          background-color: lighten($primary-color, 10%);
+        &:last-child {
+          background-color: #0052cc;
+          border: none;
+          color: white;
           
-          &:first-child {
-            background-color: rgba(255,255,255,0.1);
+          &:hover {
+            background-color: #0047b3;
           }
         }
       }
+    }
+  }
+}
+
+/* Add specific styling for the node settings form components */
+::ng-deep {
+  .node-settings {
+    .hint {
+      font-size: 0.8rem;
+      color: #6b778c;
+      margin-top: 4px;
+    }
+    
+    .checkbox-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      
+      .checkbox-label {
+        display: flex;
+        align-items: center;
+        margin-right: 16px;
+        
+        input {
+          margin-right: 6px;
+        }
+      }
+    }
+    
+    .success {
+      color: #36b37e;
+    }
+    
+    .error {
+      color: #ff5630;
+    }
+    
+    .next-run {
+      padding: 8px;
+      background-color: #f4f5f7;
+      border-radius: 4px;
+      font-size: 0.9rem;
     }
   }
 }

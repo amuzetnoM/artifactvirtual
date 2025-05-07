@@ -1,100 +1,254 @@
-import { Component } from '@angular/core';
+import { Component, type OnInit } from '@angular/core';
+import type { NavigationGroup, NavigationItem } from './navigation-item.model';
+import { Router, NavigationEnd } from '@angular/router';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-sidebar',
-  template: `
-    <nav class="sidebar" aria-label="Main Navigation">
-      <div class="sidebar-header">
-        <span class="sidebar-logo">Artifact Virtual</span>
-      </div>
-      <ul class="sidebar-menu">
-        <li><a routerLink="/" routerLinkActive="active"><span class="icon">🏠</span> Overview</a></li>
-        <li><a routerLink="/ai-ecosystems" routerLinkActive="active"><span class="icon">🧠</span> AI Ecosystems</a></li>
-        <li><a routerLink="/projects" routerLinkActive="active"><span class="icon">📁</span> Projects</a></li>
-        <li><a routerLink="/applications" routerLinkActive="active"><span class="icon">🖥️</span> Applications</a></li>
-        <li><a routerLink="/system" routerLinkActive="active"><span class="icon">⚙️</span> System</a></li>
-        <li><a routerLink="/servers" routerLinkActive="active"><span class="icon">🗄️</span> Servers</a></li>
-        <li><a routerLink="/quantum" routerLinkActive="active"><span class="icon">🧬</span> Quantum</a></li>
-      </ul>
-      <div class="sidebar-footer">
-        <button class="sidebar-theme-toggle" (click)="toggleTheme()" aria-label="Toggle theme">
-          <span *ngIf="!isDark">🌙</span><span *ngIf="isDark">☀️</span>
-        </button>
-      </div>
-    </nav>
-  `,
-  styles: [`
-    .sidebar {
-      width: var(--sidebar-width);
-      min-height: 100vh;
-      background: var(--color-sidebar);
-      color: var(--color-sidebar-foreground);
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      position: fixed;
-      left: 0;
-      top: 0;
-      z-index: 40;
-      box-shadow: 2px 0 8px rgba(0,0,0,0.04);
-      transition: background var(--transition), color var(--transition);
-    }
-    .sidebar-header {
-      padding: 2rem 1.5rem 1rem 1.5rem;
-      font-size: 1.25rem;
-      font-weight: 700;
-      letter-spacing: 0.02em;
-    }
-    .sidebar-logo {
-      color: var(--color-primary);
-    }
-    .sidebar-menu {
-      list-style: none;
-      padding: 0 1rem;
-      margin: 0;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-    }
-    .sidebar-menu li a {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      padding: 0.75rem 1rem;
-      border-radius: var(--radius);
-      color: inherit;
-      text-decoration: none;
-      font-size: 1rem;
-      font-weight: 500;
-      transition: background var(--transition), color var(--transition);
-    }
-    .sidebar-menu li a.active, .sidebar-menu li a:hover {
-      background: var(--color-accent);
-      color: var(--color-accent-foreground);
-    }
-    .sidebar-footer {
-      padding: 1.5rem 1rem;
-      display: flex;
-      justify-content: flex-end;
-    }
-    .sidebar-theme-toggle {
-      background: none;
-      border: none;
-      font-size: 1.5rem;
-      cursor: pointer;
-      color: var(--color-sidebar-foreground);
-      transition: color var(--transition);
-    }
-    @media (max-width: 900px) {
-      .sidebar { display: none; }
-    }
-  `]
+  templateUrl: './sidebar.component.html',
+  styleUrls: ['./sidebar.component.scss']
 })
-export class SidebarComponent {
+export class SidebarComponent implements OnInit {
   isDark = false;
-  toggleTheme() {
-    this.isDark = !this.isDark;
-    document.body.classList.toggle('dark-theme', this.isDark);
+  navigationGroups: NavigationGroup[] = [];
+  isSidebarOpen = true;
+  isMobileMenuOpen = false;
+
+  constructor(private router: Router) {}
+
+  ngOnInit(): void {
+    this.initializeNavigation();
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        this.updateActiveStates(event.urlAfterRedirects);
+      }
+    });
+    this.updateActiveStates(this.router.url);
   }
+
+  initializeNavigation(): void {
+    this.navigationGroups = [
+      {
+        title: "Overview",
+        items: [
+          {
+            title: "Dashboard",
+            href: "/",
+            icon: "icon-home",
+          },
+        ],
+      },
+      {
+        title: "Content Management",
+        items: [
+          {
+            title: "Projects",
+            href: "/projects",
+            icon: "icon-layout-dashboard",
+            badge: "New",
+            isExpanded: false,
+            children: [
+              {
+                title: "All Projects",
+                href: "/projects",
+                icon: "icon-folder-kanban",
+                isChild: true,
+              },
+              {
+                title: "Create New",
+                href: "/projects/create",
+                icon: "icon-box",
+                isChild: true,
+              },
+              {
+                title: "Templates",
+                href: "/projects/templates",
+                icon: "icon-code-square",
+                isChild: true,
+              },
+            ],
+          },
+          {
+            title: "Applications",
+            href: "/applications",
+            icon: "icon-terminal",
+            isExpanded: false,
+            children: [
+              {
+                title: "Meteor Editor",
+                href: "/applications/meteor",
+                icon: "icon-file-text",
+                isChild: true,
+              },
+              {
+                title: "Oracle CLI",
+                href: "/applications/oracle",
+                icon: "icon-terminal",
+                isChild: true,
+              },
+              {
+                title: "Temporal Calendar",
+                href: "/applications/calendar",
+                icon: "icon-calendar",
+                isChild: true,
+              },
+            ],
+          },
+          {
+            title: "Research",
+            href: "/research",
+            icon: "icon-brain",
+            badge: 3,
+          },
+        ],
+      },
+      {
+        title: "AI & Knowledge",
+        items: [
+          {
+            title: "AI Ecosystems",
+            href: "/ai-ecosystems",
+            icon: "icon-brain",
+            isExpanded: false,
+            children: [
+              {
+                title: "Overview",
+                href: "/ai-ecosystems",
+                icon: "icon-layout-dashboard",
+                isChild: true,
+              },
+              {
+                title: "AI Lab",
+                href: "/ai-ecosystems/lab",
+                icon: "icon-play-square",
+                badge: "New",
+                isChild: true,
+              },
+              {
+                title: "Models",
+                href: "/ai-ecosystems/models",
+                icon: "icon-braces",
+                isChild: true,
+              },
+              {
+                title: "Model Quantization",
+                href: "/ai-ecosystems/quantization",
+                icon: "icon-activity",
+                isChild: true,
+              },
+              {
+                title: "Communication Protocols",
+                href: "/ai-ecosystems/protocols",
+                icon: "icon-network",
+                isChild: true,
+              },
+            ],
+          },
+          {
+            title: "Knowledge",
+            href: "/knowledge",
+            icon: "icon-book-open",
+          },
+        ],
+      },
+      {
+        title: "Blockchain & Systems",
+        items: [
+          {
+            title: "Blockchain",
+            href: "/blockchain",
+            icon: "icon-git-branch",
+            isExpanded: false,
+            children: [
+              {
+                title: "Overview",
+                href: "/blockchain",
+                icon: "icon-layout-dashboard",
+                isChild: true,
+              },
+              {
+                title: "Wallets",
+                href: "/blockchain/wallets",
+                icon: "icon-wallet",
+                isChild: true,
+              },
+              {
+                title: "Smart Contracts",
+                href: "/blockchain/contracts",
+                icon: "icon-file-code",
+                isChild: true,
+              },
+            ],
+          },
+          {
+            title: "System",
+            href: "/system",
+            icon: "icon-settings",
+          },
+          {
+            title: "Servers",
+            href: "/servers",
+            icon: "icon-server",
+          },
+          {
+            title: "Quantum Computing",
+            href: "/quantum",
+            icon: "icon-atom",
+            badge: "Beta",
+          },
+        ],
+      },
+    ];
+  }
+
+  updateActiveStates(currentUrl: string): void {
+    for (const group of this.navigationGroups) {
+      for (const item of group.items) {
+        item.isActive = (item.href === currentUrl || (item.href !== '/' && currentUrl.startsWith(item.href + (item.children && item.children.length > 0 ? '' : ''))));
+        if (item.children) {
+          let parentActive = false;
+          for (const child of item.children) {
+            child.isActive = (child.href === currentUrl || (child.href !== '/' && currentUrl.startsWith(child.href)));
+            if (child.isActive) parentActive = true;
+          }
+          if (parentActive) {
+            item.isActive = true;
+          }
+        }
+      }
+    }
+  }
+
+  toggleTheme(): void {
+    this.isDark = !this.isDark;
+    if (this.isDark) {
+      document.body.classList.add('dark-theme');
+      document.body.classList.remove('light-theme');
+    } else {
+      document.body.classList.add('light-theme');
+      document.body.classList.remove('dark-theme');
+    }
+  }
+
+  toggleSidebar(): void {
+    this.isSidebarOpen = !this.isSidebarOpen;
+  }
+
+  toggleMobileMenu(): void {
+    this.isMobileMenuOpen = !this.isMobileMenuOpen;
+  }
+
+  toggleExpand(item: NavigationItem): void {
+    if (item.children && item.children.length > 0) {
+      item.isExpanded = !item.isExpanded;
+    }
+  }
+
+  currentUser = {
+    name: 'Admin User',
+    email: 'admin@artifactvirtual.com',
+    avatar: '/assets/img/avatar-placeholder.png'
+  };
 }

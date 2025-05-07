@@ -74,6 +74,7 @@ python startup.py
 - [Utilities](utils/README.md)
 - [Projects](projects/)
   - [Bedrock](projects/bedrock/README.md)
+  - [Cybertron Flow](projects/cybertron-flow/README.md)
 - [Research & Philosophy](backup/research/index.mdx)
 - [Contributing](CONTRIBUTING.md)
 - [License](LICENSE)
@@ -339,6 +340,33 @@ Explore the curated datasets and knowledge libraries:
 - `datasets/reasoning_patterns.json`
 - `datasets/language_primitives.json`
 - `datasets/temporal_events.json`
+
+### Cybertron Flow Workflow Automation
+
+Cybertron Flow is a visual workflow automation platform that enables you to design and execute complex process flows:
+
+```bash
+# Navigate to the Cybertron Flow project
+cd projects/cybertron-flow
+
+# Install dependencies
+npm install
+
+# Start the development server
+ng serve
+
+# Build for production
+ng build --prod
+```
+
+Key features:
+- Visual node-based workflow designer
+- Multiple node types: Chat Agent, Integration, Scheduler, Task, Report, and Pinned Input
+- Secure script execution in sandboxed environments
+- Real-time workflow execution and monitoring
+- Import/export and sharing capabilities
+
+For more information, see [projects/cybertron-flow/README.md](projects/cybertron-flow/README.md)
 
 ## FIRST STEPS
 

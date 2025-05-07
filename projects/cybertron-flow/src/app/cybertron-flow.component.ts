@@ -1,27 +1,52 @@
-import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
-import { OrchestratorService } from './services/orchestrator.service';
+import { Component, OnInit } from '@angular/core';
+import { NewOrchestratorService } from './services/new-orchestrator.service';
 import { LangchainService } from './services/langchain.service';
 import { SchedulerService } from './services/scheduler.service';
+import { CybertronNode, CybertronEdge, NodeType } from './node-types/node.model';
+import { 
+  faPlus, faPlay, faSave, faFileExport, faFileImport, 
+  faZoomIn, faZoomOut, faRedo
+} from '@fortawesome/free-solid-svg-icons';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-cybertron-flow',
   templateUrl: './cybertron-flow.component.html',
   styleUrls: ['./cybertron-flow.component.scss']
 })
-export class CybertronFlowComponent implements OnInit, AfterViewInit {
-  @ViewChild('flowCanvas', { static: false }) flowCanvas: ElementRef;
+export class CybertronFlowComponent implements OnInit {
+  // Graph data
+  nodes: CybertronNode[] = [];
+  edges: CybertronEdge[] = [];
   
-  nodes: any[] = [];
-  edges: any[] = [];
-  selectedNode: any = null;
-  zoomLevel: number = 1;
-  panOffset = { x: 0, y: 0 };
-  isDragging = false;
-  dragStart = { x: 0, y: 0 };
-  pinnedInputValue: string = '';
+  // Graph update subjects
+  update$ = new Subject<boolean>();
+  center$ = new Subject<boolean>();
+  zoomToFit$ = new Subject<boolean>();
+  
+  // UI state
+  selectedNode: CybertronNode | null = null;
+  zoomLevel = 1;
+  layoutSettings = {
+    orientation: 'TB'
+  };
+  pinnedInputValue = '';
+  
+  // Icons
+  faPlus = faPlus;
+  faPlay = faPlay;
+  faSave = faSave;
+  faFileExport = faFileExport;
+  faFileImport = faFileImport;
+  faZoomIn = faZoomIn;
+  faZoomOut = faZoomOut;
+  faRedo = faRedo;
+  
+  // Mock user for demo - in production, this would come from auth service
+  currentUser = { id: '1', username: 'admin', role: 'admin' as const };
 
   constructor(
-    private orchestratorService: OrchestratorService,
+    private orchestratorService: NewOrchestratorService,
     private langchainService: LangchainService,
     private schedulerService: SchedulerService
   ) {}
@@ -31,114 +56,64 @@ export class CybertronFlowComponent implements OnInit, AfterViewInit {
     this.loadSavedWorkflow();
   }
 
-  ngAfterViewInit(): void {
-    // Initialize canvas and event listeners
-    this.initCanvas();
-  }
-
-  private initCanvas(): void {
-    const canvas = this.flowCanvas.nativeElement;
-    
-    // Add event listeners for drag, zoom, and pan
-    canvas.addEventListener('mousedown', this.handleMouseDown.bind(this));
-    canvas.addEventListener('mousemove', this.handleMouseMove.bind(this));
-    canvas.addEventListener('mouseup', this.handleMouseUp.bind(this));
-    canvas.addEventListener('wheel', this.handleWheel.bind(this));
-    
-    // Initial render
-    this.renderGraph();
-  }
-
-  private renderGraph(): void {
-    // This will be implemented with ngx-graph or rete.js
-    this.orchestratorService.renderGraph(this.flowCanvas.nativeElement, {
-      nodes: this.nodes,
-      edges: this.edges,
-      zoom: this.zoomLevel,
-      offset: this.panOffset
-    });
-  }
-
-  // UI Event Handlers
-  handleMouseDown(event: MouseEvent): void {
-    // Handle node selection or canvas dragging
-    this.isDragging = true;
-    this.dragStart = { x: event.clientX, y: event.clientY };
-    
-    // Check if a node was clicked
-    this.selectedNode = this.orchestratorService.getNodeAtPosition(
-      event.clientX - this.flowCanvas.nativeElement.getBoundingClientRect().left,
-      event.clientY - this.flowCanvas.nativeElement.getBoundingClientRect().top
-    );
-  }
-
-  handleMouseMove(event: MouseEvent): void {
-    if (!this.isDragging) return;
-    
-    if (this.selectedNode) {
-      // Move the selected node
-      this.orchestratorService.moveNode(this.selectedNode, 
-        event.clientX - this.dragStart.x,
-        event.clientY - this.dragStart.y
-      );
-    } else {
-      // Pan the canvas
-      this.panOffset.x += (event.clientX - this.dragStart.x) / this.zoomLevel;
-      this.panOffset.y += (event.clientY - this.dragStart.y) / this.zoomLevel;
-    }
-    
-    this.dragStart = { x: event.clientX, y: event.clientY };
-    this.renderGraph();
-  }
-
-  handleMouseUp(): void {
-    this.isDragging = false;
-    if (this.selectedNode) {
-      // Save node position
-      this.saveWorkflow();
-    }
-  }
-
-  handleWheel(event: WheelEvent): void {
-    event.preventDefault();
-    // Zoom in/out based on wheel direction
-    const zoomIntensity = 0.1;
-    const delta = event.deltaY < 0 ? zoomIntensity : -zoomIntensity;
-    
-    this.zoomLevel = Math.max(0.1, Math.min(2, this.zoomLevel + delta));
-    this.renderGraph();
-  }
-
-  // Node Management
-  addNode(type: string): void {
-    const newNode = this.orchestratorService.createNode(type);
-    this.nodes.push(newNode);
-    this.renderGraph();
+  // Node management
+  addNode(type: NodeType): void {
+    const node = this.orchestratorService.createNode(type);
+    this.refreshGraphData();
     this.saveWorkflow();
   }
 
-  connectNodes(sourceId: string, targetId: string): void {
-    const edge = this.orchestratorService.createEdge(sourceId, targetId);
-    this.edges.push(edge);
-    this.renderGraph();
+  onNodeSelect(node: CybertronNode): void {
+    this.selectedNode = node;
+  }
+
+  onEdgeSelect(edge: CybertronEdge): void {
+    // Handle edge selection if needed
+    console.log('Edge selected:', edge);
+  }
+
+  onNodeDeselect(): void {
+    this.selectedNode = null;
+  }
+
+  onNodeUpdate(updatedNode: CybertronNode): void {
+    this.orchestratorService.updateNode(updatedNode.id, updatedNode);
+    this.refreshGraphData();
     this.saveWorkflow();
   }
 
   deleteNode(nodeId: string): void {
-    // Remove node and related edges
-    this.nodes = this.nodes.filter(n => n.id !== nodeId);
-    this.edges = this.edges.filter(e => e.source !== nodeId && e.target !== nodeId);
-    this.renderGraph();
+    this.orchestratorService.deleteNode(nodeId, this.currentUser);
+    this.selectedNode = null;
+    this.refreshGraphData();
     this.saveWorkflow();
   }
 
-  // Workflow Management
+  // Edge management
+  onEdgeCreate(event: { source: string; target: string }): void {
+    try {
+      this.orchestratorService.createEdge(event.source, event.target);
+      this.refreshGraphData();
+      this.saveWorkflow();
+    } catch (error) {
+      console.error('Failed to create edge:', error);
+    }
+  }
+
+  // Workflow execution
   runWorkflow(): void {
-    this.orchestratorService.executeWorkflow(this.nodes, this.edges)
-      .subscribe(
-        results => console.log('Workflow execution results:', results),
-        error => console.error('Workflow execution error:', error)
-      );
+    this.orchestratorService.executeWorkflow(this.currentUser)
+      .subscribe({
+        next: results => console.log('Workflow execution results:', results),
+        error: error => console.error('Workflow execution error:', error)
+      });
+  }
+
+  // State management
+  private refreshGraphData(): void {
+    this.nodes = this.orchestratorService.getAllNodes();
+    this.edges = this.orchestratorService.getAllEdges();
+    this.update$.next(true);
   }
 
   saveWorkflow(): void {
@@ -152,9 +127,22 @@ export class CybertronFlowComponent implements OnInit, AfterViewInit {
   loadSavedWorkflow(): void {
     const savedWorkflow = localStorage.getItem('cybertron-workflow');
     if (savedWorkflow) {
-      const workflowData = JSON.parse(savedWorkflow);
-      this.nodes = workflowData.nodes;
-      this.edges = workflowData.edges;
+      try {
+        const workflowData = JSON.parse(savedWorkflow);
+        // Load nodes and edges into the orchestrator service
+        for (const node of workflowData.nodes) {
+          this.orchestratorService.createNode(node.type, node.config);
+        }
+        
+        // Add edges after all nodes are created
+        for (const edge of workflowData.edges) {
+          this.orchestratorService.createEdge(edge.source, edge.target);
+        }
+        
+        this.refreshGraphData();
+      } catch (error) {
+        console.error('Failed to load workflow:', error);
+      }
     }
   }
   
@@ -168,33 +156,54 @@ export class CybertronFlowComponent implements OnInit, AfterViewInit {
   importWorkflow(workflowJson: string): void {
     try {
       const workflow = JSON.parse(workflowJson);
-      this.nodes = workflow.nodes;
-      this.edges = workflow.edges;
-      this.renderGraph();
+      
+      // Clear existing nodes and edges
+      for (const node of this.nodes) {
+        this.orchestratorService.deleteNode(node.id, this.currentUser);
+      }
+      
+      // Import new workflow
+      for (const node of workflow.nodes) {
+        this.orchestratorService.createNode(node.type, node.config);
+      }
+      
+      for (const edge of workflow.edges) {
+        this.orchestratorService.createEdge(edge.source, edge.target);
+      }
+      
+      this.refreshGraphData();
+      this.saveWorkflow();
     } catch (error) {
       console.error('Failed to import workflow:', error);
     }
   }
 
   // Pin user input as a node on the board
-  displayPinnedInput(input: string): void {
-    const newNode = this.orchestratorService.createNode('pinned-input', {
-      value: input,
-      timestamp: Date.now(),
-    });
-    newNode.name = 'Pinned Input';
-    newNode.type = 'pinned-input';
-    newNode.config = { value: input };
-    newNode.style = { border: '2px dashed #ff9800', background: '#fffbe6' };
-    this.nodes.push(newNode);
-    this.renderGraph();
-    this.saveWorkflow();
-  }
-
   pinInput(): void {
     if (this.pinnedInputValue && this.pinnedInputValue.trim().length > 0) {
-      this.displayPinnedInput(this.pinnedInputValue.trim());
+      this.orchestratorService.createNode('pinned-input', {
+        value: this.pinnedInputValue.trim(),
+        timestamp: Date.now()
+      });
       this.pinnedInputValue = '';
+      this.refreshGraphData();
+      this.saveWorkflow();
     }
+  }
+
+  // Dialog methods
+  copyToClipboard(text: string): void {
+    navigator.clipboard.writeText(text)
+      .then(() => console.log('Copied to clipboard'))
+      .catch(err => console.error('Failed to copy to clipboard:', err));
+  }
+  
+  // Graph view controls
+  fitGraph(): void {
+    this.zoomToFit$.next(true);
+  }
+  
+  centerGraph(): void {
+    this.center$.next(true);
   }
 }

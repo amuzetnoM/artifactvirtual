@@ -1,0 +1,75 @@
+/* Primarily use Tailwind classes from HTML. CSS variables from :root can be used for theming. */
+
+:host {
+  /* 
+    Define CSS variables for AVA theming. 
+    These are placeholders. Ideally, they should be derived from your Tailwind config 
+    or a global :root definition in styles.scss that Tailwind can populate.
+    Example: --ava-color-primary: var(--global-color-teal-500);
+  */
+  --ava-color-primary: #14b8a6; /* teal-500 */
+  --ava-color-primary-gradient-to: #84cc16; /* lime-500 */
+  --ava-color-primary-foreground: #ffffff; /* white */
+
+  --ava-color-card: #1f2937; /* gray-800 */
+  --ava-color-card-foreground: #f3f4f6; /* gray-100 */
+  --ava-color-border: #374151; /* gray-700 */
+
+  --ava-color-input-bg: #374151; /* gray-700 */
+  --ava-color-input-focus-border: #14b8a6; /* teal-500 */
+  --ava-color-input-focus-bg: #111827; /* gray-900 */
+
+  --ava-color-user-message-bg-from: #14b8a6; /* teal-500 */
+  --ava-color-user-message-bg-to: #84cc16; /* lime-500 */
+  --ava-color-user-message-text: #ffffff; /* white */
+
+  --ava-color-assistant-message-bg: #374151; /* gray-700 */
+  --ava-color-assistant-message-text: #d1d5db; /* gray-300, was gray-200 */
+
+  --ava-z-index: 50;
+  --ava-radius: 0.75rem; /* Tailwind 'lg' borderRadius */
+}
+
+/* Apply Tailwind utility classes for dark theme if not handled globally */
+/* .dark :host { ... } */
+
+/* Custom scrollbar for messages - similar to sidebar */
+.custom-scrollbar {
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+  &::-webkit-scrollbar-track {
+    background: transparent; /* Match card background */
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #4b5563; /* gray-600 */
+    border-radius: 3px;
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background: #6b7280; /* gray-500 */
+  }
+}
+
+/* Pulse-glow animation for the floating button */
+@keyframes pulse-glow-animation {
+  0%, 100% {
+    box-shadow: 0 0 0 0px rgba(132, 204, 22, 0.7); /* lime-500 with 70% opacity */
+  }
+  50% {
+    box-shadow: 0 0 0 10px rgba(132, 204, 22, 0); /* lime-500 with 0% opacity */
+  }
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow-animation 2s infinite;
+}
+
+/* Card hover glow effect (subtle) */
+.card-hover-glow {
+  transition: box-shadow 0.3s ease-in-out;
+  &:hover {
+    /* Using direct color values for boxShadow as theme() might not work here */
+    box-shadow: 0 0 15px 0px rgba(20, 184, 166, 0.3), /* teal-500 with 30% opacity */
+                0 0 5px 0px rgba(132, 204, 22, 0.2); /* lime-500 with 20% opacity */
+  }
+} 

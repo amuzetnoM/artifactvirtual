@@ -1,0 +1,33 @@
+/* Remove old CSS, rely primarily on Tailwind CSS classes in the HTML */
+
+/* Custom scrollbar for the navigation menu if needed */
+.custom-scrollbar {
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+  &::-webkit-scrollbar-track {
+    background: transparent; /* Or match sidebar background: var(--color-sidebar, #1f2937); for dark theme */
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #4b5563; /* Adjust color as needed, e.g., var(--color-accent, #10b981); for teal */
+    border-radius: 3px;
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background: #6b7280; /* Adjust hover color */
+  }
+}
+
+/* Child item active state (example) - can be refined with Tailwind or specific classes */
+/* 
+.active-child {
+  @apply text-teal-400 font-semibold; 
+  Could also be a more specific selector if routerLinkActive doesn't work well on the `a` tag with children directly
+} 
+*/
+
+/* Styling for when sidebar is collapsed (w-20) - icons only */
+/* This might require more specific selectors or adjustments in HTML structure for icon-only display */
+/* Example: 
+.sidebar-collapsed .item-text { @apply hidden; } 
+.sidebar-collapsed .item-icon { @apply mx-auto; }
+*/ 

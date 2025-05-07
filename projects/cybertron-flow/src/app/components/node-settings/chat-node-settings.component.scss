@@ -1,0 +1,32 @@
+.node-settings {
+  padding: 16px;
+  
+  .form-group {
+    margin-bottom: 16px;
+    
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+    
+    input, select, textarea {
+      width: 100%;
+      padding: 8px 12px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 0.9rem;
+      
+      &:focus {
+        outline: none;
+        border-color: #4c9aff;
+        box-shadow: 0 0 0 2px rgba(76, 154, 255, 0.3);
+      }
+    }
+    
+    textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+  }
+} 

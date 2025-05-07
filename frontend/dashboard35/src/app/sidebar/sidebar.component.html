@@ -1,0 +1,177 @@
+<!-- Main Sidebar Container -->
+<aside
+  [ngClass]="{
+    'w-64': isSidebarOpen,
+    'w-20': !isSidebarOpen,
+    'translate-x-0': isMobileMenuOpen || isSidebarOpen,
+    '-translate-x-full': !isMobileMenuOpen && !isSidebarOpen
+  }"
+  class="fixed inset-y-0 left-0 z-40 flex transform flex-col border-r border-gray-700 bg-gray-800 text-gray-100 transition-all duration-300 ease-in-out md:translate-x-0"
+  aria-label="Main Navigation"
+>
+  <!-- Sidebar Header -->
+  <div class="flex h-16 shrink-0 items-center border-b border-gray-700 px-4">
+    <a routerLink="/" class="flex items-center gap-2 font-semibold">
+      <!-- Placeholder Logo -->
+      <svg class="h-8 w-8 text-teal-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+      </svg>
+      <span *ngIf="isSidebarOpen" class="text-xl font-bold">Artifact</span>
+    </a>
+    <!-- Desktop: Toggle Sidebar Collapse/Expand -->
+    <button
+      (click)="toggleSidebar()"
+      class="ml-auto hidden rounded p-1 text-gray-400 hover:bg-gray-700 hover:text-white md:block"
+      aria-label="Toggle sidebar"
+    >
+      <svg *ngIf="isSidebarOpen" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+      </svg>
+      <svg *ngIf="!isSidebarOpen" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+      </svg>
+    </button>
+  </div>
+
+  <!-- Search Input (Placeholder) -->
+  <div class="p-3" *ngIf="isSidebarOpen">
+    <div class="relative">
+      <span class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+        <!-- Placeholder Search Icon -->
+        <svg class="h-5 w-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path>
+        </svg>
+      </span>
+      <input
+        type="search"
+        placeholder="Search..."
+        class="block w-full rounded-md border-gray-600 bg-gray-700 py-2 pl-10 pr-3 text-sm placeholder-gray-400 focus:border-teal-500 focus:bg-gray-900 focus:text-white focus:outline-none focus:ring-1 focus:ring-teal-500"
+      />
+    </div>
+  </div>
+
+  <!-- Navigation Menu -->
+  <nav class="flex-1 overflow-y-auto overflow-x-hidden p-2" [ngClass]="{ 'custom-scrollbar': isSidebarOpen }">
+    <ul *ngFor="let group of navigationGroups" class="space-y-1 py-1 first:pt-0">
+      <!-- Group Title -->
+      <li *ngIf="group.title && isSidebarOpen" class="px-3 py-2 text-xs font-semibold uppercase tracking-wider text-gray-400">
+        {{ group.title }}
+      </li>
+
+      <!-- Menu Items -->
+      <li *ngFor="let item of group.items">
+        <a
+          [routerLink]="item.children && item.children.length > 0 ? null : item.href"
+          [attr.href]="item.children && item.children.length > 0 ? null : item.href"
+          (click)="item.children && item.children.length > 0 ? toggleExpand(item) : null"
+          class="group flex cursor-pointer items-center rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+          [ngClass]="{
+            'bg-gray-700 text-white': item.isActive && !(item.children && item.children.length > 0 && !item.isExpanded && item.isActive),
+            'bg-gray-900 text-teal-400': item.isActive && item.children && item.children.length > 0 && item.isExpanded
+          }"
+          [attr.aria-expanded]="item.children && item.children.length > 0 ? item.isExpanded : null"
+          [attr.aria-current]="item.isActive && !(item.children && item.children.length > 0) ? 'page' : null"
+        >
+          <!-- Placeholder Icon -->
+          <span class="mr-3 flex h-6 w-6 items-center justify-center">
+            <svg *ngIf="item.icon === 'icon-home'" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" /></svg>
+            <svg *ngIf="item.icon === 'icon-layout-dashboard'" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 10h16M4 14h16M4 18h16" /></svg>
+            <svg *ngIf="item.icon === 'icon-terminal'" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+            <svg *ngIf="item.icon === 'icon-brain'" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9.75A4.95 4.95 0 0112 4.5c1.616 0 3.07.922 3.912 2.288A5.037 5.037 0 0118.5 9c1.381 0 2.5 1.119 2.5 2.5s-1.119 2.5-2.5 2.5a4.868 4.868 0 01-2.312-.59A4.972 4.972 0 0112 16.5c-1.616 0-3.07-.922-3.912-2.288A5.037 5.037 0 015.5 15c-1.381 0-2.5-1.119-2.5-2.5s1.119-2.5 2.5-2.5c.168 0 .332.017.494.05A4.95 4.95 0 019.75 9.506V9.5zM12 14.25a2.25 2.25 0 100-4.5 2.25 2.25 0 000 4.5z" /></svg>
+            <svg *ngIf="item.icon === 'icon-book-open'" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.25a5.5 5.5 0 0111 0v11.5a1.25 1.25 0 01-1.25 1.25H2.25A1.25 1.25 0 011 17.75V6.25a5.5 5.5 0 0111 0z" /><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.25V17.75m0-11.5c-2.036 0-3.873.735-5.25 1.943M12 6.25c2.036 0 3.873.735 5.25 1.943" /></svg>
+            <svg *ngIf="item.icon === 'icon-git-branch'" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6 16a4 4 0 108 0 4 4 0 00-8 0zM6 8a4 4 0 108 0 4 4 0 00-8 0zM12 12V4m0 8v8m4-4H8" /></svg>
+            <svg *ngIf="item.icon === 'icon-settings'" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" /><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+            <svg *ngIf="item.icon === 'icon-server'" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01" /></svg>
+            <svg *ngIf="item.icon === 'icon-atom'" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M10.22 1.05A12.046 12.046 0 0012 21a12.046 12.046 0 001.78-19.95M10.22 1.05C7.288 1.514 5 4.093 5 7.5c0 3.032 1.875 5.594 4.458 6.664M10.22 1.05a2.5 2.5 0 014.564 0M13.78 22.95A12.046 12.046 0 0012 3a12.046 12.046 0 00-1.78 19.95M13.78 22.95C16.712 22.486 19 19.907 19 16.5c0-3.032-1.875-5.594-4.458-6.664M13.78 22.95a2.5 2.5 0 00-4.564 0" /></svg>
+            <!-- Default Icon if not matched -->
+            <svg *ngIf="!item.icon?.startsWith('icon-') && item.icon" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" /></svg>
+          </span>
+
+          <span *ngIf="isSidebarOpen" class="truncate">{{ item.title }}</span>
+
+          <!-- Badge -->
+          <span *ngIf="item.badge && isSidebarOpen" class="ml-auto inline-block rounded-full bg-teal-600 px-2 py-0.5 text-xs font-semibold text-white">
+            {{ item.badge }}
+          </span>
+
+          <!-- Expand/Collapse Arrow for items with children -->
+          <span *ngIf="item.children && item.children.length > 0 && isSidebarOpen" class="ml-auto transition-transform duration-200 ease-in-out" [ngClass]="{ 'rotate-90': item.isExpanded }">
+            <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+            </svg>
+          </span>
+        </a>
+
+        <!-- Sub-menu (children) -->
+        <ul *ngIf="item.children && item.children.length > 0 && item.isExpanded && isSidebarOpen" class="ml-4 mt-1 space-y-1 border-l border-gray-600 pl-3">
+          <li *ngFor="let child of item.children">
+            <a
+              [routerLink]="child.href"
+              routerLinkActive="active-child"
+              class="group flex items-center rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+              [ngClass]="{ 'text-teal-400 font-semibold': child.isActive }"
+              [attr.aria-current]="child.isActive ? 'page' : null"
+            >
+              <!-- Placeholder Child Icon -->
+              <span class="mr-3 flex h-6 w-6 items-center justify-center">
+                <svg *ngIf="child.icon === 'icon-folder-kanban'" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" /></svg>
+                <svg *ngIf="child.icon === 'icon-box'" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" /></svg>
+                <svg *ngIf="child.icon === 'icon-code-square'" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                <svg *ngIf="child.icon === 'icon-file-text'" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
+                <!-- Default Child Icon -->
+                 <svg *ngIf="!child.icon?.startsWith('icon-') && child.icon" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" /></svg>
+              </span>
+              <span class="truncate">{{ child.title }}</span>
+              <span *ngIf="child.badge" class="ml-auto inline-block rounded-full bg-teal-600 px-2 py-0.5 text-xs font-semibold text-white">
+                {{ child.badge }}
+              </span>
+            </a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- Sidebar Footer -->
+  <div class="mt-auto border-t border-gray-700 p-3">
+    <!-- Theme Toggle -->
+    <div class="mb-2 flex items-center justify-center">
+        <button (click)="toggleTheme()" class="rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white" aria-label="Toggle theme">
+            <svg *ngIf="!isDark" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>
+            <svg *ngIf="isDark" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
+        </button>
+    </div>
+    <!-- User Profile Section (Placeholder) -->
+    <div class="flex items-center gap-3 rounded-lg p-2" [ngClass]="isSidebarOpen ? 'bg-gray-700/50' : ''">
+      <img class="h-10 w-10 rounded-full" [src]="currentUser.avatar" alt="User Avatar" />
+      <div *ngIf="isSidebarOpen" class="truncate">
+        <p class="text-sm font-medium text-white">{{ currentUser.name }}</p>
+        <p class="text-xs text-gray-400">{{ currentUser.email }}</p>
+      </div>
+    </div>
+     <!-- Profile & Settings Links (Placeholder) -->
+    <div *ngIf="isSidebarOpen" class="mt-2 space-y-1">
+        <a href="#" class="group flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">
+            <!-- Placeholder Icon -->
+            <svg class="h-5 w-5 text-gray-400 group-hover:text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
+            Profile
+        </a>
+        <a href="#" class="group flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">
+            <!-- Placeholder Icon -->
+            <svg class="h-5 w-5 text-gray-400 group-hover:text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+            Settings
+        </a>
+    </div>
+  </div>
+</aside>
+
+<!-- Mobile Menu Toggle Button (Outside Sidebar) -->
+<button
+  (click)="toggleMobileMenu()"
+  class="fixed left-4 top-4 z-50 rounded-md bg-gray-800 p-2 text-gray-200 md:hidden"
+  aria-label="Open sidebar"
+>
+  <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+  </svg>
+</button> 
