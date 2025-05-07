@@ -23,3 +23,20 @@
         }
     ]
 }
+{
+  "mcpServers": {
+    "vibe-mcp": {
+      "autoApprove": [
+        "start_vibe_session",
+        "generate_more_music",
+        "stop_vibe_session"
+      ],
+      "command": "node",
+      "args": ["/path/to/vibe-mcp/build/index.js"],
+      "env": {
+        "STABLE_AUDIO_KEY": "your_stable_audio_key_here",
+        "PIAPI_KEY": "your_piapi_key_here"
+      }
+    }
+  }
+}
