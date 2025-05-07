@@ -1,0 +1,203 @@
+<div class="cybertron-container">
+  <div class="cybertron-toolbar">
+    <div class="tool-section">
+      <h3>Nodes</h3>
+      <div class="node-types">
+        <button class="node-btn chat-node" (click)="addNode('chat')">Chat Agent</button>
+        <button class="node-btn integration-node" (click)="addNode('integration')">Integration</button>
+        <button class="node-btn scheduler-node" (click)="addNode('scheduler')">Scheduler</button>
+        <button class="node-btn task-node" (click)="addNode('task')">Task</button>
+        <button class="node-btn report-node" (click)="addNode('report')">Report</button>
+      </div>
+      <!-- Pinned Input UI -->
+      <div class="pinned-input-ui">
+        <input type="text" [(ngModel)]="pinnedInputValue" placeholder="Enter input to pin..." />
+        <button class="node-btn pinned-input-node" (click)="pinInput()">Pin Input</button>
+      </div>
+    </div>
+    <div class="tool-section actions">
+      <h3>Actions</h3>
+      <div class="workflow-actions">
+        <button class="action-btn run" (click)="runWorkflow()">
+          <i class="icon-play"></i> Run Workflow
+        </button>
+        <button class="action-btn save" (click)="saveWorkflow()">
+          <i class="icon-save"></i> Save
+        </button>
+        <button class="action-btn export" (click)="exportDialog.showModal()">
+          <i class="icon-export"></i> Export
+        </button>
+        <button class="action-btn import" (click)="importDialog.showModal()">
+          <i class="icon-import"></i> Import
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <div class="canvas-container">
+    <div class="canvas-tools">
+      <button (click)="zoomLevel = Math.min(2, zoomLevel + 0.1); renderGraph()">
+        <i class="icon-zoom-in"></i>
+      </button>
+      <button (click)="zoomLevel = Math.max(0.1, zoomLevel - 0.1); renderGraph()">
+        <i class="icon-zoom-out"></i>
+      </button>
+      <button (click)="panOffset = {x: 0, y: 0}; zoomLevel = 1; renderGraph()">
+        <i class="icon-reset"></i>
+      </button>
+    </div>
+    <canvas #flowCanvas class="flow-canvas"></canvas>
+  </div>
+  
+  <div class="sidebar" *ngIf="selectedNode">
+    <div class="node-editor">
+      <h3>Edit Node: {{ selectedNode.name }}</h3>
+      <div [ngSwitch]="selectedNode.type">
+        <!-- Chat Node Settings -->
+        <div *ngSwitchCase="'chat'" class="node-settings">
+          <div class="form-group">
+            <label>Name</label>
+            <input type="text" [(ngModel)]="selectedNode.name" (change)="saveWorkflow()">
+          </div>
+          <div class="form-group">
+            <label>Model</label>
+            <select [(ngModel)]="selectedNode.config.model" (change)="saveWorkflow()">
+              <option value="gpt-4">GPT-4</option>
+              <option value="gpt-3.5-turbo">GPT-3.5 Turbo</option>
+              <option value="claude-2">Claude 2</option>
+              <option value="mistral-7b">Mistral 7B (Local)</option>
+              <option value="llama2-13b">Llama 2 13B (Local)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>System Prompt</label>
+            <textarea [(ngModel)]="selectedNode.config.systemPrompt" (change)="saveWorkflow()" rows="4"></textarea>
+          </div>
+        </div>
+        
+        <!-- Scheduler Node Settings -->
+        <div *ngSwitchCase="'scheduler'" class="node-settings">
+          <div class="form-group">
+            <label>Name</label>
+            <input type="text" [(ngModel)]="selectedNode.name" (change)="saveWorkflow()">
+          </div>
+          <div class="form-group">
+            <label>Schedule Type</label>
+            <select [(ngModel)]="selectedNode.config.scheduleType" (change)="saveWorkflow()">
+              <option value="cron">CRON</option>
+              <option value="interval">Interval</option>
+              <option value="onetime">One Time</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Expression</label>
+            <input type="text" [(ngModel)]="selectedNode.config.expression" (change)="saveWorkflow()">
+          </div>
+        </div>
+        
+        <!-- Integration Node Settings -->
+        <div *ngSwitchCase="'integration'" class="node-settings">
+          <div class="form-group">
+            <label>Name</label>
+            <input type="text" [(ngModel)]="selectedNode.name" (change)="saveWorkflow()">
+          </div>
+          <div class="form-group">
+            <label>Integration Type</label>
+            <select [(ngModel)]="selectedNode.config.integrationType" (change)="saveWorkflow()">
+              <option value="google-calendar">Google Calendar</option>
+              <option value="notion">Notion</option>
+              <option value="slack">Slack</option>
+              <option value="discord">Discord</option>
+              <option value="twitter">Twitter</option>
+              <option value="webhook">Webhook</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>API Key</label>
+            <input type="password" [(ngModel)]="selectedNode.config.apiKey" (change)="saveWorkflow()">
+          </div>
+        </div>
+        
+        <!-- Report Node Settings -->
+        <div *ngSwitchCase="'report'" class="node-settings">
+          <div class="form-group">
+            <label>Name</label>
+            <input type="text" [(ngModel)]="selectedNode.name" (change)="saveWorkflow()">
+          </div>
+          <div class="form-group">
+            <label>Output Destinations</label>
+            <div class="checkbox-group">
+              <label><input type="checkbox" [(ngModel)]="selectedNode.config.destFile"> File</label>
+              <label><input type="checkbox" [(ngModel)]="selectedNode.config.destEmail"> Email</label>
+              <label><input type="checkbox" [(ngModel)]="selectedNode.config.destWebhook"> Webhook</label>
+              <label><input type="checkbox" [(ngModel)]="selectedNode.config.destDashboard"> Dashboard</label>
+            </div>
+          </div>
+          <div class="form-group" *ngIf="selectedNode.config.destFile">
+            <label>File Path</label>
+            <input type="text" [(ngModel)]="selectedNode.config.filePath" (change)="saveWorkflow()" placeholder="e.g. /reports/output.csv">
+          </div>
+          <div class="form-group" *ngIf="selectedNode.config.destEmail">
+            <label>Email Address</label>
+            <input type="email" [(ngModel)]="selectedNode.config.email" (change)="saveWorkflow()" placeholder="e.g. user@example.com">
+          </div>
+          <div class="form-group" *ngIf="selectedNode.config.destWebhook">
+            <label>Webhook URL</label>
+            <input type="url" [(ngModel)]="selectedNode.config.webhookUrl" (change)="saveWorkflow()" placeholder="e.g. https://example.com/webhook">
+          </div>
+          <div class="form-group" *ngIf="selectedNode.config.destDashboard">
+            <label>Dashboard Section</label>
+            <input type="text" [(ngModel)]="selectedNode.config.dashboardSection" (change)="saveWorkflow()" placeholder="e.g. Analytics">
+          </div>
+          <div class="form-group">
+            <label>Format</label>
+            <select [(ngModel)]="selectedNode.config.format" (change)="saveWorkflow()">
+              <option value="json">JSON</option>
+              <option value="csv">CSV</option>
+              <option value="txt">Text</option>
+            </select>
+          </div>
+        </div>
+        
+        <!-- Default Node Settings -->
+        <div *ngSwitchDefault class="node-settings">
+          <div class="form-group">
+            <label>Name</label>
+            <input type="text" [(ngModel)]="selectedNode.name" (change)="saveWorkflow()">
+          </div>
+          <div class="form-group">
+            <label>Description</label>
+            <textarea [(ngModel)]="selectedNode.description" (change)="saveWorkflow()" rows="3"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="form-actions">
+        <button class="delete-btn" (click)="deleteNode(selectedNode.id)">Delete Node</button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Export Dialog -->
+  <dialog #exportDialog class="modal">
+    <div class="modal-content">
+      <h2>Export Workflow</h2>
+      <textarea readonly rows="10" cols="50">{{ exportWorkflow() }}</textarea>
+      <div class="modal-actions">
+        <button (click)="exportDialog.close()">Close</button>
+        <button (click)="copyToClipboard(exportWorkflow())">Copy to Clipboard</button>
+      </div>
+    </div>
+  </dialog>
+  
+  <!-- Import Dialog -->
+  <dialog #importDialog class="modal">
+    <div class="modal-content">
+      <h2>Import Workflow</h2>
+      <textarea #importData rows="10" cols="50" placeholder="Paste workflow JSON here..."></textarea>
+      <div class="modal-actions">
+        <button (click)="importDialog.close()">Cancel</button>
+        <button (click)="importWorkflow(importData.value); importDialog.close()">Import</button>
+      </div>
+    </div>
+  </dialog>
+</div>
