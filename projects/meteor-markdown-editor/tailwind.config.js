@@ -19,14 +19,7 @@ export default {
         // ... add other semantic colors as needed (secondary, accent, destructive, etc.)
       },
       typography: (theme) => ({
-        // Adjust prose defaults to use CSS variables
-        DEFAULT: {
-          css: {
-            '--tw-prose-body': theme('colors.foreground'),
-            '--tw-prose-headings': theme('colors.foreground'),
-            '--tw-prose-lead': theme('colors.muted-foreground'),
-            '--tw-prose-links': theme('colors.primary'),
-            '--tw-prose-bold': theme('colors.foreground'),
+        // Typography configuration
             '--tw-prose-counters': theme('colors.muted-foreground'),
             '--tw-prose-bullets': theme('colors.muted'),
             '--tw-prose-hr': theme('colors.border'),
