@@ -37,6 +37,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { CompilationOutputComponent } from './components/compilation-output/compilation-output.component';
 import { FileExplorerComponent } from './components/file-explorer/file-explorer.component';
+import { TestDashboardComponent } from './components/test-dashboard/test-dashboard.component';
 
 // Application services
 import { AiService } from './services/ai.service';
@@ -53,7 +54,8 @@ import { ThemeService } from './services/theme.service';
     HeaderComponent,
     FooterComponent,
     CompilationOutputComponent,
-    FileExplorerComponent
+    FileExplorerComponent,
+    TestDashboardComponent
   ],
   imports: [
     BrowserModule,

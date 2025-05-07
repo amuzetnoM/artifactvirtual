@@ -1,0 +1,20 @@
+<div class="test-dashboard-container">
+  <h2>Test Dashboard</h2>
+  <div class="chat-board">
+    <div class="chat-messages">
+      <div *ngFor="let msg of chatMessages" [ngClass]="msg.sender">
+        <span class="sender">{{ msg.sender === 'user' ? 'You' : 'AI' }}:</span>
+        <span class="text">{{ msg.text }}</span>
+      </div>
+    </div>
+    <div class="chat-input-row">
+      <input [(ngModel)]="newMessage" (keyup.enter)="sendMessage()" placeholder="Type a message..." />
+      <button (click)="sendMessage()">Send</button>
+    </div>
+  </div>
+  <div class="multi-model-section">
+    <h3>Multi-Model Integration (Scaffold)</h3>
+    <p>This section will allow you to integrate and test multiple AI models.</p>
+    <!-- Add model selection and integration logic here -->
+  </div>
+</div>
