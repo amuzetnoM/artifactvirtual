@@ -1,0 +1,3 @@
+Vibes MCP server running on stdio
+Error: FFmpeg is not installed or not in PATH
+Please install FFmpeg to enable audio playback: https://ffmpeg.org/download.html
