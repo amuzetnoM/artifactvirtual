@@ -41,8 +41,7 @@ const inputSchema = {
   properties: {
     code: {
       type: "string",
-      description: "The current coding context from the user's session",
-      required: true,
+      description: "The current coding context from the user's session"
     },
     language: {
       type: "string",
@@ -60,6 +59,7 @@ const inputSchema = {
         "The optional mode to generate music in (e.g., 'instrumental', 'lyrical') -- only if the user specifies",
     },
   },
+  required: ["code"]
 };
 
 // Determine the mode from command-line arguments
