@@ -43,16 +43,24 @@ try {
   // Create a temporary input file with the payload
   const tempInputPath = path.join(__dirname, 'temp_input.json');
   const tempOutputPath = path.join(__dirname, 'temp_output.json');
+  const tempDebugPath = path.join(__dirname, 'temp_debug.log');
   
-  fs.writeFileSync(tempInputPath, JSON.stringify({
+  // Create an MCP-compliant request
+  const mcpRequest = {
     jsonrpc: "2.0",
-    method: "callTool",
+    method: "callTool",  // The standard method name for callTool in MCP
     params: {
-      name: "start_vibe_session",
-      arguments: payload
+      name: "start_vibe_session",  // The specific tool name
+      arguments: payload           // The arguments to the tool
     },
     id: 1
-  }));
+  };
+  
+  // Write the request to the debug log
+  fs.writeFileSync(tempDebugPath, `MCP REQUEST:\n${JSON.stringify(mcpRequest, null, 2)}\n\n`, 'utf8');
+  
+  // Write the request to the input file
+  fs.writeFileSync(tempInputPath, JSON.stringify(mcpRequest), 'utf8');
 
   // Define environment variables with API keys
   const envVars = {
@@ -60,49 +68,88 @@ try {
     PIAPI_KEY: "d8064ae83eacf5036e620a00c72bb452fcbbf781092ff91d126f34c83fc018a2"
   };
 
-  // Use a different approach - pipe the output to a separate file for cleaner handling
+  // Use a different approach - pipe the output directly
   console.log("Starting vibe session...");
   
   try {
-    // Execute command and redirect all output to temporary files
-    const command = `node "${mcpServerPath}" < "${tempInputPath}" > "${tempOutputPath}" 2>stderr_log.txt`;
-    execSync(command, { env: { ...process.env, ...envVars } });
+    // Run the MCP server and capture its output directly
+    const command = `node "${mcpServerPath}"`;
+    const childProcess = exec(command, { 
+      env: { ...process.env, ...envVars } 
+    });
     
-    // Read the output file which should contain only the JSON response
-    const output = fs.readFileSync(tempOutputPath, 'utf8');
+    // Send input to the child process
+    childProcess.stdin.write(JSON.stringify(mcpRequest) + '\n');
+    childProcess.stdin.end();
     
-    // Try to find valid JSON in the output
-    let jsonStartIndex = output.indexOf('{');
-    let jsonEndIndex = output.lastIndexOf('}');
+    // Collect output
+    let stdout = '';
+    let stderr = '';
     
-    if (jsonStartIndex !== -1 && jsonEndIndex !== -1) {
-      const jsonString = output.substring(jsonStartIndex, jsonEndIndex + 1);
-      const result = JSON.parse(jsonString);
+    childProcess.stdout.on('data', (data) => {
+      stdout += data;
+      // Append to debug log
+      fs.appendFileSync(tempDebugPath, `STDOUT DATA: ${data}\n`, 'utf8');
       
-      if (result.result && result.result.content) {
-        result.result.content.forEach(item => {
-          console.log(item.text);
-        });
-      } else if (result.error) {
-        console.error(`Error from MCP server: ${JSON.stringify(result.error)}`);
+      // Try to parse JSON as it comes
+      const jsonMatch = data.match(/{.*}/s);
+      if (jsonMatch) {
+        try {
+          const jsonData = JSON.parse(jsonMatch[0]);
+          if (jsonData.result && jsonData.result.content) {
+            jsonData.result.content.forEach(item => {
+              if (item.text) {
+                console.log(item.text);
+              }
+            });
+          }
+        } catch (e) {
+          // Wait for more data, incomplete JSON
+        }
       }
-    } else {
-      console.error("No valid JSON response found in output");
-      console.error("Raw output:", output);
-    }
+    });
+    
+    childProcess.stderr.on('data', (data) => {
+      stderr += data;
+      fs.appendFileSync(tempDebugPath, `STDERR DATA: ${data}\n`, 'utf8');
+    });
+    
+    childProcess.on('close', (code) => {
+      console.log(`MCP server exited with code ${code}`);
+      
+      if (code !== 0) {
+        console.error('MCP server exited with an error');
+        console.error('Check temp_debug.log for details');
+      } else {
+        // Try to parse the complete output
+        try {
+          const jsonMatch = stdout.match(/{.*}/s);
+          if (jsonMatch) {
+            const result = JSON.parse(jsonMatch[0]);
+            if (result.result && result.result.content) {
+              console.log('Vibe session response:');
+              result.result.content.forEach(item => {
+                console.log(item.text);
+              });
+            } else if (result.error) {
+              console.error(`Error from MCP server: ${JSON.stringify(result.error)}`);
+            }
+          } else {
+            console.error("No valid JSON found in output");
+          }
+        } catch (parseError) {
+          console.error(`Error parsing MCP server output: ${parseError.message}`);
+          console.error('Check temp_debug.log for the complete output');
+        }
+      }
+      
+      // Write final output to debug log
+      fs.appendFileSync(tempDebugPath, `\nFINAL STDOUT:\n${stdout}\n\nFINAL STDERR:\n${stderr}`, 'utf8');
+    });
   } catch (execError) {
     console.error(`Error executing MCP server:`, execError.message);
-    // If there was an error, try to read stderr for more info
-    try {
-      const stderrContent = fs.readFileSync('stderr_log.txt', 'utf8');
-      console.error("Error details:", stderrContent);
-    } catch(e) {
-      // Ignore if stderr log can't be read
-    }
-  } finally {
-    // Clean up temporary files
-    try { fs.unlinkSync(tempInputPath); } catch (e) {}
-    try { fs.unlinkSync(tempOutputPath); } catch (e) {}
+    // Write error to debug log
+    fs.appendFileSync(tempDebugPath, `EXEC ERROR: ${execError.stack || execError.message}\n`, 'utf8');
   }
   
 } catch (error) {
