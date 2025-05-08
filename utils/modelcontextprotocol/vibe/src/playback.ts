@@ -3,7 +3,77 @@ import ffmpeg from "fluent-ffmpeg";
 import { Readable, Transform } from "stream";
 import fs from "fs";
 import path from "path";
-import { URL } from "url";
+import { URL, fileURLToPath } from "url";
+
+// Get the directory name equivalent for ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Enhanced FFmpeg path resolution - try multiple locations
+const tryFfmpegPaths = () => {
+  // Array of possible locations to check for ffmpeg.exe
+  const possiblePaths = [
+    // Try relative to the build directory
+    path.join(__dirname, '..', 'ffmpeg', 'bin', 'ffmpeg.exe'),
+    // Try direct absolute path
+    'q:\\artifactvirtual\\utils\\modelcontextprotocol\\vibe\\ffmpeg\\bin\\ffmpeg.exe',
+    // Try system-installed FFmpeg if in PATH
+    'ffmpeg.exe',
+    // Try in the vibe root directory
+    path.join(__dirname, '..', '..', 'ffmpeg', 'bin', 'ffmpeg.exe'),
+    // Try with just filename in case PATH is correctly set
+    'ffmpeg'
+  ];
+
+  console.log('Searching for FFmpeg in the following locations:');
+  
+  for (const ffmpegPath of possiblePaths) {
+    try {
+      console.log(`- Checking: ${ffmpegPath}`);
+      
+      // For absolute paths or executable names, check existence
+      if (path.isAbsolute(ffmpegPath) || !ffmpegPath.includes(path.sep)) {
+        if (fs.existsSync(ffmpegPath)) {
+          console.log(`✓ Found FFmpeg at: ${ffmpegPath}`);
+          return ffmpegPath;
+        }
+      }
+      // For relative paths, we can try to stat them directly
+      else {
+        try {
+          fs.accessSync(ffmpegPath, fs.constants.F_OK);
+          console.log(`✓ Found FFmpeg at: ${ffmpegPath}`);
+          return ffmpegPath;
+        } catch (e) {
+          // Path doesn't exist or isn't accessible
+        }
+      }
+    } catch (err: any) {
+      console.log(`  Error checking path: ${err?.message || 'Unknown error'}`);
+    }
+  }
+  
+  console.error('× FFmpeg not found in any of the expected locations');
+  return null;
+};
+
+// Find and set FFmpeg path
+const ffmpegExecutable = tryFfmpegPaths();
+if (ffmpegExecutable) {
+  console.log(`Setting FFmpeg path to: ${ffmpegExecutable}`);
+  ffmpeg.setFfmpegPath(ffmpegExecutable);
+  
+  // Also set ffprobe path if available
+  const ffprobePath = ffmpegExecutable.replace('ffmpeg.exe', 'ffprobe.exe');
+  try {
+    if (fs.existsSync(ffprobePath)) {
+      console.log(`Setting FFprobe path to: ${ffprobePath}`);
+      ffmpeg.setFfprobePath(ffprobePath);
+    }
+  } catch (e: any) {
+    console.log(`Could not set FFprobe path: ${e?.message || 'Unknown error'}`);
+  }
+}
 
 /**
  * Custom transform stream for volume control

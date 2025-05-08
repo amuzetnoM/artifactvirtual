@@ -16,6 +16,7 @@
     "@modelcontextprotocol/sdk": "^1.11.0",
     "@swimlane/ngx-charts": "^22.0.0-alpha.1",
     "apexcharts": "^4.7.0",
+    "ffmpeg": "^0.0.4",
     "highlight.js": "^11.11.1",
     "lucide-react": "^0.506.0",
     "ng-apexcharts": "^1.15.0",
