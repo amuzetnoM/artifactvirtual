@@ -1,0 +1,17 @@
+{
+    "mcpServers": {
+      "vibe-mcp": {
+        "autoApprove": [
+          "start_vibe_session",
+          "generate_more_music",
+          "stop_vibe_session"
+        ],
+        "command": "node",
+        "args": ["/path/to/vibe-mcp/build/index.js"],
+        "env": {
+          "STABLE_AUDIO_KEY": "sk-gxYxuwTk5FqyBopttOKxOV21J9OTW2ERt8fUYFjmGSESbL7u",
+          "PIAPI_KEY": "d8064ae83eacf5036e620a00c72bb452fcbbf781092ff91d126f34c83fc018a2"
+        }
+      }
+    }
+  }
