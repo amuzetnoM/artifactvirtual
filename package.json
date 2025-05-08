@@ -19,6 +19,7 @@
     "ffmpeg": "^0.0.4",
     "highlight.js": "^11.11.1",
     "lucide-react": "^0.506.0",
+    "n8n": "^1.91.3",
     "ng-apexcharts": "^1.15.0",
     "openai": "^4.52.7",
     "react": "^18.3.1",
