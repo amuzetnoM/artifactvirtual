@@ -1,6 +1,6 @@
 ---
 title: "Singularity: The Origin of Thought"
-date: "2023-10-03T00:00:00Z"
+pubDate: "2023-10-03"
 tags: ["manifesto", "philosophy", "singularity", "metaphysics", "epistemology"]
 description: "A profound exploration of the foundations of thought, reality, and knowledge—delving into paradoxes, metaphysical dilemmas, and the epistemological labyrinths that shape existence."
 ---

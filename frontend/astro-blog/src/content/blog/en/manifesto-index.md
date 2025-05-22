@@ -1,6 +1,6 @@
 ---
 title: "Continuum"
-pubDate: "2023-10-02T00:00:00Z"
+pubDate: "2023-10-02"
 tags: ["manifesto", "philosophy", "principles", "index"]
 description: "A navigational index to the manifesto of existential discovery, mapping the journey through the labyrinth of thought and being."
 ---

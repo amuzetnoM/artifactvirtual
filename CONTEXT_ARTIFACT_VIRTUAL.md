@@ -130,6 +130,24 @@ Artifact Virtual prioritizes exhaustive documentation and knowledge sharing:
 
 ---
 
+## Bootcamp Orchestrator Additions (2025-05-22)
+
+- Added `bootcamp/LLM_SYSTEM_MANUAL.md`: A comprehensive manual for LLMs/agents to understand and reason about the Cockpit Orchestrator, including full administrator command reference, usage patterns, and best practices.
+- Added `bootcamp/COMMANDS_COMPILATION.md`: A compiled list of all supported commands and usage examples for quick reference and expansion.
+- Enhanced `bootcamp/orchestrator.py`:
+  - Advanced command mapping and reasoning logic for natural language to PowerShell/CMD translation.
+  - Multi-step scripting and script generation for complex tasks.
+  - Integration with the command manual for LLM learning and suggestions.
+- Updated `bootcamp/README.md`: Thorough documentation of the Cockpit Orchestrator system, features, usage, and extensibility.
+- The system now supports:
+  - Full administrator-level command execution (file, user, system, network, registry, scripting, etc.)
+  - Chat-based interface for interactive, conversational automation
+  - Task queue and dependency management
+  - Script generation and execution for batch/multi-step tasks
+  - Error handling and feedback
+
+---
+
 ## Notes
 
 - This file is the authoritative source of truth for Artifact Virtual workspace context

@@ -1,479 +1,123 @@
-![Artifact Badge](https://img.shields.io/badge/ARTIFACT-black?style=for-the-badge&logoColor=white)![Virtual](https://img.shields.io/badge/VIRTUAL-black?style=for-the-badge&labelColor=ffffff&color=ffffff)
+<p align="center">
+  <a href="" rel="noopener">
+ <img src="https://i.imgur.com/AZ2iWek.png" alt="Project logo"></a>
+</p>
+<h3 align="center">codespaces-models</h3>
 
-![BUILT ON](https://img.shields.io/badge/BUILT%20ON-black?style=for-the-badge&logoColor=white)![NVIDIA](https://img.shields.io/badge/NVIDIA-76B900?style=for-the-badge&logo=nvidia&logoColor=white)
+<div align="center">
 
-## PROJECT OVERVIEW
-> REINVENTING THE WHEEL
-[![Structure](https://images.repography.com/65812436/amuzetnoM/artifactvirtual/structure/SJp6R69WrCFUKrdVsKRRBIuvxfHzNOHqTqPxJTTWbEI/nKcYDqDAFn_hMpjGzGyOlLwF4HNur6pC8lNj6Lfjl5A_table.svg)](https://github.com/amuzetnoM/artifactvirtual)
+[![Hackathon](https://img.shields.io/badge/hackathon-name-orange.svg)](http://hackathon.url.com)
+[![Status](https://img.shields.io/badge/status-active-success.svg)]()
+[![GitHub Issues](https://img.shields.io/github/issues/kylelobo/The-Documentation-Compendium.svg)](https://github.com/kylelobo/The-Documentation-Compendium/issues)
+[![GitHub Pull Requests](https://img.shields.io/github/issues-pr/kylelobo/The-Documentation-Compendium.svg)](https://github.com/kylelobo/The-Documentation-Compendium/pulls)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE.md)
 
-
-
-
-
-    version: 2.0
-    system: Linux
-    status: funtional, wip
-
-Artifact Virtual is a sovereign platform for AI, blockchain, and Web3 development—open-source, modular, and built for the future. Designed for developers, researchers, and creators, Artifact provides a progressive development engine with advanced features that evolve with your needs. At its core, it seamlessly integrates artificial intelligence, decentralized infrastructure, and privacy-first design to enable the creation of autonomous, trustless, and innovative digital systems. Artifact empowers you to build with freedom, shape resilient technologies, and own your digital sovereignty.
-
-## STRUCTURE
-[![Structure](https://images.repography.com/65812436/amuzetnoM/artifactvirtual/structure/SJp6R69WrCFUKrdVsKRRBIuvxfHzNOHqTqPxJTTWbEI/hCSk__WQ-_BHhJxy3OqD1ZOgbLV4GoLLfbwh3AIdIYM_table.svg)](https://github.com/amuzetnoM/artifactvirtual)
----
-
-
-
-
-## QUICKSTART
-
-**Workspace Structure Overview**
-
-- `.startup/` — Bootstrap scripts and setup
-- `devcontainer/` — VS Code DevContainer configuration
-- `datasets/` — Knowledge Foundations
-- `cookbooks/` — Patterns & Recipes
-- `utils/` — Core Utilities
-- `projects/` — Apps & Pipelines
-  - `bedrock/` — Comprehensive blockchain development environment
-- `samples/` — Provider Demos
-- `docs/` — Guides & Resources
-
-**Typical Workflow:**
-
-1. Start with `.startup` to bootstrap your environment.
-2. Use the DevContainer for a pre-configured VS Code setup.
-3. Develop and test in `projects/`, using resources from `datasets/`, `cookbooks/`, and `utils/`.
-4. Explore `samples/` for provider demos.
-5. Reference `docs/` for guides and documentation.
-6. Use `projects/bedrock` for blockchain development with standardized tools and practices.
-
-### Automated Setup
-
-```bash
-python startup.py
-```
-- Checks system, installs dependencies, boots core services, and welcomes you interactively.
-- See [.startup/readme.md](.startup/readme.md) for details.
-
-### DevContainer (Recommended for VS Code)
-
-1. Open in VS Code, install Remote - Containers extension
-2. "Reopen in Container" when prompted
-3. Wait for the environment to build and initialize
-- See [devcontainer/README.md](devcontainer/README.md) for advanced usage
+</div>
 
 ---
 
-### Project Navigation
+<p align="center"> Few lines describing your project.
+    <br> 
+</p>
 
-- [Getting Started Guide](docs/gettingstarted.md)
-- [Troubleshooting Guide](docs/troubleshooting.md)
-- [Resources & References](docs/resources.md)
-- [Cookbooks](cookbooks/README.md)
-- [Datasets](datasets/README.md)
-- [Samples](samples/README.md)
-- [Utilities](utils/README.md)
-- [Projects](projects/)
-  - [Bedrock](projects/bedrock/README.md)
-  - [Cybertron Flow](projects/cybertron-flow/README.md)
-- [Research & Philosophy](backup/research/index.mdx)
-- [Contributing](CONTRIBUTING.md)
-- [License](LICENSE)
+## 📝 Table of Contents
 
-## GETTING STARTED
+- [Problem Statement](#problem_statement)
+- [Idea / Solution](#idea)
+- [Dependencies / Limitations](#limitations)
+- [Future Scope](#future_scope)
+- [Setting up a local environment](#getting_started)
+- [Usage](#usage)
+- [Technology Stack](#tech_stack)
+- [Contributing](../CONTRIBUTING.md)
+- [Authors](#authors)
+- [Acknowledgments](#acknowledgments)
 
-This guide will help you set up your environment and get started with this comprehensive AI, blockchain, and Web3 development workspace.
+## 🧐 Problem Statement <a name = "problem_statement"></a>
 
-## Table of Contents
+It is useful to design and follow a specific format when writing a problem statement. While there are several options
+for doing this, the following is a simple and straightforward template often used in Business Analysis to maintain
+focus on defining the problem.
 
-1. [Prerequisites](#prerequisites)
-2. [Installation](#installation)
-   - [Automated Setup](#automated-setup)
-   - [Manual Setup](#manual-setup)
-3. [Development Environment](#development-environment)
-   - [VS Code DevContainer](#vs-code-devcontainer)
-   - [Local Development](#local-development)
-4. [Core Components](#core-components)
-   - [Debugging & Diagnostics](#debugging--diagnostics)
-   - [LLM Integration](#llm-integration)
-   - [Blockchain & Hardhat](#blockchain--hardhat)
-   - [Knowledge Foundations](#knowledge-foundations)
-   - [Bedrock Blockchain Environment](#bedrock-blockchain-environment)
-5. [First Steps](#first-steps)
-   - [Running Your First Model](#running-your-first-model)
-   - [Using the Oracle CLI](#using-the-oracle-cli)
-   - [Model Quantization with AutoRound](#model-quantization-with-autoround)
-   - [Deploying a Smart Contract](#deploying-a-smart-contract)
-   - [Building with Bedrock](#building-with-bedrock)
-6. [Next Steps](#next-steps)
+- IDEAL: This section is used to describe the desired or “to be” state of the process or product. At large, this section
+  should illustrate what the expected environment would look like once the solution is implemented.
+- REALITY: This section is used to describe the current or “as is” state of the process or product.
+- CONSEQUENCES: This section is used to describe the impacts on the business if the problem is not fixed or improved upon.
+  This includes costs associated with loss of money, time, productivity, competitive advantage, and so forth.
 
-## PREREQUISITES
+Following this format will result in a workable document that can be used to understand the problem and elicit
+requirements that will lead to a winning solution.
 
-Before starting, ensure you have the following installed:
+## 💡 Idea / Solution <a name = "idea"></a>
 
-- **Python 3.11+** and **pip**
-- **Node.js 20+** and **npm** (required for JS samples and documentation site)
-- **Git** and **Git LFS** (for version control and large file management)
-- **curl** (for API samples)
-- **CMake** (required for building some dependencies like sentencepiece)
-- **Hardhat** (for blockchain development)
-- **Rust** with `wasm32-unknown-unknown` target (for multi-chain blockchain development with Bedrock)
+This section is used to describe potential solutions.
 
-For GPU acceleration (optional but recommended):
+Once the ideal, reality, and consequences sections have been
+completed, and understood, it becomes easier to provide a solution for solving the problem.
 
-- **CUDA Toolkit 11.8+** for NVIDIA GPUs
-- **ROCm** for AMD GPUs
-- **OneAPI** for Intel GPUs
+## ⛓️ Dependencies / Limitations <a name = "limitations"></a>
 
-## INSTALLATION
+- What are the dependencies of your project?
+- Describe each limitation in detailed but concise terms
+- Explain why each limitation exists
+- Provide the reasons why each limitation could not be overcome using the method(s) chosen to acquire.
+- Assess the impact of each limitation in relation to the overall findings and conclusions of your project, and if
+  appropriate, describe how these limitations could point to the need for further research.
 
-### Automated Setup
+## 🚀 Future Scope <a name = "future_scope"></a>
 
-The fastest way to get started is with our automated setup script:
+Write about what you could not develop during the course of the Hackathon; and about what your project can achieve
+in the future.
 
-```bash
-python startup.py
+## 🏁 Getting Started <a name = "getting_started"></a>
+
+These instructions will get you a copy of the project up and running on your local machine for development
+and testing purposes. See [deployment](#deployment) for notes on how to deploy the project on a live system.
+
+### Prerequisites
+
+What things you need to install the software and how to install them.
+
+```
+Give examples
 ```
 
-This script will:
+### Installing
 
-1. Check your system for required dependencies
-2. Create a Python virtual environment (`.venv`)
-3. Install all Python dependencies
-4. Set up Ollama with required models
-5. Initialize AutoRound for model quantization
-6. Prepare the development environment
-7. Set up Hardhat and blockchain templates
+A step by step series of examples that tell you how to get a development env running.
 
-### Manual Setup
+Say what the step will be
 
-If you prefer to set things up manually or the automated setup encounters issues:
-
-1. Create a Python virtual environment:
-
-   ```bash
-   python -m venv .venv
-
-   # Activate on Windows
-   .venv\Scripts\activate
-
-   # Activate on macOS/Linux
-   source .venv/bin/activate
-   ```
-
-2. Install Python dependencies:
-
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-3. Install Node.js dependencies (for documentation):
-
-   ```bash
-   cd frontend/celestial-chaos
-   npm install
-   cd ../..
-   ```
-
-4. Install Hardhat (for blockchain development):
-
-   ```bash
-   npm install --global hardhat
-   ```
-
-5. Install Ollama (optional but recommended):
-   - [Ollama installation instructions](https://ollama.ai/download)
-   - After installation, pull the required models:
-
-   ```bash
-   ollama pull phi4-mini
-   ollama pull gemma3
-   ```
-
-## DEVELOPMENT ENVIRONMENT
-
-### VS Code DevContainer
-
-For the most seamless setup, we recommend using VS Code with our pre-configured DevContainer:
-
-1. Install [Visual Studio Code](https://code.visualstudio.com/)
-2. Install the [Remote - Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
-3. Open the ArtifactVirtual folder in VS Code
-4. When prompted, click "Reopen in Container"
-5. The container will be built and configured automatically
-
-The DevContainer includes:
-
-- All required Python packages
-- Node.js and npm
-- Hardhat and blockchain tools
-- CUDA support for GPU acceleration
-- PostgreSQL database
-- Pre-configured extensions
-
-### Local Development
-
-If you prefer local development:
-
-1. Activate the virtual environment:
-
-   ```bash
-   # On Windows
-   .venv\Scripts\activate
-
-   # On macOS/Linux
-   source .venv/bin/activate
-   ```
-
-2. Run the debugging and diagnostic tool to verify your setup:
-
-   ```bash
-   python utils/debugdiag/main.py project status
-   ```
-
-## CORE COMPONENTS
-
-### Debugging & Diagnostics
-
-The `debugdiag` CLI tool is your primary diagnostic and bootstrap utility:
-
-```bash
-# Show current system status
-python utils/debugdiag/main.py project status
-
-# View log entries
-python utils/debugdiag/main.py logs show
-
-# Check connectivity to a host
-python utils/debugdiag/main.py diagnose ping --host github.com
-
-# Use the debugdiag utility to install or check packages
-python utils/debugdiag/main.py diagnose packages
+```
+Give the example
 ```
 
-### LLM Integration
+And repeat
 
-Artifact Virtual integrates with multiple LLM frameworks:
-
-1. **Ollama**: Local LLM server with multiple models
-
-   ```bash
-   # Check available models
-   ollama list
-
-   # Pull a new model
-   ollama pull llava
-   ```
-
-2. **AutoRound**: Advanced model quantization
-
-   ```bash
-   # Quantize a model to 4 bits
-   python -m auto_round --model Qwen/Qwen3-0.6B --bits 4 --group_size 128
-   ```
-
-3. **Model Context Protocol (MCP)**: Standardized context provision
-
-   ```bash
-   # Run an MCP server
-   cd utils/modelcontextprotocol/examples/servers/simple-prompt
-   python server.py
-   ```
-
-### Blockchain & Hardhat
-
-Artifact Virtual now features robust blockchain and Web3 tooling:
-
-- **Hardhat**: Develop, test, and deploy smart contracts
-
-  ```bash
-  # Initialize a new Hardhat project
-  npx hardhat init
-
-  # Compile contracts
-  npx hardhat compile
-
-  # Run tests
-  npx hardhat test
-
-  # Deploy to local network
-  npx hardhat run scripts/deploy.js --network localhost
-  ```
-
-- **Smart Contract Templates**: Find ready-to-use templates in `projects/blockchain/contracts/`
-- **Decentralized Storage**: Integrate with IPFS and Filecoin (see upcoming modules)
-- **zk-SNARKs & Privacy**: Privacy-preserving modules coming soon
-
-### Bedrock Blockchain Environment
-
-The Bedrock environment offers a comprehensive framework for blockchain development across multiple chains and languages:
-
-- **Multi-chain support**: Ethereum, Solana, Polkadot, Cardano, and more
-- **Cross-language development**: Work with Solidity, Rust, TypeScript, Vyper, Cairo, and Plutus
-- **Complete tooling**: Integrated development, testing, and deployment workflows
-- **Security-focused**: Built-in security patterns and automated tools
-
-```bash
-# Navigate to the Bedrock directory
-cd projects/bedrock
-
-# Install required dependencies
-npm install
-
-# Compile Ethereum contracts
-npm run compile
-
-# Run tests for your blockchain components
-npm test
-
-# Deploy to a local blockchain for testing
-npm run deploy:local
+```
+until finished
 ```
 
-See the [Bedrock README](projects/bedrock/README.md) for detailed documentation on the multi-chain development environment.
+## 🎈 Usage <a name="usage"></a>
 
-### Knowledge Foundations
+Add notes about how to use the system.
 
-Explore the curated datasets and knowledge libraries:
+## ⛏️ Built With <a name = "tech_stack"></a>
 
-- `datasets/library/index.md`
-- `datasets/core_facts.json`
-- `datasets/reasoning_patterns.json`
-- `datasets/language_primitives.json`
-- `datasets/temporal_events.json`
+- [MongoDB](https://www.mongodb.com/) - Database
+- [Express](https://expressjs.com/) - Server Framework
+- [VueJs](https://vuejs.org/) - Web Framework
+- [NodeJs](https://nodejs.org/en/) - Server Environment
 
-### Cybertron Flow Workflow Automation
+## ✍️ Authors <a name = "authors"></a>
 
-Cybertron Flow is a visual workflow automation platform that enables you to design and execute complex process flows:
+- [@kylelobo](https://github.com/kylelobo) - Idea & Initial work
 
-```bash
-# Navigate to the Cybertron Flow project
-cd projects/cybertron-flow
+See also the list of [contributors](https://github.com/kylelobo/The-Documentation-Compendium/contributors)
+who participated in this project.
 
-# Install dependencies
-npm install
+## 🎉 Acknowledgments <a name = "acknowledgments"></a>
 
-# Start the development server
-ng serve
-
-# Build for production
-ng build --prod
-```
-
-Key features:
-- Visual node-based workflow designer
-- Multiple node types: Chat Agent, Integration, Scheduler, Task, Report, and Pinned Input
-- Secure script execution in sandboxed environments
-- Real-time workflow execution and monitoring
-- Import/export and sharing capabilities
-
-For more information, see [projects/cybertron-flow/README.md](projects/cybertron-flow/README.md)
-
-## FIRST STEPS
-
-### Running Your First Model
-
-Let's start by running a simple interaction with a model:
-
-```bash
-# Start the Oracle CLI
-python oracles/oracle_cli.py
-
-# Select option 1 (Chat with phi4-mini)
-# Enter a prompt, e.g., "Tell me about artificial intelligence"
-```
-
-### Using the Oracle CLI
-
-The Oracle CLI provides a multimodal LLM playground:
-
-1. Try chaining models together:
-   - Select option 4 (Chain: phi4-mini ➔ gemma3)
-   - Enter a complex query that benefits from multiple perspectives
-
-2. Try multimodal processing:
-   - Select option 5 (Multimodal: LLaVA ➔ Gemma-3)
-   - Provide an image and a prompt about the image
-
-### Model Quantization with AutoRound
-
-Experience the power of AutoRound by quantizing a model:
-
-```bash
-# Navigate to utils/auto-round
-cd utils/auto-round
-
-# Ensure dependencies are installed
-pip install -e .
-
-# Quantize a model (this will download the model if not already present)
-auto-round --model microsoft/phi-2 --bits 4 --group_size 128 --format auto_round
-```
-
-### Deploying a Smart Contract
-
-Get started with blockchain development:
-
-```bash
-# Initialize Hardhat in your project directory
-npx hardhat init
-
-# Compile and deploy a sample contract
-npx hardhat compile
-npx hardhat run scripts/deploy.js --network localhost
-```
-
-### Building with Bedrock
-
-Leverage the Bedrock environment for advanced blockchain development:
-
-```bash
-# Navigate to the Bedrock directory
-cd projects/bedrock
-
-# Review available templates and examples
-ls contracts/
-
-# Initialize a new cross-chain project
-npm run init:project myproject
-
-# Develop with consistent patterns across chains
-npm run dev
-```
-
-The Bedrock environment provides standardized patterns, security best practices, and cross-chain compatibility to accelerate your blockchain development.
-
-## NEXT STEPS
-
-Now that you've set up Artifact Virtual and explored some core components, here are some suggestions for next steps:
-
-1. **Explore the Samples**: Check out the various code samples in the `samples` folder for different LLM providers and blockchain contracts.
-2. **Build with MCP**: Try creating your own MCP server that exposes custom resources and tools.
-3. **Create a Quantized LLM Pipeline**: Combine AutoRound's quantization capabilities with Ollama for efficient LLM deployment.
-4. **Develop Smart Contracts**: Use Hardhat and our templates to build and deploy your own contracts.
-5. **Build Multi-chain Applications**: Use the Bedrock environment to develop applications that work across multiple blockchain platforms.
-6. **Contribute**: Explore the codebase and consider contributing to the project.
-7. **Documentation**: Browse the comprehensive documentation site:
-
-   ```bash
-   cd frontend/celestial-chaos
-   npm run dev
-   # Open http://localhost:4321 in your browser
-   ```
-
-For troubleshooting and additional resources, refer to the [Troubleshooting](docs/troubleshooting.md) and [Resources](docs/resources.md) guides.
-
----
-
-> **Note**: This document is a work in progress. Please check back for updates and additional content. If you have suggestions or feedback, feel free to open an issue or pull request on GitHub. Your contributions are welcome! Please ensure to follow the contribution guidelines in the `CONTRIBUTING.md` file before making a contribution. Thank you for your support!
-
-## Recent activity [![Time period](https://images.repography.com/65812436/amuzetnoM/artifactvirtual/recent-activity/SJp6R69WrCFUKrdVsKRRBIuvxfHzNOHqTqPxJTTWbEI/3FqPXJrWePmeVRPP64xrk14PrrGM1LO3kWs9T11pYjA_badge.svg)](https://repography.com)
-[![Timeline graph](https://images.repography.com/65812436/amuzetnoM/artifactvirtual/recent-activity/SJp6R69WrCFUKrdVsKRRBIuvxfHzNOHqTqPxJTTWbEI/3FqPXJrWePmeVRPP64xrk14PrrGM1LO3kWs9T11pYjA_timeline.svg)](https://github.com/amuzetnoM/artifactvirtual/commits)
-[![Pull request status graph](https://images.repography.com/65812436/amuzetnoM/artifactvirtual/recent-activity/SJp6R69WrCFUKrdVsKRRBIuvxfHzNOHqTqPxJTTWbEI/3FqPXJrWePmeVRPP64xrk14PrrGM1LO3kWs9T11pYjA_prs.svg)](https://github.com/amuzetnoM/artifactvirtual/pulls)
-[![Trending topics](https://images.repography.com/65812436/amuzetnoM/artifactvirtual/recent-activity/SJp6R69WrCFUKrdVsKRRBIuvxfHzNOHqTqPxJTTWbEI/3FqPXJrWePmeVRPP64xrk14PrrGM1LO3kWs9T11pYjA_words.svg)](https://github.com/amuzetnoM/artifactvirtual/commits)
-[![Top contributors](https://images.repography.com/65812436/amuzetnoM/artifactvirtual/top-contributors/SJp6R69WrCFUKrdVsKRRBIuvxfHzNOHqTqPxJTTWbEI/3FqPXJrWePmeVRPP64xrk14PrrGM1LO3kWs9T11pYjA_table.svg)](https://github.com/amuzetnoM/artifactvirtual/graphs/contributors)
-
-
-
-
-
-![Artifact Badge](https://img.shields.io/badge/commit.-black?style=for-the-badge&logoColor=white)
+- Hat tip to anyone whose code was used
+- Inspiration
+- References

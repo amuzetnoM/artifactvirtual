@@ -1,7 +1,7 @@
 ---
 title: 'Welcome to Artifact Virtual'
 description: 'Structured Knowledge Systems, AI and Web3 Ecosystems, Hardhat Blockchain Development and Tools that Empower Creation.'
-pubDate: '2025-05-03'
+pubDate: "2025-05-03"
 heroImage: ''
 ---
 

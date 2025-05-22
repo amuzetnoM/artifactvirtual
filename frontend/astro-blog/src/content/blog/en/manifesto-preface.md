@@ -1,6 +1,6 @@
 ---
 title: "Preface: The Tremor"
-date: "2023-10-02T00:00:00Z"
+pubDate: "2023-10-02"
 tags: ["manifesto", "philosophy", "introduction", "preface"]
 description: "An introduction to the manifesto, questioning reality and embracing the unknown journey of self-discovery."
 ---
