@@ -70,3 +70,5 @@ cookbooks/python/openai/hallucination_results.csv
 *.bak
 *.tmp
 *.temp
+.devcontainer/
+.github/

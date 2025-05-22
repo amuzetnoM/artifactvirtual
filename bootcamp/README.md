@@ -76,6 +76,15 @@ The Cockpit Orchestrator is an advanced, modular system designed to empower LLMs
 ## Contributing
 See `CONTRIBUTING.md` in the project root for guidelines on contributing to the Cockpit Orchestrator Bootcamp.
 
+## [2025-05-22] Llama-3, DSPy, and Persistent Memory Integration
+- Llama-3 (via Ollama) is now the default LLM for logic, reasoning, and chat. To use, run: `ollama pull llama3`.
+- DSPy is installed and integrated for advanced intent parsing and logic translation.
+- Persistent memory is provided by PostgreSQL + pgvector, with fail-safe management via pm2.
+- The orchestrator is now modular, robust, and ready for advanced system automation and reasoning.
+- The full LLM system manual is used as the system prompt for the LLM, ensuring it understands all system commands and logic.
+- `.env` file is used to manage the system prompt externally for easy updates.
+- See `bootcamp/LLM_SYSTEM_MANUAL.md` for the full system prompt and command reference.
+
 ---
 
 For further details, see the architecture and checklist markdown files in this directory.
