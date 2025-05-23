@@ -359,4 +359,60 @@ If you're still experiencing issues:
 
 ---
 
+## Troubleshooting: Workspace RAG, Web Chat, and Voice/Multimodal
+
+### Web Chat Not Starting
+- Ensure all dependencies are installed:
+  ```powershell
+  python -m pip install -r requirements.txt
+  ```
+- Check for missing packages: `gradio`, `sentence-transformers`, and any TTS/STT dependencies
+- Run: `python web_chat_server.py` and check for errors in the terminal
+
+### TTS/STT Not Working or Not Detected
+- Ensure `utils_tts.py` and `utils_stt.py` are present in the workspace root
+- **Supported TTS Providers:**
+  - [Coqui TTS](https://github.com/coqui-ai/TTS)
+  - [HuggingFace Transformers TTS](https://huggingface.co/docs/transformers/main/en/task_summary#text-to-speech)
+  - [TorchAudio TTS](https://pytorch.org/audio/stable/index.html)
+  - [OpenAI TTS](https://platform.openai.com/docs/guides/text-to-speech)
+  - Add your own: Implement a compatible `TTSProcessor` in `utils_tts.py`
+- **Supported STT Providers:**
+  - [OpenAI Whisper/WhisperX](https://github.com/openai/whisper)
+  - [HuggingFace Transformers STT](https://huggingface.co/docs/transformers/main/en/task_summary#automatic-speech-recognition)
+  - [Vosk](https://alphacephei.com/vosk/)
+  - Add your own: Implement a compatible `STTProcessor` in `utils_stt.py`
+- Install required packages for your chosen backend (see code comments in `utils_tts.py` and `utils_stt.py`)
+- Check logs for initialization errors or missing model files
+- To switch providers, update the config in `rag_config.py` or modify the processor instantiation in the utility files
+- For custom models, ensure the processor class exposes a common interface: `synthesize(text)` for TTS, `transcribe(audio_file)` for STT
+
+### RAG Indexing Issues
+- Use `--refresh` with the CLI: `python workspace_rag.py --refresh`
+- Ensure workspace path is correct
+- Check for permission issues on files/folders
+
+### Multimodal/Tool Use
+- For image/audio input, see [samples/](../samples/) and [cookbooks/](../cookbooks/)
+- For tool invocation, use `/tool [tool_name] [args]` in chat
+
+### Diagnostics
+- Use the diagnostic CLI:
+  ```powershell
+  python utils/debugdiag/main.py project status
+  ```
+- Check logs: `python utils/debugdiag/main.py logs show --lines 100`
+
+### Extending TTS/STT
+- To add a new TTS or STT provider:
+  1. Implement a new processor class in `utils_tts.py` or `utils_stt.py` with the required interface
+  2. Add provider selection logic (e.g., via config or environment variable)
+  3. Document any new dependencies in `requirements.txt`
+  4. Test with both CLI and web chat
+- For advanced integration, see the comments and examples in the utility files
+
+For more help, see the [main README](../README.md), [resources](resources.md), or open an issue on GitHub.
+
+---
+
 For additional resources and references, see the [Resources](resources.md) guide.

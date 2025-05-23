@@ -110,4 +110,16 @@ Each utility includes its own detailed documentation. To get started with a spec
 
 ---
 
-"ArtifactVirtual: Structured Knowledge Systems, AI Ecosystems, and Tools that Empower Creation."
+## Workspace RAG, Web Chat, and Voice/Multimodal Capabilities
+
+ArtifactVirtual includes a modular Retrieval-Augmented Generation (RAG) system that indexes the entire workspace for advanced search, reasoning, and chat. Key features:
+
+- **Recursive indexing** of all relevant files with chunking and filtering
+- **Web chat UI** (FastAPI + Gradio) for text and voice (TTS/STT) chat
+- **Tool registry** for custom tool invocation from chat (e.g., `/tool calculate 2+2`)
+- **Multimodal support** (image/audio input for supported models)
+- **CLI interface** for direct RAG queries and management
+
+### Usage
+- Start the web chat: `python web_chat_server.py` (see [README.md](../README.md))
+- Use the CLI: `python workspace_rag.py --query "..."`

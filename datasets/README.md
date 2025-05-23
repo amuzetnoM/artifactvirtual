@@ -1,111 +1,42 @@
-# Knowledge Foundations & Datasets
-
-This directory contains carefully curated datasets that serve as knowledge foundations for the ArtifactVirtual ecosystem. These datasets provide structured facts, reasoning patterns, language primitives, and temporal relationships that support reproducible research and AI development.
+# TXT Compiler for Library Folder
 
 ## Overview
+This tool scans the entire `/library` folder (and all subfolders) for `.txt` files, cleans and normalizes their content for machine learning, and compiles them into a single unified text file: `compiled_library.txt`.
 
-The datasets have been selected for their foundational value in understanding intelligence and supporting reproducible research. The directory is organized into:
+## Features
+- Recursively finds all `.txt` files in `/library`.
+- Cleans and normalizes text:
+  - Removes markdown, code fences, HTML tags, and human formatting.
+  - Collapses repeated blank lines and trims whitespace.
+  - Optionally normalizes unicode and lowercases text (see `clean_text` function).
+- Each file's content is separated and labeled with its relative path for traceability.
+- Handles large numbers of files efficiently.
 
-- **Core foundational datasets** - Essential factual knowledge across domains
-- **Library of Immutable Knowledge** - Indexed directory of knowledge sources
-- **Custom annotations** - Project-specific insights and findings
+## Usage
 
-## Dataset Contents
+1. **Install Python 3.7+** (if not already installed).
+2. Place this script (`txt_compiler.py`) in the `/datasets` directory.
+3. Run the script from the `/datasets` directory:
 
-### core_facts.json
-
-Origin: Curated from encyclopedic sources and foundational scientific literature.
-
-Content: Universal facts across mathematics, physics, biology, and logic.
-
-Purpose: Serves as the backbone for reasoning and inference tasks.
-
-### reasoning_patterns.json
-
-Origin: Synthesized from cognitive science and AI research papers.
-
-Content: Common reasoning templates and logical deduction patterns.
-
-Purpose: Enables systems to generalize and apply structured reasoning.
-
-### language_primitives.json
-
-Origin: Extracted from linguistic corpora and language model benchmarks.
-
-Content: Essential language constructs, grammar rules, and semantic primitives.
-
-Purpose: Supports robust natural language understanding and generation.
-
-### temporal_events.json
-
-Origin: Aggregated from historical datasets and time-series research.
-
-Content: Key events, timelines, and temporal relationships.
-
-Purpose: Facilitates temporal reasoning and event-based diagnostics.
-
-### custom_annotations.json
-
-Origin: Manually annotated during project development and research.
-
-Content: Project-specific insights, edge cases, and experimental findings.
-
-Purpose: Captures evolving knowledge and supports continuous improvement.
-
-## Library of Immutable Knowledge
-
-The [Library of Immutable Knowledge](library/index.md) is a comprehensive, indexed source of foundational and advanced knowledge across all domains. It provides carefully curated references to:
-
-1. Fundamental Physics & Cosmology
-2. Core Mathematics & Logic
-3. Biological Systems & Consciousness
-4. Comprehensive Knowledge Repositories
-5. Philosophy, Computation & Limits of Knowledge
-6. Knowledge Aggregators & Educational Platforms
-7. Integrative & Specialized Resources
-
-## Usage Guidelines
-
-### Loading Datasets
-
-```python
-import json
-
-# Load core facts
-with open('datasets/core_facts.json', 'r', encoding='utf-8') as f:
-    core_facts = json.load(f)
-
-# Access knowledge by category
-math_facts = core_facts.get('mathematics', [])
-physics_facts = core_facts.get('physics', [])
+```powershell
+python txt_compiler.py
 ```
 
-### Contributing to Datasets
+4. The output file `compiled_library.txt` will be created in the `/datasets` directory.
 
-When adding new information to the datasets:
+## Output Example
+```
+--- FILE: Computer Hardware/example.txt ---
+<cleaned contents of example.txt>
 
-1. Verify information from multiple reliable sources
-2. Include source citations for all new entries
-3. Maintain the existing JSON schema structure
-4. Add appropriate metadata (timestamp, confidence, etc.)
+--- FILE: Medical texts/notes.txt ---
+<cleaned contents of notes.txt>
+```
 
-## Integration with ArtifactVirtual
+## Customization
+- To change the target folder, modify the `target_folder` variable in the script.
+- To change the output file name, modify the `output_file` variable.
+- Adjust the `clean_text` function for your specific ML requirements.
 
-These datasets are used throughout the ArtifactVirtual ecosystem:
-
-1. They provide grounding knowledge for LLMs via the Model Context Protocol
-2. They support the development of reasoning capabilities in the Oracle CLI
-3. They enable verification of the TemporalCalendar examples
-4. They serve as calibration data for AutoRound model quantization
-
-## Versioning and Maintenance
-
-All datasets are versioned and documented for absolute clarity, reproducibility, and educational value. When updating datasets:
-
-1. Increment the version number in the metadata
-2. Document changes in the changelog
-3. Note any implications for dependent systems
-
----
-
-> "Knowledge is not a collection of facts, but a network of understanding."
+## License
+See main project `LICENSE` file.

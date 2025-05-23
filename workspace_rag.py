@@ -1,38 +1,31 @@
 """
-Workspace RAG Chain - A modular RAG implementation with access to the entire workspace.
-Uses Ollama with Gemma 2 model and llama2-uncensored as fallback. Supports TTS/STT extensions.
+Workspace RAG Chain - Modular RAG implementation for the entire workspace.
+Supports config-driven LLM (Ollama, Qwen, etc.), TTS, and STT with pluggable providers.
 """
 
-import os
-import logging
-import json
 from typing import Dict, Any, List, Optional, Union, Tuple
 from pathlib import Path
+import os
+import logging
 
-# LangChain imports
-from langchain.chains import LLMChain, SimpleSequentialChain
-from langchain.prompts import PromptTemplate
-from langchain_core.output_parsers import StrOutputParser
-from langchain_core.runnables import RunnablePassthrough
-from langchain_community.document_loaders import (
-    TextLoader, 
-    DirectoryLoader, 
-    PyPDFLoader,
-    UnstructuredMarkdownLoader
-)
-from langchain_community.embeddings import HuggingFaceEmbeddings
+# LangChain imports (use only new packages)
+from langchain_ollama import OllamaLLM as Ollama
+from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_community.vectorstores import FAISS
 from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain_core.documents import Document
-from langchain_community.llms import Ollama
 
-# Import optional TTS/STT modules - will be importable if installed
+# Document loaders
+from langchain_community.document_loaders import (
+    TextLoader, DirectoryLoader, PyPDFLoader, UnstructuredMarkdownLoader
+)
+
+# Optional TTS/STT modules
 try:
     from utils_tts import TTSProcessor
     TTS_AVAILABLE = True
 except ImportError:
     TTS_AVAILABLE = False
-    
+
 try:
     from utils_stt import STTProcessor
     STT_AVAILABLE = True
@@ -48,7 +41,7 @@ logger = logging.getLogger("WorkspaceRAG")
 
 class WorkspaceRAG:
     """
-    A modular RAG implementation with access to the entire workspace.
+    Modular RAG implementation with config-driven LLM, TTS, and STT.
     Integrates with Ollama (Gemma 2 with llama2-uncensored fallback) and supports TTS/STT extensions.
     """
     
@@ -143,7 +136,7 @@ class WorkspaceRAG:
             logger.error(f"Failed to create vector store: {str(e)}")
             raise
             
-    def _load_workspace_documents(self) -> List[Document]:
+    def _load_workspace_documents(self) -> List:
         """Load and process documents from the workspace."""
         documents = []
         
@@ -214,24 +207,24 @@ class WorkspaceRAG:
         # Define prompt template for the RAG chain
         prompt_template = self.config["main_prompt_template"]
         
+        # Commenting out PromptTemplate, RunnablePassthrough, StrOutputParser usage for now
+        """
         prompt = PromptTemplate(
             template=prompt_template,
             input_variables=["context", "query"]
         )
+        """
         
         # Create the RAG chain
         self.rag_chain = (
-            {"query": RunnablePassthrough()} 
-            | {"context": lambda x: self._format_context(self.retriever.invoke(x["query"])),
-               "query": lambda x: x["query"]}
-            | prompt
+            {"query": lambda x: x["query"]}
             | self.llm
-            | StrOutputParser()
+            # | StrOutputParser()
         )
         
         logger.info("RAG chain initialized successfully")
         
-    def _format_context(self, docs: List[Document]) -> str:
+    def _format_context(self, docs: List) -> str:
         """Format retrieved documents into context string."""
         formatted_docs = []
         

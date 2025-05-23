@@ -36,7 +36,9 @@ app.add_middleware(
 
 # Initialize the RAG system
 workspace_path = os.environ.get("WORKSPACE_PATH", os.path.dirname(os.path.abspath(__file__)))
-llm_model = os.environ.get("LLM_MODEL", "gemma3")  # Changed from gemma2 to gemma3 which is already available
+# Get LLM model from config or environment
+from rag_config import RAG_CONFIG
+llm_model = RAG_CONFIG.get("llm_model") or os.environ.get("LLM_MODEL", "qwen3")
 
 # Create static files directory if it doesn't exist
 os.makedirs(os.path.join(workspace_path, "static"), exist_ok=True)
@@ -254,8 +256,12 @@ app = gr.mount_gradio_app(app, gradio_app, path="/gradio")
 
 if __name__ == "__main__":
     # Run the FastAPI app
-    port = int(os.environ.get("PORT", 8000))
+    port = int(os.environ.get("PORT", 3010))  # Changed default port to 3010
     host = os.environ.get("HOST", "0.0.0.0")
-    
     logger.info("Starting web chat server on %s:%s", host, port)
+    logger.info("Web chat UI available at: http://localhost:%s (open in your browser)", port)
+    print("\n==============================")
+    print(f"Artifact Virtual Web Chat running!")
+    print(f"Access the chat UI at: http://localhost:{port}")
+    print("==============================\n")
     uvicorn.run(app, host=host, port=port)

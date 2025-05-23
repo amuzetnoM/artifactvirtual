@@ -1,6 +1,6 @@
-# ArtifactVirtual Documentation
+# Artifact Docs
 
-This directory contains core documentation files for the ArtifactVirtual project, including getting started guides, troubleshooting information, and resource references.
+This directory contains core documentation files for the Artifac tVirtual project, including getting started guides, troubleshooting information, and resource references.
 
 ## Documentation Files
 

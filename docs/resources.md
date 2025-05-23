@@ -179,3 +179,13 @@ This document provides additional resources, references, and links to help you g
 ---
 
 > "ArtifactVirtual: Structured Knowledge Systems, AI Ecosystems, and Tools that Empower Creation."
+
+## Workspace RAG, Web Chat, and Voice/Multimodal Resources
+
+- [Workspace RAG System & Web Chat (README)](../README.md#workspace-rag-system--web-chat-text-voice-multimodal)
+- [Cookbooks: RAG, TTS/STT, Multimodal](../cookbooks/README.md)
+- [Samples: Multimodal, Speech, Tool Use](../samples/README.md)
+- [System Mapping & API](../artifact_systemmapping.md)
+- [Troubleshooting Guide](troubleshooting.md)
+
+For advanced usage, see the CLI and integration notes in the main README and cookbooks.

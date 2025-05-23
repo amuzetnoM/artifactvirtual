@@ -1,0 +1,365 @@
+Library of (somewhat) Immutable Knowledge
+=============================================
+Welcome to the comprehensive, indexed source of foundational and advanced knowledge across all domains. Use the table of contents for quick navigation.
+
+Table of Contents
+
+Fundamental Physics &amp; Cosmology
+Core Mathematics &amp; Logic
+Biological Systems &amp; Consciousness
+Comprehensive Knowledge Repositories
+Philosophy, Computation &amp; Limits of Knowledge
+Knowledge Aggregators &amp; Educational Platforms
+Integrative &amp; Specialized Resources
+
+
+1. Fundamental Physics &amp; Cosmology
+
+
+The Standard Model of Particle Physics
+
+Particle Data Group Review
+CERN: The Standard Model
+Fermilab: The Standard Model
+
+
+
+General Relativity &amp; Quantum Field Theory
+
+Einstein Online (Max Planck Institute)
+Stanford Encyclopedia of Philosophy: Quantum Field Theory
+Perimeter Institute: QFT Lecture Series
+
+
+
+Thermodynamics &amp; Information Theory
+
+MIT OCW: Thermodynamics
+Shannon, C. E. "A Mathematical Theory of Communication" (Bell System Technical Journal, 1948)
+Stanford Encyclopedia of Philosophy: Entropy
+
+
+
+
+2. Core Mathematics &amp; Logic
+
+
+Mathematical Structures
+
+Wolfram MathWorld
+Springer Encyclopedia of Mathematics
+arXiv: Mathematics
+Clay Mathematics Institute: Millennium Problems
+
+
+
+Logic &amp; Foundations
+
+Stanford Encyclopedia of Philosophy: Mathematical Logic
+Metamath Proof Explorer
+Gödel's Incompleteness Theorems (Stanford Encyclopedia)
+
+
+
+
+3. Biological Systems &amp; Consciousness
+
+
+Genetics &amp; Genomics
+
+Human Genome Project (DOE)
+NCBI: Genome Resources
+Ensembl Genome Browser (EMBL-EBI)
+
+
+
+Neuroscience &amp; Consciousness
+
+Society for Neuroscience
+Stanford Encyclopedia of Philosophy: Consciousness
+Allen Institute for Brain Science
+
+
+
+Evolution &amp; Systems Biology
+
+Tree of Life Web Project
+Nature Reviews Genetics: Evolution
+Systems Biology Institute
+
+
+
+
+4. Comprehensive Knowledge Repositories
+
+
+General Reference
+
+Stanford Encyclopedia of Philosophy
+Internet Encyclopedia of Philosophy
+Britannica
+
+
+
+Academic &amp; Scientific Literature
+
+arXiv
+PubMed
+Google Scholar
+JSTOR
+
+
+
+Computational &amp; Data Resources
+
+Wolfram Alpha
+OpenAI Research
+Kaggle Datasets
+
+
+
+Books &amp; Texts
+
+Project Gutenberg
+Internet Archive
+LibriVox (Audiobooks)
+
+
+
+
+5. Philosophy, Computation &amp; Limits of Knowledge
+
+
+Philosophy of Science &amp; Epistemology
+
+Stanford Encyclopedia of Philosophy: Philosophy of Science
+Stanford Encyclopedia of Philosophy: Epistemology
+Internet Encyclopedia: Philosophy of Science
+
+
+
+Computational Theory
+
+Stanford Encyclopedia of Philosophy: Computability and Complexity
+Complexity Zoo
+CS StackExchange
+
+
+
+Limits of Knowledge
+
+Stanford Encyclopedia: Limits of Computation
+Quanta Magazine: Limits of Knowledge
+
+
+
+
+6. Knowledge Aggregators &amp; Educational Platforms
+
+
+Online Courses &amp; Lectures
+
+Khan Academy
+MIT OpenCourseWare
+Coursera
+edX
+Udacity
+FutureLearn
+
+
+
+Video &amp; Interactive Learning
+
+YouTube: CrashCourse
+Brilliant.org
+TED Talks
+
+
+
+Programming &amp; Computer Science
+
+freeCodeCamp
+Codecademy
+LeetCode
+GeeksforGeeks
+
+
+
+
+7. Integrative &amp; Specialized Resources
+
+
+Philosophy &amp; Humanities
+
+Stanford Encyclopedia of Philosophy
+Internet Encyclopedia of Philosophy
+PhilPapers
+
+
+
+Science Journalism &amp; Magazines
+
+Quanta Magazine
+Nature
+Science
+The New Yorker: Science &amp; Tech
+WIRED
+The Verge
+
+
+
+Language &amp; Reference
+
+Wiktionary
+Ethnologue (Languages)
+Encyclopedia of Life
+
+
+
+Open Data &amp; Statistics
+
+Our World in Data
+UN Data
+World Bank Data
+
+
+
+
+8. Questionable Sources (Needs Verification)
+The following links were either automatically automatically generated or suggested and require careful verification before being considered reliable sources.
+Fundamental Physics &amp; Cosmology
+
+The Standard Model of Particle Physics
+Wikipedia: Standard Model
+
+
+General Relativity &amp; Quantum Field Theory
+Wikipedia: General Relativity
+Wikipedia: Quantum Field Theory
+
+
+Thermodynamics &amp; Information Theory
+Wikipedia: Thermodynamics
+Wikipedia: Information Theory
+
+
+
+
+Core Mathematics &amp; Logic
+
+Mathematical Structures
+Wikipedia: Group Theory
+Wikipedia: Topology
+Wikipedia: Calculus
+
+
+Gödel’s Incompleteness Theorems
+Wikipedia: Gödel's Incompleteness Theorems
+
+
+
+
+Biological Systems &amp; Consciousness
+
+The Human Genome Project
+Wikipedia: Human Genome Project
+
+
+Neuroscience &amp; Consciousness
+Wikipedia: Neuroscience
+Wikipedia: Consciousness
+El País
+
+
+
+
+Comprehensive Knowledge Repositories
+
+Wikipedia
+Wikipedia Main Page
+Wikipedia, la enciclopedia libre
+
+
+The New Yorker
+The New Yorker
+
+
+arXiv
+arXiv.org
+
+
+PubMed
+PubMed
+
+
+Wolfram Alpha
+Wolfram Alpha
+
+
+
+
+Philosophy, Computation &amp; Limits of Knowledge
+
+Philosophy of Science &amp; Epistemology
+Wikipedia: Philosophy of Science
+Wikipedia: Epistemology
+Wikipedia, la enciclopedia libre
+Wikipedia, l'enciclopedia libera
+
+
+Computational Theory
+Wikipedia: Theory of Computation
+Wikipedia: Turing Machine
+WIRED
+
+
+
+
+Knowledge Aggregators &amp; Educational Platforms
+
+Khan Academy
+Khan Academy
+
+
+MIT OpenCourseWare
+MIT OpenCourseWare
+
+
+Coursera
+Coursera
+
+
+
+
+Integrative &amp; Specialized Resources
+
+Stanford Encyclopedia of Philosophy
+Stanford Encyclopedia of Philosophy
+Wikipedia, l'enciclopedia libera
+The New Yorker
+The Verge
+
+
+Internet Encyclopedia of Philosophy
+Internet Encyclopedia of Philosophy
+
+
+Project Gutenberg
+Project Gutenberg
+Wikipedia – Die freie Enzyklopädie
+
+
+
+
+
+Physics
+Mathematics
+Biology
+Repositories
+Philosophy
+Education
+Specialized
+
+
+
+This library is a living document. Contributions and suggestions are welcome!

@@ -20,24 +20,23 @@ RAG_CONFIG = {
         "__pycache__",
         "rag_cache",
         ".github",
+        "utils/n8n-master",
+        "frontend",
+        "datasets",
+        "samples",
+        "cookbooks",
+        "projects"
     ],
     "exclude_extensions": [
         ".pyc",
         ".pyo",
-        ".pyd",
-        ".git",
-        ".exe",
-        ".dll",
+
         ".so",
         ".class",
         ".lock",
-        ".jpg",
-        ".jpeg",
-        ".png",
-        ".gif",
-        ".svg",
-        ".mp4",
-        ".avi"
+        ".json",
+        ".md",
+        ".txt"
     ],
     
     # Main prompt template for RAG
@@ -64,5 +63,8 @@ Format code blocks with appropriate syntax highlighting.
     # STT config settings (used if STT module is available)
     "stt_config": {
         "model": "whisper-1",  # Default STT model
-    }
+    },
+
+    # Set the default LLM model to Qwen3
+    "llm_model": "qwen3",
 }

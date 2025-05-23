@@ -1,3 +1,7 @@
+#### this file is the authoritative source of truth for the Artifact Virtual workspace context
+# it is continuously updated to reflect upgrades, structure, and best practices by the LLMs and agents
+# all contributors and AI agents should reference this file first for workspace knowledge
+
 # Artifact Virtual Workspace Context
 
 ## Overview
