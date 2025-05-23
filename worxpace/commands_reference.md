@@ -1,0 +1,263 @@
+# Windows and Linux Command Reference for LLM Training
+
+## Windows Commands
+
+- `dir` - List directory contents
+- `cd <directory>` - Change directory
+- `copy <source> <destination>` - Copy files
+- `move <source> <destination>` - Move files
+- `del <file>` - Delete file
+- `rmdir <directory>` - Remove directory
+- `mkdir <directory>` - Create directory
+- `type <file>` - Display file contents
+- `echo <text>` - Print text to console
+- `set <variable>=<value>` - Set environment variable
+- `set` - List environment variables
+- `tasklist` - List running processes
+- `taskkill /PID <pid> /F` - Kill process by PID
+- `ipconfig` - Display network configuration
+- `ping <host>` - Test network connection
+- `netstat -an` - Show network connections
+- `systeminfo` - Show system information
+- `chkdsk` - Check disk for errors
+- `sfc /scannow` - System file checker
+- `shutdown /s /t 0` - Shutdown computer
+- `shutdown /r /t 0` - Restart computer
+- `cls` - Clear screen
+- `findstr <pattern> <file>` - Search for text in file
+- `powershell <command>` - Run PowerShell command
+- `wmic` - Windows Management Instrumentation Command-line
+- `reg query <key>` - Query registry
+- `reg add <key>` - Add registry key
+- `reg delete <key>` - Delete registry key
+- `schtasks /create ...` - Schedule a task
+- `whoami` - Display current user
+- `hostname` - Display computer name
+- `date` - Display or set date
+- `time` - Display or set time
+- `attrib <file>` - Change file attributes
+- `fc <file1> <file2>` - Compare files
+- `xcopy <source> <destination> /E /I` - Copy directories
+- `robocopy <source> <destination> /E` - Robust file copy
+- `net user` - List users
+- `net localgroup` - List local groups
+- `net share` - List shared resources
+- `net use` - Connect to shared resource
+- `gpupdate /force` - Update group policy
+- `arp -a` - Display ARP table
+- `route print` - Display routing table
+- `nslookup <host>` - Query DNS
+- `tracert <host>` - Trace route
+- `diskpart` - Disk partition tool
+- `format <drive>` - Format drive
+- `label <drive> <label>` - Set volume label
+- `ver` - Display OS version
+- `tree` - Graphical directory tree
+- `pause` - Pause batch file execution
+- `start <program>` - Start program
+- `assoc` - File extension associations
+- `ftype` - File type associations
+- `color <attr>` - Set console color
+- `title <text>` - Set console title
+- `exit` - Exit command prompt
+- `clip <file>` - Copy file contents to clipboard (Windows)
+- `powershell Get-Content <file> | Set-Clipboard` - Copy file contents to clipboard (Windows PowerShell)
+- `tree <directory>` - Display directory tree
+- `shutdown /l` - Log off current user
+- `shutdown /a` - Abort system shutdown
+- `hostname` - Display computer name
+- `systeminfo` - Display detailed system information
+- `schtasks /query` - List scheduled tasks
+- `netstat -b` - Show programs using network connections
+- `wmic logicaldisk get size,freespace,caption` - Show disk free space
+- `control` - Open Control Panel
+- `gpedit.msc` - Open Group Policy Editor
+- `secpol.msc` - Open Local Security Policy
+- `compmgmt.msc` - Open Computer Management
+- `services.msc` - Open Services Manager
+- `msconfig` - System Configuration Utility
+- `regedit` - Registry Editor
+- `runas /user:Administrator <command>` - Run command as Administrator
+- `netsh` - Network shell for advanced network configuration
+- `bcdedit` - Boot configuration data editor
+- `cipher` - Manage file encryption
+- `icacls <file>` - Change file and folder permissions
+- `shutdown /r /o` - Advanced restart options
+- `taskschd.msc` - Task Scheduler
+- `diskmgmt.msc` - Disk Management
+- `eventvwr` - Event Viewer
+- `wmic useraccount list full` - List all user accounts
+- `net localgroup Administrators <user> /add` - Add user to Administrators
+- `net user <user> <password> /add` - Add user with password
+- `net user <user> /active:yes` - Activate user account
+- `net user <user> /delete` - Delete user account
+- `net accounts /maxpwage:unlimited` - Set password to never expire
+- `schtasks /run /tn <taskname>` - Run scheduled task
+- `powershell Start-Process <command> -Verb runAs` - Run as admin (PowerShell)
+- `start <folder>` - Open folder in File Explorer
+- `start <file>` - Open file with default application
+- `echo. > <file>` - Create new empty file
+- `echo <text> > <file>` - Write text to file
+- `type nul > <file>` - Create new empty file (alternative)
+
+## Linux Commands
+
+- `ls` - List directory contents
+- `cd <directory>` - Change directory
+- `cp <source> <destination>` - Copy files
+- `mv <source> <destination>` - Move files
+- `rm <file>` - Remove file
+- `rmdir <directory>` - Remove directory
+- `mkdir <directory>` - Create directory
+- `cat <file>` - Display file contents
+- `echo <text>` - Print text to console
+- `export <variable>=<value>` - Set environment variable
+- `env` - List environment variables
+- `ps aux` - List running processes
+- `kill <pid>` - Kill process by PID
+- `killall <name>` - Kill process by name
+- `top` - Display running processes
+- `htop` - Interactive process viewer
+- `ifconfig` - Network configuration
+- `ip a` - Show IP addresses
+- `ping <host>` - Test network connection
+- `netstat -an` - Show network connections
+- `uname -a` - System information
+- `df -h` - Disk usage
+- `du -sh <directory>` - Directory size
+- `free -h` - Memory usage
+- `uptime` - System uptime
+- `shutdown now` - Shutdown system
+- `reboot` - Reboot system
+- `clear` - Clear terminal
+- `grep <pattern> <file>` - Search for text in file
+- `awk '{print $1}' <file>` - Text processing
+- `sed 's/old/new/g' <file>` - Stream editor
+- `find <dir> -name <pattern>` - Find files
+- `locate <file>` - Locate files
+- `chmod <mode> <file>` - Change file permissions
+- `chown <user>:<group> <file>` - Change file owner
+- `ln -s <target> <link>` - Create symbolic link
+- `df -Th` - Filesystem type and usage
+- `mount` - Mount filesystem
+- `umount` - Unmount filesystem
+- `tar -czvf <archive.tar.gz> <dir>` - Create tarball
+- `tar -xzvf <archive.tar.gz>` - Extract tarball
+- `zip <archive.zip> <file>` - Create zip archive
+- `unzip <archive.zip>` - Extract zip archive
+- `scp <src> <user>@<host>:<dest>` - Secure copy
+- `ssh <user>@<host>` - SSH login
+- `wget <url>` - Download file
+- `curl <url>` - Transfer data
+- `nano <file>` - Edit file
+- `vim <file>` - Edit file
+- `less <file>` - View file
+- `head <file>` - First lines of file
+- `tail <file>` - Last lines of file
+- `history` - Command history
+- `alias ll='ls -l'` - Create alias
+- `sudo <command>` - Run as superuser
+- `passwd` - Change password
+- `useradd <user>` - Add user
+- `usermod <user>` - Modify user
+- `userdel <user>` - Delete user
+- `groupadd <group>` - Add group
+- `groups` - Show group memberships
+- `crontab -e` - Edit cron jobs
+- `systemctl <action> <service>` - Manage services
+- `journalctl` - System logs
+- `dmesg` - Kernel messages
+- `lsblk` - List block devices
+- `fdisk -l` - Partition table
+- `parted` - Partition tool
+- `mkfs.ext4 <device>` - Make filesystem
+- `fsck <device>` - Check filesystem
+- `hostname` - Show hostname
+- `date` - Show date/time
+- `cal` - Calendar
+- `whoami` - Current user
+- `id` - User and group info
+- `su <user>` - Switch user
+- `logout` - Logout session
+- `exit` - Exit shell
+- `ls -a` - List all files including hidden
+- `ls -lh` - List files with human-readable sizes
+- `ls -R` - List directory tree recursively
+- `cat /proc/cpuinfo` - Show CPU information
+- `cat /proc/meminfo` - Show memory information
+- `df -i` - Show inode usage
+- `ps -ef` - List all processes
+- `lsof` - List open files
+- `ss -tuln` - Show listening ports
+- `journalctl -xe` - Show systemd errors
+- `sudo !!` - Repeat last command as sudo
+- `history | grep <pattern>` - Search command history
+- `sudo shutdown -c` - Cancel shutdown
+- `hostnamectl` - Show or set system hostname
+- `lsusb` - List USB devices
+- `lspci` - List PCI devices
+- `uname -r` - Show kernel version
+- `uptime -p` - Pretty uptime
+- `who` - Show who is logged in
+- `last` - Show last logins
+- `groups <user>` - Show groups for user
+- `sudo visudo` - Edit sudoers file
+- `sudo passwd root` - Set root password
+- `sudo su` - Switch to root
+- `sudo systemctl edit <service>` - Edit systemd service
+- `sudo systemctl mask <service>` - Mask a service
+- `sudo systemctl unmask <service>` - Unmask a service
+- `sudo systemctl daemon-reload` - Reload systemd manager config
+- `sudo usermod -aG sudo <user>` - Add user to sudo group
+- `sudo adduser <user>` - Add new user
+- `sudo deluser <user>` - Delete user
+- `sudo chage -l <user>` - List user password info
+- `sudo visudo` - Securely edit sudoers
+- `sudo nano /etc/ssh/sshd_config` - Edit SSH config
+- `sudo ufw enable` - Enable firewall
+- `sudo ufw allow <port>` - Allow port in firewall
+- `sudo ufw status` - Firewall status
+- `sudo reboot` - Reboot system
+- `sudo shutdown now` - Shutdown system
+- `sudo mount -o remount,rw /` - Remount root as read-write
+- `sudo apt update && sudo apt upgrade` - Update system
+- `sudo apt install <package>` - Install package
+- `sudo apt remove <package>` - Remove package
+- `sudo dpkg -i <package.deb>` - Install .deb package
+- `sudo systemctl isolate rescue.target` - Enter rescue mode
+- `sudo systemctl isolate emergency.target` - Enter emergency mode
+- `sudo passwd -l <user>` - Lock user account
+- `sudo passwd -u <user>` - Unlock user account
+- `sudo visudo` - Edit sudoers file
+- `sudo systemctl reboot` - Reboot system
+- `sudo systemctl poweroff` - Power off system
+- `sudo systemctl suspend` - Suspend system
+- `sudo systemctl hibernate` - Hibernate system
+- `sudo systemctl restart <service>` - Restart service
+- `sudo systemctl stop <service>` - Stop service
+- `sudo systemctl start <service>` - Start service
+- `sudo systemctl status <service>` - Service status
+- `sudo systemctl enable <service>` - Enable service
+- `sudo systemctl disable <service>` - Disable service
+- `sudo systemctl reload <service>` - Reload service
+- `sudo systemctl mask <service>` - Mask service
+- `sudo systemctl unmask <service>` - Unmask service
+- `sudo systemctl daemon-reload` - Reload systemd config
+- `sudo systemctl list-units --type=service` - List all services
+- `sudo systemctl list-timers` - List all timers
+- `sudo systemctl list-sockets` - List all sockets
+- `sudo systemctl list-jobs` - List all jobs
+- `sudo systemctl list-dependencies` - List dependencies
+- `sudo systemctl show <service>` - Show service properties
+- `sudo systemctl cat <service>` - Show service file
+- `sudo systemctl edit <service>` - Edit service file
+- `sudo systemctl reset-failed` - Reset failed state
+- `sudo systemctl is-enabled <service>` - Is service enabled?
+- `sudo systemctl is-active <service>` - Is service active?
+- `sudo systemctl is-failed <service>` - Is service failed?
+- `sudo systemctl is-system-running` - Is system running?
+- `sudo systemctl default` - Switch to default target
+- `sudo systemctl rescue` - Switch to rescue target
+- `sudo systemctl emergency` - Switch to emergency target
+
+# End of command list
