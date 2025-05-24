@@ -75,3 +75,5 @@ cookbooks/python/openai/hallucination_results.csv
 .github/
 .draft.pdf
 
+W:\artifactvirtual\models\evaluation\completed\model-latest.pt
+# ===========================
