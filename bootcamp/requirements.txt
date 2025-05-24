@@ -1,7 +1,0 @@
-langchain
-langgraph
-ollama-python
-n8n-client
-pgvector
-psycopg2-binary
-dspy
