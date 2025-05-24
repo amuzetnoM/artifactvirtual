@@ -8,18 +8,6 @@ from torch.nn import functional as F
 from datetime import datetime
 import time
 
-# hyperparameters
-batch_size = 64 # how many independent sequences will we process in parallel?
-block_size = 256 # what is the maximum context length for predictions?
-max_iters = 10000
-eval_interval = 500
-learning_rate = 3e-4
-device = 'cuda' if torch.cuda.is_available() else 'cpu'
-eval_iters = 200
-n_embd = 384
-n_head = 6
-n_layer = 6
-dropout = 0.2
 # ------------
 
 torch.manual_seed(1337)
@@ -59,25 +47,30 @@ train_data = data[:n]
 val_data = data[n:]
 
 # data loading
-def get_batch(split):
+def get_batch(split, args, train_data, val_data, device):
     # generate a small batch of data of inputs x and targets y
     data = train_data if split == 'train' else val_data
-    ix = torch.randint(len(data) - block_size, (batch_size,))
-    x = torch.stack([data[i:i+block_size] for i in ix])
-    y = torch.stack([data[i+1:i+block_size+1] for i in ix])
+    if len(data) <= args.block_size:
+        raise ValueError(f"[ERROR] Not enough data for block size {args.block_size}.")
+    ix = torch.randint(len(data) - args.block_size, (args.batch_size,), device=device)
+    x = torch.stack([data[i:i+args.block_size] for i in ix])
+    y = torch.stack([data[i+1:i+args.block_size+1] for i in ix])
     x, y = x.to(device), y.to(device)
     return x, y
 
 @torch.no_grad()
-def estimate_loss():
+def estimate_loss(model, args, train_data, val_data, device):
     out = {}
     model.eval()
     for split in ['train', 'val']:
-        losses = torch.zeros(eval_iters)
-        for k in range(eval_iters):
-            X, Y = get_batch(split)
-            logits, loss = model(X, Y)
-            losses[k] = loss.item()
+        losses = torch.zeros(args.eval_iters)
+        for k in range(args.eval_iters):
+            try:
+                X, Y = get_batch(split, args, train_data, val_data, device)
+                _, loss = model(X, Y)
+                losses[k] = loss.item()
+            except Exception as e:
+                print(f"[WARNING] Skipping batch in {split}: {e}")
         out[split] = losses.mean()
     model.train()
     return out
@@ -103,6 +96,107 @@ def interactive_cli(defaults):
         print("[INFO] Aborted by user.")
         sys.exit(0)
     return settings
+
+# Model classes
+class Head(nn.Module):
+    def __init__(self, n_embd, head_size, block_size, dropout):
+        super().__init__()
+        self.key = nn.Linear(n_embd, head_size, bias=False)
+        self.query = nn.Linear(n_embd, head_size, bias=False)
+        self.value = nn.Linear(n_embd, head_size, bias=False)
+        self.register_buffer('tril', torch.tril(torch.ones(block_size, block_size)))
+        self.dropout = nn.Dropout(dropout)
+    def forward(self, x):
+        B,T,C = x.shape
+        k = self.key(x)
+        q = self.query(x)
+        wei = q @ k.transpose(-2,-1) * k.shape[-1]**-0.5
+        wei = wei.masked_fill(self.tril[:T, :T] == 0, float('-inf'))
+        wei = F.softmax(wei, dim=-1)
+        wei = self.dropout(wei)
+        v = self.value(x)
+        out = wei @ v
+        return out
+
+class MultiHeadAttention(nn.Module):
+    def __init__(self, n_embd, num_heads, block_size, dropout):
+        super().__init__()
+        head_size = n_embd // num_heads
+        self.heads = nn.ModuleList([Head(n_embd, head_size, block_size, dropout) for _ in range(num_heads)])
+        self.proj = nn.Linear(head_size * num_heads, n_embd)
+        self.dropout = nn.Dropout(dropout)
+    def forward(self, x):
+        out = torch.cat([h(x) for h in self.heads], dim=-1)
+        out = self.dropout(self.proj(out))
+        return out
+
+class FeedFoward(nn.Module):
+    def __init__(self, n_embd, dropout):
+        super().__init__()
+        self.net = nn.Sequential(
+            nn.Linear(n_embd, 4 * n_embd),
+            nn.ReLU(),
+            nn.Linear(4 * n_embd, n_embd),
+            nn.Dropout(dropout),
+        )
+    def forward(self, x):
+        return self.net(x)
+
+class Block(nn.Module):
+    def __init__(self, n_embd, n_head, block_size, dropout):
+        super().__init__()
+        self.sa = MultiHeadAttention(n_embd, n_head, block_size, dropout)
+        self.ffwd = FeedFoward(n_embd, dropout)
+        self.ln1 = nn.LayerNorm(n_embd)
+        self.ln2 = nn.LayerNorm(n_embd)
+    def forward(self, x):
+        x = x + self.sa(self.ln1(x))
+        x = x + self.ffwd(self.ln2(x))
+        return x
+
+class GPTLanguageModel(nn.Module):
+    def __init__(self, vocab_size, block_size, n_embd, n_head, n_layer, dropout, device):
+        super().__init__()
+        self.token_embedding_table = nn.Embedding(vocab_size, n_embd)
+        self.position_embedding_table = nn.Embedding(block_size, n_embd)
+        self.blocks = nn.Sequential(*[Block(n_embd, n_head, block_size, dropout) for _ in range(n_layer)])
+        self.ln_f = nn.LayerNorm(n_embd)
+        self.lm_head = nn.Linear(n_embd, vocab_size)
+        self.apply(self._init_weights)
+        self.block_size = block_size
+        self.device = device
+    def _init_weights(self, module):
+        if isinstance(module, nn.Linear):
+            torch.nn.init.normal_(module.weight, mean=0.0, std=0.02)
+            if module.bias is not None:
+                torch.nn.init.zeros_(module.bias)
+        elif isinstance(module, nn.Embedding):
+            torch.nn.init.normal_(module.weight, mean=0.0, std=0.02)
+    def forward(self, idx, targets=None):
+        B, T = idx.shape
+        tok_emb = self.token_embedding_table(idx)
+        pos_emb = self.position_embedding_table(torch.arange(T, device=idx.device))
+        x = tok_emb + pos_emb
+        x = self.blocks(x)
+        x = self.ln_f(x)
+        logits = self.lm_head(x)
+        if targets is None:
+            loss = None
+        else:
+            B, T, C = logits.shape
+            logits = logits.view(B*T, C)
+            targets = targets.view(B*T)
+            loss = F.cross_entropy(logits, targets)
+        return logits, loss
+    def generate(self, idx, max_new_tokens):
+        for _ in range(max_new_tokens):
+            idx_cond = idx[:, -self.block_size:]
+            logits, _ = self(idx_cond)
+            logits = logits[:, -1, :]
+            probs = F.softmax(logits, dim=-1)
+            idx_next = torch.multinomial(probs, num_samples=1)
+            idx = torch.cat((idx, idx_next), dim=1)
+        return idx
 
 def main():
     parser = argparse.ArgumentParser(
@@ -162,28 +256,37 @@ def main():
             self.files = files
         def write(self, obj):
             for f in self.files:
-                f.write(obj)
-                f.flush()
+                try:
+                    if not f.closed:
+                        f.write(obj)
+                except Exception:
+                    pass
         def flush(self):
             for f in self.files:
-                f.flush()
+                try:
+                    if not f.closed:
+                        f.flush()
+                except Exception:
+                    pass
     sys.stdout = Tee(sys.stdout, log_fh)
     print(f"[LOG] Logging to {log_path}")
 
     # Set up output directory and file
     timestamp = datetime.now().strftime('%Y%m%d-%H%M%S')
+    # Always save to models/pretrained
+    pretrained_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), 'pretrained'))
+    if not os.path.exists(pretrained_dir):
+        os.makedirs(pretrained_dir, exist_ok=True)
     if not args.output or args.output.lower() == 'none':
-        output_file = f'finetuned/model-{timestamp}.pt'
+        output_file = os.path.join(pretrained_dir, f'model-{timestamp}.pt')
         print(f"[INFO] No output file specified, using default: {output_file}")
     else:
-        output_file = args.output
-    output_dir = os.path.dirname(output_file)
-    if output_dir and not os.path.exists(output_dir):
-        os.makedirs(output_dir, exist_ok=True)
+        # If user specifies a file, force it to be in pretrained/
+        base = os.path.basename(args.output)
+        output_file = os.path.join(pretrained_dir, base)
+    output_dir = pretrained_dir
 
     # Device selection (add diagnostics)
-    print(f"[DEBUG] torch.cuda.is_available(): {torch.cuda.is_available()}")
-    print(f"[DEBUG] args.device: {args.device}")
     if args.device:
         if args.device.startswith('cuda') and not torch.cuda.is_available():
             print(f"[ERROR] CUDA requested but not available. Falling back to CPU.")
@@ -239,129 +342,8 @@ def main():
         print(f"[INFO] Model config: n_embd={args.n_embd}, n_head={args.n_head}, n_layer={args.n_layer}, block_size={args.block_size}")
         sys.exit(0)
 
-    def get_batch(split):
-        d = train_data if split == 'train' else val_data
-        if len(d) <= args.block_size:
-            raise ValueError(f"[ERROR] Not enough data for block size {args.block_size}.")
-        ix = torch.randint(len(d) - args.block_size, (args.batch_size,), device=device)
-        x = torch.stack([d[i:i+args.block_size] for i in ix])
-        y = torch.stack([d[i+1:i+args.block_size+1] for i in ix])
-        return x, y
-
-    @torch.no_grad()
-    def estimate_loss(model):
-        out = {}
-        model.eval()
-        for split in ['train', 'val']:
-            losses = torch.zeros(args.eval_iters)
-            for k in range(args.eval_iters):
-                try:
-                    X, Y = get_batch(split)
-                    _, loss = model(X, Y)
-                    losses[k] = loss.item()
-                except Exception as e:
-                    print(f"[WARNING] Skipping batch in {split}: {e}")
-            out[split] = losses.mean()
-        model.train()
-        return out
-
-    # Model definition (ensure model is created after device is set)
-    class Head(nn.Module):
-        def __init__(self, head_size):
-            super().__init__()
-            self.key = nn.Linear(args.n_embd, head_size, bias=False)
-            self.query = nn.Linear(args.n_embd, head_size, bias=False)
-            self.value = nn.Linear(args.n_embd, head_size, bias=False)
-            self.register_buffer('tril', torch.tril(torch.ones(args.block_size, args.block_size)))
-            self.dropout = nn.Dropout(args.dropout)
-        def forward(self, x):
-            B,T,C = x.shape
-            k = self.key(x)
-            q = self.query(x)
-            wei = q @ k.transpose(-2,-1) * k.shape[-1]**-0.5
-            wei = wei.masked_fill(self.tril[:T, :T] == 0, float('-inf'))
-            wei = F.softmax(wei, dim=-1)
-            wei = self.dropout(wei)
-            v = self.value(x)
-            out = wei @ v
-            return out
-    class MultiHeadAttention(nn.Module):
-        def __init__(self, num_heads, head_size):
-            super().__init__()
-            self.heads = nn.ModuleList([Head(head_size) for _ in range(num_heads)])
-            self.proj = nn.Linear(head_size * num_heads, args.n_embd)
-            self.dropout = nn.Dropout(args.dropout)
-        def forward(self, x):
-            out = torch.cat([h(x) for h in self.heads], dim=-1)
-            out = self.dropout(self.proj(out))
-            return out
-    class FeedFoward(nn.Module):
-        def __init__(self, n_embd):
-            super().__init__()
-            self.net = nn.Sequential(
-                nn.Linear(n_embd, 4 * n_embd),
-                nn.ReLU(),
-                nn.Linear(4 * n_embd, n_embd),
-                nn.Dropout(args.dropout),
-            )
-        def forward(self, x):
-            return self.net(x)
-    class Block(nn.Module):
-        def __init__(self, n_embd, n_head):
-            super().__init__()
-            head_size = n_embd // n_head
-            self.sa = MultiHeadAttention(n_head, head_size)
-            self.ffwd = FeedFoward(n_embd)
-            self.ln1 = nn.LayerNorm(n_embd)
-            self.ln2 = nn.LayerNorm(n_embd)
-        def forward(self, x):
-            x = x + self.sa(self.ln1(x))
-            x = x + self.ffwd(self.ln2(x))
-            return x
-    class GPTLanguageModel(nn.Module):
-        def __init__(self):
-            super().__init__()
-            self.token_embedding_table = nn.Embedding(vocab_size, args.n_embd)
-            self.position_embedding_table = nn.Embedding(args.block_size, args.n_embd)
-            self.blocks = nn.Sequential(*[Block(args.n_embd, n_head=args.n_head) for _ in range(args.n_layer)])
-            self.ln_f = nn.LayerNorm(args.n_embd)
-            self.lm_head = nn.Linear(args.n_embd, vocab_size)
-            self.apply(self._init_weights)
-        def _init_weights(self, module):
-            if isinstance(module, nn.Linear):
-                torch.nn.init.normal_(module.weight, mean=0.0, std=0.02)
-                if module.bias is not None:
-                    torch.nn.init.zeros_(module.bias)
-            elif isinstance(module, nn.Embedding):
-                torch.nn.init.normal_(module.weight, mean=0.0, std=0.02)
-        def forward(self, idx, targets=None):
-            B, T = idx.shape
-            tok_emb = self.token_embedding_table(idx)
-            pos_emb = self.position_embedding_table(torch.arange(T, device=device))
-            x = tok_emb + pos_emb
-            x = self.blocks(x)
-            x = self.ln_f(x)
-            logits = self.lm_head(x)
-            if targets is None:
-                loss = None
-            else:
-                B, T, C = logits.shape
-                logits = logits.view(B*T, C)
-                targets = targets.view(B*T)
-                loss = F.cross_entropy(logits, targets)
-            return logits, loss
-        def generate(self, idx, max_new_tokens):
-            for _ in range(max_new_tokens):
-                idx_cond = idx[:, -args.block_size:]
-                logits, _ = self(idx_cond)
-                logits = logits[:, -1, :]
-                probs = F.softmax(logits, dim=-1)
-                idx_next = torch.multinomial(probs, num_samples=1)
-                idx = torch.cat((idx, idx_next), dim=1)
-            return idx
-
     # Resume from checkpoint if provided
-    model = GPTLanguageModel().to(device)
+    model = GPTLanguageModel(vocab_size, args.block_size, args.n_embd, args.n_head, args.n_layer, args.dropout, device).to(device)
     optimizer = torch.optim.AdamW(model.parameters(), lr=args.learning_rate)
     start_iter = 0
     if args.resume:
@@ -379,7 +361,6 @@ def main():
     print(f"[INFO] Starting training for {args.max_iters} iterations...")
     pbar = range(start_iter, args.max_iters)
     use_progress = False
-    # Progress bar or spinner
     spinner = ['|', '/', '-', '\\']
     def show_spinner(i):
         print(f"\r[INFO] Training... {spinner[i % 4]} Iteration {i}", end='', flush=True)
@@ -402,9 +383,9 @@ def main():
                     last_spinner_update = now
             if iter % args.eval_interval == 0 or iter == args.max_iters - 1:
                 print()  # Newline for clarity
-                losses = estimate_loss(model)
+                losses = estimate_loss(model, args, train_data, val_data, device)
                 print(f"step {iter}: train loss {losses['train']:.4f}, val loss {losses['val']:.4f}")
-            xb, yb = get_batch('train')
+            xb, yb = get_batch('train', args, train_data, val_data, device)
             _, loss = model(xb, yb)
             optimizer.zero_grad(set_to_none=True)
             loss.backward()

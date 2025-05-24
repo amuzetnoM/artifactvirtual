@@ -1,4 +1,6 @@
-# Raegen Transformer Model: CLI Training & Fine-Tuning Guide
+# Raegen 
+## Transformer Model 
+> Training & Fine-Tuning Guide
 
 ## Overview
 This guide explains how to use the `raegen.py` script for training and fine-tuning a transformer-based language model on your own data. The script is robust, supports multiple data sources, and provides a CLI for full control and progress monitoring.
